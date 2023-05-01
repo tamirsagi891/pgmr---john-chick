@@ -321,6 +321,17 @@
                 },
                 {
                     "name": "",
+                    "id": "7d6bdc06-112d-4007-a5d3-a4e0532f894f",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "de53b8d6-6d23-4c2b-a759-0c7a9559e966",
                     "path": "<Keyboard>/x",
                     "interactions": "",
@@ -333,7 +344,7 @@
                 {
                     "name": "",
                     "id": "1167a477-866c-4b72-a511-5a1b1afe5c16",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

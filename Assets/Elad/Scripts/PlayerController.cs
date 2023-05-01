@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirection))]
 public class PlayerController : MonoBehaviour
@@ -15,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private float dashingTime = 0.2f;
     private float dashingCoolDown = 1f;
     private TrailRenderer tr;
-    
+
     [Space(10)] [Header("Dodge Roll")] private bool _canDodgeRoll = true;
     private bool _isDodgeRoll;
     [SerializeField] private float _dodgeRollSpeed = 24f;
@@ -23,11 +24,12 @@ public class PlayerController : MonoBehaviour
     private float dodgeRollCoolDown = 1f;
 
     [Space(10)] [Header("Gliding")] private bool _canGlide = true;
-    private bool _isDodgeRoll;
-    [SerializeField] private float _dodgeRollSpeed = 24f;
-    private float dodgeRollTime = 0.2f;
-    private float dodgeRollCoolDown = 1f;
-    
+
+    private bool _isGliding;
+    [Range(0, 1)] [SerializeField] private float gravityPercentagesDuringGlide = 0.5f;
+
+    private float _originalGravity;
+
     [Space(10)] [Header("Movement")] [SerializeField]
     private float airWalkSpeed = 3f;
 
@@ -84,6 +86,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Space(10)] [Header("Crouching")] private bool _isCrouching;
+    [SerializeField] private float crouchingWalkSpeed = 3f;
 
     private bool IsCrouching
     {
@@ -92,16 +95,31 @@ public class PlayerController : MonoBehaviour
         {
             if (_isCrouching != value)
             {
+                
                 _animator.SetBool(AnimationStrings.isCrouching, value);
             }
+
             _isCrouching = value;
+
+            ChangeCollider(value ? ColliderKind.Circle : ColliderKind.Capsule);
         }
     }
 
     [Space(10)] [Header("Components")] private Rigidbody2D _rB;
-
     private Animator _animator;
 
+    [Space(10)] [Header("Collider")] private CapsuleCollider2D _capsuleCollider2D;
+    private CircleCollider2D _circleCollider2D;
+
+    enum ColliderKind
+    {
+        Capsule,
+        Circle,
+        DodgeRoll
+    }
+
+    // [Space(10)] [Header("Wall Movement")]
+    
     private float CurrentMoveSpeed
     {
         get
@@ -112,7 +130,7 @@ public class PlayerController : MonoBehaviour
                 {
                     return _dodgeRollSpeed;
                 }
-                
+
                 if (_isDashing)
                 {
                     return dashingSpeed;
@@ -122,6 +140,11 @@ public class PlayerController : MonoBehaviour
                 {
                     if (_touchingDirection.IsGrounded)
                     {
+                        if (IsCrouching)
+                        {
+                            return crouchingWalkSpeed;
+                        }
+
                         if (IsRunning)
                         {
                             return runSpeed;
@@ -155,13 +178,18 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _rB = GetComponent<Rigidbody2D>();
+        _originalGravity = _rB.gravityScale;
         _animator = GetComponent<Animator>();
         _touchingDirection = GetComponent<TouchingDirection>();
         tr = GetComponent<TrailRenderer>();
+        _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+        _circleCollider2D = GetComponent<CircleCollider2D>();
+        ChangeCollider(ColliderKind.Capsule);
     }
 
     private void FixedUpdate()
     {
+        
         _rB.velocity = new Vector2(_movementInput.x * CurrentMoveSpeed, _rB.velocity.y);
         if (_movementInput.x == 0 && _isDashing)
         {
@@ -170,10 +198,27 @@ public class PlayerController : MonoBehaviour
 
         _animator.SetFloat(AnimationStrings.yVelocity, _rB.velocity.y);
         if (_touchingDirection.IsGrounded)
-        {
             _canDoubleJump = true;
+        WallHandler();
+    }
+
+    private void WallHandler()
+    {
+        if (_touchingDirection.IsOnWall)
+        {
+            
         }
     }
+
+    private bool CanGlide
+    {
+        get
+        {
+            var returnValue = !(_touchingDirection.IsGrounded);
+            return returnValue;
+        }
+    }
+
 
     public bool CanMove
     {
@@ -220,6 +265,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_isDashing) return;
 
+        
         if (context.started && CanMove && !IsCrouching && _touchingDirection.IsGrounded)
         {
             IsCrouching = true;
@@ -250,11 +296,11 @@ public class PlayerController : MonoBehaviour
         if (_isDashing) return;
         if (context.started)
         {
-            _isRunning = true;
+            IsRunning = true;
         }
         else if (context.canceled)
         {
-            _isRunning = false;
+            IsRunning = false;
         }
     }
 
@@ -273,7 +319,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Dash());
         }
     }
-    
+
     public void OnDodgeRoll(InputAction.CallbackContext context)
     {
         if (context.started && _canDodgeRoll)
@@ -282,11 +328,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnGlide(InputAction.CallbackContext context)
+    {
+        if (context.started && CanGlide)
+        {
+            _rB.velocity = new Vector2(_movementInput.x * CurrentMoveSpeed, 0);
+
+            _rB.gravityScale = _originalGravity * gravityPercentagesDuringGlide;
+            _animator.SetBool(AnimationStrings.isGliding, true);
+            _isGliding = true;
+        }
+
+        if (context.canceled && _isGliding)
+        {
+            _animator.SetBool(AnimationStrings.isGliding, false);
+            _rB.gravityScale = _originalGravity;
+            _isGliding = false;
+        }
+    }
+
     private IEnumerator Dash()
     {
         _canDash = false;
         _isDashing = true;
-        float originalGravity = _rB.gravityScale;
         _rB.gravityScale = 0;
         tr.emitting = true;
         _animator.SetTrigger(AnimationStrings.dashTrigger);
@@ -295,23 +359,44 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
 
         tr.emitting = false;
-        _rB.gravityScale = originalGravity;
+        _rB.gravityScale = _originalGravity;
         _isDashing = false;
 
         yield return new WaitForSeconds(dashingCoolDown);
         _canDash = true;
     }
-    
+
     private IEnumerator DodgeRoll()
     {
         _canDodgeRoll = false;
         _isDodgeRoll = true;
         _animator.SetTrigger(AnimationStrings.dodgeRollTrigger);
         yield return new WaitForSeconds(dodgeRollTime);
+        ChangeCollider(ColliderKind.DodgeRoll);
 
         _isDodgeRoll = false;
 
         yield return new WaitForSeconds(dodgeRollCoolDown);
+        ChangeCollider(ColliderKind.Capsule);
         _canDodgeRoll = true;
+    }
+
+    private void ChangeCollider(ColliderKind colliderKind)
+    {
+        switch (colliderKind)
+        {
+            case ColliderKind.Capsule:
+                _capsuleCollider2D.enabled = true;
+                _circleCollider2D.enabled = false;
+                break;
+
+            case ColliderKind.Circle:
+                _capsuleCollider2D.enabled = false;
+                _circleCollider2D.enabled = true;
+                break;
+            
+            case ColliderKind.DodgeRoll:
+                break;
+        }
     }
 }

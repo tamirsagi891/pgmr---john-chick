@@ -330,7 +330,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329685633}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6589715, y: -0.68769336, z: -10}
+  m_LocalPosition: {x: -4.66, y: -7.86, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1786,6 +1786,7 @@ GameObject:
   - component: {fileID: 783334330}
   - component: {fileID: 783334331}
   - component: {fileID: 783334332}
+  - component: {fileID: 783334333}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1807,11 +1808,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashingSpeed: 24
   _dodgeRollSpeed: 24
+  gravityPercentagesDuringGlide: 0.1
   airWalkSpeed: 3
   walkSpeed: 5
   runSpeed: 8
   jumpImpulse: 5
   doubleJumpImpulse: 3
+  crouchingWalkSpeed: 3
 --- !u!50 &783334325
 Rigidbody2D:
   serializedVersion: 4
@@ -1874,12 +1877,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6447722072507503168, guid: 10f3cacccb0c4c547be76836eba20664, type: 3}
+  m_Sprite: {fileID: 590496464, guid: 5be4720de963e8d48a4a7933f5f65e46, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.875, y: 1.9375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1893,7 +1896,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783334323}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6589715, y: -0.68769336, z: 0}
+  m_LocalPosition: {x: -4.66, y: -7.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2082,7 +2085,19 @@ MonoBehaviour:
     m_ActionId: a6de269a-58ef-4bdf-9600-e086f971570c
     m_ActionName: Player/DodgeRoll[/Keyboard/x]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 783334324}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnGlide
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1cc58a78-c76d-4814-8f69-dde0ce3a4d57
     m_ActionName: Player/Gliding[/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
@@ -2123,8 +2138,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04531783, y: 0.014005959}
-  m_Size: {x: 0.58852065, y: 0.9719881}
+  m_Offset: {x: 0.020377338, y: -0.1830796}
+  m_Size: {x: 0.719911, y: 1.3661592}
   m_Direction: 0
 --- !u!114 &783334331
 MonoBehaviour:
@@ -2272,6 +2287,22 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 0
+--- !u!58 &783334333
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783334323}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.018457592, y: -0.49742246}
+  serializedVersion: 2
+  m_Radius: 0.36892724
 --- !u!1 &1378461857
 GameObject:
   m_ObjectHideFlags: 3
@@ -2436,7 +2467,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401482519}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6589715, y: -0.68769336, z: -10}
+  m_LocalPosition: {x: -4.66, y: -7.86, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
