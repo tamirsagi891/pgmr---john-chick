@@ -17,6 +17,8 @@ internal static class AnimationStrings
     public static string dashTrigger = "dash";
     public static string dodgeRollTrigger = "dodgeRoll";
     public static string isCrouching = "isCrouching";
+    public static string isGliding = "isGliding";
+
 
 }
  
