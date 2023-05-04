@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
@@ -129,190 +131,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle 0
+      name: fox_idle_strip8_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 34
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 13
+        y: 8
+        width: 29
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0cdaeb1cfe61586a0800000000000000
-      internalID: -6447722072507503168
+      spriteID: f7b5156f90420c84e837f80b4a968859
+      internalID: 526127016
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1
+      name: fox_idle_strip8_1
       rect:
         serializedVersion: 2
-        x: 17
-        y: 34
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 72
+        y: 8
+        width: 30
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31f91de0f9c3b1920800000000000000
-      internalID: 2962027833772318483
+      spriteID: 0064f4948f34676459c60146d96e2bc4
+      internalID: 741946292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run 0
+      name: fox_idle_strip8_2
       rect:
         serializedVersion: 2
-        x: 34
-        y: 34
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 132
+        y: 8
+        width: 30
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7879492f2a374fdd0800000000000000
-      internalID: -2453208753318357113
+      spriteID: 91fac9728f261a34eb1c052bf4c43199
+      internalID: -2063887308
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run 1
+      name: fox_idle_strip8_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 17
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 192
+        y: 8
+        width: 30
+        height: 20
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b94b05d738f6b1850800000000000000
-      internalID: 6348790710242686107
+      spriteID: 91182642b1705284487e6615f25f052f
+      internalID: -1470234891
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run 2
+      name: fox_idle_strip8_4
       rect:
         serializedVersion: 2
-        x: 17
-        y: 17
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 252
+        y: 8
+        width: 30
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac6f31c157c558c40800000000000000
-      internalID: 5513914976837039818
+      spriteID: e2a12030cd2500241b63ebc3ef69a81a
+      internalID: 454990441
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run 3
+      name: fox_idle_strip8_5
       rect:
         serializedVersion: 2
-        x: 34
-        y: 17
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 314
+        y: 8
+        width: 28
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09905f9bea8b7f9f0800000000000000
-      internalID: -434675778434299504
+      spriteID: 9c19748fdaee9fe45ae6581148b78c14
+      internalID: -1251892227
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump 0
+      name: fox_idle_strip8_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 374
+        y: 8
+        width: 28
+        height: 20
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01f0e1a4e032a00b0800000000000000
-      internalID: -5761754228987130096
+      spriteID: 7dc9005a6aee60d44a7892e704b1c248
+      internalID: -1186250455
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump 1
+      name: fox_idle_strip8_7
       rect:
         serializedVersion: 2
-        x: 17
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 434
+        y: 8
+        width: 28
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea821723e862df150800000000000000
-      internalID: 5907920678353447086
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump 2
-      rect:
-        serializedVersion: 2
-        x: 34
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9fd82f29ed60a8ba0800000000000000
-      internalID: -6086044393419928071
+      spriteID: 73af5aa99c5e041489d5856bf046cce3
+      internalID: -349508331
       vertices: []
       indices: 
       edges: []
@@ -328,18 +309,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Run 0: -2453208753318357113
-      Idle 0: -6447722072507503168
-      Jump 0: -5761754228987130096
-      Run 2: 5513914976837039818
-      Run 3: -434675778434299504
-      Jump 2: -6086044393419928071
-      Run 1: 6348790710242686107
-      Idle 1: 2962027833772318483
-      Jump 1: 5907920678353447086
-  spritePackingTag: 
+      fox_idle_strip8_0: 526127016
+      fox_idle_strip8_1: 741946292
+      fox_idle_strip8_2: -2063887308
+      fox_idle_strip8_3: -1470234891
+      fox_idle_strip8_4: 454990441
+      fox_idle_strip8_5: -1251892227
+      fox_idle_strip8_6: -1186250455
+      fox_idle_strip8_7: -349508331
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
