@@ -1,7 +1,6 @@
 ﻿using System;
 using BitStrap;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Mechanics.Enemies
 {
@@ -9,48 +8,54 @@ namespace Mechanics.Enemies
     [RequireComponent(typeof(Animator))]
     public class NpcAnimationControls : MonoBehaviour
     {
+
+        #region Inspector
+
         #region Animator State
 
         [Header("Animation State")]
+        [HelpBox("The parameters are updated onValidate to allow control " +
+                 "from the Inspector. From code all updates can be done with the" +
+                 " corresponding public Properties.", HelpBoxAttribute.MessageType.Info)]
         [SerializeField]
         private bool canMove = true;
-        
+
         [SerializeField]
         private bool isMoving;
 
         [SerializeField]
         private bool isRunning;
 
-        [SerializeField] 
+        [SerializeField]
         private bool isGrounded;
 
-        [SerializeField] 
+        [SerializeField]
         private bool isDead;
 
-        [Space] 
-        [SerializeField] 
+        [Space]
+        [SerializeField]
         private bool jump;
-        
+
         [SerializeField]
         private bool dash;
 
-        [SerializeField] 
+        [SerializeField]
         private bool attack;
 
         [Space]
-        [SerializeField] 
+        [SerializeField]
         private float yVelocity = 0f;
 
-        [SerializeField] 
+        [SerializeField]
         private Direction direction = Direction.Right;
-        
+
         [Space]
         [SerializeField]
         private bool doubleJump;
-        
+
         [SerializeField]
         private bool dodgeRoll;
-        
+
         [Space]
         [SerializeField]
         private bool isCrouching;
@@ -60,30 +65,53 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         private bool isWallSliding;
-        
+
         [SerializeField]
         private bool isOnWall;
-        
+
         [SerializeField]
         private bool isOnCeiling;
 
         #endregion
 
+        [Space]
+        [SerializeField]
+        private MovementAnimatorParameters animatorParameters;
+
+        [Space]
+        [SerializeField]
+        private Animator myAnimator;
+
+        #endregion
+
         #region Animator Properties
+
+        #region Transform
 
         public Direction Direction
         {
-            get => direction;
+            get => _currentDirection;
             set
             {
-                if (value != _oldDirection)
+                if (value != _currentDirection)
                 {
-                    transform.localScale = Vector3.Scale(transform.localScale, new Vector3(-1, 1, 1));
+                    var currentScale = transform.localScale;
+                    var xScale = Mathf.Abs(currentScale.x);
+                    transform.localScale = new Vector3(
+                        (value == Direction.Left) ? -xScale : xScale,
+                        currentScale.y,
+                        currentScale.z
+                    );
                 }
-                _oldDirection = value;
+
+                _currentDirection = value;
                 direction = value;
             }
         }
+
+        #endregion
+
+        #region Booleans
 
         public bool CanMove
         {
@@ -132,71 +160,6 @@ namespace Mechanics.Enemies
             {
                 isDead = value;
                 animatorParameters.isDead.Set(myAnimator, isDead);
-            }
-        }
-
-        public bool Jump
-        {
-            get => jump;
-            set
-            {
-                if (value)
-                {
-                    animatorParameters.jump.Set(myAnimator);
-                }
-                jump = false;
-            }
-        }
-
-        public bool Dash
-        {
-            get => dash;
-            set
-            {
-                if (value)
-                {
-                    animatorParameters.dash.Set(myAnimator);
-                }
-                dash = false;
-            }
-        }
-        
-        public bool Attack
-        {
-            get => attack;
-            set
-            {
-                if (value)
-                {
-                    animatorParameters.attack.Set(myAnimator);
-                }
-                attack = false;
-            }
-        }
-
-        public bool DoubleJump
-        {
-            get => doubleJump;
-            set
-            {
-                if (value)
-                {
-                    animatorParameters.doubleJump.Set(myAnimator);
-                }
-                doubleJump = false;
-            }
-        }
-
-        public bool DodgeRoll
-        {
-            get => dodgeRoll;
-            set
-            {
-                if (value)
-                {
-                    animatorParameters.dodgeRoll.Set(myAnimator);
-                }
-                dodgeRoll = false;
             }
         }
 
@@ -252,14 +215,99 @@ namespace Mechanics.Enemies
 
         #endregion
 
-        [Space]
-        [SerializeField] 
-        private MovementAnimatorParameters animatorParameters;
-        
-        [FormerlySerializedAs("_myAnimator")] [SerializeField]
-        private Animator myAnimator;
+        #region Triggers
+
+        public bool Jump
+        {
+            get => jump;
+            set
+            {
+                if (value)
+                {
+                    animatorParameters.jump.Set(myAnimator);
+                }
+
+                jump = false;
+            }
+        }
+
+        public bool Dash
+        {
+            get => dash;
+            set
+            {
+                if (value)
+                {
+                    animatorParameters.dash.Set(myAnimator);
+                }
+
+                dash = false;
+            }
+        }
+
+        public bool Attack
+        {
+            get => attack;
+            set
+            {
+                if (value)
+                {
+                    animatorParameters.attack.Set(myAnimator);
+                }
+
+                attack = false;
+            }
+        }
+
+        public bool DoubleJump
+        {
+            get => doubleJump;
+            set
+            {
+                if (value)
+                {
+                    animatorParameters.doubleJump.Set(myAnimator);
+                }
+
+                doubleJump = false;
+            }
+        }
+
+        public bool DodgeRoll
+        {
+            get => dodgeRoll;
+            set
+            {
+                if (value)
+                {
+                    animatorParameters.dodgeRoll.Set(myAnimator);
+                }
+
+                dodgeRoll = false;
+            }
+        }
+
+        #endregion
+
+        #region Floats
+
+        public float YVelocity
+        {
+            get => yVelocity;
+            set => yVelocity = value;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Private Fields
+
         private Direction _currentDirection;
-        private Direction _oldDirection;
+
+        #endregion
+
+        #region MonoBehaviour
 
         private void Awake()
         {
@@ -270,6 +318,7 @@ namespace Mechanics.Enemies
 
             HandleTriggers();
             HandleBooleans();
+            _currentDirection = direction == Direction.Left ? Direction.Right : Direction.Left;
             Direction = direction;
         }
 
@@ -279,6 +328,15 @@ namespace Mechanics.Enemies
             HandleBooleans();
             Direction = direction;
         }
+
+        private void FixedUpdate()
+        {
+            HandleFloatAnimations();
+        }
+
+        #endregion
+
+        #region Parameter Handlers
 
         private void HandleBooleans()
         {
@@ -303,59 +361,59 @@ namespace Mechanics.Enemies
             DodgeRoll = dodgeRoll;
         }
 
-        private void FixedUpdate()
-        {
-            HandleFloatAnimations();
-        }
 
         private void HandleFloatAnimations()
         {
-            // Direction = direction;
-
-            animatorParameters.yVelocity.Set(myAnimator, yVelocity);
+            animatorParameters.yVelocity.Set(myAnimator, YVelocity);
         }
-    }
-    
 
+        #endregion
+
+    }
+
+
+    /// <summary>
+    /// This struct can be used to define animator parameters for attached animator component for movement
+    /// </summary>
     [Serializable]
     public struct MovementAnimatorParameters
     {
         [SerializeField]
         public BoolAnimationParameter canMove;
-        
+
         [SerializeField]
         public BoolAnimationParameter isMoving;
 
         [SerializeField]
         public BoolAnimationParameter isRunning;
 
-        [SerializeField] 
+        [SerializeField]
         public BoolAnimationParameter isGrounded;
 
-        [SerializeField] 
+        [SerializeField]
         public BoolAnimationParameter isDead;
 
-        [Space] 
-        [SerializeField] 
+        [Space]
+        [SerializeField]
         public TriggerAnimationParameter jump;
-        
+
         [SerializeField]
         public TriggerAnimationParameter dash;
 
-        [SerializeField] 
+        [SerializeField]
         public TriggerAnimationParameter attack;
 
         [Space]
-        [SerializeField] 
+        [SerializeField]
         public FloatAnimationParameter yVelocity;
 
         [Space]
         [SerializeField]
         public TriggerAnimationParameter doubleJump;
-        
+
         [SerializeField]
         public TriggerAnimationParameter dodgeRoll;
-        
+
         [Space]
         [SerializeField]
         public BoolAnimationParameter isCrouching;
@@ -365,10 +423,10 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         public BoolAnimationParameter isWallSliding;
-        
+
         [SerializeField]
         public BoolAnimationParameter isOnWall;
-        
+
         [SerializeField]
         public BoolAnimationParameter isOnCeiling;
     }
