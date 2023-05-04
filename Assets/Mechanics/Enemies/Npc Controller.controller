@@ -861,14 +861,14 @@ AnimatorStateMachine:
   - {fileID: 8526027256822175331}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -6013126156367389410}
-    second:
-    - {fileID: 3605865245251340988}
   - first: {fileID: -5416111301974176134}
     second:
     - {fileID: -2443810617843394737}
     - {fileID: 4188039471054388697}
     - {fileID: 4856119917758415349}
+  - first: {fileID: -6013126156367389410}
+    second:
+    - {fileID: 3605865245251340988}
   - first: {fileID: -3710360897347124494}
     second:
     - {fileID: -5956959400390105266}
@@ -2193,7 +2193,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
+  - m_ConditionMode: 2
     m_ConditionEvent: isCrouching
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}

@@ -76,10 +76,11 @@ namespace Mechanics.Enemies
             get => direction;
             set
             {
-                if (value != direction)
+                if (value != _oldDirection)
                 {
                     transform.localScale = Vector3.Scale(transform.localScale, new Vector3(-1, 1, 1));
                 }
+                _oldDirection = value;
                 direction = value;
             }
         }
@@ -258,6 +259,7 @@ namespace Mechanics.Enemies
         [FormerlySerializedAs("_myAnimator")] [SerializeField]
         private Animator myAnimator;
         private Direction _currentDirection;
+        private Direction _oldDirection;
 
         private void Awake()
         {
@@ -265,11 +267,40 @@ namespace Mechanics.Enemies
             {
                 myAnimator = GetComponent<Animator>();
             }
+
+            HandleTriggers();
+            HandleBooleans();
+            Direction = direction;
         }
 
         private void OnValidate()
         {
+            HandleTriggers();
+            HandleBooleans();
+            Direction = direction;
+        }
+
+        private void HandleBooleans()
+        {
             CanMove = canMove;
+            IsMoving = isMoving;
+            IsRunning = isRunning;
+            IsGrounded = isGrounded;
+            IsDead = isDead;
+            IsCrouching = isCrouching;
+            IsGliding = isGliding;
+            IsWallSliding = isWallSliding;
+            IsOnWall = isOnWall;
+            IsOnCeiling = isOnCeiling;
+        }
+
+        private void HandleTriggers()
+        {
+            Jump = jump;
+            Dash = dash;
+            Attack = attack;
+            DoubleJump = doubleJump;
+            DodgeRoll = dodgeRoll;
         }
 
         private void FixedUpdate()
@@ -284,65 +315,7 @@ namespace Mechanics.Enemies
             animatorParameters.yVelocity.Set(myAnimator, yVelocity);
         }
     }
-
-    [Serializable]
-    public class AnimatorStateController
-    {
-        [SerializeField]
-        public bool canMove = true;
-        
-        [SerializeField]
-        public bool isMoving;
-
-        [SerializeField]
-        public bool isRunning;
-
-        [SerializeField] 
-        public bool isGrounded;
-
-        [SerializeField] 
-        public bool isDead;
-
-        [Space] 
-        [SerializeField] 
-        public bool jump;
-        
-        [SerializeField]
-        public bool dash;
-
-        [SerializeField] 
-        public bool attack;
-
-        [Space]
-        [SerializeField] 
-        public float yVelocity = 0f;
-
-        [SerializeField] 
-        public Direction direction = Direction.Right;
-        
-        [Space]
-        [SerializeField]
-        public bool doubleJump;
-        
-        [SerializeField]
-        public bool dodgeRoll;
-        
-        [Space]
-        [SerializeField]
-        public bool isCrouching;
-
-        [SerializeField]
-        public bool isGliding;
-
-        [SerializeField]
-        public bool isWallSliding;
-        
-        [SerializeField]
-        public bool isOnWall;
-        
-        [SerializeField]
-        public bool isOnCeiling;
-    }
+    
 
     [Serializable]
     public struct MovementAnimatorParameters
