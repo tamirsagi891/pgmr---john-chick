@@ -1,6 +1,9 @@
 ﻿using System;
+using Avrahamy;
 using BitStrap;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
@@ -12,6 +15,9 @@ namespace Mechanics.Enemies
         #region Inspector
 
         #region Animator State
+        [Header("Timers - TODO: ADD TRIGGER TIMERS HERE TOO!")]
+        [SerializeField]
+        private PassiveTimer edgeChangeTimer = new(0.5f);
 
         [Header("Animation State")]
         [HelpBox("The parameters are updated onValidate to allow control " +
@@ -41,6 +47,9 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         private bool attack;
+
+        [SerializeField]
+        private bool hurt;
 
         [Space]
         [SerializeField]
@@ -93,19 +102,15 @@ namespace Mechanics.Enemies
             get => _currentDirection;
             set
             {
-                if (value != _currentDirection)
+                if (value == _currentDirection)
                 {
-                    var currentScale = transform.localScale;
-                    var xScale = Mathf.Abs(currentScale.x);
-                    transform.localScale = new Vector3(
-                        (value == Direction.Left) ? -xScale : xScale,
-                        currentScale.y,
-                        currentScale.z
-                    );
+                    return;
                 }
-
-                _currentDirection = value;
-                direction = value;
+                if (edgeChangeTimer.IsSet && edgeChangeTimer.IsActive)
+                {
+                    return;
+                }
+                SwitchDirection(value);
             }
         }
 
@@ -118,7 +123,7 @@ namespace Mechanics.Enemies
             get => canMove;
             set
             {
-                canMove = value;
+                canMove = value; // TODO: this is not used now in the controller!
                 animatorParameters.canMove.Set(myAnimator, canMove);
             }
         }
@@ -258,6 +263,20 @@ namespace Mechanics.Enemies
                 attack = false;
             }
         }
+        
+        public bool Hurt
+        {
+            get => hurt;
+            set
+            {
+                if (value)
+                {
+                    animatorParameters.hurt.Set(myAnimator);
+                }
+
+                hurt = false;
+            }
+        }
 
         public bool DoubleJump
         {
@@ -319,19 +338,52 @@ namespace Mechanics.Enemies
             HandleTriggers();
             HandleBooleans();
             _currentDirection = direction == Direction.Left ? Direction.Right : Direction.Left;
-            Direction = direction;
+            SwitchDirection(direction, true);
         }
 
         private void OnValidate()
         {
             HandleTriggers();
             HandleBooleans();
-            Direction = direction;
+            SwitchDirection(direction, true);
         }
 
         private void FixedUpdate()
         {
             HandleFloatAnimations();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void SwitchDirection()
+        {
+            var value = _currentDirection switch
+            {
+                Direction.Left => Direction.Right,
+                Direction.Right => Direction.Left,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            SwitchDirection(value);
+        }
+
+        public void SwitchDirection(Direction value, bool validate = false)
+        {
+            if (!validate) // TODO: remove in build
+            {
+                edgeChangeTimer.Start();
+            }
+            
+            var currentScale = transform.localScale;
+            var xScale = Mathf.Abs(currentScale.x);
+            transform.localScale = new Vector3(
+                (value == Direction.Left) ? -xScale : xScale,
+                currentScale.y,
+                currentScale.z
+            );
+            _currentDirection = value;
+            direction = value;
         }
 
         #endregion
@@ -357,6 +409,7 @@ namespace Mechanics.Enemies
             Jump = jump;
             Dash = dash;
             Attack = attack;
+            Hurt = hurt;
             DoubleJump = doubleJump;
             DodgeRoll = dodgeRoll;
         }
@@ -402,7 +455,10 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         public TriggerAnimationParameter attack;
-
+        
+        [SerializeField]
+        public TriggerAnimationParameter hurt;
+        
         [Space]
         [SerializeField]
         public FloatAnimationParameter yVelocity;

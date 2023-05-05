@@ -1,0 +1,60 @@
+﻿using System;
+using BitStrap;
+using UnityEngine;
+using Logger = Nemesh.Logger;
+
+namespace Mechanics.Enemies
+{
+    [AddComponentMenu("NPC/Checkers/Player")]
+    [RequireComponent(typeof(Collider2D))]
+    public class CheckForPlayer : MonoBehaviour
+    {
+        #region Inspector
+        [HelpBox(@"This doesnt have to be attached to the NPC!
+You can put it as separate GameObject and connect to the NPC that way.", 
+            HelpBoxAttribute.MessageType.Info)]
+        [Space]
+        [SerializeField]
+        private BaseNpc npcToReportTo;
+
+        #endregion
+
+        #region Private Fields
+
+        private Collider2D _myCollider;
+
+        #endregion
+        
+        #region MonoBehaviour
+
+        private void Start()  // TODO: make this also the attack strategy controller? or separate object?
+        {
+            _myCollider = GetComponent<Collider2D>();
+            var col = _myCollider as CircleCollider2D;
+            if (col != null)
+            {
+                col.radius = npcToReportTo.NpcData.stats.detectionRadius;
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            var playerController = other.GetComponent<PlayerAttackController>();
+            if (playerController != null)
+            {
+                npcToReportTo.PlayerContact = playerController;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            var playerController = other.GetComponent<PlayerAttackController>();
+            if (playerController != null && npcToReportTo.PlayerContact == playerController)
+            {
+                npcToReportTo.PlayerContact = null; // TODO: Add to attack targets instead?
+            }
+        }
+
+        #endregion
+    }
+}

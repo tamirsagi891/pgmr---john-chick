@@ -15,3 +15,10 @@ MonoBehaviour:
   npcName: Test
   stats:
     hp: 10
+    detectionRadius: 10
+    damage: 3
+    cooldown: 2
+    movementSpeed: 5
+    jumpForce: 15
+    extraDashSpeed: 3
+  characterIcon: {fileID: 0}

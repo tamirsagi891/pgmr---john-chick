@@ -11,11 +11,20 @@ namespace BitStrap
 			PropertyDrawerHelper.LoadAttributeTooltip( this, label );
 
 			var readOnlyAttribute = attribute as ReadOnlyAttribute;
+			
 
-			using( DisabledGroup.Do( !readOnlyAttribute.onlyInPlaymode || EditorApplication.isPlayingOrWillChangePlaymode ) )
+			var condition = readOnlyAttribute.onlyInEditor && !EditorApplication.isPlayingOrWillChangePlaymode ||
+			                readOnlyAttribute.onlyInPlaymode && EditorApplication.isPlayingOrWillChangePlaymode ||
+			                !readOnlyAttribute.onlyInEditor && !readOnlyAttribute.onlyInPlaymode;
+			using( DisabledGroup.Do( condition ) )
 			{
 				EditorGUI.PropertyField( position, property, label, true );
 			}
+		}
+		
+		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+		{
+			return EditorGUI.GetPropertyHeight(property);
 		}
 	}
 }

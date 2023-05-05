@@ -14,5 +14,9 @@ namespace BitStrap
 	public class ReadOnlyAttribute : PropertyAttribute
 	{
 		public bool onlyInPlaymode = false;
+		/// <summary>
+		/// CANT USE BOTH!
+		/// </summary>
+		public bool onlyInEditor = false;
 	}
 }

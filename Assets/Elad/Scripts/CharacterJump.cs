@@ -17,7 +17,7 @@ public class CharacterJump : MonoBehaviour
     [Header("Jumping Stats")] [SerializeField, Range(2f, 5.5f)]
     private float maxJumpHeight = 7.3f;
 
-    [SerializeField, Range(0.2f, 1.25f)] private float timeToReachMaxHeight;
+    [SerializeField, Range(0.2f, 1.25f)] private float timeToReachMaxHeight = 0.2f;
 
     [SerializeField, Range(0f, 5f)] [Tooltip("Gravity multiplier to apply when going up")]
     public float gravityPercentagesUp = 1f;
