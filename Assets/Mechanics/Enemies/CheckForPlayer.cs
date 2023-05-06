@@ -11,7 +11,8 @@ namespace Mechanics.Enemies
     {
         #region Inspector
         [HelpBox(@"This doesnt have to be attached to the NPC!
-You can put it as separate GameObject and connect to the NPC that way.", 
+You can put it as separate GameObject and connect to the NPC that way.
+InThat case, we might want to change to list and stop the disable", 
             HelpBoxAttribute.MessageType.Info)]
         [Space]
         [SerializeField]
@@ -26,6 +27,16 @@ You can put it as separate GameObject and connect to the NPC that way.",
         #endregion
         
         #region MonoBehaviour
+        
+        private void OnEnable()
+        {
+            npcToReportTo.events.onDeath.AddListener(Disable);
+        }
+
+        private void OnDisable()
+        {
+            npcToReportTo.events.onDeath.RemoveListener(Disable);
+        }
 
         private void Start()  // TODO: make this also the attack strategy controller? or separate object?
         {
@@ -53,6 +64,15 @@ You can put it as separate GameObject and connect to the NPC that way.",
             {
                 npcToReportTo.PlayerContact = null; // TODO: Add to attack targets instead?
             }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void Disable()
+        {
+            gameObject.SetActive(false);
         }
 
         #endregion

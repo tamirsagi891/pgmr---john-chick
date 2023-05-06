@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Mechanics.Enemies
 {
@@ -21,6 +22,12 @@ namespace Mechanics.Enemies
         
         [SerializeField]
         public UnityEvent onHurt = new();
+
+        [SerializeField]
+        public UnityEvent onDeath = new();
+
+        [SerializeField]
+        public UnityEvent<BaseNpc> onDisable = new();
 
     }
 }

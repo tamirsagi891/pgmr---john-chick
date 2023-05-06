@@ -26,10 +26,29 @@ namespace Mechanics.Enemies
         
 
         #region MonoBehaviour
+        
+        private void OnEnable()
+        {
+            npcToReportTo.events.onDeath.AddListener(Disable);
+        }
+
+        private void OnDisable()
+        {
+            npcToReportTo.events.onDeath.RemoveListener(Disable);
+        }
 
         private void Start()
         {
             StartCoroutine(Jump(factor * Random.value + 0.5f));
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void Disable()
+        {
+            gameObject.SetActive(false);
         }
 
         #endregion

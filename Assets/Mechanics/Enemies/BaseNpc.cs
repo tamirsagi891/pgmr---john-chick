@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Avrahamy;
+using Avrahamy.EditorGadgets;
 using BitStrap;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Logger = Nemesh.Logger;
@@ -48,13 +51,19 @@ namespace Mechanics.Enemies
         [Tooltip("After how many second of not moving try to switch direction")]
         private PassiveTimer notMovingTimer = new(0.25f);
 
-
         [Space]
         [SerializeField]
         private bool stopMovementWhileTargetExists = true;
 
         [SerializeField]
         private bool detectEdges = true;
+
+        [Space]
+        [SerializeField]
+        private bool removeAfterDeath;
+
+        [SerializeField]
+        private PassiveTimer removeAfterDeathTimer = new(10f);
 
         [Space]
         [SerializeField]
@@ -111,6 +120,10 @@ namespace Mechanics.Enemies
             set
             {
                 _playerContact = value;
+                if (_dead)
+                {
+                    return;
+                }
                 // TODO: add script for attack strategy
                 if (value != null)
                 {
@@ -190,6 +203,7 @@ namespace Mechanics.Enemies
         private readonly PassiveTimer _stopMovement = new();
 
         private bool _shouldMove;
+        private bool _dead;
 
         #endregion
 
@@ -202,14 +216,32 @@ namespace Mechanics.Enemies
             notMovingTimer.Clear();
         }
 
+        private void OnDisable()
+        {
+            if (debug)
+            {
+                Logger.Log($"{NpcData.npcName} Removed",Color.yellow, this);
+            }
+            events.onDisable.Invoke(this);
+        }
+
         private void Update()
         {
+            if (_dead)
+            {
+                if (!removeAfterDeath || removeAfterDeathTimer.IsActive)
+                {
+                    return;
+                }
+               
+                gameObject.SetActive(false);
+            }
             if (dashTime.IsSet && !dashTime.IsActive)
             {
                 dashTime.Clear();
                 _myStatsHandler.CurrentStats.movementSpeed -= _myStatsHandler.CurrentStats.extraDashSpeed;
             }
-            if (_stopMovement.IsSet && !_stopMovement.IsActive &&
+            if (!_dead && _stopMovement.IsSet && !_stopMovement.IsActive &&
                 (!stopMovementWhileTargetExists || AttackTargets.Count <= 0))
             {
                 StartMovement();
@@ -365,13 +397,31 @@ namespace Mechanics.Enemies
                 return false;
             }
 
-            events.onHurt.Invoke();
-
-            StopMovement(hurtTime);
-
-            animationControls.Hurt = true;
-            return true;
+            return TakeDamage(dmgTaken);
         }
+
+        [Button]
+        public void Death()
+        {
+            _dead = true;
+            _myRigidbody.velocity = Vector2.zero;
+            animationControls.CanMove = false;
+            animationControls.IsDead = true;
+            events.onDeath.Invoke();
+            _myRigidbody.constraints |= RigidbodyConstraints2D.FreezePositionX;
+            // TODO: collider to sprite?
+
+            if (debug)
+            {
+                Logger.Log($"{NpcData.npcName} Died",Color.magenta, this);
+            }
+            
+            if (removeAfterDeath)
+            {
+                removeAfterDeathTimer.Start();
+            }
+        }
+        
 
         public float GetDamage()
         {
@@ -445,6 +495,31 @@ namespace Mechanics.Enemies
             }
 
             return shouldSwitch && animationControls.CanMove;
+        }
+        
+        private bool TakeDamage(float dmgTaken)
+        {
+
+            events.onHurt.Invoke();
+            var newHp = _myStatsHandler.TakeDamage(dmgTaken);
+            if (newHp > 0)
+            {
+                StopMovement(hurtTime);
+
+                animationControls.Hurt = true;
+            }
+            else
+            {
+                Death();
+            }
+
+            return true;
+        }
+
+        [Button]
+        private void DebugDamage()
+        {
+            TakeDamage(5);
         }
 
         #endregion

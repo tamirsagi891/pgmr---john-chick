@@ -33,6 +33,26 @@ namespace Mechanics.Enemies
         }
 
         #endregion
+
+        #region Public Properties
+
+        public float Hp
+        {
+            get => currentStats.hp;
+            set => currentStats.hp = Mathf.Max(0f, value);
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public float TakeDamage(float dmgTaken)
+        {
+            Hp -= dmgTaken;
+            return Hp;
+        }
+
+        #endregion
         
         #region MonoBehaviour
 

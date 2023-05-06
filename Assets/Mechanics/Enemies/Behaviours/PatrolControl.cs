@@ -64,10 +64,7 @@ namespace Mechanics.Enemies
 
         #region MonoBehaviour
 
-        // private void OnValidate()
-        // {
-        //     ReloadPoints();
-        // }
+        
 
         private void Awake()
         {
@@ -80,6 +77,7 @@ namespace Mechanics.Enemies
         public void OnEnable()
         {
             ReloadPoints();
+            npcToReportTo.events.onDeath.AddListener(Disable);
         }
 
         private void Start()
@@ -91,6 +89,7 @@ namespace Mechanics.Enemies
         {
             Target = null;
             npcToReportTo.MovementBehaviour = null;
+            npcToReportTo.events.onDeath.RemoveListener(Disable);
         }
 
         private void FixedUpdate()
@@ -168,6 +167,11 @@ namespace Mechanics.Enemies
 
         #region Private Methods
 
+        private void Disable()
+        {
+            gameObject.SetActive(false);
+        }
+        
         #endregion
 
     }

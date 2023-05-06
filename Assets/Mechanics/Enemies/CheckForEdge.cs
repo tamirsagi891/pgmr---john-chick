@@ -32,6 +32,16 @@ namespace Mechanics.Enemies
         #endregion
         
         #region MonoBehaviour
+        
+        private void OnEnable()
+        {
+            npcToReportTo.events.onDeath.AddListener(Disable);
+        }
+
+        private void OnDisable()
+        {
+            npcToReportTo.events.onDeath.RemoveListener(Disable);
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -41,6 +51,15 @@ namespace Mechanics.Enemies
         private void OnTriggerExit2D(Collider2D other)
         {
             GroundCounter -= 1;
+        }
+
+        #endregion
+
+        #region Private Method
+
+        private void Disable()
+        {
+            gameObject.SetActive(false);
         }
 
         #endregion

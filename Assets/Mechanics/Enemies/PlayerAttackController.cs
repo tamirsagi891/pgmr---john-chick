@@ -20,7 +20,6 @@ namespace Mechanics.Enemies
 
         public bool Hurt(IAttacker attacker)
         {
-            Logger.Log("Attacked by", attacker as MonoBehaviour);
             return true;
         }
     }

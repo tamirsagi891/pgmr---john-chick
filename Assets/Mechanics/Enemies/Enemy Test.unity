@@ -4634,6 +4634,10 @@ PrefabInstance:
       propertyPath: debug
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: removeAfterDeath
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1837786459746131347, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: m_IsActive
       value: 1

@@ -31,7 +31,7 @@ namespace Mechanics.Enemies
     public class NpcStats
     {
         [SerializeField] 
-        public int hp;
+        public float hp;
 
         [SerializeField]
         [Min(0)]

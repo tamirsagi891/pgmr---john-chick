@@ -45,6 +45,16 @@ namespace Mechanics.Enemies
         
         #region MonoBehaviour
 
+        private void OnEnable()
+        {
+            npcToReportTo.events.onDeath.AddListener(Disable);
+        }
+
+        private void OnDisable()
+        {
+            npcToReportTo.events.onDeath.RemoveListener(Disable);
+        }
+
         private void Start()  // TODO: make this also the attack strategy controller? or separate object?
         {
             _myCollider = GetComponent<Collider2D>();
@@ -68,6 +78,15 @@ namespace Mechanics.Enemies
             }
         }
         
+
+        #endregion
+
+        #region Private Method
+
+        private void Disable()
+        {
+            gameObject.SetActive(false);
+        }
 
         #endregion
     }
