@@ -50,7 +50,7 @@ InThat case, we might want to change to list and stop the disable",
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var playerController = other.GetComponent<PlayerAttackController>();
+            var playerController = other.GetComponent<PlayerAttackController>(); // TODO: move to using Tags instead.
             if (playerController != null)
             {
                 npcToReportTo.PlayerContact = playerController;

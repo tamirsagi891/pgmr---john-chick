@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Avrahamy;
-using Avrahamy.EditorGadgets;
 using BitStrap;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
@@ -13,8 +9,8 @@ namespace Mechanics.Enemies
     [AddComponentMenu("NPC/Base Npc", -1)]
     [SelectionBase]
     [DisallowMultipleComponent]
-    [RequireComponent(
-        typeof(StatsHandler))] // TODO: create new class that just requires the Components in the right order
+    [RequireComponent(typeof(StatsHandler))]
+    // TODO: create new class that just requires the Components in the right order
     [RequireComponent(typeof(Rigidbody2D))]
     public class BaseNpc : MonoBehaviour, IAttacker, ICanBeAttacked
     {
@@ -37,7 +33,8 @@ namespace Mechanics.Enemies
         protected GameObject attackController; // TODO: MonoBehaviour of some type
 
         [Space]
-        [HelpBox("THIS SHOULD BE FROM ANIMATION NOT HERE! But im too lazy.", HelpBoxAttribute.MessageType.Warning)]
+        [HelpBox("THIS SHOULD BE FROM ANIMATION NOT HERE! But im too lazy.",
+            HelpBoxAttribute.MessageType.Warning)]
         [SerializeField]
         protected float attackTime = 1f;
 
@@ -94,19 +91,10 @@ namespace Mechanics.Enemies
             }
         }
 
-        public int GroundContacts
+        public bool IsGrounded
         {
-            get => _groundContacts;
-            set
-            {
-                _groundContacts = value;
-                animationControls.IsGrounded = _groundContacts > 0;
-
-                if (debug)
-                {
-                    Logger.Log($"{NpcData.npcName} Ground Contacts: {_groundContacts}", this);
-                }
-            }
+            get => animationControls.IsGrounded;
+            set => animationControls.IsGrounded = value;
         }
 
         public PlayerAttackController PlayerContact
@@ -123,14 +111,20 @@ namespace Mechanics.Enemies
                 // TODO: add script for attack strategy
                 if (value != null)
                 {
-                    MovementBehaviour.EnabledBehaviour = false;
                     WalkTarget = value.transform;
                     events.onPlayerDetected.Invoke();
+                    if (MovementBehaviour != null) // TODO: remove this on build
+                    {
+                        MovementBehaviour.EnabledBehaviour = false;
+                    }
                 }
                 else
                 {
-                    MovementBehaviour.EnabledBehaviour = true;
-                    MovementBehaviour.GoToNextPoint();
+                    if (MovementBehaviour != null) // TODO: remove this on build
+                    {
+                        MovementBehaviour.EnabledBehaviour = true;
+                        MovementBehaviour.GoToNextPoint();
+                    }
                 }
 
                 if (debug)
@@ -175,9 +169,7 @@ namespace Mechanics.Enemies
         #endregion
 
         #region Private Fields
-
-        private int _groundContacts;
-
+        
         private PlayerAttackController _playerContact; // TODO: change to any target?
         private List<ICanBeAttacked> _attackTargets = new();
 
@@ -416,11 +408,12 @@ namespace Mechanics.Enemies
         public void Death()
         {
             IsDead = true;
-            MyRigidbody.velocity = Vector2.zero;
-            animationControls.CanMove = false;
             animationControls.IsDead = true;
-            events.onDeath.Invoke();
+
+            StopMovementHelper();
             MyRigidbody.constraints |= RigidbodyConstraints2D.FreezePositionX;
+
+            events.onDeath.Invoke();
             // TODO: collider to sprite?
 
             if (debug)
@@ -448,8 +441,7 @@ namespace Mechanics.Enemies
                 StopMovementTimer.Start(time);
             }
 
-            MyRigidbody.velocity = Vector2.zero;
-            animationControls.CanMove = false;
+            StopMovementHelper();
         }
 
         public void StartMovement()
@@ -529,6 +521,13 @@ namespace Mechanics.Enemies
             StopMovement(hurtTime);
 
             animationControls.Hurt = true;
+        }
+
+        private void StopMovementHelper()
+        {
+            // TODO: constraint x?
+            MyRigidbody.velocity = Vector2.zero;
+            animationControls.CanMove = false;
         }
 
         #endregion

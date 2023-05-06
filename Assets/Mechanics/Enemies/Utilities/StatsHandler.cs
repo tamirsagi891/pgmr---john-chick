@@ -26,11 +26,7 @@ namespace Mechanics.Enemies
         private BaseNpc _myNpc;
         private NpcStats _initialStats;
 
-        public NpcStats CurrentStats
-        {
-            get => currentStats;
-            set => currentStats = value;
-        }
+        public NpcStats CurrentStats => currentStats;
 
         #endregion
 
@@ -48,8 +44,15 @@ namespace Mechanics.Enemies
 
         public float TakeDamage(float dmgTaken)
         {
-            Hp -= dmgTaken;
+            Hp -= dmgTaken - CurrentStats.defense + CurrentStats.deBuff;
             return Hp;
+        }
+        
+        public void ApplyDamageMultiplier(float multiplier)
+        {
+            currentStats.hp *= multiplier;
+            currentStats.damage *= multiplier;
+            currentStats.defense *= multiplier;
         }
 
         #endregion
@@ -60,7 +63,7 @@ namespace Mechanics.Enemies
         {
             _myNpc = GetComponent<BaseNpc>();
             _initialStats = _myNpc.NpcData.stats;
-            ResetStats();
+            RestoreInitialStats();
         }
         
         #endregion
@@ -68,7 +71,7 @@ namespace Mechanics.Enemies
         #region Public Methods
 
         [Button]
-        public void ResetStats()
+        public void RestoreInitialStats()
         {
             currentStats = _initialStats.Copy();
         }

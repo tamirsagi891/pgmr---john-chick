@@ -9,8 +9,11 @@ namespace Mechanics.Enemies
     [CreateAssetMenu(fileName = "Npc_Data_", menuName = "NPC/Base Data", order = 0)]
     public class NpcData : ScriptableObject
     {
-        [SerializeField] 
+        [SerializeField]
         public string npcName;
+
+        [SerializeField]
+        public NpcType type = NpcType.Ground;
 
         [HelpBox("This stats are the initial value - See StatsHandler for the current values")]
         [SerializeField]
@@ -30,7 +33,7 @@ namespace Mechanics.Enemies
     [Serializable]
     public class NpcStats
     {
-        [SerializeField] 
+        [SerializeField]
         public float hp;
 
         [SerializeField]
@@ -56,13 +59,19 @@ namespace Mechanics.Enemies
         [Min(0)]
         public float extraDashSpeed = 10f;
 
+        [SerializeField]
+        public float defense = 0f;
+
+        [SerializeField]
+        public float deBuff = 0f;
+
         public override string ToString()
         {
-            return $"hp: {hp}" +
-                   $"rad: {detectionRadius}" +
-                   $"dmg: {damage}" +
-                   $"cd: {cooldown}" +
-                   $"ms: {movementSpeed}";
+            return $@"Stats:
+hp: {hp}  --  def: {defense}  --  rad: {detectionRadius}
+dmg: {damage}  -- deBuff: {deBuff}  -- cd: {cooldown}
+ms: {movementSpeed}  -- dash: {extraDashSpeed}  -- jump: {jumpForce}
+";
         }
 
         public NpcStats Copy()
@@ -70,6 +79,11 @@ namespace Mechanics.Enemies
             return MemberwiseClone() as NpcStats;
         }
     }
-    
-    
+
+    [Serializable]
+    public enum NpcType
+    {
+        Ground,
+        Flying
+    }
 }

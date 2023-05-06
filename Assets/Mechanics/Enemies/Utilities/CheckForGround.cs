@@ -14,9 +14,15 @@ namespace Mechanics.Enemies
         private BaseNpc npcToReportTo;
 
         #endregion
-        
+
+        #region Private Fields
+
+        private int _groundContacts;
+
+        #endregion
+
         #region MonoBehaviour
-        
+
         private void OnEnable()
         {
             npcToReportTo.events.onDeath.AddListener(Disable);
@@ -29,12 +35,14 @@ namespace Mechanics.Enemies
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            npcToReportTo.GroundContacts += 1;
+            _groundContacts++;
+            npcToReportTo.IsGrounded = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            npcToReportTo.GroundContacts -= 1;
+            _groundContacts--;
+            npcToReportTo.IsGrounded = _groundContacts > 0;
         }
 
         #endregion
@@ -47,5 +55,6 @@ namespace Mechanics.Enemies
         }
 
         #endregion
+
     }
 }
