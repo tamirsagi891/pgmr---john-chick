@@ -1,0 +1,25 @@
+﻿using Nemesh.Attributes;
+using UnityEditor;
+using UnityEngine;
+
+namespace Nemesh.Editor
+{
+    [CustomPropertyDrawer(typeof(InspectorFieldNameAttribute))]
+    public class InspectorFieldNameDrawer : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            if (attribute is InspectorFieldNameAttribute inspectorName)
+            {
+                label.text = inspectorName.NewName;
+            }
+
+            EditorGUI.PropertyField(position, property, label, true);
+        }
+        
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return EditorGUI.GetPropertyHeight(property);
+        }
+    }
+}

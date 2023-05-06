@@ -1,5 +1,6 @@
 ﻿using System;
 using BitStrap;
+using Nemesh.Attributes;
 using UnityEngine;
 
 namespace Mechanics.Enemies
@@ -11,11 +12,13 @@ namespace Mechanics.Enemies
         public string npcName;
 
         [SerializeField]
+        [InspectorFieldName("Type Of Enemy:")]
         public NpcType type = NpcType.Ground;
 
         [HelpBox("This stats are the initial value - See StatsHandler for the current values")]
         [SerializeField]
         [ReadOnly(onlyInPlaymode = true)]
+        [InspectorFieldName("Initial NPC Stats")]
         public NpcStats stats;
 
         [Space]

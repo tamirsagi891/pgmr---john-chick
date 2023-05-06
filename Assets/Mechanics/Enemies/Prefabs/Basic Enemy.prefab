@@ -712,7 +712,7 @@ GameObject:
   - component: {fileID: 1125365599050158354}
   m_Layer: 0
   m_Name: Basic Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -759,6 +759,9 @@ MonoBehaviour:
     duration: 0.25
   stopMovementWhileTargetExists: 1
   detectEdges: 1
+  removeAfterDeath: 0
+  removeAfterDeathTimer:
+    duration: 10
   events:
     onJump:
       m_PersistentCalls:
@@ -787,6 +790,12 @@ MonoBehaviour:
     onHurt:
       m_PersistentCalls:
         m_Calls: []
+    onDeath:
+      m_PersistentCalls:
+        m_Calls: []
+    onDisable:
+      m_PersistentCalls:
+        m_Calls: []
   debug: 0
 --- !u!114 &20633744771093190
 MonoBehaviour:
@@ -808,6 +817,8 @@ MonoBehaviour:
     movementSpeed: 1
     jumpForce: 40
     extraDashSpeed: 10
+    defense: 0
+    deBuff: 0
 --- !u!50 &1125365599050158354
 Rigidbody2D:
   serializedVersion: 4

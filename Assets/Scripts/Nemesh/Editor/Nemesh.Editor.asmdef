@@ -1,0 +1,18 @@
+{
+    "name": "Nemesh.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:86de2714803cb294fb33d9864c452481"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
