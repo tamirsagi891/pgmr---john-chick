@@ -1,12 +1,11 @@
-﻿using System;
-using UnityEngine;
-using Logger = Nemesh.Logger;
+﻿using UnityEngine;
 
 namespace Mechanics.Enemies
 {
-    [AddComponentMenu("NPC/Attack Strategy/Aggressive")]  // TODO: Created by ChatGPT
+    [AddComponentMenu("NPC/Attack Strategy/Aggressive")] // TODO: Created by ChatGPT
     public class AggressiveAttackStrategy : MonoBehaviour, IAttackStrategy
     {
+
         #region Inspector
 
         [SerializeField]
@@ -22,22 +21,21 @@ namespace Mechanics.Enemies
         private GameObject attackEffect;
 
         [SerializeField]
-        private bool canAttackOnCooldown = false;
+        private bool canAttackOnCooldown;
 
         #endregion
 
         #region Private Fields
 
         private BaseNpc _myNpc;
-        private bool _isAttacking = false;
-        private float _attackCooldown = 0.0f;
+        private float _attackCooldown;
         private PlayerAttackController _target;
 
         #endregion
 
         #region IAttackStrategy
 
-        public bool IsAttacking => _isAttacking;
+        public bool IsAttacking { get; private set; }
 
         public bool Attack()
         {
@@ -48,7 +46,7 @@ namespace Mechanics.Enemies
 
             if (_target != null && Vector2.Distance(transform.position, _target.transform.position) <= attackRange)
             {
-                _isAttacking = true;
+                IsAttacking = true;
                 _attackCooldown = attackDelay;
 
                 if (attackEffect != null)
@@ -67,7 +65,7 @@ namespace Mechanics.Enemies
         {
             if (_target == null)
             {
-                _isAttacking = false;
+                IsAttacking = false;
                 return;
             }
 
@@ -101,6 +99,7 @@ namespace Mechanics.Enemies
         }
 
         #endregion
+
     }
 
 }

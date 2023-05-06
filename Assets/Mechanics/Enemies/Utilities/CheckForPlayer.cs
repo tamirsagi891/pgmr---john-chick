@@ -1,7 +1,5 @@
-﻿using System;
-using BitStrap;
+﻿using BitStrap;
 using UnityEngine;
-using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
@@ -9,10 +7,12 @@ namespace Mechanics.Enemies
     [RequireComponent(typeof(Collider2D))]
     public class CheckForPlayer : MonoBehaviour
     {
+
         #region Inspector
+
         [HelpBox(@"This doesnt have to be attached to the NPC!
 You can put it as separate GameObject and connect to the NPC that way.
-InThat case, we might want to change to list and stop the disable", 
+InThat case, we might want to change to list and stop the disable",
             HelpBoxAttribute.MessageType.Info)]
         [Space]
         [SerializeField]
@@ -25,9 +25,9 @@ InThat case, we might want to change to list and stop the disable",
         private Collider2D _myCollider;
 
         #endregion
-        
+
         #region MonoBehaviour
-        
+
         private void OnEnable()
         {
             npcToReportTo.events.onDeath.AddListener(Disable);
@@ -38,7 +38,7 @@ InThat case, we might want to change to list and stop the disable",
             npcToReportTo.events.onDeath.RemoveListener(Disable);
         }
 
-        private void Start()  // TODO: make this also the attack strategy controller? or separate object?
+        private void Start() // TODO: make this also the attack strategy controller? or separate object?
         {
             _myCollider = GetComponent<Collider2D>();
             var col = _myCollider as CircleCollider2D;
@@ -76,5 +76,6 @@ InThat case, we might want to change to list and stop the disable",
         }
 
         #endregion
+
     }
 }

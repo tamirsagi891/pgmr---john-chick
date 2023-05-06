@@ -140,11 +140,7 @@ namespace Mechanics.Enemies
             set => myData = value;
         }
 
-        public List<ICanBeAttacked> AttackTargets
-        {
-            get => _attackTargets;
-            set => _attackTargets = value;
-        }
+        public List<ICanBeAttacked> AttackTargets { get; set; } = new();
 
         public Transform WalkTarget
         {
@@ -169,9 +165,8 @@ namespace Mechanics.Enemies
         #endregion
 
         #region Private Fields
-        
+
         private PlayerAttackController _playerContact; // TODO: change to any target?
-        private List<ICanBeAttacked> _attackTargets = new();
 
         protected StatsHandler MyStatsHandler;
 
@@ -297,7 +292,7 @@ namespace Mechanics.Enemies
 
                 ShouldMove = Mathf.Abs(DesiredVelocityX) > 0.01f;
 
-                if (DetectEdges && EdgeInFront || shouldSwitch) // TODO: ignore edges in pursuit?
+                if ((DetectEdges && EdgeInFront) || shouldSwitch) // TODO: ignore edges in pursuit?
                 {
                     HandleDirectionSwitch();
                 }
@@ -531,7 +526,6 @@ namespace Mechanics.Enemies
         }
 
         #endregion
-
 
     }
 }

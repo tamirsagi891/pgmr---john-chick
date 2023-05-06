@@ -1,6 +1,6 @@
 ﻿namespace Mechanics.Enemies
 {
-    public interface IAttackStrategy  // TODO: Created by ChatGPT
+    public interface IAttackStrategy // TODO: Created by ChatGPT
     {
         public bool IsAttacking { get; }
         public bool Attack();

@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using Logger = Nemesh.Logger;
+﻿using UnityEngine;
 
 namespace Mechanics.Enemies
 {
@@ -15,9 +13,18 @@ namespace Mechanics.Enemies
 
         #endregion
 
+        #region Private Method
+
+        private void Disable()
+        {
+            gameObject.SetActive(false);
+        }
+
+        #endregion
+
         #region Private Fields
 
-        private int _groundCounter;  // TODO: list?
+        private int _groundCounter; // TODO: list?
 
         private int GroundCounter
         {
@@ -30,9 +37,9 @@ namespace Mechanics.Enemies
         }
 
         #endregion
-        
+
         #region MonoBehaviour
-        
+
         private void OnEnable()
         {
             npcToReportTo.events.onDeath.AddListener(Disable);
@@ -55,13 +62,5 @@ namespace Mechanics.Enemies
 
         #endregion
 
-        #region Private Method
-
-        private void Disable()
-        {
-            gameObject.SetActive(false);
-        }
-
-        #endregion
     }
 }

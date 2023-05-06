@@ -2,13 +2,13 @@
 
 namespace Mechanics.Enemies
 {
-    
+
     [RequireComponent(typeof(Collider2D))]
     public abstract class BaseNpcEffector : MonoBehaviour
     {
 
         #region Inspector
-        
+
         [Header("Base Npc Effector")]
         [SerializeField]
         private bool effectActive = true;
@@ -23,6 +23,7 @@ namespace Mechanics.Enemies
             {
                 return;
             }
+
             var npc = other.GetComponentInParent<BaseNpc>();
             if (npc == null)
             {
@@ -38,6 +39,7 @@ namespace Mechanics.Enemies
             {
                 return;
             }
+
             var npc = other.GetComponentInParent<BaseNpc>();
             if (npc == null)
             {
@@ -56,5 +58,6 @@ namespace Mechanics.Enemies
         protected abstract void RemoveEffect(BaseNpc npc);
 
         #endregion
+
     }
 }

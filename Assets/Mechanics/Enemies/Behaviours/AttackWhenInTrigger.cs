@@ -1,48 +1,29 @@
-﻿using System;
-using System.Collections;
-using BitStrap;
-using UnityEngine;
-using Logger = Nemesh.Logger;
+﻿using UnityEngine;
 
 namespace Mechanics.Enemies
 {
     [AddComponentMenu("NPC/Attack Behaviours/Attack When In Trigger")]
     [RequireComponent(typeof(Collider2D))]
-    public class AttackWhenInTrigger : MonoBehaviour  // TODO: type
+    public class AttackWhenInTrigger : MonoBehaviour // TODO: type
     {
 
         #region Inspector
+
         [Space]
         [SerializeField]
         private BaseNpc npcToReportTo;
 
         #endregion
 
-        #region Private Fields
+        #region Private Method
 
-        private Collider2D _myCollider;
-
-        private ICanBeAttacked _attackTarget;
-
-        public ICanBeAttacked AttackTarget
+        private void Disable()
         {
-            get => _attackTarget;
-            set
-            {
-                if (value == null)
-                {
-                    npcToReportTo.AttackTargets.Remove(_attackTarget);
-                }
-                else
-                {
-                    npcToReportTo.AttackTargets.Add(value); // TODO: dont remove if someone else added?
-                }
-                _attackTarget = value;
-            }
+            gameObject.SetActive(false);
         }
 
         #endregion
-        
+
         #region MonoBehaviour
 
         private void OnEnable()
@@ -55,7 +36,7 @@ namespace Mechanics.Enemies
             npcToReportTo.events.onDeath.RemoveListener(Disable);
         }
 
-        private void Start()  // TODO: make this also the attack strategy controller? or separate object?
+        private void Start() // TODO: make this also the attack strategy controller? or separate object?
         {
             _myCollider = GetComponent<Collider2D>();
         }
@@ -77,17 +58,36 @@ namespace Mechanics.Enemies
                 AttackTarget = null;
             }
         }
-        
 
         #endregion
 
-        #region Private Method
 
-        private void Disable()
+        #region Private Fields
+
+        private Collider2D _myCollider;
+
+        private ICanBeAttacked _attackTarget;
+
+        public ICanBeAttacked AttackTarget
         {
-            gameObject.SetActive(false);
+            get => _attackTarget;
+            set
+            {
+                if (value == null)
+                {
+                    npcToReportTo.AttackTargets.Remove(_attackTarget);
+                }
+                else
+                {
+                    npcToReportTo.AttackTargets.Add(value); // TODO: dont remove if someone else added?
+                }
+
+                _attackTarget = value;
+            }
         }
 
         #endregion
+
+
     }
 }

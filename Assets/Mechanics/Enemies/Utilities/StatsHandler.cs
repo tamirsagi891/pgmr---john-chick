@@ -1,8 +1,5 @@
-﻿using System;
-using Avrahamy.Math;
-using BitStrap;
+﻿using BitStrap;
 using UnityEngine;
-using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
@@ -11,22 +8,14 @@ namespace Mechanics.Enemies
     [DisallowMultipleComponent]
     public class StatsHandler : MonoBehaviour
     {
+
         #region Inspector
-        
+
         [HelpBox("This are Play only - and are initialized from the scriptable object!")]
         [Header("Current Stats")]
         [SerializeField]
-        [ReadOnly(onlyInEditor=true)]
+        [ReadOnly(onlyInEditor = true)]
         private NpcStats currentStats;
-
-        #endregion
-
-        #region Private Fields
-
-        private BaseNpc _myNpc;
-        private NpcStats _initialStats;
-
-        public NpcStats CurrentStats => currentStats;
 
         #endregion
 
@@ -40,23 +29,15 @@ namespace Mechanics.Enemies
 
         #endregion
 
-        #region Public Methods
+        #region Private Fields
 
-        public float TakeDamage(float dmgTaken)
-        {
-            Hp -= dmgTaken - CurrentStats.defense + CurrentStats.deBuff;
-            return Hp;
-        }
-        
-        public void ApplyDamageMultiplier(float multiplier)
-        {
-            currentStats.hp *= multiplier;
-            currentStats.damage *= multiplier;
-            currentStats.defense *= multiplier;
-        }
+        private BaseNpc _myNpc;
+        private NpcStats _initialStats;
+
+        public NpcStats CurrentStats => currentStats;
 
         #endregion
-        
+
         #region MonoBehaviour
 
         private void Awake()
@@ -65,7 +46,7 @@ namespace Mechanics.Enemies
             _initialStats = _myNpc.NpcData.stats;
             RestoreInitialStats();
         }
-        
+
         #endregion
 
         #region Public Methods
@@ -76,6 +57,20 @@ namespace Mechanics.Enemies
             currentStats = _initialStats.Copy();
         }
 
+        public float TakeDamage(float dmgTaken)
+        {
+            Hp -= dmgTaken - CurrentStats.defense + CurrentStats.deBuff;
+            return Hp;
+        }
+
+        public void ApplyDamageMultiplier(float multiplier)
+        {
+            currentStats.hp *= multiplier;
+            currentStats.damage *= multiplier;
+            currentStats.defense *= multiplier;
+        }
+
         #endregion
+
     }
 }

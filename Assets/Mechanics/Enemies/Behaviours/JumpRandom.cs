@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using BitStrap;
+﻿using System.Collections;
 using UnityEngine;
-using Logger = Nemesh.Logger;
-using Random = UnityEngine.Random;
 
 namespace Mechanics.Enemies
 {
-    
-    [AddComponentMenu("NPC/Behaviours/Jump Random")]  // TODO: add for random dash, death, stop/start movement, etc
+
+    [AddComponentMenu("NPC/Behaviours/Jump Random")] // TODO: add for random dash, death, stop/start movement, etc
     public class JumpRandom : MonoBehaviour
     {
 
@@ -17,16 +13,16 @@ namespace Mechanics.Enemies
         [SerializeField]
         [Min(0)]
         private float factor = 3f;
-        
+
         [Space]
         [SerializeField]
         private BaseNpc npcToReportTo;
 
         #endregion
-        
+
 
         #region MonoBehaviour
-        
+
         private void OnEnable()
         {
             npcToReportTo.events.onDeath.AddListener(Disable);

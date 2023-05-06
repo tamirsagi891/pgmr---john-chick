@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
-using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
     [AddComponentMenu("Player/Player Attack Controller")]
     public class PlayerAttackController : MonoBehaviour, IAttacker, ICanBeAttacked
     {
-
-
         public bool Attack(ICanBeAttacked attackTarget)
         {
             return true;

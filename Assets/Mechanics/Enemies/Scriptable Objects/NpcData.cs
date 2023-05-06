@@ -1,8 +1,6 @@
 ﻿using System;
 using BitStrap;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Mechanics.Enemies
 {
@@ -60,10 +58,10 @@ namespace Mechanics.Enemies
         public float extraDashSpeed = 10f;
 
         [SerializeField]
-        public float defense = 0f;
+        public float defense;
 
         [SerializeField]
-        public float deBuff = 0f;
+        public float deBuff;
 
         public override string ToString()
         {

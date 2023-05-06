@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using Logger = Nemesh.Logger;
+﻿using UnityEngine;
 
 namespace Mechanics.Enemies
 {
@@ -18,6 +16,15 @@ namespace Mechanics.Enemies
         #region Private Fields
 
         private int _groundContacts;
+
+        #endregion
+
+        #region Private Methods
+
+        private void Disable()
+        {
+            gameObject.SetActive(false);
+        }
 
         #endregion
 
@@ -43,15 +50,6 @@ namespace Mechanics.Enemies
         {
             _groundContacts--;
             npcToReportTo.IsGrounded = _groundContacts > 0;
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void Disable()
-        {
-            gameObject.SetActive(false);
         }
 
         #endregion

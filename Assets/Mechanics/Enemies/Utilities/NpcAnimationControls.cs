@@ -2,8 +2,6 @@
 using Avrahamy;
 using BitStrap;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
@@ -15,6 +13,7 @@ namespace Mechanics.Enemies
         #region Inspector
 
         #region Animator State
+
         [Header("Timers - TODO: ADD TRIGGER TIMERS HERE TOO!")]
         [SerializeField]
         private PassiveTimer edgeChangeTimer = new(0.5f);
@@ -22,7 +21,8 @@ namespace Mechanics.Enemies
         [Header("Animation State")]
         [HelpBox("The parameters are updated onValidate to allow control " +
                  "from the Inspector. From code all updates can be done with the" +
-                 " corresponding public Properties.", HelpBoxAttribute.MessageType.Info)]
+                 " corresponding public Properties.",
+            HelpBoxAttribute.MessageType.Info)]
         [SerializeField]
         private bool canMove = true;
 
@@ -53,7 +53,7 @@ namespace Mechanics.Enemies
 
         [Space]
         [SerializeField]
-        private float yVelocity = 0f;
+        private float yVelocity;
 
         [SerializeField]
         private Direction direction = Direction.Right;
@@ -92,7 +92,7 @@ namespace Mechanics.Enemies
         private Animator myAnimator;
 
         #endregion
-
+        
         #region Animator Properties
 
         #region Transform
@@ -106,10 +106,12 @@ namespace Mechanics.Enemies
                 {
                     return;
                 }
+
                 if (edgeChangeTimer.IsSet && edgeChangeTimer.IsActive)
                 {
                     return;
                 }
+
                 SwitchDirection(value);
             }
         }
@@ -263,7 +265,7 @@ namespace Mechanics.Enemies
                 attack = false;
             }
         }
-        
+
         public bool Hurt
         {
             get => hurt;
@@ -319,7 +321,7 @@ namespace Mechanics.Enemies
         #endregion
 
         #endregion
-
+        
         #region Private Fields
 
         private Direction _currentDirection;
@@ -374,11 +376,11 @@ namespace Mechanics.Enemies
             {
                 edgeChangeTimer.Start();
             }
-            
+
             var currentScale = transform.localScale;
             var xScale = Mathf.Abs(currentScale.x);
             transform.localScale = new Vector3(
-                (value == Direction.Left) ? -xScale : xScale,
+                value == Direction.Left ? -xScale : xScale,
                 currentScale.y,
                 currentScale.z
             );
@@ -426,7 +428,7 @@ namespace Mechanics.Enemies
 
 
     /// <summary>
-    /// This struct can be used to define animator parameters for attached animator component for movement
+    ///     This struct can be used to define animator parameters for attached animator component for movement
     /// </summary>
     [Serializable]
     public struct MovementAnimatorParameters
@@ -455,10 +457,10 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         public TriggerAnimationParameter attack;
-        
+
         [SerializeField]
         public TriggerAnimationParameter hurt;
-        
+
         [Space]
         [SerializeField]
         public FloatAnimationParameter yVelocity;
