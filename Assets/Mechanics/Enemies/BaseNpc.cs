@@ -328,7 +328,7 @@ namespace Mechanics.Enemies
             EdgeInFront = false;
 
             DesiredVelocity.x = 0f;
-            if (MovementBehaviour.EnabledBehaviour)
+            if (MovementBehaviour is { EnabledBehaviour: true })
             {
                 MovementBehaviour?.GoToNextPoint();
             }
