@@ -10,18 +10,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirection))]
 public class PlayerController : MonoBehaviour
 {
-    [Space(10)] [Header("Dashing")] private bool _canDash = true;
-    private bool _isDashing;
-    [SerializeField] private float dashingSpeed = 24f;
-    private float dashingTime = 0.2f;
-    private float dashingCoolDown = 1f;
-    private TrailRenderer tr;
-
-    [Space(10)] [Header("Dodge Roll")] private bool _canDodgeRoll = true;
-    private bool _isDodgeRoll;
-    [SerializeField] private float _dodgeRollSpeed = 24f;
-    private float dodgeRollTime = 0.2f;
-    private float dodgeRollCoolDown = 1f;
+    
 
     [Space(10)] [Header("Gliding")] private bool _canGlide = true;
 
@@ -37,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _movementInput;
     private bool _isMoving;
 
-    private bool IsMoving
+    public bool IsMoving
     {
         get => _isMoving;
         set
@@ -47,36 +36,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool _isRunning;
-    [SerializeField] private float runSpeed = 8f;
-
-    public bool IsRunning
-    {
-        get => _isRunning;
-        private set
-        {
-            _isRunning = value;
-            _animator.SetBool(AnimationStrings.isRunning, value);
-        }
-    }
-
     [Space(10)] [Header("Touching")] private TouchingDirection _touchingDirection;
-
-    [Space(10)] [Header("Facing")] private bool _isFacingRight = true;
-
-    private bool IsFacingRight
-    {
-        get => _isFacingRight;
-        set
-        {
-            if (_isFacingRight != value)
-            {
-                transform.localScale *= new Vector2(-1, 1);
-            }
-
-            _isFacingRight = value;
-        }
-    }
 
     [Space(10)] [Header("Jumping")] [SerializeField]
     private float jumpImpulse = 5f;
@@ -84,93 +44,58 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float doubleJumpImpulse = 5f;
     private bool _canDoubleJump = true;
 
-
-    [Space(10)] [Header("Crouching")] private bool _isCrouching;
-    [SerializeField] private float crouchingWalkSpeed = 3f;
-
-    private bool IsCrouching
-    {
-        get => _isCrouching;
-        set
-        {
-            if (_isCrouching != value)
-            {
-                
-                _animator.SetBool(AnimationStrings.isCrouching, value);
-            }
-
-            _isCrouching = value;
-
-            ChangeCollider(value ? ColliderKind.Circle : ColliderKind.Capsule);
-        }
-    }
-
     [Space(10)] [Header("Components")] private Rigidbody2D _rB;
     private Animator _animator;
 
     [Space(10)] [Header("Collider")] private CapsuleCollider2D _capsuleCollider2D;
     private CircleCollider2D _circleCollider2D;
 
-    enum ColliderKind
+    public enum ColliderKind
     {
         Capsule,
         Circle,
         DodgeRoll
     }
 
-    // [Space(10)] [Header("Wall Movement")]
-    
+    [Space(10)] [Header("Wall Movement")] [SerializeField]
+    private bool _isWallSliding;
+
+    [SerializeField] private float wallSlidingSpeed = 2f;
+
+    private bool _isInWallJump;
+    private bool _wallJump;
+    [SerializeField] private Vector2 wallJumpingPower = new Vector2(8f, 4f);
+    [SerializeField] private float wallJumpingTime = 0.3f;
+    private float _wallJumpingTimer;
+
     private float CurrentMoveSpeed
     {
         get
         {
             if (CanMove)
             {
-                if (_isDodgeRoll)
-                {
-                    return _dodgeRollSpeed;
-                }
-
-                if (_isDashing)
-                {
-                    return dashingSpeed;
-                }
-
+                
                 if (_isMoving && !_touchingDirection.IsOnWall)
                 {
                     if (_touchingDirection.IsGrounded)
                     {
-                        if (IsCrouching)
-                        {
-                            return crouchingWalkSpeed;
-                        }
-
-                        if (IsRunning)
-                        {
-                            return runSpeed;
-                        }
-                        else
-                        {
-                            return walkSpeed;
-                        }
+                       
                     }
+
+
                     else
                     {
-                        return airWalkSpeed;
+                        return 0;
                     }
                 }
-
-
                 else
                 {
+                    //Movement lock
                     return 0;
                 }
             }
-            else
-            {
-                //Movement lock
-                return 0;
-            }
+
+            return 0;
         }
     }
 
@@ -181,7 +106,6 @@ public class PlayerController : MonoBehaviour
         _originalGravity = _rB.gravityScale;
         _animator = GetComponent<Animator>();
         _touchingDirection = GetComponent<TouchingDirection>();
-        tr = GetComponent<TrailRenderer>();
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         _circleCollider2D = GetComponent<CircleCollider2D>();
         ChangeCollider(ColliderKind.Capsule);
@@ -189,26 +113,82 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        _rB.velocity = new Vector2(_movementInput.x * CurrentMoveSpeed, _rB.velocity.y);
-        if (_movementInput.x == 0 && _isDashing)
-        {
-            _rB.velocity = new Vector2(transform.localScale.x * CurrentMoveSpeed, _rB.velocity.y);
-        }
-
-        _animator.SetFloat(AnimationStrings.yVelocity, _rB.velocity.y);
-        if (_touchingDirection.IsGrounded)
-            _canDoubleJump = true;
-        WallHandler();
+        // if (_isInWallJump)
+        // {
+        //     WallJump();
+        //     return;
+        // }
+        //
+        // // var addVel = new Vector2(_rB.mass* _movementInput.x * CurrentMoveSpeed, 0); 
+        // // _rB.AddForce(addVel, ForceMode2D.Impulse);
+        // _rB.velocity = new Vector2(_movementInput.x * CurrentMoveSpeed, _rB.velocity.y);
+        // if (_movementInput.x == 0 && _isDashing)
+        // {
+        //     _rB.velocity = new Vector2(transform.localScale.x * CurrentMoveSpeed, _rB.velocity.y);
+        // }
+        //
+        // _animator.SetFloat(AnimationStrings.yVelocity, _rB.velocity.y);
+        // if (_touchingDirection.IsGrounded)
+        //     _canDoubleJump = true;
+        //
+        // WallSlide();
     }
 
-    private void WallHandler()
+    private void WallJump()
     {
-        if (_touchingDirection.IsOnWall)
+        if (!_wallJump)
         {
-            
+            _wallJumpingTimer = wallJumpingTime;
+            _wallJump = true;
+            int direction = -Mathf.FloorToInt(Mathf.Sign(_movementInput.x));
+            var addVel = new Vector2(direction * wallJumpingPower.x, wallJumpingPower.y);
+            _rB.AddForce(addVel, ForceMode2D.Impulse);
+        }
+
+        _wallJumpingTimer -= Time.deltaTime;
+        if (_wallJumpingTimer < 0)
+        {
+            _isInWallJump = false;
+            _wallJump = false;
         }
     }
+
+    private void WallSlide()
+    {
+        //With pressing move to the wall
+        if (_movementInput.x != 0 && _touchingDirection.IsOnWall && !_touchingDirection.IsGrounded)
+            // if (  _touchingDirection.IsOnWall && !_touchingDirection.IsGrounded) //Without 
+        {
+            if (!_isWallSliding)
+            {
+                _animator.SetBool(AnimationStrings.isWallSliding, true);
+                _isWallSliding = true;
+                _rB.velocity = new Vector2(0, -wallSlidingSpeed);
+                _rB.gravityScale = 0;
+            }
+        }
+
+        else
+        {
+            StopWallSlide();
+        }
+
+        if (_touchingDirection.IsGrounded)
+        {
+            StopWallSlide();
+        }
+    }
+
+    private void StopWallSlide()
+    {
+        if (_isWallSliding)
+        {
+            _animator.SetBool(AnimationStrings.isWallSliding, false);
+            _isWallSliding = false;
+            _rB.gravityScale = _originalGravity;
+        }
+    }
+
 
     private bool CanGlide
     {
@@ -218,30 +198,20 @@ public class PlayerController : MonoBehaviour
             return returnValue;
         }
     }
-
-
+    
     public bool CanMove
     {
         get { return _animator.GetBool(AnimationStrings.canMove); }
     }
 
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        if (_isDashing) return;
-        _movementInput = context.ReadValue<Vector2>();
-        IsMoving = (_movementInput != Vector2.zero);
-
-        SetFacingDirection(_movementInput);
-    }
-
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (_isDashing) return;
         //TODO:: CHECK IF ALIVE
-
         if (context.started && CanMove)
         {
+            if (_isWallSliding && !_isInWallJump)
+                _isInWallJump = true;
+
             if (_touchingDirection.IsGrounded)
             {
                 _animator.SetTrigger(AnimationStrings.jumpTrigger);
@@ -261,49 +231,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnCrouch(InputAction.CallbackContext context)
-    {
-        if (_isDashing) return;
-
-        
-        if (context.started && CanMove && !IsCrouching && _touchingDirection.IsGrounded)
-        {
-            IsCrouching = true;
-        }
-
-        else if (context.canceled)
-        {
-            IsCrouching = false;
-        }
-    }
-
-    private void SetFacingDirection(Vector2 movementInput)
-    {
-        if (movementInput.x > 0 && !IsFacingRight)
-        {
-            IsFacingRight = true;
-        }
-
-        else if (movementInput.x < 0 && IsFacingRight)
-        {
-            IsFacingRight = false;
-        }
-    }
-
-
-    public void OnRun(InputAction.CallbackContext context)
-    {
-        if (_isDashing) return;
-        if (context.started)
-        {
-            IsRunning = true;
-        }
-        else if (context.canceled)
-        {
-            IsRunning = false;
-        }
-    }
-
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -311,26 +238,10 @@ public class PlayerController : MonoBehaviour
             _animator.SetTrigger(AnimationStrings.attackTrigger);
         }
     }
-
-    public void OnDash(InputAction.CallbackContext context)
-    {
-        if (context.started && _canDash)
-        {
-            StartCoroutine(Dash());
-        }
-    }
-
-    public void OnDodgeRoll(InputAction.CallbackContext context)
-    {
-        if (context.started && _canDodgeRoll)
-        {
-            StartCoroutine(DodgeRoll());
-        }
-    }
-
+    
     public void OnGlide(InputAction.CallbackContext context)
     {
-        if (context.started && CanGlide)
+        if (context.started && CanGlide && !_isGliding)
         {
             _rB.velocity = new Vector2(_movementInput.x * CurrentMoveSpeed, 0);
 
@@ -347,41 +258,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator Dash()
-    {
-        _canDash = false;
-        _isDashing = true;
-        _rB.gravityScale = 0;
-        tr.emitting = true;
-        _animator.SetTrigger(AnimationStrings.dashTrigger);
-
-
-        yield return new WaitForSeconds(dashingTime);
-
-        tr.emitting = false;
-        _rB.gravityScale = _originalGravity;
-        _isDashing = false;
-
-        yield return new WaitForSeconds(dashingCoolDown);
-        _canDash = true;
-    }
-
-    private IEnumerator DodgeRoll()
-    {
-        _canDodgeRoll = false;
-        _isDodgeRoll = true;
-        _animator.SetTrigger(AnimationStrings.dodgeRollTrigger);
-        yield return new WaitForSeconds(dodgeRollTime);
-        ChangeCollider(ColliderKind.DodgeRoll);
-
-        _isDodgeRoll = false;
-
-        yield return new WaitForSeconds(dodgeRollCoolDown);
-        ChangeCollider(ColliderKind.Capsule);
-        _canDodgeRoll = true;
-    }
-
-    private void ChangeCollider(ColliderKind colliderKind)
+    public void ChangeCollider(ColliderKind colliderKind)
     {
         switch (colliderKind)
         {
@@ -394,7 +271,7 @@ public class PlayerController : MonoBehaviour
                 _capsuleCollider2D.enabled = false;
                 _circleCollider2D.enabled = true;
                 break;
-            
+
             case ColliderKind.DodgeRoll:
                 break;
         }

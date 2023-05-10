@@ -67,7 +67,7 @@ public class TouchingDirection : MonoBehaviour
     private CapsuleCollider2D _capsuleCollider2D;
     private Animator _animator;
 
-    
+    [SerializeField] private LayerMask wallLayer;
     private void Awake()
     {
         _rB = GetComponent<Rigidbody2D>();
