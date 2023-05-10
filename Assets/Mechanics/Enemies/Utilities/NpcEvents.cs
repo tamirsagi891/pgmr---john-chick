@@ -18,6 +18,9 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         public UnityEvent onAttack = new();
+        
+        [SerializeField]
+        public UnityEvent onAttackStart = new();
 
         [SerializeField]
         public UnityEvent onHurt = new();

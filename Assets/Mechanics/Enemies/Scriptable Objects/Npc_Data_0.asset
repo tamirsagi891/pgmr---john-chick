@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Npc_Data_0
   m_EditorClassIdentifier: 
   npcName: Test
+  type: 0
   stats:
     hp: 10
     detectionRadius: 10
@@ -21,4 +22,6 @@ MonoBehaviour:
     movementSpeed: 5
     jumpForce: 15
     extraDashSpeed: 3
+    defense: 0
+    deBuff: 0
   characterIcon: {fileID: 0}

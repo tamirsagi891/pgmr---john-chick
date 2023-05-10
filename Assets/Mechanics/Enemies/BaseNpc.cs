@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Avrahamy;
 using BitStrap;
 using UnityEngine;
@@ -14,7 +16,6 @@ namespace Mechanics.Enemies
     [RequireComponent(typeof(Rigidbody2D))]
     public class BaseNpc : MonoBehaviour, IAttacker, ICanBeAttacked
     {
-
         #region Inspector
 
         [Header("Base NPC Fields")]
@@ -55,6 +56,9 @@ namespace Mechanics.Enemies
         [SerializeField]
         protected bool detectEdges = true;
 
+        [SerializeField]
+        protected bool canAirAttack;
+
         [Space]
         [SerializeField]
         protected bool removeAfterDeath;
@@ -87,7 +91,6 @@ namespace Mechanics.Enemies
                 }
 
                 _movementBehaviour = value;
-
             }
         }
 
@@ -169,7 +172,6 @@ namespace Mechanics.Enemies
         private PlayerAttackController _playerContact; // TODO: change to any target?
 
         protected StatsHandler MyStatsHandler;
-
         private INpcMovementBehaviour _movementBehaviour;
         private Transform _walkTarget; // TODO: create type of WalkTarget?
         protected bool HasDestination;
@@ -217,7 +219,6 @@ namespace Mechanics.Enemies
 
         protected bool HandleTimersAndCheckIfNeedsUpdate()
         {
-
             if (IsDead)
             {
                 if (!removeAfterDeath || removeAfterDeathTimer.IsActive)
@@ -245,21 +246,17 @@ namespace Mechanics.Enemies
 
         protected void HandleAttackUpdate()
         {
-
-            if (AttackTargets.Count == 0)
+            if (AttackTargets.Count == 0 || !canAirAttack && !IsGrounded)
             {
                 return;
             }
-
-            StopMovement(attackTime);
 
             if (AttackCdTimer.IsSet && AttackCdTimer.IsActive) // TODO: this repeats - make it a method of PassiveTImer
             {
                 return;
             }
 
-            AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
-            AttackAllTarget();
+            Attack();
         }
 
         protected void FixedUpdate()
@@ -278,7 +275,6 @@ namespace Mechanics.Enemies
 
         protected void HandleMovementFixedUpdate()
         {
-
             var shouldSwitch = ShouldSwitchDirectionWhenNotMoving();
 
             if (animationControls.IsGrounded) // TODO: Dash + Jump doesnt work cause of this
@@ -305,9 +301,23 @@ namespace Mechanics.Enemies
             }
         }
 
-        protected void HandleDirectionSwitch()
+        protected void AttackAllTarget()
         {
+            events.onAttack.Invoke();
 
+            foreach (var target in AttackTargets)
+            {
+                target.Hurt(this);
+            }
+        }
+
+        #endregion
+
+
+        #region Public Methods
+
+        public void HandleDirectionSwitch()
+        {
             EdgeInFront = false;
 
             DesiredVelocityX = 0f;
@@ -318,11 +328,6 @@ namespace Mechanics.Enemies
 
             animationControls.SwitchDirection();
         }
-
-        #endregion
-
-
-        #region Public Methods
 
         [Button]
         public void Jump()
@@ -375,15 +380,14 @@ namespace Mechanics.Enemies
             return true;
         }
 
-        protected void AttackAllTarget()
+        public void Attack()
         {
-            events.onAttack.Invoke();
-
+            StopMovement(attackTime);
             animationControls.Attack = true;
-            foreach (var target in AttackTargets)
-            {
-                target.Hurt(this);
-            }
+            AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
+            events.onAttackStart.Invoke();
+
+            StartCoroutine(DelayExecution(attackTime, AttackAllTarget));
         }
 
 
@@ -445,6 +449,18 @@ namespace Mechanics.Enemies
             animationControls.CanMove = true;
         }
 
+        public void SwitchMovement(float time)
+        {
+            if (animationControls.CanMove)
+            {
+                StopMovement(time);
+            }
+            else
+            {
+                StartMovement();
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -460,7 +476,6 @@ namespace Mechanics.Enemies
 
         protected bool ShouldSwitchDirectionWhenNotMoving()
         {
-
             var shouldSwitch = false;
             if (!animationControls.IsMoving)
             {
@@ -484,7 +499,6 @@ namespace Mechanics.Enemies
 
         protected bool TakeDamage(float dmgTaken)
         {
-
             events.onHurt.Invoke();
             var newHp = MyStatsHandler.TakeDamage(dmgTaken);
             if (newHp > 0)
@@ -521,11 +535,31 @@ namespace Mechanics.Enemies
         private void StopMovementHelper()
         {
             // TODO: constraint x?
-            MyRigidbody.velocity = Vector2.zero;
+            MyRigidbody.velocity = Vector2.zero; // TODO: Slowdown gradually not immediate
             animationControls.CanMove = false;
         }
 
         #endregion
 
+
+        #region Coroutines
+
+        public static IEnumerator DelayExecution(float delay, Action method, Func<bool> predicate)
+        {
+            yield return new WaitForSeconds(delay);
+            if (predicate())
+            {
+                method();
+            }
+        }
+        
+        public static IEnumerator DelayExecution(float delay, Action method)
+        {
+            yield return new WaitForSeconds(delay);
+            method();
+        }
+
+
+        #endregion
     }
 }

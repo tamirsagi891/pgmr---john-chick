@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
+using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
     [AddComponentMenu("Player/Player Attack Controller")]
     public class PlayerAttackController : MonoBehaviour, IAttacker, ICanBeAttacked
     {
+        [SerializeField]
+        private bool debug;
+        
         public bool Attack(ICanBeAttacked attackTarget)
         {
+            Logger.Log($"Attacking {attackTarget}", this);
             return true;
         }
 
@@ -17,6 +22,7 @@ namespace Mechanics.Enemies
 
         public bool Hurt(IAttacker attacker)
         {
+            Logger.Log($"Attacked By {attacker} for {attacker.GetDamage()} dmg", this);
             return true;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Avrahamy;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Mechanics.Enemies
 {
@@ -10,8 +11,9 @@ namespace Mechanics.Enemies
         #region Inspector
 
         // TODO: get from BaseNpc, or from somewhere else. THIS IS TEMPORARY!
+        [FormerlySerializedAs("attackTimer")]
         [SerializeField]
-        private PassiveTimer attackTimer = new(1f);
+        private PassiveTimer markerTimer = new(0.5f);
 
         [SerializeField]
         public UnityEvent onAttackStart;
@@ -25,13 +27,13 @@ namespace Mechanics.Enemies
 
         private void Update()
         {
-            if (!attackTimer.IsSet || attackTimer.IsActive)
+            if (!markerTimer.IsSet || markerTimer.IsActive)
             {
                 return;
             }
 
             onAttackEnd.Invoke();
-            attackTimer.Clear();
+            markerTimer.Clear();
         }
 
         #endregion
@@ -40,7 +42,7 @@ namespace Mechanics.Enemies
 
         public void StartAttackMark()
         {
-            attackTimer.Start();
+            markerTimer.Start();
             onAttackStart.Invoke();
         }
 

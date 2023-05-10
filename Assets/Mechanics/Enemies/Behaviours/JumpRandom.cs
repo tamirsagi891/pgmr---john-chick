@@ -3,11 +3,9 @@ using UnityEngine;
 
 namespace Mechanics.Enemies
 {
-
     [AddComponentMenu("NPC/Behaviours/Jump Random")] // TODO: add for random dash, death, stop/start movement, etc
     public class JumpRandom : MonoBehaviour
     {
-
         #region Inspector
 
         [SerializeField]
@@ -35,7 +33,7 @@ namespace Mechanics.Enemies
 
         private void Start()
         {
-            StartCoroutine(Jump(factor * Random.value + 0.5f));
+            StartCoroutine(Jump());
         }
 
         #endregion
@@ -51,16 +49,16 @@ namespace Mechanics.Enemies
 
         #region Courotines
 
-        private IEnumerator Jump(float timer)
+        private IEnumerator Jump()
         {
             while (true)
             {
+                var timer = factor * Random.value + 0.5f;
                 yield return new WaitForSeconds(timer);
                 npcToReportTo.Jump();
             }
         }
 
         #endregion
-
     }
 }
