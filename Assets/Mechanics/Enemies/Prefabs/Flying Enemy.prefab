@@ -1,0 +1,247 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4821866908371286023
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 392216878058340298, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: npcToReportTo
+      value: 
+      objectReference: {fileID: 8770152237173548149}
+    - target: {fileID: 1125365599050158354, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310411009702641489, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310411009702641489, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -771825177, guid: a1e5441687d9fab49a684795dc8d76f8, type: 3}
+    - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: myData
+      value: 
+      objectReference: {fileID: 11400000, guid: a29e617e589118e4782850b9801a9de7, type: 2}
+    - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: canAirAttack
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939315884417170792, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: npcToReportTo
+      value: 
+      objectReference: {fileID: 8770152237173548149}
+    - target: {fileID: 3107041115448714735, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: npcToReportTo
+      value: 
+      objectReference: {fileID: 8770152237173548149}
+    - target: {fileID: 4385912583958716559, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_Radius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377912148683450363, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7108527668574679784, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: ff651d0210d19ce41a7b3b10efe0be47, type: 2}
+    - target: {fileID: 7396485745083490297, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_Name
+      value: Flying Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7905515255243837682, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: npcToReportTo
+      value: 
+      objectReference: {fileID: 8770152237173548149}
+    - target: {fileID: 8007055910864002036, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8134560243533061297, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5103
+      objectReference: {fileID: 0}
+    - target: {fileID: 8134560243533061297, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5371
+      objectReference: {fileID: 0}
+    - target: {fileID: 8134560243533061297, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 8134560243533061297, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142108185975888213, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: npcToReportTo
+      value: 
+      objectReference: {fileID: 8770152237173548149}
+    - target: {fileID: 8540338018443971006, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540338018443971006, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 4010457686729158178, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+    - {fileID: 3428389423752297725, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7396485745083490297, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 8770152237173548149}
+  m_SourcePrefab: {fileID: 100100000, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+--- !u!1 &2616361582055090174 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7396485745083490297, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+  m_PrefabInstance: {fileID: 4821866908371286023}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8770152237173548149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2616361582055090174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 423f3519caab4bde97c6bc326ac78576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myData: {fileID: 11400000, guid: a29e617e589118e4782850b9801a9de7, type: 2}
+  animationControls: {fileID: 8483125766429725516}
+  attackController: {fileID: 6587525368756741524}
+  attackTime: 1
+  hurtTime: 1
+  dashTime:
+    duration: 0.5
+  notMovingTimer:
+    duration: 1
+  stopMovementWhileTargetExists: 1
+  detectEdges: 1
+  canAirAttack: 1
+  removeAfterDeath: 0
+  removeAfterDeathTimer:
+    duration: 10
+  events:
+    onJump:
+      m_PersistentCalls:
+        m_Calls: []
+    onDash:
+      m_PersistentCalls:
+        m_Calls: []
+    onPlayerDetected:
+      m_PersistentCalls:
+        m_Calls: []
+    onAttack:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3885345000180925774}
+          m_TargetAssemblyTypeName: Mechanics.Enemies.AttackMarker, Enemies
+          m_MethodName: StartAttackMark
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onAttackStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onHurt:
+      m_PersistentCalls:
+        m_Calls: []
+    onDeath:
+      m_PersistentCalls:
+        m_Calls: []
+    onDisable:
+      m_PersistentCalls:
+        m_Calls: []
+  debug: 0
+  velocitySmoothTime: 0.5
+--- !u!114 &3885345000180925774 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8575191063788109129, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+  m_PrefabInstance: {fileID: 4821866908371286023}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6587525368756741524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf473016cf249b19d79254fe86b3e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6587525368756741524 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1837786459746131347, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+  m_PrefabInstance: {fileID: 4821866908371286023}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8483125766429725516 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3985874337510959947, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+  m_PrefabInstance: {fileID: 4821866908371286023}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95c08a3f214b8f9ff5f8d9ac577c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

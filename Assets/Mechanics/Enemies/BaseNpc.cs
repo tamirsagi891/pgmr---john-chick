@@ -57,7 +57,7 @@ namespace Mechanics.Enemies
         protected bool detectEdges = true;
 
         [SerializeField]
-        protected bool canAirAttack;
+        protected bool canAirAttack; // TODO: move to getter and check Ground/Flying enemy, or to inherited class.
 
         [Space]
         [SerializeField]
@@ -177,13 +177,13 @@ namespace Mechanics.Enemies
         protected bool HasDestination;
 
         protected Rigidbody2D MyRigidbody;
-        protected float DesiredVelocityX;
+        protected Vector2 DesiredVelocity;
         protected Vector2 Velocity;
 
         protected readonly PassiveTimer AttackCdTimer = new();
         protected readonly PassiveTimer StopMovementTimer = new();
 
-        protected bool ShouldMove;
+        protected bool ShouldMove = true;
         protected bool IsDead;
 
         #endregion
@@ -233,6 +233,7 @@ namespace Mechanics.Enemies
             {
                 dashTime.Clear();
                 MyStatsHandler.CurrentStats.movementSpeed -= MyStatsHandler.CurrentStats.extraDashSpeed;
+                animationControls.StopDirectionSwitch = false;
             }
 
             if (!IsDead && StopMovementTimer.IsSet && !StopMovementTimer.IsActive &&
@@ -261,7 +262,7 @@ namespace Mechanics.Enemies
 
         protected void FixedUpdate()
         {
-            animationControls.IsMoving = Mathf.Abs(MyRigidbody.velocity.x) > 0.05f;
+            animationControls.IsMoving = MyRigidbody.velocity.sqrMagnitude > 0.05f;
 
             if (HasDestination)
             {
@@ -273,7 +274,7 @@ namespace Mechanics.Enemies
             }
         }
 
-        protected void HandleMovementFixedUpdate()
+        protected virtual void HandleMovementFixedUpdate()
         {
             var shouldSwitch = ShouldSwitchDirectionWhenNotMoving();
 
@@ -284,9 +285,9 @@ namespace Mechanics.Enemies
 
                 var speed = MyStatsHandler.CurrentStats.movementSpeed;
                 speed = animationControls.Direction == Direction.Left ? -speed : speed;
-                DesiredVelocityX = speed;
+                DesiredVelocity.x = speed;
 
-                ShouldMove = Mathf.Abs(DesiredVelocityX) > 0.01f;
+                ShouldMove = Mathf.Abs(DesiredVelocity.x) > 0.01f;
 
                 if ((DetectEdges && EdgeInFront) || shouldSwitch) // TODO: ignore edges in pursuit?
                 {
@@ -320,7 +321,7 @@ namespace Mechanics.Enemies
         {
             EdgeInFront = false;
 
-            DesiredVelocityX = 0f;
+            DesiredVelocity.x = 0f;
             if (MovementBehaviour.EnabledBehaviour)
             {
                 MovementBehaviour?.GoToNextPoint();
@@ -356,6 +357,7 @@ namespace Mechanics.Enemies
             }
 
             dashTime.Start();
+            animationControls.StopDirectionSwitch = true;
             MyStatsHandler.CurrentStats.movementSpeed += MyStatsHandler.CurrentStats.extraDashSpeed;
             // TODO: Copy elad's implementation
             animationControls.Dash = true;
@@ -465,9 +467,9 @@ namespace Mechanics.Enemies
 
         #region Private Methods
 
-        protected void RunWithoutAcceleration()
+        protected virtual void RunWithoutAcceleration()
         {
-            Velocity.x = DesiredVelocityX;
+            Velocity.x = DesiredVelocity.x;
             var minVelocity = 0.05f; // TODO: expose
             Velocity.x = Mathf.Abs(Velocity.x) < minVelocity ? 0f : Velocity.x;
             Velocity.y = MyRigidbody.velocity.y; // TODO: change to some gravity?
@@ -537,6 +539,7 @@ namespace Mechanics.Enemies
             // TODO: constraint x?
             MyRigidbody.velocity = Vector2.zero; // TODO: Slowdown gradually not immediate
             animationControls.CanMove = false;
+            MyRigidbody.gravityScale = 1f;
         }
 
         #endregion

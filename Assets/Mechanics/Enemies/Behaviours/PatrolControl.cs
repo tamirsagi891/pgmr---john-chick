@@ -24,6 +24,9 @@ namespace Mechanics.Enemies
         [SerializeField]
         private float minDistanceToTarget = 0.3f;
 
+        [SerializeField]
+        private bool checkBothAxis;
+
         [Space]
         [SerializeField]
         private BaseNpc npcToReportTo;
@@ -90,14 +93,13 @@ namespace Mechanics.Enemies
         {
             if (_hasTarget && EnabledBehaviour)
             {
-                if (Mathf.Abs(npcToReportTo.transform.position.x - Target.transform.position.x) <
-                    minDistanceToTarget) // TODO: optimize distance check
+                if (CheckDistance()) // TODO: optimize distance check
                 {
                     GoToNextPoint();
                 }
             }
         }
-
+        
         #endregion
 
         #region Public Methods
@@ -166,6 +168,18 @@ namespace Mechanics.Enemies
         {
             gameObject.SetActive(false);
         }
+        
+        private bool CheckDistance()
+        {
+            if (checkBothAxis)
+            {
+                return Vector2.Distance(npcToReportTo.transform.position, Target.transform.position) < 
+                       minDistanceToTarget;
+            }
+            return Mathf.Abs(npcToReportTo.transform.position.x - Target.transform.position.x) <
+                   minDistanceToTarget;
+        }
+
 
         #endregion
 

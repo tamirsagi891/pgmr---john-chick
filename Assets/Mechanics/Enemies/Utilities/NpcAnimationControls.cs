@@ -102,7 +102,7 @@ namespace Mechanics.Enemies
             get => _currentDirection;
             set
             {
-                if (value == _currentDirection)
+                if (value == _currentDirection || StopDirectionSwitch)
                 {
                     return;
                 }
@@ -115,6 +115,8 @@ namespace Mechanics.Enemies
                 SwitchDirection(value);
             }
         }
+
+        public bool StopDirectionSwitch { get; set; }
 
         #endregion
 

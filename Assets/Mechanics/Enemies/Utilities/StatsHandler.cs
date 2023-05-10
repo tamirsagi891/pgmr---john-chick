@@ -4,7 +4,6 @@ using UnityEngine;
 namespace Mechanics.Enemies
 {
     [AddComponentMenu("NPC/Stats Handler", -1)]
-    [RequireComponent(typeof(BaseNpc))]
     [DisallowMultipleComponent]
     public class StatsHandler : MonoBehaviour
     {
