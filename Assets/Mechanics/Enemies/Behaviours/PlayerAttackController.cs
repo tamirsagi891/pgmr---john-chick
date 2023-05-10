@@ -12,6 +12,7 @@ namespace Mechanics.Enemies
         public bool Attack(ICanBeAttacked attackTarget)
         {
             Logger.Log($"Attacking {attackTarget}", this);
+            attackTarget.Hurt(this);
             return true;
         }
 
