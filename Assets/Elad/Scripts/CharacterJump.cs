@@ -17,28 +17,33 @@ public class CharacterJump : MonoBehaviour
     [Header("Jumping Stats")] [SerializeField, Range(2f, 5.5f)]
     private float maxJumpHeight = 7.3f;
 
-    [SerializeField, Range(0.2f, 1.25f)] private float timeToReachMaxHeight = 0.2f;
+    [SerializeField, Range(0.2f, 1.25f)] private float timeToReachPeakHeight;
 
     [SerializeField, Range(0f, 5f)] [Tooltip("Gravity multiplier to apply when going up")]
-    public float gravityPercentagesUp = 1f;
+    private float gravityMultiplierAscending = 1f;
 
     [SerializeField, Range(1f, 10f)] [Tooltip("Gravity multiplier to apply when coming down")]
-    public float downwardMovementMultiplier = 6.17f;
+    private float gravityMultiplierDescending = 6.17f;
 
     [Header("Options")] [SerializeField] private bool canDoubleJump;
-    [SerializeField] private bool dropWhenStopPushing;
+    [SerializeField] private bool dropWhenStopPushingJump;
 
     [SerializeField, Range(1f, 10f)] private float gravityPercentLetGoJump;
 
     [SerializeField] [Tooltip("The fastest speed the character can fall")]
-    public float speedLimit;
+    private float maxFallSpeed;
 
     [SerializeField, Range(0f, 0.3f)] [Tooltip("How long should coyote time last?")]
-    public float coyoteTime = 0.15f;
+    private float coyoteTime = 0.15f;
 
     [SerializeField, Range(0f, 0.3f)] [Tooltip("How far from ground should we cache your jump?")]
-    public float jumpBuffer = 0.15f;
+    private float jumpBuffer = 0.15f;
 
+    [Header("Double Jump")] 
+    [SerializeField, Range(1f, 3f)] private float doubleJumpMultiplier = 1.5f;
+
+    private bool _canDoubleJump;
+    
     [Header("Calculations")] private float _jumpSpeed;
     private float _defaultGravityScale;
     private float _gravMultiplier;
@@ -48,7 +53,7 @@ public class CharacterJump : MonoBehaviour
     private float _jumpBufferCounter;
     private float _coyoteTimeCounter = 0;
     private bool _pressingJump;
-    public bool onGround;
+    private bool onGround;
     private bool _currentlyJumping;
 
     void Awake()
@@ -58,6 +63,7 @@ public class CharacterJump : MonoBehaviour
         _touchingDirection = GetComponent<TouchingDirection>();
         _defaultGravityScale = 1f;
         _playerController = GetComponent<PlayerController>();
+        _animator = GetComponent<Animator>();
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -84,7 +90,7 @@ public class CharacterJump : MonoBehaviour
     {
         setPhysics();
 
-        //Check if we're on ground, using Kit's Ground script
+        //Check if we're on ground.
         onGround = _touchingDirection.IsGrounded;
 
         //Jump buffer allows us to queue up a jump, which will play when we next hit the ground
@@ -121,7 +127,7 @@ public class CharacterJump : MonoBehaviour
     private void setPhysics()
     {
         //Determine the character's gravity scale, using the stats provided. Multiply it by a _gravMultiplier, used later
-        Vector2 newGravity = new Vector2(0, (-2 * maxJumpHeight) / (timeToReachMaxHeight * timeToReachMaxHeight));
+        Vector2 newGravity = new Vector2(0, (-2 * maxJumpHeight) / (timeToReachPeakHeight * timeToReachPeakHeight));
         _rB.gravityScale = (newGravity.y / Physics2D.gravity.y) * _gravMultiplier;
     }
 
@@ -142,6 +148,8 @@ public class CharacterJump : MonoBehaviour
         }
 
         calculateGravity();
+        _animator.SetFloat(AnimationStrings.yVelocity, _rB.velocity.y);
+
     }
 
     private void calculateGravity()
@@ -159,12 +167,12 @@ public class CharacterJump : MonoBehaviour
             else
             {
                 //If we're using variable jump height...)
-                if (dropWhenStopPushing)
+                if (dropWhenStopPushingJump)
                 {
                     //Apply upward multiplier if player is rising and holding jump
                     if (_pressingJump && _currentlyJumping)
                     {
-                        _gravMultiplier = gravityPercentagesUp;
+                        _gravMultiplier = gravityMultiplierAscending;
                     }
                     //But apply a special downward multiplier if the player lets go of jump
                     else
@@ -174,7 +182,7 @@ public class CharacterJump : MonoBehaviour
                 }
                 else
                 {
-                    _gravMultiplier = gravityPercentagesUp;
+                    _gravMultiplier = gravityMultiplierAscending;
                 }
             }
         }
@@ -190,7 +198,7 @@ public class CharacterJump : MonoBehaviour
             else
             {
                 //Otherwise, apply the downward gravity multiplier as Kit comes back to Earth
-                _gravMultiplier = downwardMovementMultiplier;
+                _gravMultiplier = gravityMultiplierDescending;
             }
         }
         //Else not moving vertically at all
@@ -206,26 +214,34 @@ public class CharacterJump : MonoBehaviour
 
         //Set the character's Rigidbody's _velocity
         //But clamp the Y variable within the bounds of the speed limit, for the terminal _velocity assist option
-        _rB.velocity = new Vector3(_velocity.x, Mathf.Clamp(_velocity.y, -speedLimit, 100));
+        _rB.velocity = new Vector3(_velocity.x, Mathf.Clamp(_velocity.y, -maxFallSpeed, 100));
     }
 
     private void DoAJump()
     {
-        //Create the jump, provided we are on the ground, in coyote time, or have a double jump available
+        // Create the jump, provided we are on the ground, in coyote time, or have a double jump available
         if (onGround || (_coyoteTimeCounter > 0.03f && _coyoteTimeCounter < coyoteTime) || canJumpAgain)
         {
             _desiredJump = false;
             _jumpBufferCounter = 0;
             _coyoteTimeCounter = 0;
 
-            //If we have double jump on, allow us to jump again (but only once)
-            canJumpAgain = (canDoubleJump && canJumpAgain == false);
+            // If we have double jump on, allow us to jump again (but only once)
+            bool isInDoubleJump = canDoubleJump && (canJumpAgain == false);
+            canJumpAgain = isInDoubleJump;
 
-            //Determine the power of the jump, based on our gravity and stats
+            // Determine the power of the jump, based on our gravity and stats
             _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * _rB.gravityScale * maxJumpHeight);
 
-            //If Kit is moving up or down when she jumps (such as when doing a double jump), change the _jumpSpeed;
-            //This will ensure the jump is the exact same strength, no matter your _velocity.
+            // Apply double jump multiplier if it's a double jump
+            if (isInDoubleJump)
+            {
+                _jumpSpeed *= doubleJumpMultiplier;
+                
+            }
+
+            // If Kit is moving up or down when she jumps (such as when doing a double jump), change the _jumpSpeed;
+            // This will ensure the jump is the exact same strength, no matter your _velocity.
             if (_velocity.y > 0f)
             {
                 _jumpSpeed = Mathf.Max(_jumpSpeed - _velocity.y, 0f);
@@ -235,18 +251,25 @@ public class CharacterJump : MonoBehaviour
                 _jumpSpeed += Mathf.Abs(_rB.velocity.y);
             }
 
-            //Apply the new _jumpSpeed to the _velocity. It will be sent to the Rigidbody in FixedUpdate;
+            // Apply the new _jumpSpeed to the _velocity. It will be sent to the Rigidbody in FixedUpdate;
+            var whichJumpAnimation =  AnimationStrings.jumpTrigger;
+            if (_rB.velocity.y != 0 && !isInDoubleJump)
+            {
+                whichJumpAnimation = AnimationStrings.doubleJumpTrigger;
+            }
+            _animator.SetTrigger(whichJumpAnimation);
+
             _velocity.y += _jumpSpeed;
-            print(canJumpAgain);
             _currentlyJumping = true;
         }
 
         if (jumpBuffer == 0)
         {
-            //If we don't have a jump buffer, then turn off _desiredJump immediately after hitting jumping
+            // If we don't have a jump buffer, then turn off _desiredJump immediately after hitting jumping
             _desiredJump = false;
         }
     }
+
 
     public void bounceUp(float bounceAmount)
     {
