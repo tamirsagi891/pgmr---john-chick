@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
+using Avrahamy;
 using BitStrap;
 using UnityEngine;
+using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
     [AddComponentMenu("NPC/Behaviours/Patrol")]
     public class PatrolControl : MonoBehaviour, INpcMovementBehaviour
     {
-
-
         #region Inspector
 
         [HelpBox("The patrol points should be children of this object", HelpBoxAttribute.MessageType.Info)]
@@ -24,6 +24,9 @@ namespace Mechanics.Enemies
         [SerializeField]
         private float minDistanceToTarget = 0.3f;
 
+        [SerializeField]
+        private bool checkBothAxis;
+        
         [Space]
         [SerializeField]
         private BaseNpc npcToReportTo;
@@ -56,6 +59,8 @@ namespace Mechanics.Enemies
 
         private bool _hasTarget;
 
+        private PassiveTimer _delayTimer = new();
+
         #endregion
 
         #region MonoBehaviour
@@ -65,7 +70,6 @@ namespace Mechanics.Enemies
             npcToReportTo.MovementBehaviour = this;
             // TODO: Control from BaseNpc
             EnabledBehaviour = true;
-
         }
 
         public void OnEnable()
@@ -88,13 +92,28 @@ namespace Mechanics.Enemies
 
         private void FixedUpdate()
         {
-            if (_hasTarget && EnabledBehaviour)
+            // switch (_delayTimer.IsSet)
+            // {
+            //     case true when !_delayTimer.IsActive:
+            //         _delayTimer.Clear();
+            //         GoToNextPoint();
+            //         return;
+            //     case true:
+            //         return;
+            // }
+
+            if (_hasTarget && EnabledBehaviour && CheckDistance())
             {
-                if (Mathf.Abs(npcToReportTo.transform.position.x - Target.transform.position.x) <
-                    minDistanceToTarget) // TODO: optimize distance check
+                if (target.DelayAtPoint)
                 {
-                    GoToNextPoint();
+                    // _delayTimer.Start(target.DelayTime);
+                    npcToReportTo.StopMovement(target.DelayTime); 
+                    // TODO: inform that we are stopping at the point and let the npc decide instead.
                 }
+                // else
+                // {
+                GoToNextPoint();
+                // }
             }
         }
 
@@ -167,7 +186,18 @@ namespace Mechanics.Enemies
             gameObject.SetActive(false);
         }
 
-        #endregion
+        private bool CheckDistance()
+        {
+            if (checkBothAxis)
+            {
+                return Vector2.Distance(npcToReportTo.transform.position, Target.transform.position) <
+                       minDistanceToTarget;
+            }
 
+            return Mathf.Abs(npcToReportTo.transform.position.x - Target.transform.position.x) <
+                   minDistanceToTarget;
+        }
+
+        #endregion
     }
 }
