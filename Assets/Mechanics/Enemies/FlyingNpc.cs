@@ -13,6 +13,12 @@ namespace Mechanics.Enemies
         [SerializeField]
         private float velocitySmoothTime = 0.5f;
 
+        public override bool IsGrounded 
+        {
+            get => animationControls.IsGrounded && !animationControls.CanMove;
+            set => animationControls.IsGrounded = value;
+        }
+
         protected override void HandleMovementFixedUpdate()
         {
             if (animationControls.CanMove)
@@ -33,6 +39,10 @@ namespace Mechanics.Enemies
                 }
 
                 RunWithoutAcceleration();
+            }
+            else if (hasDefaultDirection)
+            {
+                animationControls.Direction = defaultDirection;
             }
         }
 

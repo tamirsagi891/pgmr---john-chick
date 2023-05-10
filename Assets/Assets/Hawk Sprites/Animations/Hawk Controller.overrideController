@@ -9,8 +9,6 @@ AnimatorOverrideController:
   m_Name: Hawk Controller
   m_Controller: {fileID: 9100000, guid: 6079975db6c0c6940905605fa6d3b866, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: f80c159bf43128448a1841fc87b43696, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 49287325c8a7d8e4cb9b32a5205917da, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 58022acb34f36a84b9c495818e9ef2c9, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 49287325c8a7d8e4cb9b32a5205917da, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 1beb406eb0a7a6d428d1c57c997bedac, type: 2}
@@ -23,3 +21,5 @@ AnimatorOverrideController:
     m_OverrideClip: {fileID: 7400000, guid: 49287325c8a7d8e4cb9b32a5205917da, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: a24ecf59f9f73d94fb39a9d5b9312dc4, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 49287325c8a7d8e4cb9b32a5205917da, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f80c159bf43128448a1841fc87b43696, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0177803cefcc7d74da5ade10458be6a1, type: 2}

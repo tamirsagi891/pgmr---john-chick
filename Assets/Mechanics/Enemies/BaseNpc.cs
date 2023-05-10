@@ -94,7 +94,7 @@ namespace Mechanics.Enemies
             }
         }
 
-        public bool IsGrounded
+        public virtual bool IsGrounded
         {
             get => animationControls.IsGrounded;
             set => animationControls.IsGrounded = value;
@@ -164,7 +164,7 @@ namespace Mechanics.Enemies
         }
 
         public Direction CurrentDirection => animationControls.Direction;
-
+        
         #endregion
 
         #region Private Fields
@@ -185,6 +185,9 @@ namespace Mechanics.Enemies
 
         protected bool ShouldMove = true;
         protected bool IsDead;
+
+        protected Direction defaultDirection;
+        protected bool hasDefaultDirection;
 
         #endregion
 
@@ -278,27 +281,30 @@ namespace Mechanics.Enemies
         {
             var shouldSwitch = ShouldSwitchDirectionWhenNotMoving();
 
-            if (animationControls.IsGrounded) // TODO: Dash + Jump doesnt work cause of this
-            {
-                var targetLeft = _walkTarget.position.x < transform.position.x;
-                animationControls.Direction = targetLeft ? Direction.Left : Direction.Right;
-
-                var speed = MyStatsHandler.CurrentStats.movementSpeed;
-                speed = animationControls.Direction == Direction.Left ? -speed : speed;
-                DesiredVelocity.x = speed;
-
-                ShouldMove = Mathf.Abs(DesiredVelocity.x) > 0.01f;
-
-                if ((DetectEdges && EdgeInFront) || shouldSwitch) // TODO: ignore edges in pursuit?
-                {
-                    HandleDirectionSwitch();
-                }
-            }
-
-
             if (animationControls.CanMove)
             {
+                if (IsGrounded) // TODO: Dash + Jump doesnt work cause of this
+                {
+                    var targetLeft = _walkTarget.position.x < transform.position.x;
+                    animationControls.Direction = targetLeft ? Direction.Left : Direction.Right;
+
+                    var speed = MyStatsHandler.CurrentStats.movementSpeed;
+                    speed = animationControls.Direction == Direction.Left ? -speed : speed;
+                    DesiredVelocity.x = speed;
+
+                    ShouldMove = Mathf.Abs(DesiredVelocity.x) > 0.01f;
+
+                    if ((DetectEdges && EdgeInFront) || shouldSwitch) // TODO: ignore edges in pursuit?
+                    {
+                        HandleDirectionSwitch();
+                    }
+                }
+                
                 RunWithoutAcceleration();
+            }
+            else if (hasDefaultDirection)
+            {
+                animationControls.Direction = defaultDirection;
             }
         }
 
@@ -333,7 +339,7 @@ namespace Mechanics.Enemies
         [Button]
         public void Jump()
         {
-            if (!animationControls.IsGrounded)
+            if (!IsGrounded)
             {
                 return;
             }
@@ -412,7 +418,8 @@ namespace Mechanics.Enemies
             animationControls.IsDead = true;
 
             StopMovementHelper();
-            MyRigidbody.constraints |= RigidbodyConstraints2D.FreezePositionX;
+            MyRigidbody.gravityScale = 1f;
+            MyRigidbody.constraints |= RigidbodyConstraints2D.FreezePositionX;  // TODO: do we want to?
 
             events.onDeath.Invoke();
             // TODO: collider to sprite?
@@ -461,6 +468,17 @@ namespace Mechanics.Enemies
             {
                 StartMovement();
             }
+        }
+
+        public void SetDefaultDirection(Direction newDir)
+        {
+            defaultDirection = newDir;
+            hasDefaultDirection = true;
+        }
+
+        public void RemoveDefaultDirection()
+        {
+            hasDefaultDirection = false;
         }
 
         #endregion
@@ -539,7 +557,6 @@ namespace Mechanics.Enemies
             // TODO: constraint x?
             MyRigidbody.velocity = Vector2.zero; // TODO: Slowdown gradually not immediate
             animationControls.CanMove = false;
-            MyRigidbody.gravityScale = 1f;
         }
 
         #endregion
