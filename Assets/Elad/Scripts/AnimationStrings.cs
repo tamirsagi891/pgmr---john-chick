@@ -29,9 +29,12 @@ internal static class AnimationStrings
     
     public static string isAlive = "isAlive";
     public static string isHit = "isHit";
-    public static string hitTrigger = "Hit";
+    public static string hitTrigger = "hit";
 
     public static string lockVelocity = "lockVelocity";
+    public static string attackCoolDown = "attackCoolDown";
+    public static string arrowAttack = "arrow_attack";
+    
 
 
 

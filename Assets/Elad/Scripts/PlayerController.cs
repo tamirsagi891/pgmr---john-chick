@@ -10,7 +10,6 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirection))]
 public class PlayerController : MonoBehaviour
 {
-    
     [Space(10)] [Header("Movement")] [SerializeField]
     private float airWalkSpeed = 3f;
 
@@ -31,7 +30,6 @@ public class PlayerController : MonoBehaviour
     [Space(10)] [Header("Touching")] private TouchingDirection _touchingDirection;
 
 
-
     [Space(10)] [Header("Components")] private Rigidbody2D _rB;
     private Animator _animator;
 
@@ -48,44 +46,12 @@ public class PlayerController : MonoBehaviour
     [Space(10)] [Header("Wall Movement")] [SerializeField]
     private bool _isWallSliding;
 
-    [SerializeField] private float wallSlidingSpeed = 2f;
 
     private bool _isInWallJump;
     private bool _wallJump;
-    [SerializeField] private Vector2 wallJumpingPower = new Vector2(8f, 4f);
-    [SerializeField] private float wallJumpingTime = 0.3f;
+
     private float _wallJumpingTimer;
-
-    private float CurrentMoveSpeed
-    {
-        get
-        {
-            if (CanMove)
-            {
-                
-                if (_isMoving && !_touchingDirection.IsOnWall)
-                {
-                    if (_touchingDirection.IsGrounded)
-                    {
-                       
-                    }
-
-
-                    else
-                    {
-                        return 0;
-                    }
-                }
-                else
-                {
-                    //Movement lock
-                    return 0;
-                }
-            }
-
-            return 0;
-        }
-    }
+    
 
 
     private void Awake()
@@ -97,29 +63,22 @@ public class PlayerController : MonoBehaviour
         _circleCollider2D = GetComponent<CircleCollider2D>();
         ChangeCollider(ColliderKind.Capsule);
     }
-    
-    
-    
+
+
     public bool CanMove
     {
         get { return _animator.GetBool(AnimationStrings.canMove); }
     }
-    
+
     public bool IsAlive
     {
         get { return _animator.GetBool(AnimationStrings.isAlive); }
     }
 
-    
 
-    public void OnAttack(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            _animator.SetTrigger(AnimationStrings.attackTrigger);
-            _animator.SetTrigger(AnimationStrings.attackKickLowTrigger);
-        }
-    }
+
+   
+    
     
 
     public void ChangeCollider(ColliderKind colliderKind)

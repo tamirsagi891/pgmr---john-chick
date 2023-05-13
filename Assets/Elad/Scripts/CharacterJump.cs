@@ -293,7 +293,7 @@ public class CharacterJump : MonoBehaviour
 
             // Apply the new _jumpSpeed to the _velocity. It will be sent to the Rigidbody in FixedUpdate;
             var whichJumpAnimation = AnimationStrings.jumpTrigger;
-            if (!(_touchingDirection.IsGrounded) && isInDoubleJump)
+            if (!(_touchingDirection.IsGrounded))
             {
                 whichJumpAnimation = AnimationStrings.doubleJumpTrigger;
             }

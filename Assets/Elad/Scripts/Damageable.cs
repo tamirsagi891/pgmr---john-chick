@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BitStrap;
+using Mechanics.Enemies;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -21,7 +23,8 @@ public class Damageable : MonoBehaviour
         set => maxHealth = value;
     }
 
-
+    [SerializeField]
+    [ReadOnly]
     private int _health;
 
     public int Health
@@ -112,5 +115,4 @@ public class Damageable : MonoBehaviour
 
         return false;
     }
-
 }

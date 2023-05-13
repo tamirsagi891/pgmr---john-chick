@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,7 +12,7 @@ public class HorizontalMovement : MonoBehaviour
     private Animator _animator;
     private SpecialMovements _specialMovements;
     private Damageable _damageable;
-    
+
     [Space(10)] [Header("Ground Movement")] [SerializeField, Range(0f, 20f)]
     private float maxSpeed = 10f;
 
@@ -95,8 +96,6 @@ public class HorizontalMovement : MonoBehaviour
         }
     }
 
-    
-    
 
     private void Awake()
     {
@@ -119,18 +118,19 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (_playerController.CanMove)
+        var direction = Vector2.zero;
+        if (context.phase != InputActionPhase.Canceled && _playerController.CanMove)
         {
-            var direction = context.ReadValue<Vector2>();
-            directionX = direction.x;
-            _playerController.IsMoving = (directionX != 0);
-            SetFacingDirection(directionX);
+            direction = context.ReadValue<Vector2>();
         }
+
+        directionX = direction.x;
+        _playerController.IsMoving = (directionX != 0);
+        SetFacingDirection(directionX);
     }
 
     public void OnRun(InputAction.CallbackContext context)
     {
-        
         if (context.started)
         {
             IsRunning = true;
@@ -141,20 +141,15 @@ public class HorizontalMovement : MonoBehaviour
         }
     }
 
-    private bool CanDoStuff()
-    {
-        return (_playerController.CanMove && _playerController.IsAlive && !_damageable.LockVelocity);
-    }
+    private bool CanMove => (_playerController.CanMove && _playerController.IsAlive && !_damageable.LockVelocity);
+
     private void Update()
     {
-        if (!CanDoStuff())
-        {
-            directionX = 0;
-        }
+        var currentDirX = CanMove ? directionX : 0;
 
-        _pressingMovementKey = (directionX != 0);
+        _pressingMovementKey = (currentDirX != 0);
 
-        _desiredVelocity = new Vector2(directionX, 0f) * Mathf.Max(CurrentMoveSpeed - friction, 0f);
+        _desiredVelocity = new Vector2(currentDirX, 0f) * Mathf.Max(CurrentMoveSpeed - friction, 0f);
     }
 
     private float CurrentMoveSpeed
@@ -178,11 +173,6 @@ public class HorizontalMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!CanDoStuff())
-        {
-            return;
-        }
-        
         _onGround = _touchingDirection.IsGrounded;
 
         _velocity = _rB.velocity;
