@@ -23,6 +23,9 @@ namespace Mechanics.Slideshow
         private List<Slide> slides = new() { new Slide() };
 
         [SerializeField]
+        private bool startShowOnStart;
+
+        [SerializeField]
         private PassiveTimer timeBetweenSlides = new(0.75f);
 
         [Space]
@@ -146,6 +149,14 @@ namespace Mechanics.Slideshow
         #endregion
 
         #region MonoBehaviour
+
+        private void Start()
+        {
+            if (startShowOnStart)
+            {
+                StartSlideshow();
+            }
+        }
 
         private void Update()
         {
