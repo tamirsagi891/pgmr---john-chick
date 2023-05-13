@@ -22,8 +22,9 @@ namespace Avrahamy.EditorGadgets {
             iconNotActive ??= EditorGUIUtility.IconContent("d_ol_minus_act");
 
             var durationProperty = property.FindPropertyRelative("duration");
-
+            
             var timer = property.GetValue(fieldInfo) as ITimer;
+            // var timer = attribute as ITimer;
 
             var icon = iconNotSet;
             if (Application.isPlaying) {

@@ -44,7 +44,7 @@ InThat case, we might want to change to list and stop the disable",
             var col = _myCollider as CircleCollider2D;
             if (col != null)
             {
-                col.radius = npcToReportTo.NpcData.stats.detectionRadius;
+                col.radius = npcToReportTo.NpcDataScriptable.stats.detectionRadius;
             }
         }
 
