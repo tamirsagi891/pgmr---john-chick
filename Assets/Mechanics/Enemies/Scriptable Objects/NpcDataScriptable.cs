@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Mechanics.Enemies
 {
     [CreateAssetMenu(fileName = "Npc_Data_", menuName = "NPC/Base Data", order = 0)]
-    public class NpcData : ScriptableObject
+    public class NpcDataScriptable : ScriptableObject
     {
         [SerializeField]
         public string npcName;
