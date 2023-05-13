@@ -1,0 +1,64 @@
+﻿using System.Collections;
+using UnityEngine;
+
+namespace Mechanics.Enemies
+{
+    [AddComponentMenu("NPC/Behaviours/Jump Random")] // TODO: add for random dash, death, stop/start movement, etc
+    public class JumpRandom : MonoBehaviour
+    {
+        #region Inspector
+
+        [SerializeField]
+        [Min(0)]
+        private float factor = 3f;
+
+        [Space]
+        [SerializeField]
+        private BaseNpc npcToReportTo;
+
+        #endregion
+
+
+        #region MonoBehaviour
+
+        private void OnEnable()
+        {
+            npcToReportTo.events.onDeath.AddListener(Disable);
+        }
+
+        private void OnDisable()
+        {
+            npcToReportTo.events.onDeath.RemoveListener(Disable);
+        }
+
+        private void Start()
+        {
+            StartCoroutine(Jump());
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void Disable()
+        {
+            gameObject.SetActive(false);
+        }
+
+        #endregion
+
+        #region Courotines
+
+        private IEnumerator Jump()
+        {
+            while (true)
+            {
+                var timer = factor * Random.value + 0.5f;
+                yield return new WaitForSeconds(timer);
+                npcToReportTo.Jump();
+            }
+        }
+
+        #endregion
+    }
+}

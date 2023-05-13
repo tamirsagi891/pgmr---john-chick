@@ -1,0 +1,20 @@
+{
+    "name": "Unity.BitStrap.Example.EditorGraph.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:078a60851190151469fa0710c1d0a093",
+        "GUID:8524ee4fb02240d4abab9fe97a7a8852",
+        "GUID:2f58e6548d15d6346b68e164444ed3a1"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

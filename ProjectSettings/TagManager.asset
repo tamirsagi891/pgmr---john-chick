@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -11,20 +12,20 @@ TagManager:
   - 
   - Water
   - UI
+  - Ground
+  - 
+  - 
+  - Player
   - 
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy Collider
+  - Ground Detection Layer
+  - Player Detection Layer
+  - Enemy Detection
   - 
   - 
   - 

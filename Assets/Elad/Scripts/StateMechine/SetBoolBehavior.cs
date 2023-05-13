@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Avrahamy.EditorGadgets;
 using UnityEngine;
+using Logger = Nemesh.Logger;
 
 public class SetBoolBehavior : StateMachineBehaviour
 {
@@ -11,12 +13,32 @@ public class SetBoolBehavior : StateMachineBehaviour
     public bool valueOnEnter;
     public bool valueOnExit;
 
+    [Header("Nemesh additions")]
+    public bool resetValueOnExit;
+    private bool _valueWhenEntered;
+
+    [Space]
+    public bool callFunction;
+    [ConditionalHide("callFunction")]
+    public string functionToCallWhenChanging;
+
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (callFunction && functionToCallWhenChanging == "")
+        {
+            functionToCallWhenChanging = boolName;
+        }
+        
         if (updateOnState)
         {
+            _valueWhenEntered = animator.GetBool(boolName); 
+        
             animator.SetBool(boolName, valueOnEnter);
+            if (callFunction)
+            {
+                animator.SendMessage(functionToCallWhenChanging, valueOnEnter);
+            }
         }
     }
 
@@ -31,8 +53,14 @@ public class SetBoolBehavior : StateMachineBehaviour
     {
         if (updateOnState)
         {
-            animator.SetBool(boolName, valueOnExit);
+            var val = resetValueOnExit ? _valueWhenEntered : valueOnExit;
+            animator.SetBool(boolName, val);
+            if (callFunction)
+            {
+                animator.SendMessage(functionToCallWhenChanging, val);
+            }
         }
+    
     }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine
@@ -50,9 +78,19 @@ public class SetBoolBehavior : StateMachineBehaviour
     // OnStateMachineEnter is called when entering a state machine via its Entry Node
     override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
     {
+        if (callFunction && functionToCallWhenChanging == "")
+        {
+            functionToCallWhenChanging = boolName;
+        }
+
         if (updateOnStateMachine)
         {
+            _valueWhenEntered = animator.GetBool(boolName);
             animator.SetBool(boolName, valueOnEnter);
+            if (callFunction)
+            {
+                animator.SendMessage(functionToCallWhenChanging, valueOnEnter);
+            }
         }
     }
 
@@ -61,7 +99,12 @@ public class SetBoolBehavior : StateMachineBehaviour
     {
         if (updateOnStateMachine)
         {
-            animator.SetBool(boolName, valueOnExit);
+            var val = resetValueOnExit ? _valueWhenEntered : valueOnExit;
+            animator.SetBool(boolName, val);
+            if (callFunction)
+            {
+                animator.SendMessage(functionToCallWhenChanging, val);
+            }
         }
     }
 }
