@@ -11,7 +11,13 @@ internal static class AnimationStrings
     internal static string jumpTrigger = "jump";
     internal static string isOnWall = "isOnWall";
     public static string isOnCeiling = "isOnCeiling";
-    public static string attackTrigger = "attack";
+    
+    
+    public static string attackKickLowTrigger = "attackKickLow";
+    public static string attackTrigger = "attackTrigger";
+
+    
+    
     public static string canMove = "canMove";
     public static string doubleJumpTrigger = "doubleJump";
     public static string dashTrigger = "dash";
@@ -19,6 +25,14 @@ internal static class AnimationStrings
     public static string isCrouching = "isCrouching";
     public static string isGliding = "isGliding";
     public static string isWallSliding = "isWallSliding";
+    
+    
+    public static string isAlive = "isAlive";
+    public static string isHit = "isHit";
+    public static string hitTrigger = "Hit";
+
+    public static string lockVelocity = "lockVelocity";
+
 
 
 }

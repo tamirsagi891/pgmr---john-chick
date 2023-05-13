@@ -10,7 +10,8 @@ public class HorizontalMovement : MonoBehaviour
     private TouchingDirection _touchingDirection;
     private Animator _animator;
     private SpecialMovements _specialMovements;
-
+    private Damageable _damageable;
+    
     [Space(10)] [Header("Ground Movement")] [SerializeField, Range(0f, 20f)]
     private float maxSpeed = 10f;
 
@@ -94,6 +95,9 @@ public class HorizontalMovement : MonoBehaviour
         }
     }
 
+    
+    
+
     private void Awake()
     {
         _rB = GetComponent<Rigidbody2D>();
@@ -101,6 +105,7 @@ public class HorizontalMovement : MonoBehaviour
         _touchingDirection = GetComponent<TouchingDirection>();
         _animator = GetComponent<Animator>();
         _specialMovements = GetComponent<SpecialMovements>();
+        _damageable = GetComponent<Damageable>();
     }
 
     public void OnCrouch(InputAction.CallbackContext context)
@@ -136,9 +141,13 @@ public class HorizontalMovement : MonoBehaviour
         }
     }
 
+    private bool CanDoStuff()
+    {
+        return (_playerController.CanMove && _playerController.IsAlive && !_damageable.LockVelocity);
+    }
     private void Update()
     {
-        if (!_playerController.CanMove)
+        if (!CanDoStuff())
         {
             directionX = 0;
         }
@@ -169,6 +178,11 @@ public class HorizontalMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!CanDoStuff())
+        {
+            return;
+        }
+        
         _onGround = _touchingDirection.IsGrounded;
 
         _velocity = _rB.velocity;
@@ -241,5 +255,16 @@ public class HorizontalMovement : MonoBehaviour
         {
             IsFacingRight = false;
         }
+    }
+
+    public float GetHorizontalMovement()
+    {
+        return directionX;
+    }
+
+    public void OnHit(int damage, Vector2 knockBack)
+    {
+        _damageable.LockVelocity = true;
+        _rB.velocity = new Vector2(knockBack.x, _rB.velocity.y + knockBack.y);
     }
 }
