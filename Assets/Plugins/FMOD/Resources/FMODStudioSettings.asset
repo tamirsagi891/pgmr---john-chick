@@ -359,8 +359,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: ../../FMOD Studio/John Chick/john-chick/john-chick.fspro
-  sourceBankPath: ../../FMOD Studio/John Chick/john-chick/Build
+  sourceProjectPath: FMOD/john-chick/john-chick.fspro
+  sourceBankPath: FMOD/john-chick/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
