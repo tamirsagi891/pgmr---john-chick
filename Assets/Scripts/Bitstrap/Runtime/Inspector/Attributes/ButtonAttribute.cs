@@ -17,5 +17,18 @@
 	[System.AttributeUsage( System.AttributeTargets.Method )]
 	public class ButtonAttribute : System.Attribute
 	{
+		public bool hasName = false;
+		public string newName;
+
+		public ButtonAttribute(string name)
+		{
+			newName = name;
+			hasName = true;
+		}
+
+		public ButtonAttribute()
+		{
+			
+		}
 	}
 }
