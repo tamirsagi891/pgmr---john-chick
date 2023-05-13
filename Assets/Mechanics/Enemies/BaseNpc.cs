@@ -23,7 +23,7 @@ namespace Mechanics.Enemies
         [SerializeField]
         [Tooltip("The data this NPC will reference")]
         [InlineScriptableObject]
-        protected NpcData myData;
+        protected NpcDataScriptable myData;
 
         [SerializeField]
         [RequiredReference]
@@ -132,12 +132,12 @@ namespace Mechanics.Enemies
 
                 if (debug)
                 {
-                    Logger.Log($"{NpcData.npcName} Contact With Player: {_playerContact}", this);
+                    Logger.Log($"{NpcDataScriptable.npcName} Contact With Player: {_playerContact}", this);
                 }
             }
         }
 
-        public NpcData NpcData
+        public NpcDataScriptable NpcDataScriptable
         {
             get => myData;
             set => myData = value;
@@ -204,7 +204,7 @@ namespace Mechanics.Enemies
         {
             if (debug)
             {
-                Logger.Log($"{NpcData.npcName} Removed", Color.yellow, this);
+                Logger.Log($"{NpcDataScriptable.npcName} Removed", Color.yellow, this);
             }
 
             events.onDisable.Invoke(this);
@@ -427,7 +427,7 @@ namespace Mechanics.Enemies
 
             if (debug)
             {
-                Logger.Log($"{NpcData.npcName} Died", Color.magenta, this);
+                Logger.Log($"{NpcDataScriptable.npcName} Died", Color.magenta, this);
             }
 
             if (removeAfterDeath)
@@ -546,7 +546,7 @@ namespace Mechanics.Enemies
         [ContextMenu("Log Stats")]
         protected void TestContextMenu()
         {
-            Logger.Log(NpcData, this);
+            Logger.Log(NpcDataScriptable, this);
 
             StopMovement(hurtTime);
 

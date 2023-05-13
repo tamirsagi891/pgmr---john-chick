@@ -10165,6 +10165,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: myData
+      value: 
+      objectReference: {fileID: 11400000, guid: ffd832a75854f2d4b94fa37ccfcc1c67, type: 2}
+    - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: notMovingTimer.duration
       value: 0.25
       objectReference: {fileID: 0}
@@ -10372,6 +10376,10 @@ PrefabInstance:
     - target: {fileID: 177638, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_Name
       value: '[Graphy]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 177638, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22451668, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_Pivot.x

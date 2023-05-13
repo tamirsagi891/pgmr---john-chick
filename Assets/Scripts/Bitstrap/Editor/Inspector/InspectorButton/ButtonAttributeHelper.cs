@@ -19,14 +19,14 @@ namespace BitStrap
 		public void Init( Object targetObject )
 		{
 			this.targetObject = targetObject;
-			methods =
-				targetObject.GetType()
-					.GetMethods( BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance )
-					.Where( m =>
-							 m.GetCustomAttributes( typeof( ButtonAttribute ), false ).Length == 1 &&
-							 m.GetParameters().Length == 0 &&
-							 !m.ContainsGenericParameters
-					).ToList();
+			methods = targetObject.GetType()
+				.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+				.Where(m =>
+					m.GetCustomAttributes(typeof(ButtonAttribute), false).Length == 1 &&
+					!m.ContainsGenericParameters &&
+					(m.GetParameters().Length == 0 || m.GetParameters().All(p => p.HasDefaultValue))
+				)
+				.ToList();
 		}
 
 		public void DrawButtons()
@@ -42,10 +42,21 @@ namespace BitStrap
 		{
 			foreach( MethodInfo method in methods )
 			{
+				var attribute = method.GetCustomAttributes(typeof(ButtonAttribute), false)[0] as ButtonAttribute;
 				string buttonText = ObjectNames.NicifyVariableName( method.Name );
-				if( GUILayout.Button( buttonText ) )
+				if (attribute is { hasName: true })
 				{
-					method.Invoke( targetObject, emptyParamList );
+					buttonText = ObjectNames.NicifyVariableName(attribute.newName);
+				}
+				if (GUILayout.Button(buttonText))
+				{
+					ParameterInfo[] parameters = method.GetParameters();
+					object[] defaultParamValues = new object[parameters.Length];
+					for (int i = 0; i < parameters.Length; i++)
+					{
+						defaultParamValues[i] = parameters[i].DefaultValue;
+					}
+					method.Invoke(targetObject, defaultParamValues);
 				}
 			}
 		}

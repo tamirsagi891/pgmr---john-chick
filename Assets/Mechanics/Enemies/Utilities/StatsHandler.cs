@@ -42,7 +42,7 @@ namespace Mechanics.Enemies
         private void Awake()
         {
             _myNpc = GetComponent<BaseNpc>();
-            _initialStats = _myNpc.NpcData.stats;
+            _initialStats = _myNpc.NpcDataScriptable.stats;
             RestoreInitialStats();
         }
 
