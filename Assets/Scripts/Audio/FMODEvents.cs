@@ -11,7 +11,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference Music { get; private set; }
 
     [field: Header("Player SFX")]
-
+    
     public static FMODEvents instance { get; private set; }
 
     private void Awake()
