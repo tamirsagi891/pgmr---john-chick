@@ -88,7 +88,6 @@ public class PlayerAttack : MonoBehaviour
 
         if (context.started && !_arrowAttackCoolDown)
         {
-            print("kaka");
             _animator.SetTrigger(AnimationStrings.arrowAttack);
             _arrowAttackCoolDownTimer = arrowAttackCoolDownTime;
             _arrowAttackCoolDown = true;

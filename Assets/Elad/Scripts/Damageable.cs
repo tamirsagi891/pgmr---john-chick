@@ -110,6 +110,20 @@ public class Damageable : MonoBehaviour
             LockVelocity = true;
             _animator.SetTrigger(AnimationStrings.hitTrigger);
             damageableHit?.Invoke(damage, knockBack);
+
+            characterEvents.CharacterDamaged.Invoke(gameObject, damage);
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool AddLife(int healAmount)
+    {
+        if (IsAlive)
+        {
+            Health += healAmount;
+            characterEvents.CharacterHealed.Invoke(gameObject, healAmount);
             return true;
         }
 
