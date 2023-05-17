@@ -13,4 +13,5 @@ public static class characterEvents
     
     public static UnityEvent< FeathersManager.FeatherKind> AddFeather = new();
     public static UnityEvent< FeathersManager.FeatherKind> RemoveFeather = new();
+    
 }

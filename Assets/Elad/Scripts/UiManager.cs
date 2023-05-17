@@ -35,18 +35,30 @@ namespace Elad.Scripts
 
         public void CharacterTookDamage(GameObject character, int damageAmount)
         {
-            InstantiateText(character, damageAmount);
+            InstantiateText(character, damageAmount, false);
         }
         
         public void CharacterHealed(GameObject character, int healthAmount)
         {
-            InstantiateText(character, healthAmount);
+            InstantiateText(character, healthAmount, true);
         }
 
-        private void InstantiateText(GameObject character, int amount)
+        private void InstantiateText(GameObject character, int amount, bool heal)
         {
             Vector3 spawnPosition = Camera.main.WorldToScreenPoint(character.transform.position);
-            TMP_Text tmpText = Instantiate(damageTextPrefab, spawnPosition, 
+            GameObject textPrefab;
+            switch (heal)
+            {
+                     
+                case true:
+                    textPrefab = healthTextPrefab;
+                    break;
+                
+                case false:
+                    textPrefab = damageTextPrefab;
+                    break;
+            }
+            TMP_Text tmpText = Instantiate(textPrefab, spawnPosition, 
                 quaternion.identity, _gameCanvas.transform).GetComponent<TMP_Text>();
             tmpText.text = amount.ToString();
         }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mechanics.Enemies;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAttackController))]
@@ -28,13 +29,19 @@ public class Arrow : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         
-        ICanBeAttacked damageable = other.GetComponentInParent<ICanBeAttacked>();
-        if (damageable != null)
-        {
-            _controller.Attack(damageable);
+        
+
+        if (!other.CompareTag(TagStrings.playerTag))
+        { 
+            ICanBeAttacked damageable = other.GetComponentInParent<ICanBeAttacked>();
+            if (damageable != null)
+            {
+                _controller.Attack(damageable);
+            }
+        
+            Destroy(gameObject);    
         }
         
-        Destroy(gameObject);
     }
 
     public void Fire()
