@@ -290,7 +290,7 @@ MonoBehaviour:
       onSlideEnd:
         m_PersistentCalls:
           m_Calls: []
-  - name: Slide 3
+  - name: Slide 4
     text: This <color=yellow>will be used as subtitles.</color>
     nextOnTime: 1
     time: 4
@@ -302,6 +302,55 @@ MonoBehaviour:
       onSlideEnd:
         m_PersistentCalls:
           m_Calls: []
+  - name: Slide 4
+    text: This <color=yellow>will be used as subtitles.</color>
+    nextOnTime: 1
+    time: 4
+    image: {fileID: -1451602238, guid: 1cd93b0217c17a4439b317ee89607fa8, type: 3}
+    events:
+      onSlideStart:
+        m_PersistentCalls:
+          m_Calls: []
+      onSlideEnd:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: Slide 4
+    text: This <color=yellow>will be used as subtitles.</color>
+    nextOnTime: 0
+    time: 4
+    image: {fileID: -1451602238, guid: 1cd93b0217c17a4439b317ee89607fa8, type: 3}
+    events:
+      onSlideStart:
+        m_PersistentCalls:
+          m_Calls: []
+      onSlideEnd:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: Slide 4
+    text: This <color=yellow>will be used as subtitles.</color>
+    nextOnTime: 0
+    time: 4
+    image: {fileID: -1451602238, guid: 1cd93b0217c17a4439b317ee89607fa8, type: 3}
+    events:
+      onSlideStart:
+        m_PersistentCalls:
+          m_Calls: []
+      onSlideEnd:
+        m_PersistentCalls:
+          m_Calls: []
+  - name: Slide 4
+    text: This <color=yellow>will be used as subtitles.</color>
+    nextOnTime: 1
+    time: 4
+    image: {fileID: -1451602238, guid: 1cd93b0217c17a4439b317ee89607fa8, type: 3}
+    events:
+      onSlideStart:
+        m_PersistentCalls:
+          m_Calls: []
+      onSlideEnd:
+        m_PersistentCalls:
+          m_Calls: []
+  startShowOnStart: 1
   timeBetweenSlides:
     duration: 2
   image: {fileID: 5541008137324255443}
@@ -313,7 +362,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 414392240496033310}
           m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: Play
+          m_MethodName: SetTrigger
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -326,16 +375,16 @@ MonoBehaviour:
     onSlideshowEnd:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8820270657335134478}
-          m_TargetAssemblyTypeName: Managers.LoadSceneManager, Nemesh
-          m_MethodName: GoToNext
-          m_Mode: 1
+        - m_Target: {fileID: 414392240496033310}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Fadeout
             m_BoolArgument: 0
           m_CallState: 2
     onSlideStart:
@@ -343,7 +392,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 414392240496033310}
           m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: Play
+          m_MethodName: SetTrigger
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -358,7 +407,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 414392240496033310}
           m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: Play
+          m_MethodName: SetTrigger
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
