@@ -22,15 +22,15 @@ namespace Elad.Scripts
 
         private void OnEnable()
         {
-            characterEvents.CharacterDamaged += CharacterTookDamage;
-            characterEvents.CharacterHealed += CharacterHealed;
+            characterEvents.CharacterDamaged.AddListener(CharacterTookDamage);
+            characterEvents.CharacterHealed.AddListener(CharacterHealed);
 
         }
 
         private void OnDisable()
-        {
-            characterEvents.CharacterDamaged -= CharacterTookDamage;
-            characterEvents.CharacterHealed -= CharacterHealed;
+        {   
+            characterEvents.CharacterDamaged.RemoveListener(CharacterTookDamage);
+            characterEvents.CharacterHealed.RemoveListener(CharacterHealed);
         }
 
         public void CharacterTookDamage(GameObject character, int damageAmount)

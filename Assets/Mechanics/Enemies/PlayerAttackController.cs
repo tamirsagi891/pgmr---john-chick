@@ -31,7 +31,13 @@ namespace Mechanics.Enemies
 
         public Vector2 GetKnockBack()
         {
-            return transform.parent.localScale.x > 0 ? knockBack : new Vector2(-knockBack.x, knockBack.y);
+            if (transform.parent)
+            {
+                return transform.parent.localScale.x > 0 ? knockBack : new Vector2(-knockBack.x, knockBack.y);    
+            }
+
+            var retValue = new Vector2(0f, 0f);
+            return retValue;
         }
 
         public bool Hurt(IAttacker attacker)

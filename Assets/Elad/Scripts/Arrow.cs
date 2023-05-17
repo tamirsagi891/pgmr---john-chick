@@ -14,6 +14,8 @@ public class Arrow : MonoBehaviour
     private PlayerAttackController _controller;
     private Rigidbody2D _rB;
 
+    
+
     private void Awake()
     {
         _rB = GetComponent<Rigidbody2D>();
@@ -22,25 +24,22 @@ public class Arrow : MonoBehaviour
     }
 
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        _rB.velocity = new Vector2(moveSpeed.x * transform.localScale.x, moveSpeed.y);
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        
         ICanBeAttacked damageable = other.GetComponentInParent<ICanBeAttacked>();
         if (damageable != null)
         {
             _controller.Attack(damageable);
-            Destroy(gameObject);
         }
+        
+        Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Fire()
     {
-        
+        _rB.velocity = new Vector2(moveSpeed.x * transform.localScale.x, moveSpeed.y); 
     }
+    
 }

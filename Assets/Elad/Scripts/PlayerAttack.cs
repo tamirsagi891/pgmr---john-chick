@@ -97,7 +97,8 @@ public class PlayerAttack : MonoBehaviour
 
     public void FireArrow()
     {
-        Instantiate(arrowPrefab, arrowInstantiatePosition.position, arrowPrefab.transform.rotation);
-
+        Arrow arrow = Instantiate(arrowPrefab, arrowInstantiatePosition.position, 
+            arrowPrefab.transform.rotation).GetComponent<Arrow>();
+        arrow.Fire();
     }
 }
