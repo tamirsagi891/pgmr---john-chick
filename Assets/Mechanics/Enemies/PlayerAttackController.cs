@@ -6,11 +6,16 @@ namespace Mechanics.Enemies
     [AddComponentMenu("Player/Player Attack Controller")]
     public class PlayerAttackController : MonoBehaviour, IAttacker, ICanBeAttacked
     {
-        [SerializeField] private int attackAmount = 10;
-        [SerializeField] private Vector2 knockBack = Vector2.zero;
+        [SerializeField]
+        private int attackAmount = 10;
+
+        [SerializeField]
+        private Vector2 knockBack = Vector2.zero;
+
         private Damageable _myDamageable;
 
-        [SerializeField] private bool debug;
+        [SerializeField]
+        private bool debug;
 
         private void Awake()
         {
@@ -20,7 +25,11 @@ namespace Mechanics.Enemies
         public bool Attack(ICanBeAttacked attackTarget)
         {
             bool gotHit = attackTarget.Hurt(this);
-            Logger.Log($"Attacking {attackTarget} for {GetDamage()}  kb {GetKnockBack()}", this);
+            if (gotHit)
+            {
+                Logger.Log($"Attacking {attackTarget} for {GetDamage()}  kb {GetKnockBack()}", this);
+            }
+
             return gotHit;
         }
 
@@ -44,7 +53,7 @@ namespace Mechanics.Enemies
         {
             Logger.Log($"Attacked by {attacker} for {attacker.GetDamage()}  kb {attacker.GetKnockBack()}", this);
 
-            return _myDamageable.Hit((int) attacker.GetDamage(), attacker.GetKnockBack());
+            return _myDamageable.Hit((int)attacker.GetDamage(), attacker.GetKnockBack());
         }
     }
 }
