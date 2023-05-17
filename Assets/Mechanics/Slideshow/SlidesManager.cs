@@ -101,7 +101,7 @@ namespace Mechanics.Slideshow
 #endif
             if (SlideshowRolling)
             {
-                var slide = slides[_currentSlide % slides.Count];
+                var slide = slides[CurrentSlide % slides.Count];
                 EndSlide(slide);
             }
 

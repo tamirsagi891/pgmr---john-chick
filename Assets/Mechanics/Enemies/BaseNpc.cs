@@ -401,6 +401,10 @@ namespace Mechanics.Enemies
 
         public bool Hurt(IAttacker attacker)
         {
+            if (IsDead)
+            {
+                return false;
+            }
             var dmgTaken = attacker.GetDamage();
             var knockBack = attacker.GetKnockBack();
             
