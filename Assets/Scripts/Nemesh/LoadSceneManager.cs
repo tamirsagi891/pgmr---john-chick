@@ -110,6 +110,7 @@ Notice you must enter the scene! Once loading started, changing this value is un
         [Button]
         public void GoToNext()
         {
+            Logger.Log("Activating Allow Load Next");
             loadNext = true;
         }
 
