@@ -1,8 +1,11 @@
 ﻿using System;
 using BitStrap;
+using Elad.Events;
+using Elad.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -34,7 +37,8 @@ namespace Mechanics.UI
         [Range(0, 1)]
         private float fillAmount = 1f;
 
-        public int MaxHealth { get; set; } = 100;
+        private int MaxHealth => PlayerStatus.maxHealth;
+        private float ActualFill => PlayerStatus.curHealth / (float)MaxHealth;
 
         public float FillAmount
         {
@@ -70,9 +74,23 @@ namespace Mechanics.UI
             FillAmount = fillAmount;
         }
 
-        private void Awake()
+        private void OnEnable()
         {
-            // _backgroundW = healthBackground.rectTransform.rect.width;
+            HealthStatusChanged();
+            characterEvents.CharacterHealed.AddListener(HealthStatusChanged);
+            characterEvents.CharacterDamaged.AddListener(HealthStatusChanged);
+        }
+
+        private void OnDisable()
+        {
+            characterEvents.CharacterHealed.RemoveListener(HealthStatusChanged);
+            characterEvents.CharacterDamaged.RemoveListener(HealthStatusChanged);
+        }
+
+
+        private void HealthStatusChanged(GameObject arg0 = null, int arg1 = 0)
+        {
+            FillAmount = ActualFill;
         }
     }
 }

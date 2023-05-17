@@ -889,6 +889,76 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Items",
+            "id": "bc5add7f-e352-4f36-a78a-dfeb2da8d25e",
+            "actions": [
+                {
+                    "name": "UseItem",
+                    "type": "Button",
+                    "id": "c9ed6e64-03dc-4b28-ad4d-0f60290a0b30",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NavigateItems",
+                    "type": "Value",
+                    "id": "b93c2861-cd34-4993-a5af-30249be7e7b0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "1D Axis",
+                    "id": "dae989b4-9501-494b-a44a-670593b4631e",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NavigateItems",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "30c0cac4-8e36-4e7e-9006-2766acd8ba68",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "NavigateItems",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "b08a8560-16ca-435d-86d4-db938f319f34",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "NavigateItems",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "c7bd23f4-c468-4f70-91d2-7d20f2a533ca",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "UseItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
