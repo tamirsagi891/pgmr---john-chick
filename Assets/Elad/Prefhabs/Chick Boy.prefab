@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 7381975486886894469}
   m_Layer: 9
   m_Name: Chick Boy
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,9 +200,6 @@ MonoBehaviour:
   airWalkSpeed: 3
   walkSpeed: 5
   _isWallSliding: 0
-  wallSlidingSpeed: 2
-  wallJumpingPower: {x: 16, y: 5}
-  wallJumpingTime: 0.15
 --- !u!114 &6064204472249036699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,6 +495,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1cc58a78-c76d-4814-8f69-dde0ce3a4d57
     m_ActionName: Player/Gliding[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 62fe8871-6e85-40f0-b025-c749d4edd1bd
+    m_ActionName: Player/ArrowAttack[/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

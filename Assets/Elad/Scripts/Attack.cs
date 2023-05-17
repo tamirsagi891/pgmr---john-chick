@@ -21,7 +21,7 @@ public class Attack : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         ICanBeAttacked damageable = other.GetComponentInParent<ICanBeAttacked>();
-        if (damageable != null)
+        if (damageable != null && !other.gameObject.CompareTag(TagStrings.playerTag))
         {
             _controller.Attack(damageable);
         }

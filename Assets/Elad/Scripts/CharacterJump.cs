@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Logger = Nemesh.Logger;
 
 //This script handles moving the character on the Y axis, for jumping and gravity
 
@@ -66,6 +67,7 @@ public class CharacterJump : MonoBehaviour
 
     private float linearDragRegular;
 
+    private int counterTest = 0; 
     private bool _canGlide = true;
     private bool _isGliding;
 
@@ -267,19 +269,26 @@ public class CharacterJump : MonoBehaviour
             _jumpBufferCounter = 0;
             _coyoteTimeCounter = 0;
 
-            // If we have double jump on, allow us to jump again (but only once)
-            bool isInDoubleJump = !(canDoubleJump && (canJumpAgain == false));
-            canJumpAgain = !isInDoubleJump;
+            
 
             // Determine the power of the jump, based on our gravity and stats
             _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * _rB.gravityScale * maxJumpHeight);
 
+            
+            // If we have double jump on, allow us to jump again (but only once)
+            bool wantToDoubleJump = (canDoubleJump && canJumpAgain && (!_touchingDirection.IsGrounded));
+            canJumpAgain = !wantToDoubleJump;
+            var whichJumpAnimation = AnimationStrings.jumpTrigger;
             // Apply double jump multiplier if it's a double jump
-            if (isInDoubleJump)
+            if (wantToDoubleJump)
             {
                 _jumpSpeed *= doubleJumpMultiplier;
+                whichJumpAnimation = AnimationStrings.doubleJumpTrigger;
             }
 
+            _animator.SetTrigger(whichJumpAnimation);
+
+            
             // If Kit is moving up or down when she jumps (such as when doing a double jump), change the _jumpSpeed;
             // This will ensure the jump is the exact same strength, no matter your _velocity.
             if (_velocity.y > 0f)
@@ -291,14 +300,7 @@ public class CharacterJump : MonoBehaviour
                 _jumpSpeed += Mathf.Abs(_rB.velocity.y);
             }
 
-            // Apply the new _jumpSpeed to the _velocity. It will be sent to the Rigidbody in FixedUpdate;
-            var whichJumpAnimation = AnimationStrings.jumpTrigger;
-            if (!(_touchingDirection.IsGrounded))
-            {
-                whichJumpAnimation = AnimationStrings.doubleJumpTrigger;
-            }
-
-            _animator.SetTrigger(whichJumpAnimation);
+            
 
             _velocity.y += _jumpSpeed;
             _currentlyJumping = true;
