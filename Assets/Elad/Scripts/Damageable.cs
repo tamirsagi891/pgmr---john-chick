@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BitStrap;
+using Elad.Events;
+using Elad.Scripts;
 using Mechanics.Enemies;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,15 +27,15 @@ public class Damageable : MonoBehaviour
 
     [SerializeField]
     [ReadOnly]
-    private int _health;
+    private int _curHealth;
 
     public int Health
     {
-        get => _health;
+        get => _curHealth;
         set
         {
-            _health = value;
-            if (_health <= 0)
+            _curHealth = value;
+            if (_curHealth <= 0)
             {
                 IsAlive = false;
             }
@@ -82,8 +84,9 @@ public class Damageable : MonoBehaviour
     
     private void Awake()
     {
-        _health = maxHealth;
+        _curHealth = maxHealth;
         _animator = GetComponent<Animator>();
+        PlayerStatusSetVariables();
     }
 
     private void Update()
@@ -110,11 +113,12 @@ public class Damageable : MonoBehaviour
             LockVelocity = true;
             _animator.SetTrigger(AnimationStrings.hitTrigger);
             damageableHit?.Invoke(damage, knockBack);
-
+            PlayerStatusSetVariables();
             characterEvents.CharacterDamaged.Invoke(gameObject, damage);
             return true;
         }
 
+        
         return false;
     }
 
@@ -124,9 +128,19 @@ public class Damageable : MonoBehaviour
         {
             Health += healAmount;
             characterEvents.CharacterHealed.Invoke(gameObject, healAmount);
+            PlayerStatusSetVariables();
             return true;
         }
 
         return false;
+    }
+
+    private void PlayerStatusSetVariables()
+    {
+        if (gameObject.CompareTag(TagStrings.playerTag))
+        {
+            PlayerStatus.maxHealth = maxHealth;
+            PlayerStatus.curHealth = Health;
+        }
     }
 }

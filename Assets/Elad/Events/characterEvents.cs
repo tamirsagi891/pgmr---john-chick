@@ -1,12 +1,17 @@
-
-
-
-using System;
+using Elad.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 
-public static class characterEvents
+namespace Elad.Events
 {
-    public static UnityAction<GameObject, int> CharacterDamaged;
-    public static UnityAction<GameObject, int> CharacterHealed;
+    public static class characterEvents
+    {
+    
+        public static UnityEvent<GameObject, int> CharacterDamaged = new();
+        public static UnityEvent<GameObject, int> CharacterHealed = new();
+    
+        public static UnityEvent< FeathersManager.FeatherKind> AddFeather = new();
+        public static UnityEvent< FeathersManager.FeatherKind> RemoveFeather = new();
+    
+    }
 }

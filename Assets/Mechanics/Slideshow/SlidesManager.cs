@@ -89,6 +89,18 @@ namespace Mechanics.Slideshow
             SlideshowRolling = true;
             NextSlide();
         }
+        
+        public void EndSlideAndGoToNextImmediate()
+        {
+            if (SlideshowRolling && CurrentSlide != -1)
+            {
+                var slide = slides[CurrentSlide % slides.Count];
+                EndSlide(slide);
+            }
+
+            NextSlide(true);
+        }
+
 
         [Button("Go To Next Slide")]
         public void EndSlideAndGoToNext()
@@ -99,7 +111,7 @@ namespace Mechanics.Slideshow
                 return;
             }
 #endif
-            if (SlideshowRolling)
+            if (SlideshowRolling && CurrentSlide != -1)
             {
                 var slide = slides[CurrentSlide % slides.Count];
                 EndSlide(slide);
@@ -119,6 +131,13 @@ namespace Mechanics.Slideshow
 #endif
             if (SlideshowRolling)
             {
+                if (timeBetweenSlides.IsSet && timeBetweenSlides.IsActive)
+                {
+                    // TODO: pause this instead
+                    Logger.Log("Cant pause while transition for now, WIP", Color.yellow);
+                    return;
+                }
+
                 var slide = slides[CurrentSlide % slides.Count];
                 SlideshowRolling = false;
                 slide.PauseTimer();
@@ -135,15 +154,19 @@ namespace Mechanics.Slideshow
                 return;
             }
 #endif
-            if (SlideshowRolling || CurrentSlide == -1)
+            if (SlideshowRolling)
             {
                 return;
             }
 
+            // TODO: Continue when transition is paused
+            // if (timeBetweenSlides.IsSet && timeBetweenSlides.IsActive)
+            // {
+            // }
             var slide = slides[CurrentSlide % slides.Count];
             slide.ResumeTimer();
             SlideshowRolling = true;
-            Logger.Log($"Continue slide {slide.name}");
+            Logger.Log($"Continue slide {CurrentSlide} : {slide.name}");
         }
 
         #endregion
@@ -181,7 +204,7 @@ namespace Mechanics.Slideshow
             var slide = slides[CurrentSlide];
             if (slide.TimeUp)
             {
-                Logger.Log($"Slide {slide.name} TimeUp");
+                Logger.Log($"Slide {CurrentSlide} : {slide.name} TimeUp");
                 EndSlideAndGoToNext(slide);
             }
         }
@@ -192,8 +215,14 @@ namespace Mechanics.Slideshow
 
         private void StartSlide(int slideNumber)
         {
-            Logger.Log($"Starting to time between slides {slideNumber}");
+            SlideshowRolling = true;
             _slideToSwitchTo = slideNumber;
+            if (timeBetweenSlides.IsSet && timeBetweenSlides.IsActive)
+            {
+                Logger.Log($"Switching next slide to slide {slideNumber} : {slides[slideNumber].name}");
+                return;
+            }
+            Logger.Log($"Starting time to go to slide {slideNumber} : {slides[slideNumber].name}");
             timeBetweenSlides.Start();
         }
 
@@ -206,7 +235,7 @@ namespace Mechanics.Slideshow
             SlideshowRolling = true;
 
             var slide = slides[slideNumber];
-            Logger.Log($"Starting to slide {slide.name}");
+            Logger.Log($"Starting to transition to slide {slideNumber} : {slide.name}");
 
             text.text = slide.text;
             image.sprite = slide.image != null ? slide.image : null;
@@ -214,27 +243,41 @@ namespace Mechanics.Slideshow
             // TODO: combine into a function of slide called StartSlide or smthg
             slide.events.onSlideStart.Invoke();
             slide.StartTimer();
-
             events.onSlideStart.Invoke();
         }
-
-        private bool NextSlide()
+        
+        private bool NextSlide(bool immediate = false)
         {
             var slideNumber = CurrentSlide + 1;
+            if (timeBetweenSlides.IsSet && timeBetweenSlides.IsActive)
+            {
+                slideNumber = _slideToSwitchTo + 1;
+            }
+
             if (slideNumber >= slides.Count)
             {
                 Logger.Log($"Slideshow Ended");
+                CurrentSlide = -1;
                 events.onSlideshowEnd.Invoke();
+                SlideshowRolling = false;
                 return false;
             }
 
             if (slideNumber == 0)
             {
                 Logger.Log($"Slideshow Started");
+                immediate = true;
                 events.onSlideshowStart.Invoke();
             }
 
-            StartSlide(slideNumber);
+            if (immediate)
+            {
+                StartSlideHelper(slideNumber);
+            }
+            else
+            {
+                StartSlide(slideNumber);
+            }
             return true;
         }
 
