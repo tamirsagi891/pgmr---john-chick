@@ -1,3 +1,4 @@
+using Elad.Events;
 using UnityEngine;
 
 namespace Elad.Scripts

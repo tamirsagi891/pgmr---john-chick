@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Pool;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -23,13 +24,12 @@ public class PlayerAttack : MonoBehaviour
     private bool _arrowAttackCoolDown = false;
     [SerializeField] private Transform arrowInstantiatePosition;
     [SerializeField] private GameObject arrowPrefab;
-    
-    
+    private ObjectPool<Arrow> _arrowPool;
+
     private void Awake()
     {
+        // _arrowPool = new ObjectPool<Arrow>();
         _animator = GetComponent<Animator>();
-        
-
     }
 
     private void Update()
