@@ -25,7 +25,7 @@ public class CharacterJump : MonoBehaviour
     [SerializeField, Range(0f, 5f)] [Tooltip("Gravity multiplier to apply when going up")]
     private float gravityMultiplierAscending = 1f;
 
-    [SerializeField, Range(1f, 10f)] [Tooltip("Gravity multiplier to apply when coming down")]
+    [SerializeField, Range(1f, 50f)] [Tooltip("Gravity multiplier to apply when coming down")]
     private float gravityMultiplierDescending = 6.17f;
 
     [Header("Options")] [SerializeField] private bool canDoubleJump;
@@ -59,10 +59,10 @@ public class CharacterJump : MonoBehaviour
     private bool onGround;
     private bool _currentlyJumping;
 
-    [Header("Gliding")] [SerializeField, Range(0f, 5f)] [Tooltip("Gravity multiplier to apply when gliding")]
+    [Header("Gliding")] [SerializeField, Range(0f, 20f)] [Tooltip("Gravity multiplier to apply when gliding")]
     private float gravityMultiplierGliding = 0.3f;
 
-    [SerializeField, Range(0f, 5f)] [Tooltip("linear Drag to apply when gliding")]
+    [SerializeField, Range(0f, 20f)] [Tooltip("linear Drag to apply when gliding")]
     private float linearDragGliding = 2f;
 
     private float linearDragRegular;
