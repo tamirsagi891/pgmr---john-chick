@@ -44,7 +44,7 @@ namespace Mechanics.Enemies
         {
             Logger.Log($"Attacked by {attacker} for {attacker.GetDamage()}  kb {attacker.GetKnockBack()}", this);
 
-            return _myDamageable.Hit((int) attacker.GetDamage(), attacker.GetKnockBack());
+            return _myDamageable.GotHit((int) attacker.GetDamage(), attacker.GetKnockBack());
         }
     }
 }

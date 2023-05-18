@@ -9,6 +9,9 @@ namespace Elad.Scripts
     {
         public static int maxHealth;
         public static int curHealth;
-        
+        public static bool isFacingRight;
+
+        public static ArrowAttack CurrentArrowAttackData;
+
     }
 }

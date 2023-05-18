@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Elad.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
@@ -24,12 +25,31 @@ public class PlayerAttack : MonoBehaviour
     private bool _arrowAttackCoolDown = false;
     [SerializeField] private Transform arrowInstantiatePosition;
     [SerializeField] private GameObject arrowPrefab;
-    private ObjectPool<Arrow> _arrowPool;
-
+    private LinkedPool<Arrow> _arrowPool;
+    private int _startPoolSize = 50;
+    private int _maxPoolSize = 100;
+    [SerializeField] private bool usePool = true;
+    
     private void Awake()
     {
-        // _arrowPool = new ObjectPool<Arrow>();
+        _arrowPool = new LinkedPool<Arrow>(() => Instantiate(arrowPrefab, arrowInstantiatePosition.position, 
+            arrowPrefab.transform.rotation).GetComponent<Arrow>(), 
+            GetArrow,
+        arrow => arrow.gameObject.SetActive(false),
+            arrow => Destroy(arrow.gameObject),
+            false,
+            _maxPoolSize
+            );
         _animator = GetComponent<Animator>();
+    }
+
+    private void GetArrow(Arrow arrow)
+    {
+        arrow.gameObject.SetActive(true);
+        arrow.transform.position = arrowInstantiatePosition.position;
+        arrow.MyArrowKind = PlayerStatus.CurrentArrowAttackData.featherKind;
+        arrow.Damage = PlayerStatus.CurrentArrowAttackData.damage;
+        arrow.MoveSpeed = PlayerStatus.CurrentArrowAttackData.moveSpeed;
     }
 
     private void Update()
@@ -97,8 +117,31 @@ public class PlayerAttack : MonoBehaviour
 
     public void FireArrow()
     {
-        Arrow arrow = Instantiate(arrowPrefab, arrowInstantiatePosition.position, 
-            arrowPrefab.transform.rotation).GetComponent<Arrow>();
+        Arrow arrow;
+        if (usePool)
+        {
+            arrow = _arrowPool.Get();
+            arrow.PlayerAttack = this;
+        }
+
+        else
+        {
+            arrow = Instantiate(arrowPrefab, arrowInstantiatePosition.position, 
+                arrowPrefab.transform.rotation).GetComponent<Arrow>();
+        }
+         
+        
         arrow.Fire();
+    }
+
+    public bool ReturnArrowToPoll(Arrow arrow)
+    {
+        if (usePool)
+        {
+            _arrowPool.Release(arrow);
+            return true;
+        }
+
+        return false;
     }
 }

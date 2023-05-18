@@ -1,4 +1,5 @@
 using System;
+using Elad.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -99,6 +100,7 @@ public class HorizontalMovement : MonoBehaviour
 
     private void Awake()
     {
+        PlayerStatus.isFacingRight = (transform.localScale.x > 0);
         _rB = GetComponent<Rigidbody2D>();
         _playerController = GetComponent<PlayerController>();
         _touchingDirection = GetComponent<TouchingDirection>();
@@ -245,6 +247,8 @@ public class HorizontalMovement : MonoBehaviour
         {
             IsFacingRight = false;
         }
+
+        PlayerStatus.isFacingRight = IsFacingRight;
     }
 
     public float GetHorizontalMovement()

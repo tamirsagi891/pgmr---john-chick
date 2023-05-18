@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BitStrap;
 using Elad.Events;
 using UnityEngine;
 
@@ -14,13 +15,25 @@ namespace Elad.Scripts
             Blue
         }
 
-        [SerializeField] private FeatherKind curFeatherKind = FeatherKind.White;
-        [SerializeField] private Dictionary<FeatherKind, int> _featherDamageDic; 
         
+        [SerializeField] private FeatherKind curFeatherKind = FeatherKind.White;
+
+        [SerializeField] [InlineScriptableObject]
+        private ArrowAttackData arrowData;
+
+        private List<ArrowAttack> arrowAttacksList => arrowData.arrowAttacksList;
+        // [SerializeField] private List<ArrowAttack> arrowAttacksList;
+        
+        private Dictionary<FeatherKind, ArrowAttack> _arrowDataDic;
+
         public FeatherKind CurFeatherKind
         {
             get => curFeatherKind;
-            set => curFeatherKind = value;
+            set
+            {
+                curFeatherKind = value;
+                PlayerStatus.CurrentArrowAttackData = _arrowDataDic[value];
+            }
         }
 
         private void OnEnable()
@@ -35,24 +48,33 @@ namespace Elad.Scripts
             characterEvents.RemoveFeather.RemoveListener(RemoveFeather);
         }
 
-        private Dictionary<FeatherKind, int> _featherDic;
+        private Dictionary<FeatherKind, int> _featherAmountDic;
 
         private void Awake()
         {
-            _featherDic = new Dictionary<FeatherKind, int>();
+            DictionaryInit();
         }
 
+        private void DictionaryInit()
+        {
+            _arrowDataDic = new Dictionary<FeatherKind, ArrowAttack>();
+            foreach (var arrow in arrowAttacksList)
+            {
+                _arrowDataDic[arrow.featherKind] = arrow;
+            }
+        }
+        
         public void AddFeather(FeatherKind featherKind)
         {
-            print(featherKind);
-            if (_featherDic.ContainsKey(featherKind))
+            
+            if (_featherAmountDic.ContainsKey(featherKind))
             {
-                _featherDic[featherKind] += 1;    
+                _featherAmountDic[featherKind] += 1;    
             }
 
             else
             {
-                _featherDic[featherKind] = 1;
+                _featherAmountDic[featherKind] = 1;
             }
             
             
@@ -60,23 +82,23 @@ namespace Elad.Scripts
         
         public void RemoveFeather(FeatherKind featherKind)
         {
-            int curAmount = _featherDic[featherKind];
+            int curAmount = _featherAmountDic[featherKind];
             if (curAmount > 0)
             {
-                _featherDic[featherKind] -= 1;
+                _featherAmountDic[featherKind] -= 1;
             }
             
         }
 
         public int HowMany(FeatherKind featherKind)
         {
-            int curAmount = _featherDic[featherKind];
+            int curAmount = _featherAmountDic[featherKind];
             return curAmount;
         }
 
         public int ReturnCurDamage()
         {
-            return _featherDamageDic[curFeatherKind];
+            return _arrowDataDic[curFeatherKind].damage;
         }
         
     }

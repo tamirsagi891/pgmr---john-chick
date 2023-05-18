@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using Mechanics.Enemies;
+using System;
 using UnityEngine;
 
-
-public class ArrowAttack : MonoBehaviour
+namespace Elad.Scripts
 {
-    
-    
+    [Serializable]
+    public class ArrowAttack
+    {
 
-  
+        public FeathersManager.FeatherKind featherKind;
+        public Vector2 moveSpeed;
+        public int damage;
+        
+    }
 }

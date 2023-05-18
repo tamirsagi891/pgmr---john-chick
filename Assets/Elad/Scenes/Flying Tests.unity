@@ -6219,6 +6219,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2aa7f30d07d7a9419fe625d2f3f327d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  featherKind: 0
+  moveSpeed: {x: 0, y: 0}
+  damage: 0
 --- !u!114 &757680035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6774,6 +6777,7 @@ MonoBehaviour:
   arrowAttackCoolDownTime: 1
   arrowInstantiatePosition: {fileID: 757680033}
   arrowPrefab: {fileID: 4775548294322568153, guid: 5d1c6ddbcc7f9b74a82aa49ba3f67395, type: 3}
+  usePool: 1
 --- !u!1 &1528115670
 GameObject:
   m_ObjectHideFlags: 0
@@ -7829,6 +7833,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1466600387494744177, guid: 35e35afa9f1d0eb419ede09146f5bf9b, type: 3}
+      propertyPath: arrowData
+      value: 
+      objectReference: {fileID: 11400000, guid: 84626dfd3334ffd45bcb578603d411c3, type: 2}
+    - target: {fileID: 1466600387494744177, guid: 35e35afa9f1d0eb419ede09146f5bf9b, type: 3}
+      propertyPath: arrowAttacksList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3266479133448669277, guid: 35e35afa9f1d0eb419ede09146f5bf9b, type: 3}
       propertyPath: m_RootOrder
       value: 18

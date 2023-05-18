@@ -104,7 +104,7 @@ public class Damageable : MonoBehaviour
         
     }
 
-    public bool Hit(int damage, Vector2 knockBack)
+    public bool GotHit(int damage, Vector2 knockBack)
     {
         if (IsAlive && !IsInvincible)
         {
@@ -126,9 +126,9 @@ public class Damageable : MonoBehaviour
     {
         if (IsAlive)
         {
-            Health += healAmount;
-            characterEvents.CharacterHealed.Invoke(gameObject, healAmount);
+            Health = Mathf.Min(Health + healAmount, maxHealth);
             PlayerStatusSetVariables();
+            characterEvents.CharacterHealed.Invoke(gameObject, healAmount);
             return true;
         }
 
