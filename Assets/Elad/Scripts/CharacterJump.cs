@@ -59,15 +59,20 @@ public class CharacterJump : MonoBehaviour
     private bool onGround;
     private bool _currentlyJumping;
 
-    [Header("Gliding")] [SerializeField, Range(0f, 20f)] [Tooltip("Gravity multiplier to apply when gliding")]
+    [Header("Gliding")] [SerializeField] private bool glideWhenPushAndDown;
+    [SerializeField] private bool glideWhenDoublePush;
+
+    [SerializeField, Range(0f, 20f)] [Tooltip("Gravity multiplier to apply when gliding")]
     private float gravityMultiplierGliding = 0.3f;
+
+    private bool _wantToGlide;
 
     [SerializeField, Range(0f, 20f)] [Tooltip("linear Drag to apply when gliding")]
     private float linearDragGliding = 2f;
 
     private float linearDragRegular;
 
-    private int counterTest = 0; 
+    private int counterTest = 0;
     private bool _canGlide = true;
     private bool _isGliding;
 
@@ -80,11 +85,11 @@ public class CharacterJump : MonoBehaviour
         }
     }
 
-
-    [Header("Wall Sliding")] [SerializeField, Range(0f, 5f)] [Tooltip("Gravity multiplier to apply when sliding")]
-    private float gravityMultiplierWallSliding = 0.3f;
-
-    
+    public bool IsGliding
+    {
+        get => _isGliding;
+        set => _isGliding = value;
+    }
 
 
     void Awake()
@@ -108,24 +113,37 @@ public class CharacterJump : MonoBehaviour
             //Also, use the started and canceled contexts to know if we're currently holding the button
             if (context.started)
             {
-                _desiredJump = true;
+                if (_touchingDirection.IsGrounded || _wallMovement.IsWallSliding)
+                {
+                    _desiredJump = true;    
+                }
+                
                 _pressingJump = true;
             }
+
 
             if (context.canceled)
             {
                 _pressingJump = false;
+                OnGlide();
             }
         }
+        
+        
     }
 
 
     void Update()
     {
         setPhysics();
+        if (_pressingJump)
+        {
+            OnGlide();
+        }
 
         //Check if we're on ground.
         onGround = _touchingDirection.IsGrounded;
+
 
         //Jump buffer allows us to queue up a jump, which will play when we next hitTrigger the ground
         if (jumpBuffer > 0)
@@ -230,10 +248,10 @@ public class CharacterJump : MonoBehaviour
             }
             else if (_wallMovement.IsWallSliding)
             {
-                _gravMultiplier = gravityMultiplierWallSliding;
+                _gravMultiplier = _wallMovement.GravityMultiplierWallSliding;
             }
-            
-            else if (_isGliding)
+
+            else if (IsGliding)
             {
                 _gravMultiplier = gravityMultiplierGliding;
             }
@@ -263,32 +281,38 @@ public class CharacterJump : MonoBehaviour
     private void DoAJump()
     {
         // Create the jump, provided we are on the ground, in coyote time, or have a double jump available
-        if (onGround || (_coyoteTimeCounter > 0.03f && _coyoteTimeCounter < coyoteTime) || canJumpAgain || _wallMovement.IsWallSliding)
+        if (onGround || (_coyoteTimeCounter < coyoteTime) || canJumpAgain || _wallMovement.IsWallSliding)
         {
             _desiredJump = false;
             _jumpBufferCounter = 0;
             _coyoteTimeCounter = 0;
 
-            
 
             // Determine the power of the jump, based on our gravity and stats
             _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * _rB.gravityScale * maxJumpHeight);
 
-            
+
             // If we have double jump on, allow us to jump again (but only once)
-            bool wantToDoubleJump = (canDoubleJump && canJumpAgain && (!_touchingDirection.IsGrounded));
-            canJumpAgain = !wantToDoubleJump;
-            var whichJumpAnimation = AnimationStrings.jumpTrigger;
-            // Apply double jump multiplier if it's a double jump
-            if (wantToDoubleJump)
+            if (canDoubleJump)
             {
-                _jumpSpeed *= doubleJumpMultiplier;
-                whichJumpAnimation = AnimationStrings.doubleJumpTrigger;
+                bool wantToDoubleJump = (canJumpAgain && (!_touchingDirection.IsGrounded));
+                canJumpAgain = !wantToDoubleJump;
+                var whichJumpAnimation = AnimationStrings.jumpTrigger;
+                // Apply double jump multiplier if it's a double jump
+                if (wantToDoubleJump)
+                {
+                    _jumpSpeed *= doubleJumpMultiplier;
+                    whichJumpAnimation = AnimationStrings.doubleJumpTrigger;
+                }
+
+                _animator.SetTrigger(whichJumpAnimation);
+            }
+            else
+            {
+                _animator.SetTrigger(AnimationStrings.jumpTrigger);
             }
 
-            _animator.SetTrigger(whichJumpAnimation);
 
-            
             // If Kit is moving up or down when she jumps (such as when doing a double jump), change the _jumpSpeed;
             // This will ensure the jump is the exact same strength, no matter your _velocity.
             if (_velocity.y > 0f)
@@ -300,7 +324,6 @@ public class CharacterJump : MonoBehaviour
                 _jumpSpeed += Mathf.Abs(_rB.velocity.y);
             }
 
-            
 
             _velocity.y += _jumpSpeed;
             _currentlyJumping = true;
@@ -322,21 +345,40 @@ public class CharacterJump : MonoBehaviour
 
     public void OnGlide(InputAction.CallbackContext context)
     {
-        if (context.started && CanGlide && !_isGliding)
+        if (context.started && CanGlide && !IsGliding)
         {
             _rB.drag = linearDragGliding;
             _animator.SetBool(AnimationStrings.isGliding, true);
-            _isGliding = true;
+            IsGliding = true;
         }
 
-        if (context.canceled && _isGliding)
+        if (context.canceled && IsGliding)
         {
             _rB.drag = linearDragRegular;
             _animator.SetBool(AnimationStrings.isGliding, false);
-            _isGliding = false;
+            IsGliding = false;
         }
     }
 
+    public void OnGlide()
+    {
+        if (_rB.velocity.y < 0f)
+        {
+            if ( CanGlide && !IsGliding && _pressingJump)
+            {
+                _rB.drag = linearDragGliding;
+                _animator.SetBool(AnimationStrings.isGliding, true);
+                IsGliding = true;
+            }
+
+            if ( IsGliding && !_pressingJump)
+            {
+                _rB.drag = linearDragRegular;
+                _animator.SetBool(AnimationStrings.isGliding, false);
+                IsGliding = false;
+            }
+        }
+    }
 
 /*
 
