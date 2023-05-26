@@ -526,8 +526,10 @@ MonoBehaviour:
   jumpBuffer: 0.1
   doubleJumpMultiplier: 1
   canJumpAgain: 1
-  gravityMultiplierGliding: 8
-  linearDragGliding: 4.58
+  glideWhenPushAndDown: 0
+  glideWhenDoublePush: 1
+  gravityMultiplierGliding: 0.1
+  linearDragGliding: 20
 --- !u!114 &5295792123427033175
 MonoBehaviour:
   m_ObjectHideFlags: 0
