@@ -595,7 +595,7 @@ AnimatorStateMachine:
     m_Position: {x: 440, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5752023657872707737}
-    m_Position: {x: 660, y: -40, z: 0}
+    m_Position: {x: 960, y: -170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1984631309685911367}
     m_Position: {x: 930, y: 260, z: 0}
@@ -609,7 +609,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: -110, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
-  m_ExitPosition: {x: 1030, y: 100, z: 0}
+  m_ExitPosition: {x: 1260, y: 10, z: 0}
   m_ParentStateMachinePosition: {x: 30, y: 10, z: 0}
   m_DefaultState: {fileID: -6043613736417206173}
 --- !u!1109 &-5956959400390105266
@@ -1120,18 +1120,18 @@ AnimatorStateMachine:
   - {fileID: -5292531212249708525}
   m_EntryTransitions: []
   m_StateMachineTransitions:
+  - first: {fileID: 2104597542586734438}
+    second:
+    - {fileID: -4342685162317500857}
+  - first: {fileID: -6013126156367389410}
+    second:
+    - {fileID: 3605865245251340988}
   - first: {fileID: -5416111301974176134}
     second:
     - {fileID: -2443810617843394737}
     - {fileID: 4188039471054388697}
     - {fileID: -7613314110966723612}
     - {fileID: -1093631139649151021}
-  - first: {fileID: -6013126156367389410}
-    second:
-    - {fileID: 3605865245251340988}
-  - first: {fileID: 2104597542586734438}
-    second:
-    - {fileID: -4342685162317500857}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -170, y: 60, z: 0}
   m_EntryPosition: {x: -80, y: 170, z: 0}
@@ -1789,7 +1789,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: yVelocity
-    m_EventTreshold: -0.5
+    m_EventTreshold: -1.2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6043613736417206173}
   m_Solo: 0
@@ -2231,7 +2231,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: yVelocity
-    m_EventTreshold: -0.5
+    m_EventTreshold: -0.1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6043613736417206173}
   m_Solo: 0
@@ -2240,7 +2240,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.5
+  m_ExitTime: 1
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

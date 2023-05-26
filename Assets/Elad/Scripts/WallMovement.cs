@@ -28,10 +28,21 @@ public class WallMovement : MonoBehaviour
             _rB.drag = value ? linearDragWallSliding : _linearDragRegular;
         }
     }
+
     
+
     [SerializeField, Range(0f, 1f)] [Tooltip("linear Drag to apply when sliding")]
     private float linearDragWallSliding = 2f;
     private float _linearDragRegular;
+    
+    [SerializeField, Range(0f, 5f)] [Tooltip("Gravity multiplier to apply when sliding")]
+    private float gravityMultiplierWallSliding = 0.3f;
+    
+    public float GravityMultiplierWallSliding
+    {
+        get => gravityMultiplierWallSliding;
+        set => gravityMultiplierWallSliding = value;
+    }
     
     private void Awake()
     {
