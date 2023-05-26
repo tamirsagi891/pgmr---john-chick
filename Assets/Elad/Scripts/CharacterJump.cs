@@ -113,13 +113,16 @@ public class CharacterJump : MonoBehaviour
             //Also, use the started and canceled contexts to know if we're currently holding the button
             if (context.started)
             {
-                if (_touchingDirection.IsGrounded || _wallMovement.IsWallSliding)
+                if ( _touchingDirection.IsGrounded || _wallMovement.IsWallSliding)
                 {
                     _desiredJump = true;    
                 }
                 
                 _pressingJump = true;
+                OnGlide();
             }
+
+            
 
 
             if (context.canceled)
@@ -128,19 +131,13 @@ public class CharacterJump : MonoBehaviour
                 OnGlide();
             }
         }
-        
-        
     }
 
 
     void Update()
     {
         setPhysics();
-        if (_pressingJump)
-        {
-            OnGlide();
-        }
-
+        
         //Check if we're on ground.
         onGround = _touchingDirection.IsGrounded;
 
@@ -241,6 +238,7 @@ public class CharacterJump : MonoBehaviour
         //Else if going down...
         else if (_rB.velocity.y < -0.01f)
         {
+            OnGlide();
             if (onGround)
                 //Don't change it if Kit is stood on something (such as a moving platform)
             {
@@ -360,18 +358,18 @@ public class CharacterJump : MonoBehaviour
         }
     }
 
-    public void OnGlide()
+    private void OnGlide()
     {
         if (_rB.velocity.y < 0f)
         {
-            if ( CanGlide && !IsGliding && _pressingJump)
+            if (CanGlide && !IsGliding && _pressingJump)
             {
                 _rB.drag = linearDragGliding;
                 _animator.SetBool(AnimationStrings.isGliding, true);
                 IsGliding = true;
             }
 
-            if ( IsGliding && !_pressingJump)
+            if (IsGliding && !_pressingJump)
             {
                 _rB.drag = linearDragRegular;
                 _animator.SetBool(AnimationStrings.isGliding, false);
