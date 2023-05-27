@@ -137,11 +137,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 488182962625061855, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.34
+      value: -3.34
       objectReference: {fileID: 0}
     - target: {fileID: 488182962625061855, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.38
+      value: -2.19
       objectReference: {fileID: 0}
     - target: {fileID: 488182962625061855, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -178,6 +178,10 @@ PrefabInstance:
     - target: {fileID: 4839344152584221876, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: m_Name
       value: Chick Boy 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576566218375664799, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: lockKeysTime
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -399,7 +403,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329685633}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.17, y: -6.28, z: -10}
+  m_LocalPosition: {x: -1.94, y: -6.28, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2416,7 +2420,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401482519}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.17, y: -6.28, z: -10}
+  m_LocalPosition: {x: -1.94, y: -6.28, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

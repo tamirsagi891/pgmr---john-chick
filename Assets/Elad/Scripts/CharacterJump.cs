@@ -1,4 +1,5 @@
 using Elad.Events;
+using Elad.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -111,35 +112,29 @@ public class CharacterJump : MonoBehaviour
         //This function is called when one of the jump buttons (like space or the A button) is pressed.
         if (_playerController.CanMove)
         {
-            
             //When we press the jump button, tell the script that we desire a jump.
             //Also, use the started and canceled contexts to know if we're currently holding the button
             if (context.started)
             {
                 if (_horizontalMovement.IsCrouching)
                 {
-                   
-                    if ( _touchingDirection.IsOnPlatform)
+                    if (_touchingDirection.IsOnPlatform)
                     {
                         _animator.SetTrigger(AnimationStrings.crouchToFallTrigger);
                         characterEvents.playerCrouchAndJumpOnPlatform.Invoke(true);
-                        return;    
+                        return;
                     }
-                    
-                    
                 }
-                
-                
-                if ( _touchingDirection.IsGrounded || _wallMovement.IsWallSliding)
+
+
+                if (_touchingDirection.IsGrounded || _wallMovement.IsWallSliding)
                 {
-                    _desiredJump = true;    
+                    _desiredJump = true;
                 }
-                
+
                 _pressingJump = true;
                 OnGlide();
             }
-
-            
 
 
             if (context.canceled)
@@ -154,7 +149,7 @@ public class CharacterJump : MonoBehaviour
     void Update()
     {
         setPhysics();
-        
+
         //Check if we're on ground.
         onGround = _touchingDirection.IsGrounded;
         //Jump buffer allows us to queue up a jump, which will play when we next hitTrigger the ground
@@ -218,7 +213,8 @@ public class CharacterJump : MonoBehaviour
     private void calculateGravity()
     {
         //We change the character's gravity based on her Y direction
-
+        
+        
         //If Kit is going up...
         if (_rB.velocity.y > 0.01f)
         {
@@ -229,11 +225,12 @@ public class CharacterJump : MonoBehaviour
             }
             else
             {
+                
                 //If we're using variable jump height...)
                 if (dropWhenStopPushingJump)
                 {
                     //Apply upward multiplier if player is rising and holding jump
-                    if (_pressingJump && _currentlyJumping)
+                    if (_pressingJump && _currentlyJumping )
                     {
                         _gravMultiplier = gravityMultiplierAscending;
                     }
@@ -246,6 +243,10 @@ public class CharacterJump : MonoBehaviour
                 else
                 {
                     _gravMultiplier = gravityMultiplierAscending;
+                }
+                if (_wallMovement.IsWallSliding)
+                {
+                    _gravMultiplier = _wallMovement.GravityMultiplierWallSliding;
                 }
             }
         }
@@ -286,15 +287,20 @@ public class CharacterJump : MonoBehaviour
             _gravMultiplier = _defaultGravityScale;
         }
 
+        if (_wallMovement.IsWallSliding)
+        {
+            _gravMultiplier = _wallMovement.GravityMultiplierWallSliding;
+            
+        }
+
         //Set the character's Rigidbody's _velocity
         //But clamp the Y variable within the bounds of the speed limit, for the terminal _velocity assist option
+
         _rB.velocity = new Vector3(_velocity.x, Mathf.Clamp(_velocity.y, -maxFallSpeed, 100));
     }
 
     private void DoAJump()
     {
-        
-        
         // Create the jump, provided we are on the ground, in coyote time, or have a double jump available
         if (onGround || (_coyoteTimeCounter < coyoteTime) || canJumpAgain || _wallMovement.IsWallSliding)
         {
@@ -339,8 +345,19 @@ public class CharacterJump : MonoBehaviour
                 _jumpSpeed += Mathf.Abs(_rB.velocity.y);
             }
 
+            float xAddVelocity = 0;
+            if (_wallMovement.IsWallSliding && _touchingDirection.IsOnWall)
+            {
+                xAddVelocity = PlayerStatus.isFacingRight
+                    ? -_wallMovement.XPowerWhenJump
+                    : _wallMovement.XPowerWhenJump;
+                _horizontalMovement.CloseMovementToWall(xAddVelocity);
+                _wallMovement.IsWallSliding = false;
+                // _horizontalMovement.SetFacingDirection(-xAddVelocity);
+            }
 
             _velocity.y += _jumpSpeed;
+            _velocity.x += xAddVelocity;
             _currentlyJumping = true;
         }
 
@@ -377,6 +394,7 @@ public class CharacterJump : MonoBehaviour
 
     private void OnGlide()
     {
+        if (_wallMovement.IsWallSliding) return;
         if (_rB.velocity.y < 0f)
         {
             if (CanGlide && !IsGliding && _pressingJump)
