@@ -14,7 +14,7 @@ public class FallingItemSpawner : MonoBehaviour
     private Transform playerTransform;
     private List<GameObject> objectPool;
 
-    void Start()
+    private void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -30,7 +30,7 @@ public class FallingItemSpawner : MonoBehaviour
         StartCoroutine(SpawnProjectile());
     }
 
-    IEnumerator Shake()
+    private IEnumerator Shake()
     {
         float elapsed = 0.0f;
 
@@ -51,7 +51,7 @@ public class FallingItemSpawner : MonoBehaviour
         transform.position = originalPosition;
     }
 
-    IEnumerator SpawnProjectile()
+    private IEnumerator SpawnProjectile()
     {
         while (true)
         {
