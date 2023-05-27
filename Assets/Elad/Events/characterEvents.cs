@@ -1,3 +1,4 @@
+using System;
 using Elad.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,6 +13,8 @@ namespace Elad.Events
     
         public static UnityEvent< FeathersManager.FeatherKind> AddFeather = new();
         public static UnityEvent< FeathersManager.FeatherKind> RemoveFeather = new();
-    
+        
+        public static UnityEvent<bool> playerCrouchAndJumpOnPlatform  = new();
+
     }
 }

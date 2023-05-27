@@ -1,4 +1,5 @@
 using System;
+using Elad.Events;
 using Elad.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -66,18 +67,22 @@ public class HorizontalMovement : MonoBehaviour
     [SerializeField, Range(0f, 5f)] private float maxSpeedCrouching = 5f;
     [SerializeField] private float crouchingWalkSpeed = 3f;
 
-    private bool IsCrouching
+    public bool IsCrouching
     {
         get => _isCrouching;
         set
         {
             if (_isCrouching != value)
+            {
+
+
                 _animator.SetBool(AnimationStrings.isCrouching, value);
 
-            _isCrouching = value;
-            _playerController.ChangeCollider(value
-                ? PlayerController.ColliderKind.Circle
-                : PlayerController.ColliderKind.Capsule);
+                _isCrouching = value;
+                _playerController.ChangeCollider(value
+                    ? PlayerController.ColliderKind.Circle
+                    : PlayerController.ColliderKind.Capsule);
+            }
         }
     }
 
@@ -116,6 +121,12 @@ public class HorizontalMovement : MonoBehaviour
 
         else if (context.canceled)
             IsCrouching = false;
+        
+    }
+
+    public void OnCrouch(bool state)
+    {
+        IsCrouching = state;
     }
 
     public void OnMovement(InputAction.CallbackContext context)
