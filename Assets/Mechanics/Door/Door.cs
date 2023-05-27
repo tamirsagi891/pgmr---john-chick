@@ -18,29 +18,37 @@ public class Door : MonoBehaviour
     [Header("Shake Effect")]
     [SerializeField] private float shakeDuration = 0.5f; // time for the shaking effect
     [SerializeField] private float shakeMagnitude = 0.1f; // strength of the shaking effect
-
+    
     private Vector2 originalPosition;
+    private bool isDoorMoving;
 
-    void Start()
+    private void Start()
     {
         originalPosition = transform.position;
     }
     
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             OpenDoor();
             print("Door open");
         }
     }
 
-    public void OpenDoor()
+    public bool OpenDoor()
     {
-        StartCoroutine(DoorMovement());
+        // Only open the door if it's not currently moving
+        if (!isDoorMoving)
+        {
+            StartCoroutine(DoorMovement());
+            return true;
+        }
+
+        return false;
     }
 
-    Vector2 GetDirectionVector(Direction direction)
+    private Vector2 GetDirectionVector(Direction direction)
     {
         switch (direction)
         {
@@ -57,18 +65,17 @@ public class Door : MonoBehaviour
         }
     }
 
-    IEnumerator ShakeEffect()
+    private IEnumerator ShakeEffect()
     {
         float elapsed = 0.0f;
+        var startPos = transform.position;
 
-        var currentPos = transform.position;
-        
         while (elapsed < shakeDuration)
         {
             float x = Random.Range(-1f, 1f) * shakeMagnitude;
             float y = Random.Range(-1f, 1f) * shakeMagnitude;
-            
-            transform.position = new Vector2(currentPos.x + x, currentPos.y + y);
+
+            transform.position = new Vector2(startPos.x + x, startPos.y + y);
 
             elapsed += Time.deltaTime;
             yield return null;
@@ -77,8 +84,10 @@ public class Door : MonoBehaviour
         transform.position = originalPosition;
     }
 
-    IEnumerator DoorMovement()
+    private IEnumerator DoorMovement()
     {
+        isDoorMoving = true;
+
         Vector2 directionVector = GetDirectionVector(direction);
         Vector2 endPosition = originalPosition + directionVector * distance;
         float elapsedTime = 0;
@@ -113,5 +122,7 @@ public class Door : MonoBehaviour
 
         // Ensure the door has exactly reached the original position
         transform.position = originalPosition;
+
+        isDoorMoving = false;
     }
 }
