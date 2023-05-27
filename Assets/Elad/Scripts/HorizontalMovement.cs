@@ -74,8 +74,6 @@ public class HorizontalMovement : MonoBehaviour
         {
             if (_isCrouching != value)
             {
-
-
                 _animator.SetBool(AnimationStrings.isCrouching, value);
 
                 _isCrouching = value;
@@ -103,6 +101,8 @@ public class HorizontalMovement : MonoBehaviour
     }
 
 
+    [Space(10)] [Header("Lock Key")] [SerializeField] private bool _lockKey;
+
     private void Awake()
     {
         PlayerStatus.isFacingRight = (transform.localScale.x > 0);
@@ -121,7 +121,6 @@ public class HorizontalMovement : MonoBehaviour
 
         else if (context.canceled)
             IsCrouching = false;
-        
     }
 
     public void OnCrouch(bool state)
@@ -131,15 +130,22 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext context)
     {
+        
         var direction = Vector2.zero;
-        if (context.phase != InputActionPhase.Canceled && _playerController.CanMove)
+        if (!_lockKey && context.phase != InputActionPhase.Canceled && _playerController.CanMove)
         {
             direction = context.ReadValue<Vector2>();
         }
+        
 
         directionX = direction.x;
         _playerController.IsMoving = (directionX != 0);
         SetFacingDirection(directionX);
+    }
+    
+    public void CloseMovementToWall(float newMovement)
+    {
+        
     }
 
     public void OnRun(InputAction.CallbackContext context)
@@ -247,7 +253,7 @@ public class HorizontalMovement : MonoBehaviour
         _rB.velocity = _velocity;
     }
 
-    private void SetFacingDirection(float movementInput)
+    public void SetFacingDirection(float movementInput)
     {
         if (movementInput > 0 && !IsFacingRight)
         {
@@ -266,6 +272,8 @@ public class HorizontalMovement : MonoBehaviour
     {
         return directionX;
     }
+
+  
 
     public void OnHit(int damage, Vector2 knockBack)
     {

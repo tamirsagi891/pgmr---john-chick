@@ -6,6 +6,7 @@ using UnityEngine;
 public class WallMovement : MonoBehaviour
 {
     [Header("Components")] private TouchingDirection _touchingDirection;
+    
     private Rigidbody2D _rB;
     private HorizontalMovement _horizontalMovement;
     private Animator _animator;
@@ -13,6 +14,7 @@ public class WallMovement : MonoBehaviour
     private bool _wantToWallSlide;
     private bool _isWallSliding;
 
+    
     public bool IsWallSliding
     {
         get
@@ -30,6 +32,7 @@ public class WallMovement : MonoBehaviour
     }
 
     
+    
 
     [SerializeField, Range(0f, 1f)] [Tooltip("linear Drag to apply when sliding")]
     private float linearDragWallSliding = 2f;
@@ -43,6 +46,19 @@ public class WallMovement : MonoBehaviour
         get => gravityMultiplierWallSliding;
         set => gravityMultiplierWallSliding = value;
     }
+
+    [SerializeField] private float xPowerWhenJump = 2f;
+    public float XPowerWhenJump
+    {
+        get => xPowerWhenJump;
+        set => xPowerWhenJump = value;
+    }
+
+    [SerializeField, Range(0f, 0.3f)] [Tooltip("How long should coyote time last?")]
+    private float coyoteTime = 0.15f;
+
+    private float _coyoteTimer;
+
     
     private void Awake()
     {
@@ -73,12 +89,18 @@ public class WallMovement : MonoBehaviour
         {
             
             _wantToWallSlide = true;
+            _coyoteTimer = coyoteTime;
         }
 
         else
         {
+
+            _coyoteTimer -= Time.deltaTime;
+            if (_coyoteTimer <= 0)
+            {
+                _wantToWallSlide = false;    
+            }
             
-            _wantToWallSlide = false;
         }
     }
     
