@@ -3,18 +3,21 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
 public class FallingItem : MonoBehaviour
 {
-    public float maxDistanceFromPlayer = 20f; // the max distance the projectile can be from the player before being destroyed
+    [SerializeField] private int damage = 1; // Damage that the item will cause on collision with the player
+    [SerializeField] private float knockBackForce = 5f; // Force with which the player will be knocked back
+    [SerializeField] private float maxDistanceFromPlayer = 50f; // The max distance the projectile can be from the player before being deactivated
+
     private Transform playerTransform;
     private FallingItemSpawner spawner;
 
-    void Start()
+    private void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         spawner = GetComponentInParent<FallingItemSpawner>();
         GetComponent<Rigidbody2D>().gravityScale = 1; // Make sure the rigidbody falls down
     }
 
-    void Update()
+    private void Update()
     {
         // If the spawner is deactivated or the projectile is too far from the player, deactivate the projectile
         if (!spawner.gameObject.activeInHierarchy || Vector2.Distance(transform.position, playerTransform.position) > maxDistanceFromPlayer)
@@ -23,13 +26,18 @@ public class FallingItem : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         string collisionTag = collision.gameObject.tag;
 
         if (collisionTag == "Player")
         {
-            Debug.Log("Player");
+            Damageable damageable = collision.gameObject.GetComponent<Damageable>();
+            if (damageable != null)
+            {
+                Vector2 knockBack = (collision.transform.position.x > transform.position.x) ? Vector2.right : Vector2.left;
+                damageable.GotHit(damage, knockBack * knockBackForce);
+            }
             GetComponent<CircleCollider2D>().isTrigger = true;
         }
         else if (collisionTag != "Monster")
