@@ -1,3 +1,4 @@
+using Elad.Events;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,7 +13,7 @@ public class CharacterJump : MonoBehaviour
     private WallMovement _wallMovement;
     private TouchingDirection _touchingDirection;
     private Vector2 _velocity;
-
+    private HorizontalMovement _horizontalMovement;
     private PlayerController _playerController;
     private Animator _animator;
 
@@ -102,6 +103,7 @@ public class CharacterJump : MonoBehaviour
         _animator = GetComponent<Animator>();
         linearDragRegular = _rB.drag;
         _wallMovement = GetComponent<WallMovement>();
+        _horizontalMovement = GetComponent<HorizontalMovement>();
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -109,10 +111,25 @@ public class CharacterJump : MonoBehaviour
         //This function is called when one of the jump buttons (like space or the A button) is pressed.
         if (_playerController.CanMove)
         {
+            
             //When we press the jump button, tell the script that we desire a jump.
             //Also, use the started and canceled contexts to know if we're currently holding the button
             if (context.started)
             {
+                if (_horizontalMovement.IsCrouching)
+                {
+                   
+                    if ( _touchingDirection.IsOnPlatform)
+                    {
+                        _animator.SetTrigger(AnimationStrings.crouchToFallTrigger);
+                        characterEvents.playerCrouchAndJumpOnPlatform.Invoke(true);
+                        return;    
+                    }
+                    
+                    
+                }
+                
+                
                 if ( _touchingDirection.IsGrounded || _wallMovement.IsWallSliding)
                 {
                     _desiredJump = true;    
@@ -140,8 +157,6 @@ public class CharacterJump : MonoBehaviour
         
         //Check if we're on ground.
         onGround = _touchingDirection.IsGrounded;
-
-
         //Jump buffer allows us to queue up a jump, which will play when we next hitTrigger the ground
         if (jumpBuffer > 0)
         {
@@ -278,6 +293,8 @@ public class CharacterJump : MonoBehaviour
 
     private void DoAJump()
     {
+        
+        
         // Create the jump, provided we are on the ground, in coyote time, or have a double jump available
         if (onGround || (_coyoteTimeCounter < coyoteTime) || canJumpAgain || _wallMovement.IsWallSliding)
         {

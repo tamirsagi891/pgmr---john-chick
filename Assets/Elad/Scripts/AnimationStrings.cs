@@ -34,6 +34,8 @@ internal static class AnimationStrings
     public static string lockVelocity = "lockVelocity";
     public static string attackCoolDown = "attackCoolDown";
     public static string arrowAttack = "arrow_attack";
+    public static string crouchToFallTrigger = "crouchToFall";
+    
     
 
 

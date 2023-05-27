@@ -61,7 +61,6 @@ public class WallMovement : MonoBehaviour
         IsWallSliding = _wantToWallSlide;    
         
         
-        
     }
 
     void WallCheck()
