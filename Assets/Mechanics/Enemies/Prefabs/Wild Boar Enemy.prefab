@@ -25,7 +25,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: dashTime.duration
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: tryDashBeforeJump
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: stopMovementDuringAttackTime
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3934999517421752821, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}

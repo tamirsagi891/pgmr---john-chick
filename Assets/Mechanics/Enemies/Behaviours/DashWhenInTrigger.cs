@@ -68,7 +68,7 @@ namespace Mechanics.Enemies
         private void OnTriggerEnter2D(Collider2D other)
         {
             var attackTarget = other.GetComponent<ICanBeAttacked>();
-            if (attackTarget != null && !waitForDashTimer.IsSet)
+            if (attackTarget != null && !waitForDashTimer.IsSet && !npcToReportTo.IsDashing)
             {
                 waitForDashTimer.Start();
                 npcToReportTo.StopMovement(waitForDashTimer.Duration);
