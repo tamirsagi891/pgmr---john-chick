@@ -24,11 +24,17 @@ namespace Mechanics.Enemies
             if (animationControls.CanMove)
             {
                 var shouldSwitch = ShouldSwitchDirectionWhenNotMoving();
-
+                
                 Vector2 directionToMove = WalkTarget.position - transform.position;
 
                 animationControls.Direction = directionToMove.x < 0 ? Direction.Left : Direction.Right;
-                ShouldMove = directionToMove.sqrMagnitude > 0.01f;
+                var minDistance = 0.01f; // TODO: move both to fields
+                if (HasPlayerContact)
+                {
+                    minDistance = minDistanceForMovementWhenHavePlayer;
+                    // animationControls.StopDirectionSwitch = directionToMove.sqrMagnitude > minDistance;
+                }
+                ShouldMove = directionToMove.sqrMagnitude > minDistance;
                 DesiredVelocity = ShouldMove
                     ? directionToMove.GetWithMagnitude(MyStatsHandler.CurrentStats.movementSpeed)
                     : Vector2.zero;

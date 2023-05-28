@@ -256,15 +256,18 @@ MonoBehaviour:
   myData: {fileID: 11400000, guid: a29e617e589118e4782850b9801a9de7, type: 2}
   animationControls: {fileID: 8483125766429725516}
   attackController: {fileID: 6587525368756741524}
-  attackTime: 1
+  stopMovementDuringAttackTime: 1
+  attackStartAfterTime: 1
   hurtTime: 1
   dashTime:
     duration: 0.5
+  tryDashBeforeJump: 0
   notMovingTimer:
     duration: 1
   stopMovementWhileTargetExists: 1
   detectEdges: 1
   canAirAttack: 1
+  minDistanceForMovementWhenHavePlayer: 0.6
   removeAfterDeath: 0
   removeAfterDeathTimer:
     duration: 10

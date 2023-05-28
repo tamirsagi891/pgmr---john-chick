@@ -67,6 +67,9 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         protected bool canAirAttack; // TODO: move to getter and check Ground/Flying enemy, or to inherited class.
+        
+        [SerializeField]
+        protected float minDistanceForMovementWhenHavePlayer = 1f;
 
         [Space]
         [SerializeField]
@@ -121,7 +124,8 @@ namespace Mechanics.Enemies
                 }
 
                 // TODO: add script for attack strategy
-                if (value != null)
+                HasPlayerContact = value != null;
+                if (HasPlayerContact)
                 {
                     WalkTarget = value.transform;
                     events.onPlayerDetected.Invoke();
@@ -145,6 +149,8 @@ namespace Mechanics.Enemies
                 }
             }
         }
+
+        protected bool HasPlayerContact { get; set; } 
 
         public NpcDataScriptable NpcDataScriptable
         {
@@ -173,6 +179,7 @@ namespace Mechanics.Enemies
         }
 
         public Direction CurrentDirection => animationControls.Direction;
+        public bool IsDashing => dashTime.IsSet && dashTime.IsActive;
 
         #endregion
 
@@ -294,7 +301,7 @@ namespace Mechanics.Enemies
             {
                 if (IsGrounded) // TODO: Dash + Jump doesnt work cause of this
                 {
-                    var targetLeft = _walkTarget.position.x < transform.position.x;
+                    var targetLeft = WalkTarget.position.x < transform.position.x;
                     animationControls.Direction = targetLeft ? Direction.Left : Direction.Right;
 
                     var speed = MyStatsHandler.CurrentStats.movementSpeed;
@@ -302,6 +309,10 @@ namespace Mechanics.Enemies
                     DesiredVelocity.x = speed;
 
                     ShouldMove = Mathf.Abs(DesiredVelocity.x) > 0.01f;
+                    // if (HasPlayerContact)
+                    // {
+                    //     animationControls.StopDirectionSwitch = Mathf.Abs(WalkTarget.position.x - transform.position.x) < minDistanceForMovementWhenHavePlayer;
+                    // }
 
                     if ((DetectEdges && EdgeInFront) || shouldSwitch) // TODO: ignore edges in pursuit?
                     {
@@ -521,6 +532,10 @@ namespace Mechanics.Enemies
 
         protected virtual void RunWithoutAcceleration()
         {
+            if (!ShouldMove)
+            {
+                return;
+            }
             Velocity.x = DesiredVelocity.x;
             var minVelocity = 0.05f; // TODO: expose
             Velocity.x = Mathf.Abs(Velocity.x) < minVelocity ? 0f : Velocity.x;
