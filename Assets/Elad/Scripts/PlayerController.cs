@@ -88,13 +88,13 @@ public class PlayerController : MonoBehaviour
         switch (colliderKind)
         {
             case ColliderKind.Capsule:
-                _capsuleCollider2D.enabled = true;
-                _circleCollider2D.enabled = false;
+                _capsuleCollider2D.isTrigger = false;
+                // _circleCollider2D.enabled = false;
                 break;
 
             case ColliderKind.Circle:
-                _capsuleCollider2D.enabled = false;
-                _circleCollider2D.enabled = true;
+                _capsuleCollider2D.isTrigger = true;
+                // _circleCollider2D.enabled = true;
                 break;
 
             case ColliderKind.DodgeRoll:
