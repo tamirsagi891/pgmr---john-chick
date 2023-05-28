@@ -7,6 +7,7 @@ namespace Elad.Scripts
 {
     public static class PlayerStatus
     {
+        public static GameObject player;
         public static int maxHealth;
         public static int curHealth;
         public static bool isFacingRight;
