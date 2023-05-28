@@ -53,9 +53,9 @@ public class TouchingDirection : MonoBehaviour
     }
 
     public ContactFilter2D castFilterPlatform;
-
-
-    public ContactFilter2D castFilter;
+    public ContactFilter2D castFilterGround;
+    public ContactFilter2D castFilterWall;
+    
     [SerializeField] private float groundDistance = 0.05f;
     [SerializeField] private float wallDistance = 0.2f;
     [SerializeField] private float ceilingDistance = 0.05f;
@@ -73,6 +73,7 @@ public class TouchingDirection : MonoBehaviour
     private Animator _animator;
 
     [SerializeField] private LayerMask wallLayer;
+    
 
     private void Awake()
     {
@@ -94,28 +95,58 @@ public class TouchingDirection : MonoBehaviour
 
     private void FixedUpdate()
     {
-        IsGrounded = _capsuleCollider2D.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0 || 
-                     _circleCollider2D.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0;
-        IsOnWall = _capsuleCollider2D.Cast(wallCheckDirection, castFilter, wallHits, wallDistance) > 0;
-        IsOnCeiling = _capsuleCollider2D.Cast(Vector2.up, castFilter, ceilingHits, ceilingDistance) > 0;
+        GroundAndPlatformCast();
+        WallCast();
+        
+        IsOnCeiling = _capsuleCollider2D.Cast(Vector2.up, castFilterGround, ceilingHits, ceilingDistance) > 0;
 
         
-        int numberOfPlatformHits =
-            _circleCollider2D.Cast(Vector2.down, castFilterPlatform, platformHits, groundDistance);
-        if (numberOfPlatformHits > 0)
-        {
-            for (int i = 0; i < numberOfPlatformHits; i++)
-            {
-                if (platformHits[i].collider != null && platformHits[i].collider.CompareTag("Platform"))
-                {
-                    
-                    IsOnPlatform = true;
-                    return;
-                }
-            }
-        }
+        
+    }
+    
+    
+    private void GroundAndPlatformCast()
+    {
+        // Calculate the position at the bottom of the circle collider
+        Vector2 castOrigin = _circleCollider2D.bounds.center;
+        castOrigin.y -= _circleCollider2D.bounds.extents.y;
 
-        IsOnPlatform = false;
+        // Perform the raycast from the bottom of the circle collider
+        RaycastHit2D hitGround = Physics2D.Raycast(castOrigin, Vector2.down, groundDistance, castFilterGround.layerMask);
+
+        
+        // Draw debug line for the cast
+        Debug.DrawRay(castOrigin, Vector2.down * groundDistance, Color.red);
+
+        // Check if the raycast hit something
+        IsGrounded = hitGround.collider != null;
+
+        //Same raycast position but now for the platforms
+        RaycastHit2D hitPlatform = Physics2D.Raycast(castOrigin, Vector2.down, groundDistance, castFilterPlatform.layerMask);
+        IsOnPlatform = hitPlatform.collider != null;
+    }
+
+    [SerializeField] private float offsetX = 0.5f;
+    private void WallCast()
+    {
+        // Calculate the position at the side of the circle collider
+        Vector2 castOrigin = _circleCollider2D.bounds.center;
+
+        // The horizontal offset depends on the direction the character is facing
+        float horizontalOffset = ( _circleCollider2D.bounds.extents.x) * (wallCheckDirection.x > 0 ? 1 : -1);
+        castOrigin.x += horizontalOffset;
+
+        // Perform the raycast from the side of the circle collider
+        RaycastHit2D hit = Physics2D.Raycast(castOrigin, wallCheckDirection, wallDistance, castFilterWall.layerMask);
+
+        // Draw debug line for the cast
+        Debug.DrawRay(castOrigin, wallCheckDirection * wallDistance, Color.red);
+
+        // Check if the raycast hit something
+        IsOnWall = hit.collider != null;
 
     }
+
+
+
 }

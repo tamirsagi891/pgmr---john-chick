@@ -290,7 +290,6 @@ public class CharacterJump : MonoBehaviour
         if (_wallMovement.IsWallSliding)
         {
             _gravMultiplier = _wallMovement.GravityMultiplierWallSliding;
-            
         }
 
         //Set the character's Rigidbody's _velocity

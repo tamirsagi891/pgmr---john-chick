@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2468822556814370949, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4839344152584221876, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: m_Name
       value: Chick Boy 2
@@ -182,6 +186,18 @@ PrefabInstance:
     - target: {fileID: 6576566218375664799, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: lockKeysTime
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8083187949842689708, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: addToOriginal
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 8083187949842689708, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: castFilter.useLayerMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8083187949842689708, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: castFilter.layerMask.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -472,7 +488,7 @@ GameObject:
   - component: {fileID: 629399743}
   - component: {fileID: 629399742}
   - component: {fileID: 629399741}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
