@@ -32,11 +32,11 @@ public class Arrow : MonoBehaviour
     private PlayerAttackController _controller;
     private Rigidbody2D _rB;
 
-    private PlayerAttack _playerAttack;
+    private FeathersManager _feathersManager;
 
-    public PlayerAttack PlayerAttack
+    public FeathersManager FeathersManager
     {
-        set => _playerAttack = value;
+        set => _feathersManager = value;
     }
 
     public FeathersManager.FeatherKind MyArrowKind
@@ -84,7 +84,6 @@ public class Arrow : MonoBehaviour
     {
         _rB = GetComponent<Rigidbody2D>();
         _controller = GetComponent<PlayerAttackController>();
-        _playerAttack = PlayerStatus.player.GetComponent<PlayerAttack>();
     }
 
     private void Update()
@@ -112,9 +111,9 @@ public class Arrow : MonoBehaviour
 
     private void DestroyArrow()
     {
-        if (_playerAttack.UsePool)
+        if (_feathersManager.UsePoolArrow)
         {
-            bool inPoll = _playerAttack.ReturnArrowToPoll(this);
+            bool inPoll = _feathersManager.ReturnArrowToPoll(this);
             if (!inPoll)
             {
                 Destroy(gameObject);

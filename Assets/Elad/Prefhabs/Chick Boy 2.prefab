@@ -654,11 +654,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTriggerResetTime: 0.1
   groundAttackCoolDownTime: 0
-  arrowAttackCoolDownTime: 1
-  arrowInstantiatePosition: {fileID: 1508641204096048608}
-  arrowPrefab: {fileID: 4775548294322568153, guid: 5d1c6ddbcc7f9b74a82aa49ba3f67395, type: 3}
-  _maxPoolSize: 100
-  usePool: 1
 --- !u!95 &8564377759044711839
 Animator:
   serializedVersion: 5
@@ -938,6 +933,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curFeatherKind: 0
   arrowList: {fileID: 11400000, guid: 84626dfd3334ffd45bcb578603d411c3, type: 2}
+  arrowAttackCoolDownTime: 1
+  arrowInstantiatePosition: {fileID: 1508641204096048608}
+  arrowPrefab: {fileID: 4775548294322568153, guid: 5d1c6ddbcc7f9b74a82aa49ba3f67395, type: 3}
+  _maxPoolSize: 100
+  usePoolArrow: 1
 --- !u!1 &5226554228603114634
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 
+[RequireComponent(typeof(FeathersManager))]
 public class PlayerAttack : MonoBehaviour
 {
     [Header("Components")] private Rigidbody2D _rB;
@@ -19,50 +20,13 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float groundAttackCoolDownTime = 1f;
     private float _groundAttackCoolDownTimer = 0;
     private bool _attackCoolDown = false;
-
-    [Space(10)] [Header("Arrow Attack")] [SerializeField]
-    private float arrowAttackCoolDownTime = 1f;
-
-    private float _arrowAttackCoolDownTimer = 0;
-    private bool _arrowAttackCoolDown = false;
-    [SerializeField] private GameObject arrowInstantiatePosition;
-    [SerializeField] private GameObject arrowPrefab;
-    private LinkedPool<Arrow> _arrowPool;
-    private int _startPoolSize = 50;
-    [SerializeField] private int _maxPoolSize = 100;
-    [SerializeField] private bool usePool = true;
-
-    public bool UsePool
-    {
-        get => usePool;
-        set => usePool = value;
-    }
-
+    
+    
     private void Awake()
     {
-        if (usePool)
-        {
-            _arrowPool = new LinkedPool<Arrow>(() => Instantiate(arrowPrefab,
-                    arrowInstantiatePosition.transform.position,
-                    arrowPrefab.transform.rotation).GetComponent<Arrow>(),
-                GetArrow,
-                arrow => arrow.gameObject.SetActive(false),
-                arrow => Destroy(arrow.gameObject),
-                false,
-                _maxPoolSize
-            );
-        }
-
         _animator = GetComponent<Animator>();
     }
     
-
-    private void GetArrow(Arrow arrow)
-    {
-        arrow.gameObject.SetActive(true);
-        arrow.transform.position = arrowInstantiatePosition.transform.position;
-        arrow.MyArrowData = PlayerStatus.CurrentArrowDataData;
-    }
 
     private void Update()
     {
@@ -91,15 +55,7 @@ public class PlayerAttack : MonoBehaviour
                 _attackCoolDown = false;
             }
         }
-
-        if (_arrowAttackCoolDown)
-        {
-            _arrowAttackCoolDownTimer -= Time.deltaTime;
-            if (_arrowAttackCoolDownTimer < 0)
-            {
-                _arrowAttackCoolDown = false;
-            }
-        }
+        
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -107,47 +63,8 @@ public class PlayerAttack : MonoBehaviour
         if (context.started && !_attackCoolDown)
         {
             _animator.SetTrigger(AnimationStrings.attackTrigger);
-            _attackTriggerResetTimer = arrowAttackCoolDownTime;
+            _attackTriggerResetTimer = attackTriggerResetTime;
         }
     }
-
-    public void OnArrowAttack(InputAction.CallbackContext context)
-    {
-        if (context.started && !_arrowAttackCoolDown)
-        {
-            _animator.SetTrigger(AnimationStrings.arrowAttack);
-            _arrowAttackCoolDownTimer = arrowAttackCoolDownTime;
-            _arrowAttackCoolDown = true;
-        }
-    }
-
-    public void FireArrow()
-    {
-        Arrow arrow;
-        if (UsePool)
-        {
-            arrow = _arrowPool.Get();
-        }
-
-        else
-        {
-            arrow = Instantiate(arrowPrefab, arrowInstantiatePosition.transform.position,
-                arrowPrefab.transform.rotation).GetComponent<Arrow>();
-        }
-
-        arrow.PlayerAttack = this;
-        arrow.transform.position = arrowInstantiatePosition.transform.position;
-        arrow.Fire();
-    }
-
-    public bool ReturnArrowToPoll(Arrow arrow)
-    {
-        if (UsePool)
-        {
-            _arrowPool.Release(arrow);
-            return true;
-        }
-
-        return false;
-    }
+    
 }

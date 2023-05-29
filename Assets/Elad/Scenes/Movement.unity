@@ -183,10 +183,34 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 1.38
       objectReference: {fileID: 0}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1310039720}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Elad.Scripts.FeathersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4839344152584221876, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: m_Name
       value: Chick Boy 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5682967056863179661, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5682967056863179661, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: arrowPrefab
+      value: 
+      objectReference: {fileID: 4775548294322568153, guid: 5d1c6ddbcc7f9b74a82aa49ba3f67395, type: 3}
+    - target: {fileID: 5682967056863179661, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: usePoolArrow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5682967056863179661, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: arrowInstantiatePosition
+      value: 
+      objectReference: {fileID: 455620312}
     - target: {fileID: 6576566218375664799, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: lockKeysTime
       value: 0.3
@@ -2306,6 +2330,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 488182962625061855, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
   m_PrefabInstance: {fileID: 23357395}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1310039720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5682967056863179661, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+  m_PrefabInstance: {fileID: 23357395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310039686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4d4f45ed84f584a9b5b46a1b138c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1378461857
 GameObject:
   m_ObjectHideFlags: 3
