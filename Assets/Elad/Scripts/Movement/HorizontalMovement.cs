@@ -164,6 +164,7 @@ public class HorizontalMovement : MonoBehaviour
 
     private void Update()
     {
+        PlayerStatus.playerVelocity = _rB.velocity;
         var currentDirX = CanMove ? directionX : 0;
 
         _pressingMovementKey = (currentDirX != 0);

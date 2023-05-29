@@ -13,43 +13,55 @@ public class PlayerAttack : MonoBehaviour
 
     [Space(10)] [Header("Ground Attack")] [SerializeField]
     private float attackTriggerResetTime = 0.25f;
+
     private float _attackTriggerResetTimer = 0;
-    
+
     [SerializeField] private float groundAttackCoolDownTime = 1f;
     private float _groundAttackCoolDownTimer = 0;
     private bool _attackCoolDown = false;
-    
-    [Space(10)] [Header("Arrow Attack")]
-    [SerializeField] private float arrowAttackCoolDownTime = 1f;
+
+    [Space(10)] [Header("Arrow Attack")] [SerializeField]
+    private float arrowAttackCoolDownTime = 1f;
+
     private float _arrowAttackCoolDownTimer = 0;
     private bool _arrowAttackCoolDown = false;
-    [SerializeField] private Transform arrowInstantiatePosition;
+    [SerializeField] private GameObject arrowInstantiatePosition;
     [SerializeField] private GameObject arrowPrefab;
     private LinkedPool<Arrow> _arrowPool;
     private int _startPoolSize = 50;
-    private int _maxPoolSize = 100;
+    [SerializeField] private int _maxPoolSize = 100;
     [SerializeField] private bool usePool = true;
-    
+
+    public bool UsePool
+    {
+        get => usePool;
+        set => usePool = value;
+    }
+
     private void Awake()
     {
-        _arrowPool = new LinkedPool<Arrow>(() => Instantiate(arrowPrefab, arrowInstantiatePosition.position, 
-            arrowPrefab.transform.rotation).GetComponent<Arrow>(), 
-            GetArrow,
-        arrow => arrow.gameObject.SetActive(false),
-            arrow => Destroy(arrow.gameObject),
-            false,
-            _maxPoolSize
+        if (usePool)
+        {
+            _arrowPool = new LinkedPool<Arrow>(() => Instantiate(arrowPrefab,
+                    arrowInstantiatePosition.transform.position,
+                    arrowPrefab.transform.rotation).GetComponent<Arrow>(),
+                GetArrow,
+                arrow => arrow.gameObject.SetActive(false),
+                arrow => Destroy(arrow.gameObject),
+                false,
+                _maxPoolSize
             );
+        }
+
         _animator = GetComponent<Animator>();
     }
+    
 
     private void GetArrow(Arrow arrow)
     {
         arrow.gameObject.SetActive(true);
-        arrow.transform.position = arrowInstantiatePosition.position;
-        arrow.MyArrowKind = PlayerStatus.CurrentArrowAttackData.featherKind;
-        arrow.Damage = PlayerStatus.CurrentArrowAttackData.damage;
-        arrow.MoveSpeed = PlayerStatus.CurrentArrowAttackData.moveSpeed;
+        arrow.transform.position = arrowInstantiatePosition.transform.position;
+        arrow.MyArrowData = PlayerStatus.CurrentArrowDataData;
     }
 
     private void Update()
@@ -68,7 +80,6 @@ public class PlayerAttack : MonoBehaviour
         {
             _attackCoolDown = _animator.GetBool(AnimationStrings.attackCoolDown);
             _groundAttackCoolDownTimer = groundAttackCoolDownTime;
-            
         }
 
         if (_attackCoolDown)
@@ -77,7 +88,7 @@ public class PlayerAttack : MonoBehaviour
             if (_groundAttackCoolDownTimer < 0)
             {
                 _animator.SetBool(AnimationStrings.attackCoolDown, false);
-                _attackCoolDown = false; 
+                _attackCoolDown = false;
             }
         }
 
@@ -89,54 +100,49 @@ public class PlayerAttack : MonoBehaviour
                 _arrowAttackCoolDown = false;
             }
         }
-        
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-
         if (context.started && !_attackCoolDown)
         {
             _animator.SetTrigger(AnimationStrings.attackTrigger);
             _attackTriggerResetTimer = arrowAttackCoolDownTime;
         }
-        
     }
-    
+
     public void OnArrowAttack(InputAction.CallbackContext context)
     {
-
         if (context.started && !_arrowAttackCoolDown)
         {
             _animator.SetTrigger(AnimationStrings.arrowAttack);
             _arrowAttackCoolDownTimer = arrowAttackCoolDownTime;
             _arrowAttackCoolDown = true;
         }
-        
     }
 
     public void FireArrow()
     {
         Arrow arrow;
-        if (usePool)
+        if (UsePool)
         {
             arrow = _arrowPool.Get();
-            arrow.PlayerAttack = this;
         }
 
         else
         {
-            arrow = Instantiate(arrowPrefab, arrowInstantiatePosition.position, 
+            arrow = Instantiate(arrowPrefab, arrowInstantiatePosition.transform.position,
                 arrowPrefab.transform.rotation).GetComponent<Arrow>();
         }
-         
-        
+
+        arrow.PlayerAttack = this;
+        arrow.transform.position = arrowInstantiatePosition.transform.position;
         arrow.Fire();
     }
 
     public bool ReturnArrowToPoll(Arrow arrow)
     {
-        if (usePool)
+        if (UsePool)
         {
             _arrowPool.Release(arrow);
             return true;

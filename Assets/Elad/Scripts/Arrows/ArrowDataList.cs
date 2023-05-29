@@ -4,8 +4,8 @@ using UnityEngine;
 namespace Elad.Scripts
 {
     [CreateAssetMenu(fileName = "ArrowData", menuName = "Player/Attacks/Arrows", order = 0)]
-    public class ArrowAttackData : ScriptableObject
+    public class ArrowDataList : ScriptableObject
     {
-        [SerializeField] public List<ArrowAttack> arrowAttacksList;
+        [SerializeField] public List<ArrowData> arrowAttacksList;
     }
 }

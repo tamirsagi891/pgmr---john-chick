@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 99881944942700733}
   - component: {fileID: 3758110908443840896}
-  - component: {fileID: 2967252321229433450}
   - component: {fileID: 6951320471525107465}
   - component: {fileID: 7195988216594339225}
   - component: {fileID: 2779968462676848610}
+  - component: {fileID: 546341687503611615}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -88,20 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2967252321229433450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4775548294322568153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4addea5253168c74f8e00bdba4293923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 5
-  moveSpeed: {x: 3, y: 0}
 --- !u!50 &6951320471525107465
 Rigidbody2D:
   serializedVersion: 4
@@ -110,7 +96,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4775548294322568153}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -189,3 +175,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &546341687503611615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775548294322568153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4addea5253168c74f8e00bdba4293923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: {x: 7, y: 0}

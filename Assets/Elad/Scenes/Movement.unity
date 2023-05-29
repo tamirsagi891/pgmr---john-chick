@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3286716900048460944, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.38
+      objectReference: {fileID: 0}
     - target: {fileID: 4839344152584221876, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: m_Name
       value: Chick Boy 2
@@ -187,6 +191,10 @@ PrefabInstance:
       propertyPath: lockKeysTime
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 7053881251309258280, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: arrowInstantiatePosition
+      value: 
+      objectReference: {fileID: 455620312}
     - target: {fileID: 8083187949842689708, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: addToOriginal
       value: 0.82
@@ -199,7 +207,9 @@ PrefabInstance:
       propertyPath: castFilter.layerMask.m_Bits
       value: 64
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7053881251309258280, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+    - {fileID: 5295792123427033175, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -214,7 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 150915795}
   - component: {fileID: 150915794}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,6 +484,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &455620312 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1508641204096048608, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+  m_PrefabInstance: {fileID: 23357395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &629399739
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,64 +564,60 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 629399743}
     m_ColliderPaths:
-    - - X: -59999959
-        Y: 100000100
-      - X: -70000041
-        Y: 100000100
-      - X: -70000100
-        Y: 100000041
-      - X: -70000100
-        Y: -90000000
-      - X: -540000000
-        Y: -90000000
-      - X: -540000000
-        Y: -100000000
-      - X: 540000000
-        Y: -100000000
-      - X: 540000000
-        Y: -90000000
-      - X: 10000000
-        Y: -90000000
-      - X: 10000000
-        Y: -30000100
-      - X: 10000041
-        Y: -30000100
+    - - X: 540000128
+        Y: -100000040
+      - X: 540000128
+        Y: -89999960
+      - X: 540000064
+        Y: -89999904
       - X: 10000100
-        Y: -30000041
+        Y: -89999904
       - X: 10000100
-        Y: 100000041
+        Y: 100000040
       - X: 10000041
-        Y: 100000100
+        Y: 100000096
       - X: -41
-        Y: 100000100
+        Y: 100000096
       - X: -100
-        Y: 100000041
+        Y: 100000040
       - X: -100
-        Y: -30000041
-      - X: -41
-        Y: -30000100
-      - X: 0
-        Y: -30000100
-      - X: 0
-        Y: -90000000
+        Y: -89999904
       - X: -59999900
-        Y: -90000000
+        Y: -89999904
       - X: -59999900
-        Y: 100000041
+        Y: 100000040
+      - X: -59999956
+        Y: 100000096
+      - X: -70000040
+        Y: 100000096
+      - X: -70000104
+        Y: 100000040
+      - X: -70000104
+        Y: -89999904
+      - X: -540000064
+        Y: -89999904
+      - X: -540000128
+        Y: -89999960
+      - X: -540000128
+        Y: -100000040
+      - X: -540000064
+        Y: -100000096
+      - X: 540000064
+        Y: -100000096
   m_CompositePaths:
     m_Paths:
-    - - {x: 53.99997, y: -10}
-      - {x: 53.99997, y: -9}
-      - {x: 1, y: -8.99997}
+    - - {x: 53.999973, y: -10.00001}
+      - {x: 53.999973, y: -8.99999}
+      - {x: 1.00001, y: -8.999961}
       - {x: 0.9999748, y: 10.00001}
       - {x: -0.00001, y: 9.999974}
-      - {x: -0.0000294, y: -9}
-      - {x: -5.99999, y: -8.99997}
-      - {x: -6.0000253, y: 10.00001}
-      - {x: -7.0000095, y: 9.999974}
-      - {x: -7.000039, y: -9}
-      - {x: -54, y: -9.00003}
-      - {x: -53.99997, y: -10}
+      - {x: -0.0000394, y: -8.99999}
+      - {x: -5.99999, y: -8.999961}
+      - {x: -6.000025, y: 10.00001}
+      - {x: -7.0000105, y: 9.999974}
+      - {x: -7.00004, y: -8.99999}
+      - {x: -54.000015, y: -9.000026}
+      - {x: -53.999973, y: -10.00001}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0

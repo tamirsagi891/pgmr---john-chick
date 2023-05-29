@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1508641204096048608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3286716900048460944}
+  m_Layer: 9
+  m_Name: Arrow Start Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3286716900048460944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508641204096048608}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 488182962625061855}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3102121499190440341
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +158,6 @@ GameObject:
   - component: {fileID: 6576566218375664799}
   - component: {fileID: 8083187949842689708}
   - component: {fileID: 8202738127335998227}
-  - component: {fileID: 5295792123427033175}
   - component: {fileID: 4788722844662908557}
   - component: {fileID: 574856491710561616}
   - component: {fileID: 2155149881531077048}
@@ -136,6 +166,7 @@ GameObject:
   - component: {fileID: 1601200458186606597}
   - component: {fileID: 2853769968125978018}
   - component: {fileID: 567043247316612352}
+  - component: {fileID: 5682967056863179661}
   m_Layer: 9
   m_Name: Chick Boy 2
   m_TagString: Player
@@ -160,6 +191,7 @@ Transform:
   - {fileID: 1363002105268449905}
   - {fileID: 5587969544993268050}
   - {fileID: 1715117363079742312}
+  - {fileID: 3286716900048460944}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -389,7 +421,7 @@ MonoBehaviour:
     m_ActionName: Player/Gliding[/Keyboard/c]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2155149881531077048}
         m_TargetAssemblyTypeName: PlayerAttack, Assembly-CSharp
         m_MethodName: OnArrowAttack
         m_Mode: 0
@@ -506,7 +538,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 192
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -528,10 +560,8 @@ MonoBehaviour:
   groundDistance: 0.2
   wallDistance: 0.2
   ceilingDistance: 0.05
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  offsetX: 0.37
+  groundOffset: {x: 0, y: 0}
+  wallOffset: {x: 0, y: 0.2}
 --- !u!114 &8202738127335998227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,21 +590,7 @@ MonoBehaviour:
   glideWhenDoublePush: 1
   gravityMultiplierGliding: 0.1
   linearDragGliding: 20
---- !u!114 &5295792123427033175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4839344152584221876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48ffeb0adae427e9c6d044ea56c179b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackAmount: 10
-  knockBack: {x: 0, y: 0}
-  debug: 0
+  canJumpWhileCrouch: 0
 --- !u!114 &4788722844662908557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,8 +655,9 @@ MonoBehaviour:
   attackTriggerResetTime: 0.1
   groundAttackCoolDownTime: 0
   arrowAttackCoolDownTime: 1
-  arrowInstantiatePosition: {fileID: 0}
+  arrowInstantiatePosition: {fileID: 1508641204096048608}
   arrowPrefab: {fileID: 4775548294322568153, guid: 5d1c6ddbcc7f9b74a82aa49ba3f67395, type: 3}
+  _maxPoolSize: 100
   usePool: 1
 --- !u!95 &8564377759044711839
 Animator:
@@ -907,6 +924,20 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 0
+--- !u!114 &5682967056863179661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4839344152584221876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4d4f45ed84f584a9b5b46a1b138c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curFeatherKind: 0
+  arrowList: {fileID: 11400000, guid: 84626dfd3334ffd45bcb578603d411c3, type: 2}
 --- !u!1 &5226554228603114634
 GameObject:
   m_ObjectHideFlags: 0

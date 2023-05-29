@@ -12,7 +12,8 @@ namespace Elad.Scripts
         public static int curHealth;
         public static bool isFacingRight;
 
-        public static ArrowAttack CurrentArrowAttackData;
+        public static ArrowData CurrentArrowDataData;
 
+        public static Vector2 playerVelocity;
     }
 }

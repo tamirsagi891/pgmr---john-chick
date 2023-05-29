@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
@@ -15,6 +16,11 @@ namespace Mechanics.Enemies
         private void Awake()
         {
             _myDamageable = GetComponentInParent<Damageable>();
+        }
+
+        private void Start()
+        {
+            
         }
 
         public bool Attack(ICanBeAttacked attackTarget)

@@ -19,12 +19,12 @@ namespace Elad.Scripts
         [SerializeField] private FeatherKind curFeatherKind = FeatherKind.White;
 
         [SerializeField] [InlineScriptableObject]
-        private ArrowAttackData arrowData;
+        private ArrowDataList arrowList;
 
-        private List<ArrowAttack> arrowAttacksList => arrowData.arrowAttacksList;
-        // [SerializeField] private List<ArrowAttack> arrowAttacksList;
+        private List<ArrowData> arrowAttacksList => arrowList.arrowAttacksList;
+        // [SerializeField] private List<ArrowData> arrowAttacksList;
         
-        private Dictionary<FeatherKind, ArrowAttack> _arrowDataDic;
+        private Dictionary<FeatherKind, ArrowData> _arrowDataDic;
 
         public FeatherKind CurFeatherKind
         {
@@ -32,7 +32,7 @@ namespace Elad.Scripts
             set
             {
                 curFeatherKind = value;
-                PlayerStatus.CurrentArrowAttackData = _arrowDataDic[value];
+                PlayerStatus.CurrentArrowDataData = _arrowDataDic[value];
             }
         }
 
@@ -53,11 +53,12 @@ namespace Elad.Scripts
         private void Awake()
         {
             DictionaryInit();
+            SetCurrentFeather(_arrowDataDic[FeatherKind.White]);
         }
 
         private void DictionaryInit()
         {
-            _arrowDataDic = new Dictionary<FeatherKind, ArrowAttack>();
+            _arrowDataDic = new Dictionary<FeatherKind, ArrowData>();
             foreach (var arrow in arrowAttacksList)
             {
                 _arrowDataDic[arrow.featherKind] = arrow;
@@ -100,6 +101,12 @@ namespace Elad.Scripts
         {
             return _arrowDataDic[curFeatherKind].damage;
         }
+
+        private void SetCurrentFeather(ArrowData curArrowDataData)
+        {
+            PlayerStatus.CurrentArrowDataData = curArrowDataData;
+        }
+        
         
     }
 }

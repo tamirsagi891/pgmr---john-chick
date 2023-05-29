@@ -93,6 +93,27 @@ public class CharacterJump : MonoBehaviour
         set => _isGliding = value;
     }
 
+    [Space(10)][Header("Crouch Affect jump")][Tooltip("Let the player to jump from crouching")]
+    [SerializeField] private bool canJumpWhileCrouch;
+    private bool _canJump = true;
+    public bool CanJump
+    {
+        get
+        {
+            var _isCrouching = false;
+            if (!canJumpWhileCrouch)
+            {
+                _isCrouching = _horizontalMovement.IsCrouching;
+            }
+
+            var returnValue = (onGround || (_coyoteTimeCounter < coyoteTime) || canJumpAgain ||
+                               _wallMovement.IsWallSliding) && (!_isCrouching);
+
+            return returnValue;
+
+        }
+        
+    }
 
     void Awake()
     {
@@ -300,8 +321,9 @@ public class CharacterJump : MonoBehaviour
 
     private void DoAJump()
     {
+        
         // Create the jump, provided we are on the ground, in coyote time, or have a double jump available
-        if (onGround || (_coyoteTimeCounter < coyoteTime) || canJumpAgain || _wallMovement.IsWallSliding)
+        if (CanJump)
         {
             _desiredJump = false;
             _jumpBufferCounter = 0;
