@@ -7,10 +7,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAttackController))]
-public class Arrow : MonoBehaviour
+public class Egg : MonoBehaviour
 {
-    [SerializeField] [Tooltip("All arrows data are in the arrow data object")]
-    private bool HowToAffectArrow;
+    [SerializeField] [Tooltip("All Eggs data are in the Egg data object")]
+    private bool HowToAffectEgg;
 
     private int _damage;
 
@@ -29,39 +29,39 @@ public class Arrow : MonoBehaviour
         set => _moveSpeed = value;
     }
 
-    private FeathersManager.FeatherKind _myArrowKind;
+    private EggsManager.EggKind _myEggKind;
 
     private PlayerAttackController _controller;
     private Rigidbody2D _rB;
 
-    private FeathersManager _feathersManager;
+    private EggsManager _eggsManager;
 
-    public FeathersManager FeathersManager
+    public EggsManager eggsManager
     {
-        set => _feathersManager = value;
+        set => _eggsManager = value;
     }
 
-    public FeathersManager.FeatherKind MyArrowKind
+    public EggsManager.EggKind MyEggKind
     {
-        get => _myArrowKind;
-        set => _myArrowKind = value;
+        get => _myEggKind;
+        set => _myEggKind = value;
     }
 
 
-    private ArrowData _myArrowData;
-
-    public ArrowData MyArrowData
+    private EggData _myEggData;
+    
+    public EggData MyEggData
     {
-        get => _myArrowData;
+        get => _myEggData;
         set
         {
-            _myArrowData = value;
-            MyArrowKind = _myArrowData.featherKind;
-            Damage = _myArrowData.damage;
-            MoveSpeed = _myArrowData.moveSpeed;
-            LifeTime = _myArrowData.lifeTime;
-            _rB.bodyType = _myArrowData.rigidbodyType2D;
-            _addPlayerVelocity = _myArrowData.addPlayerVelocity;
+            _myEggData = value;
+            MyEggKind = _myEggData.eggKind;
+            Damage = _myEggData.damage;
+            MoveSpeed = _myEggData.moveSpeed;
+            LifeTime = _myEggData.lifeTime;
+            _rB.bodyType = _myEggData.rigidbodyType2D;
+            _addPlayerVelocity = _myEggData.addPlayerVelocity;
         }
     }
 
@@ -94,14 +94,14 @@ public class Arrow : MonoBehaviour
         LifeTime -= Time.deltaTime;
         if (LifeTime <= 0)
         {
-            DestroyArrow();
+            DestroyEgg();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the other gameobject's layer is contained within the hitFilter layerMask
-        if (_myArrowData.hitFilter.layerMask == (_myArrowData.hitFilter.layerMask | (1 << other.gameObject.layer)))
+        if (_myEggData.hitFilter.layerMask == (_myEggData.hitFilter.layerMask | (1 << other.gameObject.layer)))
         {
             ICanBeAttacked damageable = other.GetComponentInParent<ICanBeAttacked>();
             if (damageable != null)
@@ -109,15 +109,16 @@ public class Arrow : MonoBehaviour
                 _controller.Attack(damageable);
             }
 
-            DestroyArrow();
+            DestroyEgg();
         }
     }
 
-    private void DestroyArrow()
+
+    private void DestroyEgg()
     {
-        if (_feathersManager.UsePoolArrow)
+        if (_eggsManager.UsePoolEgg)
         {
-            bool inPoll = _feathersManager.ReturnArrowToPoll(this);
+            bool inPoll = _eggsManager.ReturnEggToPoll(this);
             if (!inPoll)
             {
                 Destroy(gameObject);
@@ -133,6 +134,8 @@ public class Arrow : MonoBehaviour
     {
         int side = PlayerStatus.isFacingRight ? 1 : -1;
         Vector2 playerVelocity = PlayerStatus.playerVelocity;
-        _rB.velocity = new Vector2((side * MoveSpeed.x) + playerVelocity.x, MoveSpeed.y + playerVelocity.y);
+
+        var velocityY = playerVelocity.y > 0 ? MoveSpeed.y : MoveSpeed.y + playerVelocity.y;
+        _rB.velocity = new Vector2(MoveSpeed.x + playerVelocity.x, velocityY);
     }
 }

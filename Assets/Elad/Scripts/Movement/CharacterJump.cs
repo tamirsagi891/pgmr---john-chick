@@ -61,9 +61,8 @@ public class CharacterJump : MonoBehaviour
     private bool onGround;
     private bool _currentlyJumping;
 
-    [Header("Gliding")] [SerializeField] private bool glideWhenPushAndDown;
-    [SerializeField] private bool glideWhenDoublePush;
-
+    [Header("Gliding")] [SerializeField] private bool regularGlide = true;
+    [SerializeField] private Vector2 glideJump = Vector2.zero;
     [SerializeField, Range(0f, 20f)] [Tooltip("Gravity multiplier to apply when gliding")]
     private float gravityMultiplierGliding = 0.3f;
 
@@ -416,22 +415,48 @@ public class CharacterJump : MonoBehaviour
     private void OnGlide()
     {
         if (_wallMovement.IsWallSliding) return;
-        if (_rB.velocity.y < 0f)
-        {
-            if (CanGlide && !IsGliding && _pressingJump)
-            {
-                _rB.drag = linearDragGliding;
-                _animator.SetBool(AnimationStrings.isGliding, true);
-                IsGliding = true;
-            }
 
-            if (IsGliding && !_pressingJump)
+        if (regularGlide)
+        {
+            if (_rB.velocity.y < 0f)
             {
-                _rB.drag = linearDragRegular;
-                _animator.SetBool(AnimationStrings.isGliding, false);
-                IsGliding = false;
+                if (CanGlide && !IsGliding && _pressingJump)
+                {
+                    _rB.drag = linearDragGliding;
+                    _animator.SetBool(AnimationStrings.isGliding, true);
+                    IsGliding = true;
+                }
+
+                if (IsGliding && !_pressingJump)
+                {
+                    _rB.drag = linearDragRegular;
+                    _animator.SetBool(AnimationStrings.isGliding, false);
+                    IsGliding = false;
+                }
+            }    
+        }
+
+        else
+        {
+            if (_rB.velocity.y < 0f)
+            {
+                if (CanGlide && !IsGliding && _pressingJump)
+                {
+                    _horizontalMovement.OnHit(0, glideJump);
+                    _rB.drag = linearDragGliding;
+                    // _animator.SetBool(AnimationStrings.isGliding, true);
+                    IsGliding = true;
+                }
+
+                if (IsGliding && !_pressingJump)
+                {
+                    _rB.drag = linearDragRegular;
+                    // _animator.SetBool(AnimationStrings.isGliding, false);
+                    IsGliding = false;
+                }
             }
         }
+        
     }
 
 /*

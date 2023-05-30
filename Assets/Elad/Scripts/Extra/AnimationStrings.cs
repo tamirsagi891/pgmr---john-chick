@@ -36,7 +36,7 @@ internal static class AnimationStrings
     public static string arrowAttack = "arrow_attack";
     public static string crouchToFallTrigger = "crouchToFall";
     
-    
+    public static string eggAttack = "egg_attack";
 
 
 

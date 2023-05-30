@@ -142,6 +142,37 @@ MonoBehaviour:
   attackAmount: 10
   knockBack: {x: 0, y: 0}
   debug: 0
+--- !u!1 &4583722197247050346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1551474444147940268}
+  m_Layer: 9
+  m_Name: Egg Start Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1551474444147940268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4583722197247050346}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.07, y: -1.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 488182962625061855}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4839344152584221876
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +223,7 @@ Transform:
   - {fileID: 5587969544993268050}
   - {fileID: 1715117363079742312}
   - {fileID: 3286716900048460944}
+  - {fileID: 1551474444147940268}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -443,6 +475,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b93c2861-cd34-4993-a5af-30249be7e7b0
     m_ActionName: Items/NavigateItems[/Keyboard/q,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6c0496e7-f67d-41db-b13d-4c342a1d1227
+    m_ActionName: Player/EggAttack[/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -502,7 +538,6 @@ MonoBehaviour:
   maxSpeedRunning: 20
   maxSpeedCrouching: 5
   crouchingWalkSpeed: 3
-  _lockKey: 0
 --- !u!114 &8083187949842689708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -931,13 +966,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4d4f45ed84f584a9b5b46a1b138c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowAttackCoolDownTime: 1
   curFeatherKind: 0
   arrowList: {fileID: 11400000, guid: 84626dfd3334ffd45bcb578603d411c3, type: 2}
-  arrowAttackCoolDownTime: 1
   arrowInstantiatePosition: {fileID: 1508641204096048608}
   arrowPrefab: {fileID: 4775548294322568153, guid: 5d1c6ddbcc7f9b74a82aa49ba3f67395, type: 3}
   _maxPoolSize: 100
   usePoolArrow: 1
+  knockBackArrow: {x: 0, y: 0}
 --- !u!1 &5226554228603114634
 GameObject:
   m_ObjectHideFlags: 0

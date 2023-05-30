@@ -13,6 +13,6 @@ namespace Elad.Scripts
         public float lifeTime = 3f;
         public RigidbodyType2D rigidbodyType2D;
         public bool addPlayerVelocity = true;
-
+        public ContactFilter2D hitFilter;
     }
 }

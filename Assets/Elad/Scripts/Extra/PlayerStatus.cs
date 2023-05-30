@@ -13,6 +13,7 @@ namespace Elad.Scripts
         public static bool isFacingRight;
 
         public static ArrowData CurrentArrowDataData;
+        public static EggData CurrentEggData;
 
         public static Vector2 playerVelocity;
     }

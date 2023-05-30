@@ -184,12 +184,52 @@ PrefabInstance:
       value: 1.38
       objectReference: {fileID: 0}
     - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionId
+      value: 6c0496e7-f67d-41db-b13d-4c342a1d1227
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionName
+      value: Player/EggAttack[/Keyboard/q]
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1310039720}
     - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1310039736}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnEggAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Elad.Scripts.FeathersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Elad.Scripts.EggsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895538071192471816, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4839344152584221876, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: m_Name
@@ -208,12 +248,36 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5682967056863179661, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: knockBackArrow.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5682967056863179661, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: arrowInstantiatePosition
       value: 
       objectReference: {fileID: 455620312}
     - target: {fileID: 6576566218375664799, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: friction
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576566218375664799, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: maxSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576566218375664799, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: lockKeysTime
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576566218375664799, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: useAcceleration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576566218375664799, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: maxSpeedCrouching
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576566218375664799, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: crouchingWalkSpeed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7053881251309258280, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
       propertyPath: arrowInstantiatePosition
@@ -231,12 +295,23 @@ PrefabInstance:
       propertyPath: castFilter.layerMask.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 8202738127335998227, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: glideJump.y
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202738127335998227, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      propertyPath: regularGlide
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7053881251309258280, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
     - {fileID: 5295792123427033175, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4839344152584221876, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1310039736}
   m_SourcePrefab: {fileID: 100100000, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
 --- !u!1 &150915793
 GameObject:
@@ -2320,6 +2395,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &927528161 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4583722197247050346, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
+  m_PrefabInstance: {fileID: 23357395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1310039686 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4839344152584221876, guid: 77e4eb184a4023149869c6f5f3c95da0, type: 3}
@@ -2341,6 +2421,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4d4f45ed84f584a9b5b46a1b138c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1310039736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310039686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e74afb48904184345a94038a93bbe320, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eggAttackCoolDownTime: 1
+  curEggKind: 0
+  EggList: {fileID: 11400000, guid: 580d5a556ad4d744e9b28297bd781371, type: 2}
+  EggInstantiatePosition: {fileID: 927528161}
+  EggPrefab: {fileID: 8637222460761419607, guid: 6739b77fe2e06c64fa220cab27b5acee, type: 3}
+  _maxPoolSize: 100
+  usePoolEgg: 1
+  knockBackEgg: {x: 0, y: 10}
 --- !u!1 &1378461857
 GameObject:
   m_ObjectHideFlags: 3
@@ -2942,3 +3042,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 1310039686}
+--- !u!1001 &7717390827513958300
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1527731580486357440, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_Name
+      value: Wind Area
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952085242106815335, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952085242106815335, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -19.422356
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952085242106815335, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.15647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952085242106815335, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952085242106815335, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952085242106815335, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952085242106815335, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952085242106815335, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952085242106815335, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952085242106815335, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952085242106815335, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c5b2d743b1a76894c8673f18056bb5ca, type: 3}

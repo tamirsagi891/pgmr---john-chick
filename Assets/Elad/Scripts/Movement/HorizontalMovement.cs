@@ -64,7 +64,7 @@ public class HorizontalMovement : MonoBehaviour
     }
 
     [Space(10)] [Header("Crouching")] private bool _isCrouching;
-    [SerializeField, Range(0f, 5f)] private float maxSpeedCrouching = 5f;
+    [SerializeField, Range(0f, 10f)] private float maxSpeedCrouching = 5f;
     [SerializeField] private float crouchingWalkSpeed = 3f;
 
     public bool IsCrouching
@@ -99,9 +99,7 @@ public class HorizontalMovement : MonoBehaviour
             _isFacingRight = value;
         }
     }
-
-
-    [Space(10)] [Header("Lock Key")] [SerializeField] private bool _lockKey;
+    
 
     private void Awake()
     {
@@ -132,7 +130,7 @@ public class HorizontalMovement : MonoBehaviour
     {
         
         var direction = Vector2.zero;
-        if (!_lockKey && context.phase != InputActionPhase.Canceled && _playerController.CanMove)
+        if (context.phase != InputActionPhase.Canceled && _playerController.CanMove)
         {
             direction = context.ReadValue<Vector2>();
         }
@@ -276,9 +274,12 @@ public class HorizontalMovement : MonoBehaviour
 
   
 
+    
     public void OnHit(int damage, Vector2 knockBack)
     {
-        _damageable.LockVelocity = true;
-        _rB.velocity = new Vector2(knockBack.x, _rB.velocity.y + knockBack.y);
+        float xKnockBack = _isFacingRight ? -knockBack.x : knockBack.x;
+        xKnockBack = MathF.Abs(_rB.velocity.x) > 0.1 ? _rB.velocity.x + xKnockBack : 0;  
+        float yKnockBack = _rB.velocity.y + knockBack.y;
+        _rB.velocity = new Vector2(xKnockBack, yKnockBack);
     }
 }

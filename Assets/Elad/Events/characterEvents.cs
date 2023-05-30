@@ -14,6 +14,9 @@ namespace Elad.Events
         public static UnityEvent< FeathersManager.FeatherKind> AddFeather = new();
         public static UnityEvent< FeathersManager.FeatherKind> RemoveFeather = new();
         
+        public static UnityEvent< EggsManager.EggKind> AddEgg = new();
+        public static UnityEvent< EggsManager.EggKind> RemoveEgg = new();
+        
         public static UnityEvent<bool> playerCrouchAndJumpOnPlatform  = new();
 
     }

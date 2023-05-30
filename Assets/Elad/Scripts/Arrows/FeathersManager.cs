@@ -8,8 +8,15 @@ using UnityEngine.Pool;
 
 namespace Elad.Scripts
 {
+    [RequireComponent(typeof(HorizontalMovement), 
+        typeof(TouchingDirection))]
     public class FeathersManager : MonoBehaviour
     {
+        
+        [Space(10)] [Header("Arrow Attack")]
+        [SerializeField]
+        private float arrowAttackCoolDownTime = 1f;
+        
         public enum FeatherKind
         {
             White,
@@ -24,11 +31,8 @@ namespace Elad.Scripts
         private ArrowDataList arrowList;
 
         private List<ArrowData> arrowAttacksList => arrowList.arrowAttacksList;
-        // [SerializeField] private List<ArrowData> arrowAttacksList;
-
-        private Animator _animator;
+        
         private Dictionary<FeatherKind, ArrowData> _arrowDataDic;
-
         public FeatherKind CurFeatherKind
         {
             get => curFeatherKind;
@@ -39,23 +43,9 @@ namespace Elad.Scripts
             }
         }
 
-        private void OnEnable()
-        {
-            characterEvents.AddFeather.AddListener(AddFeather);
-            characterEvents.RemoveFeather.AddListener(RemoveFeather);
-        }
-
-        private void OnDisable()
-        {
-            characterEvents.AddFeather.RemoveListener(AddFeather);
-            characterEvents.RemoveFeather.RemoveListener(RemoveFeather);
-        }
+        
 
         private Dictionary<FeatherKind, int> _featherAmountDic;
-
-
-        [Space(10)] [Header("Arrow Attack")] [SerializeField]
-        private float arrowAttackCoolDownTime = 1f;
 
         private float _arrowAttackCoolDownTimer = 0;
         private bool _arrowAttackCoolDown = false;
@@ -71,9 +61,32 @@ namespace Elad.Scripts
             get => usePoolArrow;
             set => usePoolArrow = value;
         }
+        
+        [SerializeField] private Vector2 knockBackArrow = Vector2.zero;
+        
 
+        [Space(10)] [Header("Component's")] private TouchingDirection _touchingDirection;
+        private HorizontalMovement _horizontalMovement;
+        private Animator _animator;
+        
+        
+        private void OnEnable()
+        {
+            characterEvents.AddFeather.AddListener(AddFeather);
+            characterEvents.RemoveFeather.AddListener(RemoveFeather);
+        }
+
+        private void OnDisable()
+        {
+            characterEvents.AddFeather.RemoveListener(AddFeather);
+            characterEvents.RemoveFeather.RemoveListener(RemoveFeather);
+        }
+        
+        
         private void Awake()
         {
+            _horizontalMovement = GetComponent<HorizontalMovement>();
+            _touchingDirection = GetComponent<TouchingDirection>();
             _animator = PlayerStatus.player.GetComponent<Animator>();
             DictionaryInit();
             SetCurrentFeather(_arrowDataDic[FeatherKind.White]);
@@ -108,9 +121,10 @@ namespace Elad.Scripts
             }
         }
 
+        
         public void OnArrowAttack(InputAction.CallbackContext context)
         {
-            if (context.started && !_arrowAttackCoolDown)
+            if (context.started && !_arrowAttackCoolDown && CanThrow())
             {
                 _animator.SetTrigger(AnimationStrings.arrowAttack);
                 _arrowAttackCoolDownTimer = arrowAttackCoolDownTime;
@@ -118,6 +132,12 @@ namespace Elad.Scripts
             }
         }
 
+        private bool CanThrow()
+        {
+            bool returnValue = (_touchingDirection.IsGrounded) && (!_horizontalMovement.IsCrouching);
+            return returnValue;
+        }
+        
         private void GetArrow(Arrow arrow)
         {
             if (arrow)
@@ -184,7 +204,6 @@ namespace Elad.Scripts
             if (UsePoolArrow)
             {
                 arrow = _arrowPool.Get();
-                print(arrow);
             }
 
             else
@@ -197,7 +216,8 @@ namespace Elad.Scripts
             {
                 arrow.FeathersManager = this;
                 arrow.transform.position = arrowInstantiatePosition.transform.position;
-                arrow.Fire();    
+                arrow.Fire();   
+                _horizontalMovement.OnHit(0, knockBackArrow);
             }
 
             
