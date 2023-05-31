@@ -1,9 +1,14 @@
+using System;
+using System.Collections.Generic;
 using Elad.Events;
 using Elad.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
+
+using System;
+using UnityEngine;
 
 //This script handles moving the character on the Y axis, for jumping and gravity
 
@@ -67,6 +72,7 @@ public class CharacterJump : MonoBehaviour
     private float gravityMultiplierGliding = 0.3f;
 
     private bool _wantToGlide;
+    [SerializeField] [Range(-0.01f, -0.2f)]private float minVelocityToGlide = -0.05f;
 
     [SerializeField, Range(0f, 20f)] [Tooltip("linear Drag to apply when gliding")]
     private float linearDragGliding = 2f;
@@ -154,6 +160,11 @@ public class CharacterJump : MonoBehaviour
 
                 _pressingJump = true;
                 OnGlide();
+                
+                
+                
+                
+                
             }
 
 
@@ -418,7 +429,7 @@ public class CharacterJump : MonoBehaviour
 
         if (regularGlide)
         {
-            if (_rB.velocity.y < 0f)
+            if (_rB.velocity.y < minVelocityToGlide)
             {
                 if (CanGlide && !IsGliding && _pressingJump)
                 {
@@ -458,6 +469,8 @@ public class CharacterJump : MonoBehaviour
         }
         
     }
+    
+    
 
 /*
 

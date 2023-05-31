@@ -72,8 +72,8 @@ public class ParralaxController : MonoBehaviour
     private void LateUpdate()
     {
         _distance = _cam.position.x - _camStartPos.x;
-        var camPos = _player.transform.position + positionOffset;
-        transform.position = new Vector3(camPos.x, camPos.y, 0);
+        // var camPos = _player.transform.position + positionOffset;
+        // transform.position = new Vector3(camPos.x, camPos.y, 0);
 
         for (int i = 0; i < _backgrounds.Length; i++)
         {
