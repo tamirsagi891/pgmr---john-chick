@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f051a01325594094bde85d7c09900f2b, type: 3}
-  m_Name: Npc_Data_Hawk
+  m_Name: Npc_Data_Fox
   m_EditorClassIdentifier: 
-  npcName: Hawk
-  type: 1
+  npcName: Test
+  type: 0
   stats:
-    hp: 8
-    detectionRadius: 20
+    hp: 10
+    detectionRadius: 10
     damage: 3
     knockBack: {x: 0, y: 0}
-    cooldown: 5
-    movementSpeed: 2
-    jumpForce: 0
-    extraDashSpeed: 14
+    cooldown: 2
+    movementSpeed: 5
+    jumpForce: 15
+    extraDashSpeed: 3
     defense: 0
     deBuff: 0
-    type: 2
+    type: 1
     shotSpeed: 0
   characterIcon: {fileID: 0}
