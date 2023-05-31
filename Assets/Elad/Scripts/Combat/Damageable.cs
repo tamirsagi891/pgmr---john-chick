@@ -8,6 +8,7 @@ using Mechanics.Enemies;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using Logger = Nemesh.Logger;
 
 public class Damageable : MonoBehaviour, ICanBeAttacked
 {
@@ -134,8 +135,18 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
 
     public bool Hurt(AttackParameters attackParameters)
     {
-        // Logger.Log($"Attacked by {attacker} for {attacker.GetDamage()}  kb {attacker.GetKnockBack()}", this);
-        return GotHit((int) attackParameters.Damage, attackParameters.KnockBack);
+        Logger.Log($"Attacked by {attackParameters}", this);
+        switch (attackParameters.Type)
+        {
+            case AttackType.Pickup:
+                Logger.Log("TODO: Stop Movement, Set Follow Target to attackParameters.FollowTransform", 
+                    Color.red, this);
+                return false;
+                break;
+            case AttackType.Regular:
+            default:
+                return GotHit((int) attackParameters.Damage, attackParameters.KnockBack);
+        }
     }
 
     public Transform GetTransform() => transform;
