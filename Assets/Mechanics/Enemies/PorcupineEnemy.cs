@@ -29,7 +29,6 @@ namespace Mechanics.Enemies
             if (timeAttacker != null)  // TODO: pass Config struct to all AttackBehaviours instead
             {
                 timeAttacker.Cooldown = MyStatsHandler.CurrentStats.cooldown;
-                print("b");
             }
         }
 

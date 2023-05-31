@@ -44,7 +44,6 @@ namespace Mechanics.Enemies
             _myNpc = GetComponent<BaseNpc>();
             _initialStats = _myNpc.NpcDataScriptable.stats;
             RestoreInitialStats();
-            print("a");
         }
 
         #endregion
