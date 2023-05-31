@@ -9,25 +9,22 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Damageable : MonoBehaviour
+public class Damageable : MonoBehaviour, ICanBeAttacked
 {
-    [Header("Components")]
-    private Animator _animator;
-    
-    [Header("Amounts")]
-    [SerializeField] private int initialHealth = 100;
+    [Header("Components")] private Animator _animator;
+
+    [Header("Amounts")] [SerializeField] private int initialHealth = 100;
     [SerializeField] private int maxHealth = 100;
 
     public UnityEvent<int, Vector2> damageableHit;
+
     public int MaxHealth
     {
         get => maxHealth;
         set => maxHealth = value;
     }
 
-    [SerializeField]
-    [ReadOnly]
-    private int _curHealth;
+    [SerializeField] [ReadOnly] private int _curHealth;
 
     public int Health
     {
@@ -42,15 +39,14 @@ public class Damageable : MonoBehaviour
         }
     }
 
-    [Header("States")]
-    [SerializeField] private bool isInvincible;
+    [Header("States")] [SerializeField] private bool isInvincible;
 
     public bool IsInvincible
     {
         get => isInvincible;
         set => isInvincible = value;
     }
-    
+
     [SerializeField] private bool isAlive = true;
 
     public bool IsAlive
@@ -59,29 +55,22 @@ public class Damageable : MonoBehaviour
         set
         {
             isAlive = value;
-            _animator.SetBool(AnimationStrings.isAlive ,value);
+            _animator.SetBool(AnimationStrings.isAlive, value);
         }
     }
-    
+
     public bool LockVelocity
     {
-        get
-        {
-            return _animator.GetBool(AnimationStrings.lockVelocity);
-        }
+        get { return _animator.GetBool(AnimationStrings.lockVelocity); }
 
 
-        set
-        {
-            _animator.SetBool(AnimationStrings.lockVelocity, value);
-        }
+        set { _animator.SetBool(AnimationStrings.lockVelocity, value); }
     }
-    
 
-    [Header("Time")]
-    [SerializeField] private float invincibilityTimer = 0.25f;
+
+    [Header("Time")] [SerializeField] private float invincibilityTimer = 0.25f;
     private float timeSinceHit = 0;
-    
+
     private void Awake()
     {
         _curHealth = maxHealth;
@@ -101,7 +90,6 @@ public class Damageable : MonoBehaviour
 
             timeSinceHit += Time.deltaTime;
         }
-        
     }
 
     public bool GotHit(int damage, Vector2 knockBack)
@@ -118,7 +106,7 @@ public class Damageable : MonoBehaviour
             return true;
         }
 
-        
+
         return false;
     }
 
@@ -142,5 +130,11 @@ public class Damageable : MonoBehaviour
             PlayerStatus.maxHealth = maxHealth;
             PlayerStatus.curHealth = Health;
         }
+    }
+
+    public bool Hurt(IAttacker attacker)
+    {
+        // Logger.Log($"Attacked by {attacker} for {attacker.GetDamage()}  kb {attacker.GetKnockBack()}", this);
+        return GotHit((int) attacker.GetDamage(), attacker.GetKnockBack());
     }
 }

@@ -5,7 +5,7 @@ using Logger = Nemesh.Logger;
 namespace Mechanics.Enemies
 {
     [AddComponentMenu("Player/Player Attack Controller")]
-    public class PlayerAttackController : MonoBehaviour, IAttacker, ICanBeAttacked
+    public class PlayerAttackController : MonoBehaviour, IAttacker
     {
         [SerializeField] private int attackAmount = 10;
         [SerializeField] private Vector2 knockBack = Vector2.zero;
@@ -46,11 +46,11 @@ namespace Mechanics.Enemies
             return retValue;
         }
 
-        public bool Hurt(IAttacker attacker)
-        {
-            Logger.Log($"Attacked by {attacker} for {attacker.GetDamage()}  kb {attacker.GetKnockBack()}", this);
-
-            return _myDamageable.GotHit((int) attacker.GetDamage(), attacker.GetKnockBack());
-        }
+        // public bool Hurt(IAttacker attacker)
+        // {
+        //     Logger.Log($"Attacked by {attacker} for {attacker.GetDamage()}  kb {attacker.GetKnockBack()}", this);
+        //
+        //     return _myDamageable.GotHit((int) attacker.GetDamage(), attacker.GetKnockBack());
+        // }
     }
 }
