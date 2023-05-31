@@ -99,7 +99,7 @@ public class HorizontalMovement : MonoBehaviour
             _isFacingRight = value;
         }
     }
-    
+
 
     private void Awake()
     {
@@ -114,8 +114,12 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
-        if (context.started && _playerController.CanMove && !IsCrouching && _touchingDirection.IsGrounded)
-            IsCrouching = true;
+        if (!context.canceled)
+        {
+            if (_playerController.CanMove && !IsCrouching)
+                IsCrouching = true;
+        }
+
 
         else if (context.canceled)
             IsCrouching = false;
@@ -128,22 +132,20 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        
         var direction = Vector2.zero;
         if (context.phase != InputActionPhase.Canceled && _playerController.CanMove)
         {
             direction = context.ReadValue<Vector2>();
         }
-        
+
 
         directionX = direction.x;
         _playerController.IsMoving = (directionX != 0);
         SetFacingDirection(directionX);
     }
-    
+
     public void CloseMovementToWall(float newMovement)
     {
-        
     }
 
     public void OnRun(InputAction.CallbackContext context)
@@ -272,13 +274,11 @@ public class HorizontalMovement : MonoBehaviour
         return directionX;
     }
 
-  
 
-    
     public void OnHit(int damage, Vector2 knockBack)
     {
         float xKnockBack = _isFacingRight ? -knockBack.x : knockBack.x;
-        xKnockBack = MathF.Abs(_rB.velocity.x) > 0.1 ? _rB.velocity.x + xKnockBack : 0;  
+        xKnockBack = MathF.Abs(_rB.velocity.x) > 0.1 ? _rB.velocity.x + xKnockBack : 0;
         float yKnockBack = _rB.velocity.y + knockBack.y;
         _rB.velocity = new Vector2(xKnockBack, yKnockBack);
     }

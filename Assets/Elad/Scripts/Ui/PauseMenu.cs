@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Logger = Nemesh.Logger;
 
 public class PauseMenu : MonoBehaviour
@@ -47,11 +48,13 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         Logger.Log("load menu");
-        
+        SceneManager.LoadScene(SceneNamesStrings.menuScene);
+
     }
     
     public void QuitGame()
     {
         Logger.Log("quit game");
+        Application.Quit();
     }
 }
