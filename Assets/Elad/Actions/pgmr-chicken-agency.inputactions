@@ -415,6 +415,17 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "068fea4c-9e87-46fa-85c8-1200ca5af90a",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
                     "groups": "",
                     "action": "Pause",
                     "isComposite": false,

@@ -38,7 +38,7 @@ namespace Elad.Scripts
 
         void Update()
         {
-            var tempPos =  _originalPosition + Travel * ParallaxFactor;
+            var tempPos = (_originalPosition + Travel)  ;
             transform.position = new Vector3(tempPos.x, tempPos.y, _originalZ);
         }
     }

@@ -87,7 +87,7 @@ namespace Elad.Scripts
         {
             _horizontalMovement = GetComponent<HorizontalMovement>();
             _touchingDirection = GetComponent<TouchingDirection>();
-            _animator = PlayerStatus.player.GetComponent<Animator>();
+            _animator = GetComponent<Animator>();
             DictionaryInit();
             SetCurrentFeather(_arrowDataDic[FeatherKind.White]);
             InitPool();
