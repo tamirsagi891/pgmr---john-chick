@@ -16,12 +16,14 @@ MonoBehaviour:
   type: 1
   stats:
     hp: 8
-    detectionRadius: 15
+    detectionRadius: 20
     damage: 3
+    knockBack: {x: 0, y: 0}
     cooldown: 5
-    movementSpeed: 3
+    movementSpeed: 2
     jumpForce: 0
-    extraDashSpeed: 10
+    extraDashSpeed: 14
     defense: 0
     deBuff: 0
+    type: 1
   characterIcon: {fileID: 0}

@@ -112,7 +112,7 @@ namespace Mechanics.Enemies
             set => animationControls.IsGrounded = value;
         }
 
-        public PlayerAttackController PlayerContact
+        public ICanBeAttacked PlayerContact
         {
             get => _playerContact;
             set
@@ -122,12 +122,12 @@ namespace Mechanics.Enemies
                 {
                     return;
                 }
-
+                
                 // TODO: add script for attack strategy
                 HasPlayerContact = value != null;
                 if (HasPlayerContact)
                 {
-                    WalkTarget = value.transform;
+                    WalkTarget = value!.GetTransform();
                     events.onPlayerDetected.Invoke();
                     if (MovementBehaviour != null) // TODO: remove this on build
                     {
@@ -181,11 +181,13 @@ namespace Mechanics.Enemies
         public Direction CurrentDirection => animationControls.Direction;
         public bool IsDashing => dashTime.IsSet && dashTime.IsActive;
 
+        public bool CanAttack { get; set; } = true;
+
         #endregion
 
         #region Private Fields
 
-        private PlayerAttackController _playerContact; // TODO: change to any target?
+        private ICanBeAttacked _playerContact; // TODO: change to any target?
 
         protected StatsHandler MyStatsHandler;
         private INpcMovementBehaviour _movementBehaviour;
@@ -266,7 +268,7 @@ namespace Mechanics.Enemies
 
         protected void HandleAttackUpdate()
         {
-            if (AttackTargets.Count == 0 || !canAirAttack && !IsGrounded)
+            if (!CanAttack || AttackTargets.Count == 0 || !canAirAttack && !IsGrounded)
             {
                 return;
             }
@@ -328,13 +330,14 @@ namespace Mechanics.Enemies
             }
         }
 
-        protected void AttackAllTarget()
+        protected virtual void AttackAllTarget()
         {
             events.onAttack.Invoke();
-
+            var attackParameters = GetAttackParameters();
+            
             foreach (var target in AttackTargets)
             {
-                target.Hurt(this);
+                AttackTargetUsingParams(target, attackParameters);
             }
         }
 
@@ -417,13 +420,32 @@ namespace Mechanics.Enemies
             AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
             events.onAttackStart.Invoke();
 
+            var attackParameters = GetAttackParameters();
 
-            StartCoroutine(DelayExecution(attackStartAfterTime, 
-                () => { attackTarget.Hurt(this); events.onAttack.Invoke();}
+            StartCoroutine(DelayExecution(attackStartAfterTime,
+                    () => { AttackTargetUsingParams(attackTarget, attackParameters); }
                 )
             );
 
             return true;
+        }
+
+        public Transform GetTransform() => transform;
+        
+        protected virtual void AttackTargetUsingParams(ICanBeAttacked attackTarget, AttackParameters attackParameters)
+        {
+            var succeeded = attackTarget.Hurt(attackParameters);
+            events.onAttack.Invoke();
+        }
+
+        public virtual AttackParameters GetAttackParameters()
+        {
+            return new AttackParameters(
+                attacker: this,
+                damage: GetDamage(),
+                knockBack: MyStatsHandler.CurrentStats.knockBack,
+                type: MyStatsHandler.CurrentStats.type,
+                followTransform: transform);
         }
 
         [Button]
@@ -438,15 +460,20 @@ namespace Mechanics.Enemies
         }
 
 
-        public bool Hurt(IAttacker attacker)
+        public bool Hurt(AttackParameters attackParameters)
         {
             if (IsDead)
             {
                 return false;
             }
 
-            var dmgTaken = attacker.GetDamage();
-            var knockBack = attacker.GetKnockBack();
+            if (attackParameters.Type != AttackType.Regular)
+            {
+                Logger.Log("No behaviour for non-regular attack", Color.yellow, this);
+            }
+
+            var dmgTaken = attackParameters.Damage;
+            var knockBack = attackParameters.KnockBack;
 
             if (dmgTaken <= 0)
             {

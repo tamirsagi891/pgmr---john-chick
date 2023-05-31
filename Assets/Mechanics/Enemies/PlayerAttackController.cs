@@ -25,8 +25,9 @@ namespace Mechanics.Enemies
 
         public bool Attack(ICanBeAttacked attackTarget)
         {
-            bool gotHit = attackTarget.Hurt(this);
-            Logger.Log($"Attacking {attackTarget} for {GetDamage()}  kb {GetKnockBack()}", this);
+            var attackParameters = GetAttackParameters();
+            bool gotHit = attackTarget.Hurt(attackParameters);
+            Logger.Log($"Attacking {attackTarget} ({attackParameters.Type}) for {attackParameters.Damage}  kb {attackParameters.KnockBack}", this);
             return gotHit;
         }
 
@@ -46,11 +47,14 @@ namespace Mechanics.Enemies
             return retValue;
         }
 
-        // public bool Hurt(IAttacker attacker)
-        // {
-        //     Logger.Log($"Attacked by {attacker} for {attacker.GetDamage()}  kb {attacker.GetKnockBack()}", this);
-        //
-        //     return _myDamageable.GotHit((int) attacker.GetDamage(), attacker.GetKnockBack());
-        // }
+        public AttackParameters GetAttackParameters()
+        {
+            return new AttackParameters(
+                attacker: this,
+                damage: attackAmount,
+                knockBack: knockBack,
+                type: AttackType.Regular,
+                followTransform: _myDamageable.transform);
+        }
     }
 }
