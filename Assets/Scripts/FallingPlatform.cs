@@ -6,6 +6,7 @@ public class FallingPlatform : MonoBehaviour
     [SerializeField] private string playerTag = "Player";
     [SerializeField] private float fallDelay = 1f;
     [SerializeField] private float respawnDelay = 5f;
+    [SerializeField] private float popInTime = 0.5f;
     [SerializeField] private float distanceFromPlayerToDeactivate = 20f;
 
     private BoxCollider2D boxCollider;
@@ -13,6 +14,7 @@ public class FallingPlatform : MonoBehaviour
     private Transform playerTransform;
 
     private Vector2 originalPosition;
+    private Vector3 originalScale;
     private bool isFalling = false;
     private bool isReadyToReset = false;
     private float respawnTimer = 0f;
@@ -22,6 +24,7 @@ public class FallingPlatform : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         originalPosition = transform.position;
+        originalScale = transform.localScale;
         playerTransform = GameObject.FindGameObjectWithTag(playerTag).transform;
     }
 
@@ -56,13 +59,30 @@ public class FallingPlatform : MonoBehaviour
 
     private void ResetPlatform()
     {
-        rb.velocity = Vector2.zero;
         transform.position = originalPosition;
         boxCollider.isTrigger = false;
         rb.bodyType = RigidbodyType2D.Static;
         isFalling = false;
         isReadyToReset = false;
         respawnTimer = 0f;
+
+        // Pop-in effect
+        StartCoroutine(PopIn());
+    }
+
+    private IEnumerator PopIn()
+    {
+        float elapsedTime = 0f;
+        transform.localScale = Vector3.zero;
+
+        while (elapsedTime < popInTime)
+        {
+            transform.localScale = Vector3.Lerp(Vector3.zero, originalScale, elapsedTime / popInTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = originalScale;
     }
 
     private void Update()
