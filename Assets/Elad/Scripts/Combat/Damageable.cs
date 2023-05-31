@@ -13,6 +13,7 @@ using Logger = Nemesh.Logger;
 public class Damageable : MonoBehaviour, ICanBeAttacked
 {
     [Header("Components")] private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
 
     [Header("Amounts")] [SerializeField] private int initialHealth = 100;
     [SerializeField] private int maxHealth = 100;
@@ -45,9 +46,19 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
     public bool IsInvincible
     {
         get => isInvincible;
-        set => isInvincible = value;
+        set
+        {
+            isInvincible = value;
+            _blinkTimer = blinkTime;
+            if (!value)
+            {
+                // Logger.Log("stop being IsInvincible");
+                _spriteRenderer.color = _originalColor;
+            }
+        }
     }
 
+    [SerializeField] private bool isInvincibleTest;
     [SerializeField] private bool isAlive = true;
 
     public bool IsAlive
@@ -72,8 +83,18 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
     [Header("Time")] [SerializeField] private float invincibilityTimer = 0.25f;
     private float timeSinceHit = 0;
 
+    [Space(3)] [Header("Hit Blinking")] [SerializeField]
+    private Color blinkColor;
+
+    private Color _originalColor;
+    [SerializeField] private float blinkTime = 0.01f;
+    private float _blinkTimer;
+    private bool _inOriginalColor = true;
+
     private void Awake()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _originalColor = _spriteRenderer.color;
         _curHealth = maxHealth;
         _animator = GetComponent<Animator>();
         PlayerStatusSetVariables();
@@ -90,8 +111,45 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
             }
 
             timeSinceHit += Time.deltaTime;
+            Blink();
+        }
+
+
+        if (isInvincibleTest)
+        {
+            isInvincibleTest = false;
+            IsInvincible = true;
         }
     }
+
+    private void Blink()
+    {
+        if (isInvincible)
+        {
+            _blinkTimer -= Time.deltaTime;
+            if (_blinkTimer <= 0)
+            {
+                _blinkTimer = blinkTime;
+
+                if (_inOriginalColor)
+                {
+                    _spriteRenderer.color = blinkColor;
+                    _inOriginalColor = false;
+                }
+                else
+                {
+                    _spriteRenderer.color = _originalColor;
+                    _inOriginalColor = true;
+                }
+            }
+        }
+        else
+        {
+            _spriteRenderer.color = _originalColor;
+            _inOriginalColor = true;
+        }
+    }
+
 
     public bool GotHit(int damage, Vector2 knockBack)
     {
@@ -139,7 +197,7 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
         switch (attackParameters.Type)
         {
             case AttackType.Pickup:
-                Logger.Log("TODO: Stop Movement, Set Follow Target to attackParameters.FollowTransform", 
+                Logger.Log("TODO: Stop Movement, Set Follow Target to attackParameters.FollowTransform",
                     Color.red, this);
                 return false;
                 break;
