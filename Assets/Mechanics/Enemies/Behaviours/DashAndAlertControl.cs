@@ -6,11 +6,14 @@ using UnityEngine.Events;
 
 namespace Mechanics.Enemies
 {
-    [AddComponentMenu("NPC/Attack Behaviours/Dash When In Trigger")]
+    [AddComponentMenu("NPC/Attack Behaviours/Dash And Alert")]
     [RequireComponent(typeof(Collider2D))]
-    public class DashWhenInTrigger : MonoBehaviour
+    public class DashAndAlertControl : MonoBehaviour
     {
         #region Inspector
+
+        [SerializeField]
+        private bool useTrigger = true;
 
         [SerializeField]
         private PassiveTimer waitForDashTimer = new(1f);
@@ -26,10 +29,30 @@ namespace Mechanics.Enemies
         private BaseNpc npcToReportTo;
 
         #endregion
+
+        #region Public Properties
+
+        public float Radius
+        {
+            get => _radius;
+            set
+            {
+                _radius = value;
+                var col = _myCollider as CircleCollider2D;
+                if (col != null)
+                {
+                    Radius = col.radius;
+                }
+            }
+        }
+
+        #endregion
         
         #region Private Fields
 
         private ICanBeAttacked _attackTarget;
+        private Collider2D _myCollider;
+        private float _radius;  // TODO: SerializeField
 
         #endregion
 
@@ -43,6 +66,16 @@ namespace Mechanics.Enemies
         #endregion
 
         #region MonoBehaviour
+
+        private void Awake()
+        {
+            _myCollider = GetComponent<Collider2D>();
+            var col = _myCollider as CircleCollider2D;
+            if (col != null)
+            {
+                _radius = col.radius;
+            }
+        }
 
         private void OnEnable()
         {
@@ -67,13 +100,26 @@ namespace Mechanics.Enemies
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (!useTrigger)
+            {
+                return;
+            }
             var attackTarget = other.GetComponent<ICanBeAttacked>();
             if (attackTarget != null && !waitForDashTimer.IsSet && !npcToReportTo.IsDashing)
             {
-                waitForDashTimer.Start();
-                npcToReportTo.StopMovement(waitForDashTimer.Duration);
-                onAlert.Invoke(npcToReportTo);
+                StartDashAlertSequence();
             }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void StartDashAlertSequence()
+        {
+            waitForDashTimer.Start();
+            npcToReportTo.StopMovement(waitForDashTimer.Duration);
+            onAlert.Invoke(npcToReportTo);
         }
 
         #endregion

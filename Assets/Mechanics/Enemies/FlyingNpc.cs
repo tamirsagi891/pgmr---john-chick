@@ -1,4 +1,5 @@
-﻿using Avrahamy.Math;
+﻿using System;
+using Avrahamy.Math;
 using BitStrap;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -18,6 +19,11 @@ namespace Mechanics.Enemies
         [RequiredReference]
         private Transform nestLocation;
 
+        private float _dashAlertDistance = 7f;
+        private DashAndAlertControl _dashAlertControl;
+        private bool _hasDashControl;
+
+
         public ICanBeAttacked PickupTarget { get; set; }
         public Vector3 DesiredPosition { get; set; }
 
@@ -26,7 +32,8 @@ namespace Mechanics.Enemies
             if (HasPlayerContact && _walkTarget != PlayerContact.GetTransform())
             {
                 canDetectPlayer = true;
-            }   
+            }
+
             if (HasPlayerContact && canDetectPlayer)
             {
                 value = PlayerContact.GetTransform();
@@ -49,6 +56,16 @@ namespace Mechanics.Enemies
         {
             base.Awake();
             events.onDashEnd.AddListener(DropPickup);
+            _dashAlertControl = GetComponentInChildren<DashAndAlertControl>();
+            _hasDashControl = _dashAlertControl != null;
+        }
+
+        protected virtual void OnEnable()
+        {
+            if (_hasDashControl)
+            {
+                _dashAlertDistance = _dashAlertControl.Radius;
+            }
         }
 
         public override void Dash()
@@ -74,11 +91,24 @@ namespace Mechanics.Enemies
                 // Logger.Log(WalkTarget);
                 if (HasPlayerContact && WalkTarget == PlayerContact.GetTransform())
                 {
+                    // TODO: calculate in validate
+                    if (directionToMove.sqrMagnitude < _dashAlertDistance * _dashAlertDistance)
+                    {
+                        if (_hasDashControl && !IsDashing)
+                        {
+                            _dashAlertControl.StartDashAlertSequence();
+                        }
+                    }
+
                     minDistance = minDistanceForMovementWhenHavePlayer;
                     // animationControls.StopDirectionSwitch = directionToMove.sqrMagnitude > minDistance;
                 }
 
                 ShouldMove = directionToMove.sqrMagnitude > minDistance;
+                if (!ShouldMove && IsDashing)
+                {
+                    StopDash();
+                }
                 DesiredVelocity = ShouldMove
                     ? directionToMove.GetWithMagnitude(MyStatsHandler.CurrentStats.movementSpeed)
                     : Vector2.zero;
