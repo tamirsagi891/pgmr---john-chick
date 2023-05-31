@@ -124,7 +124,7 @@ namespace Mechanics.Enemies
             set => animationControls.IsGrounded = value;
         }
 
-        public ICanBeAttacked PlayerContact
+        public virtual ICanBeAttacked PlayerContact
         {
             get => _playerContact;
             set
@@ -209,11 +209,8 @@ namespace Mechanics.Enemies
         public bool EdgeInFront
         {
             get => edgeInFront;
-            set
-            {
-                edgeInFront = value;
-                checkEdge = edgeInFront;
-            }
+            set => edgeInFront = value;
+            // checkEdge = edgeInFront;
         }
 
         public bool DetectEdges
@@ -225,7 +222,7 @@ namespace Mechanics.Enemies
         public Direction CurrentDirection => animationControls.Direction;
         public bool IsDashing => dashTime.IsSet && dashTime.IsActive;
 
-        public bool CanAttack { get; set; } = true;
+        public bool CanAttack { get; protected set; } = true;
 
         #endregion
 
@@ -235,12 +232,16 @@ namespace Mechanics.Enemies
 
         protected StatsHandler MyStatsHandler;
         private INpcMovementBehaviour _movementBehaviour;
-        protected Transform _walkTarget; // TODO: create type of WalkTarget?
+        private Transform _walkTarget; // TODO: create type of WalkTarget?
         protected bool HasDestination;
 
         protected Rigidbody2D MyRigidbody;
         protected Vector2 DesiredVelocity;
         protected Vector2 Velocity;
+        
+        protected float DashAlertDistance = 7f;
+        protected DashAndAlertControl DashAlertControl;
+        protected bool HasDashControl;
 
         protected readonly PassiveTimer AttackCdTimer = new();
         protected readonly PassiveTimer StopMovementTimer = new();
@@ -248,10 +249,10 @@ namespace Mechanics.Enemies
         protected bool ShouldMove = true;
         protected bool IsDead;
 
-        protected Direction defaultDirection;
-        protected bool hasDefaultDirection;
+        protected Direction DefaultDirection;
+        protected bool HasDefaultDirection;
         protected bool edgeInFront;
-        protected bool checkEdge;
+        // protected bool checkEdge;
 
         #endregion
 
@@ -262,6 +263,16 @@ namespace Mechanics.Enemies
             MyStatsHandler = GetComponent<StatsHandler>();
             MyRigidbody = GetComponent<Rigidbody2D>();
             notMovingTimer.Clear();
+            DashAlertControl = GetComponentInChildren<DashAndAlertControl>();
+            HasDashControl = DashAlertControl != null;
+        }
+        
+        protected virtual void OnEnable()
+        {
+            if (HasDashControl)
+            {
+                DashAlertDistance = DashAlertControl.Radius;
+            }
         }
 
         protected void OnDisable()
@@ -381,9 +392,9 @@ namespace Mechanics.Enemies
 
                 RunWithoutAcceleration();
             }
-            else if (hasDefaultDirection)
+            else if (HasDefaultDirection)
             {
-                animationControls.Direction = defaultDirection;
+                animationControls.Direction = DefaultDirection;
             }
         }
 
@@ -608,13 +619,13 @@ namespace Mechanics.Enemies
 
         public void SetDefaultDirection(Direction newDir)
         {
-            defaultDirection = newDir;
-            hasDefaultDirection = true;
+            DefaultDirection = newDir;
+            HasDefaultDirection = true;
         }
 
         public void RemoveDefaultDirection()
         {
-            hasDefaultDirection = false;
+            HasDefaultDirection = false;
         }
 
         #endregion
@@ -726,4 +737,5 @@ namespace Mechanics.Enemies
         #endregion
 
     }
+
 }

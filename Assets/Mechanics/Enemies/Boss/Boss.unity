@@ -123,38 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &124379517
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 124379518}
-  m_Layer: 0
-  m_Name: Wild Boar Container
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &124379518
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 124379517}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.3, y: -13.78, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 839352623}
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &214263019
 GameObject:
   m_ObjectHideFlags: 0
@@ -99601,8 +99569,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0c020a38f82dd4b958a2ec86ed6a5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noSurfaceTime: 0.5
-  noSurfaceTimer: 0
 --- !u!251 &691932485
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -101438,80 +101404,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4074569174126696382, guid: 9d5c895037ed18548b0f4cfa4c708361, type: 3}
   m_PrefabInstance: {fileID: 2075825419}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &797581237
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 124379518}
-    m_Modifications:
-    - target: {fileID: 2386752301074507992, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3461123993669613993, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8151804755448211156, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_Name
-      value: Wild Boar Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8690356603525276377, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-      propertyPath: m_Name
-      value: 'TODO: same as flying - remove this'
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1266566204972871832, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
 --- !u!1001 &822649409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101577,11 +101469,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d5c895037ed18548b0f4cfa4c708361, type: 3}
---- !u!4 &839352623 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
-  m_PrefabInstance: {fileID: 797581237}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &939774287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156093,3 +155980,73 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d5c895037ed18548b0f4cfa4c708361, type: 3}
+--- !u!1001 &3631687278688766470
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -13.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448321886386572884, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_Name
+      value: Wild Boar Container
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774678285368449836, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774678285368449836, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.66
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6935245165568088052, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}

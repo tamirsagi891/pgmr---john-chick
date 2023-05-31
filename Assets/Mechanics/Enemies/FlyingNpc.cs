@@ -18,12 +18,7 @@ namespace Mechanics.Enemies
         [SerializeField]
         [RequiredReference]
         private Transform nestLocation;
-
-        private float _dashAlertDistance = 7f;
-        private DashAndAlertControl _dashAlertControl;
-        private bool _hasDashControl;
-
-
+        
         public ICanBeAttacked PickupTarget { get; set; }
         public Vector3 DesiredPosition { get; set; }
 
@@ -53,16 +48,6 @@ namespace Mechanics.Enemies
         {
             base.Awake();
             events.onDashEnd.AddListener(DropPickup);
-            _dashAlertControl = GetComponentInChildren<DashAndAlertControl>();
-            _hasDashControl = _dashAlertControl != null;
-        }
-
-        protected virtual void OnEnable()
-        {
-            if (_hasDashControl)
-            {
-                _dashAlertDistance = _dashAlertControl.Radius;
-            }
         }
 
         public override void Dash()
@@ -92,18 +77,18 @@ namespace Mechanics.Enemies
                 {
                     if (WalkTarget == PlayerContact.GetTransform())
                     {
-                        if (directionToMove.sqrMagnitude < _dashAlertDistance * _dashAlertDistance)
+                        if (directionToMove.sqrMagnitude < DashAlertDistance * DashAlertDistance)
                         {
-                            if (_hasDashControl && !IsDashing)
+                            if (HasDashControl && !IsDashing)
                             {
-                                _dashAlertControl.StartDashAlertSequence();
+                                DashAlertControl.StartDashAlertSequence();
                             }
                         }
                     }
                     else
                     {
                         var distanceToPlayer = (PlayerContact.GetTransform().position - transform.position);
-                        if (distanceToPlayer.sqrMagnitude > _dashAlertDistance * _dashAlertDistance)
+                        if (distanceToPlayer.sqrMagnitude > DashAlertDistance * DashAlertDistance)
                         {
                             CanDetectPlayer = true;
                         }
@@ -129,9 +114,9 @@ namespace Mechanics.Enemies
 
                 RunWithoutAcceleration();
             }
-            else if (hasDefaultDirection)
+            else if (HasDefaultDirection)
             {
-                animationControls.Direction = defaultDirection;
+                animationControls.Direction = DefaultDirection;
             }
         }
 
