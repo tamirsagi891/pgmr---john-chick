@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Elad.Events;
 using UnityEngine;
+using Logger = Nemesh.Logger;
 
 public class Platform : MonoBehaviour
 {
 
-    [SerializeField] private float noSurfaceTime = 0.5f;
-    [SerializeField] private float noSurfaceTimer;
+    // [SerializeField] private float noSurfaceTime = 0.5f;
+    // private float noSurfaceTimer;
 
     private bool noSurface;
     private PlatformEffector2D _platformEffector2D;
@@ -31,24 +32,36 @@ public class Platform : MonoBehaviour
 
     private void Update()
     {
-        if (noSurface)
-        {
-            noSurfaceTimer -= Time.deltaTime;
-            if (noSurfaceTimer <= 0)
-            {
-                _platformEffector2D.surfaceArc = 180;
-                noSurface = false;
-            }
-        }
+        // if (noSurface)
+        // {
+        //     noSurfaceTimer -= Time.deltaTime;
+        //     if (noSurfaceTimer <= 0)
+        //     {
+        //         _platformEffector2D.surfaceArc = 180;
+        //         noSurface = false;
+        //     }
+        // }
     }
 
 
     private void playerCrouchAndJump(bool state)
     {
         _platformEffector2D.surfaceArc = 0;
-        noSurfaceTimer = noSurfaceTime;
+        // noSurfaceTimer = noSurfaceTime;
         noSurface = true;
     }
 
-    
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.collider.CompareTag(TagStrings.playerTag))
+        {
+            Logger.Log("player got hit");
+            if (noSurface)
+            {
+                _platformEffector2D.surfaceArc = 180;
+                noSurface = false;
+            }
+        }
+        
+    }
 }

@@ -48,6 +48,7 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
         get => isInvincible;
         set
         {
+            PlayerStatus.PlayerIsInvincible = value;
             isInvincible = value;
             _blinkTimer = blinkTime;
             if (!value)

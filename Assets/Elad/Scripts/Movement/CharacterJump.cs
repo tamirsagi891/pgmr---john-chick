@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
-
 using System;
 using UnityEngine;
 
@@ -68,11 +67,14 @@ public class CharacterJump : MonoBehaviour
 
     [Header("Gliding")] [SerializeField] private bool regularGlide = true;
     [SerializeField] private Vector2 glideJump = Vector2.zero;
+
     [SerializeField, Range(0f, 20f)] [Tooltip("Gravity multiplier to apply when gliding")]
     private float gravityMultiplierGliding = 0.3f;
 
     private bool _wantToGlide;
-    [SerializeField] [Range(-0.01f, -0.2f)]private float minVelocityToGlide = -0.05f;
+
+    [SerializeField] [Range(-0.01f, -0.2f)]
+    private float minVelocityToGlide = -0.05f;
 
     [SerializeField, Range(0f, 20f)] [Tooltip("linear Drag to apply when gliding")]
     private float linearDragGliding = 2f;
@@ -98,9 +100,11 @@ public class CharacterJump : MonoBehaviour
         set => _isGliding = value;
     }
 
-    [Space(10)][Header("Crouch Affect jump")][Tooltip("Let the player to jump from crouching")]
-    [SerializeField] private bool canJumpWhileCrouch;
+    [Space(10)] [Header("Crouch Affect jump")] [Tooltip("Let the player to jump from crouching")] [SerializeField]
+    private bool canJumpWhileCrouch;
+
     private bool _canJump = true;
+
     public bool CanJump
     {
         get
@@ -115,9 +119,23 @@ public class CharacterJump : MonoBehaviour
                                _wallMovement.IsWallSliding) && (!_isCrouching);
 
             return returnValue;
-
         }
-        
+    }
+
+    [Space(3)] [Header("On Hit")] [SerializeField]
+    private float hitGlideDelayTime = 0.05f;
+
+    private float _hitGlideDelayTimer;
+    private bool _inHit;
+
+    private void OnEnable()
+    {
+        characterEvents.CharacterDamaged.AddListener(StopGlideFromHit);
+    }
+
+    private void OnDisable()
+    {
+        characterEvents.CharacterDamaged.RemoveListener(StopGlideFromHit);
     }
 
     void Awake()
@@ -160,11 +178,6 @@ public class CharacterJump : MonoBehaviour
 
                 _pressingJump = true;
                 OnGlide();
-                
-                
-                
-                
-                
             }
 
 
@@ -180,6 +193,15 @@ public class CharacterJump : MonoBehaviour
     void Update()
     {
         setPhysics();
+
+        if (_inHit)
+        {
+            _hitGlideDelayTimer -= Time.deltaTime;
+            if (_hitGlideDelayTimer <= 0)
+            {
+                _inHit = false;
+            }
+        }
 
         //Check if we're on ground.
         onGround = _touchingDirection.IsGrounded;
@@ -244,8 +266,8 @@ public class CharacterJump : MonoBehaviour
     private void calculateGravity()
     {
         //We change the character's gravity based on her Y direction
-        
-        
+
+
         //If Kit is going up...
         if (_rB.velocity.y > 0.01f)
         {
@@ -256,12 +278,11 @@ public class CharacterJump : MonoBehaviour
             }
             else
             {
-                
                 //If we're using variable jump height...)
                 if (dropWhenStopPushingJump)
                 {
                     //Apply upward multiplier if player is rising and holding jump
-                    if (_pressingJump && _currentlyJumping )
+                    if (_pressingJump && _currentlyJumping)
                     {
                         _gravMultiplier = gravityMultiplierAscending;
                     }
@@ -275,6 +296,7 @@ public class CharacterJump : MonoBehaviour
                 {
                     _gravMultiplier = gravityMultiplierAscending;
                 }
+
                 if (_wallMovement.IsWallSliding)
                 {
                     _gravMultiplier = _wallMovement.GravityMultiplierWallSliding;
@@ -331,7 +353,6 @@ public class CharacterJump : MonoBehaviour
 
     private void DoAJump()
     {
-        
         // Create the jump, provided we are on the ground, in coyote time, or have a double jump available
         if (CanJump)
         {
@@ -425,7 +446,7 @@ public class CharacterJump : MonoBehaviour
 
     private void OnGlide()
     {
-        if (_wallMovement.IsWallSliding) return;
+        if (_wallMovement.IsWallSliding || _inHit) return;
 
         if (regularGlide)
         {
@@ -444,7 +465,7 @@ public class CharacterJump : MonoBehaviour
                     _animator.SetBool(AnimationStrings.isGliding, false);
                     IsGliding = false;
                 }
-            }    
+            }
         }
 
         else
@@ -467,11 +488,21 @@ public class CharacterJump : MonoBehaviour
                 }
             }
         }
-        
     }
-    
-    
 
+
+    private void StopGlideFromHit(GameObject player, int num)
+    {
+        if (player.CompareTag(TagStrings.playerTag))
+        {
+            _pressingJump = false;
+            _rB.drag = linearDragRegular;
+            _animator.SetBool(AnimationStrings.isGliding, false);
+            IsGliding = false;
+            _inHit = true;
+            _hitGlideDelayTimer = hitGlideDelayTime;
+        }
+    }
 /*
 
 timeToApexStat = scale(1, 10, 0.2f, 2.5f, numberFromPlatformerToolkit)
