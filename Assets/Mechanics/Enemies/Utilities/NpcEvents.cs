@@ -12,6 +12,9 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         public UnityEvent onDash = new();
+        
+        [SerializeField]
+        public UnityEvent onDashEnd;
 
         [SerializeField]
         public UnityEvent onPlayerDetected = new();
@@ -30,5 +33,6 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         public UnityEvent<BaseNpc> onDisable = new();
+
     }
 }

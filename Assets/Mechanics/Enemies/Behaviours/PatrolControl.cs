@@ -51,7 +51,14 @@ namespace Mechanics.Enemies
 
         #region Public Properties
 
-        public bool EnabledBehaviour { get; set; }
+        public bool EnabledBehaviour
+        {
+            get => _enabledBehaviour;
+            set
+            {
+                _enabledBehaviour = value;
+            }
+        }
 
         #endregion
 
@@ -60,6 +67,7 @@ namespace Mechanics.Enemies
         private bool _hasTarget;
 
         private PassiveTimer _delayTimer = new();
+        private bool _enabledBehaviour;
 
         #endregion
 

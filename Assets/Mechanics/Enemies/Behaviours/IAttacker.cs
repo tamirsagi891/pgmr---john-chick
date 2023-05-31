@@ -7,7 +7,7 @@ namespace Mechanics.Enemies
     {
         public bool Attack(ICanBeAttacked attackTarget);
 
-        public void DropPickup(ICanBeAttacked attackTarget)
+        public void DropPickup()
         {
             return;
         }
@@ -22,7 +22,10 @@ namespace Mechanics.Enemies
             return GetAttackParameters().KnockBack;
         }
 
-        public AttackParameters GetAttackParameters();
+        public AttackParameters GetAttackParameters()
+        {
+            return new AttackParameters(this);
+        }
     }
 
     [Serializable]
@@ -47,6 +50,11 @@ namespace Mechanics.Enemies
         public AttackType Type { get; }
         public Transform FollowTransform { get; }
         public IAttacker Attacker { get; }
+
+        public override string ToString()
+        {
+            return $"Attacker: {Attacker}.  Type: {Type} | DMG {Damage} | KB {KnockBack}";
+        }
     }
 
     public enum AttackType
