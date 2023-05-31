@@ -132,9 +132,11 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
         }
     }
 
-    public bool Hurt(IAttacker attacker)
+    public bool Hurt(AttackParameters attackParameters)
     {
         // Logger.Log($"Attacked by {attacker} for {attacker.GetDamage()}  kb {attacker.GetKnockBack()}", this);
-        return GotHit((int) attacker.GetDamage(), attacker.GetKnockBack());
+        return GotHit((int) attackParameters.Damage, attackParameters.KnockBack);
     }
+
+    public Transform GetTransform() => transform;
 }
