@@ -127,7 +127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -256,11 +256,12 @@ MonoBehaviour:
   myData: {fileID: 11400000, guid: a29e617e589118e4782850b9801a9de7, type: 2}
   animationControls: {fileID: 8483125766429725516}
   attackController: {fileID: 6587525368756741524}
+  canDetectPlayer: 1
   stopMovementDuringAttackTime: 1
   attackStartAfterTime: 0.1
   hurtTime: 1
   dashTime:
-    duration: 0.5
+    duration: 3
   tryDashBeforeJump: 0
   notMovingTimer:
     duration: 1
@@ -276,6 +277,9 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     onDash:
+      m_PersistentCalls:
+        m_Calls: []
+    onDashEnd:
       m_PersistentCalls:
         m_Calls: []
     onPlayerDetected:
@@ -311,6 +315,7 @@ MonoBehaviour:
   debug: 0
   velocitySmoothTime: 0.5
   nestLocation: {fileID: 0}
+  dashAlertDistance: 7
 --- !u!114 &3885345000180925774 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8575191063788109129, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}

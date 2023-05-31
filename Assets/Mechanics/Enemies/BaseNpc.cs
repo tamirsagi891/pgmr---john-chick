@@ -285,10 +285,7 @@ namespace Mechanics.Enemies
 
             if (dashTime.IsSet && !dashTime.IsActive)
             {
-                dashTime.Clear();
-                MyStatsHandler.CurrentStats.movementSpeed -= MyStatsHandler.CurrentStats.extraDashSpeed;
-                animationControls.StopDirectionSwitch = false;
-                events.onDashEnd.Invoke();
+                StopDash();
             }
 
             if (!IsDead && StopMovementTimer.IsSet && !StopMovementTimer.IsActive &&
@@ -298,6 +295,14 @@ namespace Mechanics.Enemies
             }
 
             return false;
+        }
+
+        public virtual void StopDash()
+        {
+            dashTime.Clear();
+            MyStatsHandler.CurrentStats.movementSpeed -= MyStatsHandler.CurrentStats.extraDashSpeed;
+            animationControls.StopDirectionSwitch = false;
+            events.onDashEnd.Invoke();
         }
 
         protected virtual void HandleAttackUpdate()
@@ -670,6 +675,10 @@ namespace Mechanics.Enemies
             // TODO: constraint x?
             MyRigidbody.velocity = Vector2.zero; // TODO: Slowdown gradually not immediate
             animationControls.CanMove = false;
+            if (IsDashing)
+            {
+                StopDash();
+            }
         }
 
         #endregion
