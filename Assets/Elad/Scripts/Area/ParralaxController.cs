@@ -24,9 +24,7 @@ public class ParralaxController : MonoBehaviour
     private GameObject _player;
 
     [Range(0.01f, 0.05f)] [SerializeField] private float parallaxSpeed;
-
-    [SerializeField] private Vector3 positionOffset;
-
+    
     // Start is called before the first frame update
     private void Awake()
     {
@@ -72,9 +70,12 @@ public class ParralaxController : MonoBehaviour
     private void LateUpdate()
     {
         _distance = _cam.position.x - _camStartPos.x;
+<<<<<<< HEAD
         // var camPos = _player.transform.position + positionOffset;
         // transform.position = new Vector3(camPos.x, camPos.y, 0);
 
+=======
+>>>>>>> 93eb5efa15efdb2ac8abcf94599c9aa76609855c
         for (int i = 0; i < _backgrounds.Length; i++)
         {
             float speed = backSpeed[i] * parallaxSpeed;
