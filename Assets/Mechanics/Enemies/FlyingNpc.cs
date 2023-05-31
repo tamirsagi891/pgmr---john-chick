@@ -21,17 +21,22 @@ namespace Mechanics.Enemies
         public ICanBeAttacked PickupTarget { get; set; }
         public Vector3 DesiredPosition { get; set; }
 
-        public override Transform WalkTarget 
-        { 
-            get => base.WalkTarget;
-            set
+        protected override Transform WalkTargetHelper(Transform value)
+        {
+            if (HasPlayerContact && _walkTarget != PlayerContact.GetTransform())
             {
-                if (HasDestination && WalkTarget != PlayerContact.GetTransform())
+                canDetectPlayer = true;
+            }   
+            if (HasPlayerContact && canDetectPlayer)
+            {
+                value = PlayerContact.GetTransform();
+                if (MovementBehaviour != null) // TODO: remove this on build
                 {
-                    canDetectPlayer = true;
-                } 
-                base.WalkTarget = value;
+                    MovementBehaviour.EnabledBehaviour = false;
+                }
             }
+
+            return value;
         }
 
         public override bool IsGrounded
