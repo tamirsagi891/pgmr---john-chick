@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: nestLocation
       value: 
       objectReference: {fileID: 1906501105022356679}
+    - target: {fileID: 8770152237173548149, guid: 09a6965809b4e0540badf880429685e7, type: 3}
+      propertyPath: dashTime.duration
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6298470066204242511, guid: 09a6965809b4e0540badf880429685e7, type: 3}
     m_RemovedGameObjects:

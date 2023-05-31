@@ -37,7 +37,8 @@ namespace Mechanics.Enemies
 
                 animationControls.Direction = directionToMove.x < 0 ? Direction.Left : Direction.Right;
                 var minDistance = 0.01f; // TODO: move both to fields
-                if (HasPlayerContact)
+                // Logger.Log(WalkTarget);
+                if (HasPlayerContact && WalkTarget != nestLocation)
                 {
                     minDistance = minDistanceForMovementWhenHavePlayer;
                     // animationControls.StopDirectionSwitch = directionToMove.sqrMagnitude > minDistance;
@@ -75,13 +76,11 @@ namespace Mechanics.Enemies
             {
                 CanAttack = false;
                 PickupTarget = attackTarget;
-                AttackTargets.Remove(attackTarget);
                 WalkTarget = nestLocation;
                 if (MovementBehaviour != null) // TODO: remove this on build
                 {
                     MovementBehaviour.EnabledBehaviour = false;
                 }
-            
             }
             
             events.onAttack.Invoke();
@@ -95,6 +94,7 @@ namespace Mechanics.Enemies
                 return;
             }
             
+            AttackTargets.Remove(attackTarget);
             PickupTarget = null;
             CanAttack = true; 
             AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
