@@ -49,6 +49,7 @@ namespace Mechanics.Enemies
 
         public AttackParameters GetAttackParameters()
         {
+            // TODO: if attack is feather or egg - we want different?
             return new AttackParameters(
                 attacker: this,
                 damage: attackAmount,

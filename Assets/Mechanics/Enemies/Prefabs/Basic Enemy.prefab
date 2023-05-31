@@ -179,6 +179,7 @@ MonoBehaviour:
     isOnCeiling:
       name: isOnCeiling
   myAnimator: {fileID: 7108527668574679784}
+  debug: 0
 --- !u!1 &1837786459746131347
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,6 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82467c29d164c3eaf6f04a19d2095d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stopVelocityWhenAttacking: 1
   npcToReportTo: {fileID: 1549835583372036680}
 --- !u!212 &5899475112362532775
 SpriteRenderer:
@@ -804,18 +806,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myData: {fileID: 11400000, guid: 5ee11747181209445b8504d750df1cf5, type: 2}
   animationControls: {fileID: 3985874337510959947}
-  attackController: {fileID: 1837786459746131347}
+  attackController: {fileID: 8142108185975888213}
+  canDetectPlayer: 1
   stopMovementDuringAttackTime: 0.6
   attackStartAfterTime: 0.6
   hurtTime: 1
   dashTime:
     duration: 0.75
+  stopAtDashEndTimer:
+    duration: 0
   tryDashBeforeJump: 0
+  useNotMovingTimer: 1
   notMovingTimer:
     duration: 0.25
   stopMovementWhileTargetExists: 1
   detectEdges: 1
   canAirAttack: 0
+  minDistanceForMovementWhenHavePlayer: 1
   removeAfterDeath: 0
   removeAfterDeathTimer:
     duration: 10
@@ -824,6 +831,9 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     onDash:
+      m_PersistentCalls:
+        m_Calls: []
+    onDashEnd:
       m_PersistentCalls:
         m_Calls: []
     onPlayerDetected:
@@ -873,12 +883,14 @@ MonoBehaviour:
     hp: 0
     detectionRadius: 10
     damage: 3
+    knockBack: {x: 0, y: 0}
     cooldown: 2
     movementSpeed: 1
     jumpForce: 40
     extraDashSpeed: 10
     defense: 0
     deBuff: 0
+    type: 0
 --- !u!50 &1125365599050158354
 Rigidbody2D:
   serializedVersion: 4
@@ -986,6 +998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac629e17a214b52bfeab5a50fb4da33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTrigger: 1
   waitForDashTimer:
     duration: 1
   onAlert:

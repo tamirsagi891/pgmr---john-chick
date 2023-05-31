@@ -71,6 +71,9 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         public AttackType type = AttackType.Regular;
+            
+        [SerializeField]
+        public float shotSpeed = 0f;
 
         public override string ToString()
         {
@@ -78,6 +81,7 @@ namespace Mechanics.Enemies
 hp: {hp}  --  def: {defense}  --  rad: {detectionRadius}
 dmg: {damage}  -- deBuff: {deBuff}  -- cd: {cooldown}
 ms: {movementSpeed}  -- dash: {extraDashSpeed}  -- jump: {jumpForce}
+type: {type} -- shotSpeed: {shotSpeed}
 ";
         }
 

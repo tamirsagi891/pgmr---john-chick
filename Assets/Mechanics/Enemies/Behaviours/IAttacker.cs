@@ -35,14 +35,18 @@ namespace Mechanics.Enemies
             float damage = 0f,
             Transform followTransform = null, 
             AttackType type = AttackType.Regular, 
-            Vector2 knockBack = new ()
-            )
+            Vector2 knockBack = new (),
+            float shotSpeed = 0f,
+            Direction direction = Direction.Right
+        )
         {
             Attacker = attacker;
+            Direction = direction;
             FollowTransform = followTransform;
             Type = type;
             KnockBack = knockBack;
             Damage = damage;
+            ShotSpeed = shotSpeed;
         }
 
         public float Damage { get; }
@@ -50,6 +54,10 @@ namespace Mechanics.Enemies
         public AttackType Type { get; }
         public Transform FollowTransform { get; }
         public IAttacker Attacker { get; }
+        
+        public float ShotSpeed { get; }
+        
+        public Direction Direction { get; }
 
         public override string ToString()
         {
@@ -59,6 +67,7 @@ namespace Mechanics.Enemies
 
     public enum AttackType
     {
+        Shot,
         Regular,
         Pickup
     }

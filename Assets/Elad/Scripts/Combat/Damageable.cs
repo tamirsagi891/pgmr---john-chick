@@ -202,6 +202,7 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
                     Color.red, this);
                 return false;
                 break;
+            case AttackType.Shot:
             case AttackType.Regular:
             default:
                 return GotHit((int) attackParameters.Damage, attackParameters.KnockBack);

@@ -33,11 +33,11 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         [RequiredReference]
-        protected GameObject attackController; // TODO: MonoBehaviour of some type
-        
+        protected AttackBehaviour attackController;
+
         [SerializeField]
         protected bool canDetectPlayer = true;
-        
+
         [FormerlySerializedAs("attackTime")]
         [Space]
         [HelpBox("THIS SHOULD BE FROM ANIMATION NOT HERE! But im too lazy.",
@@ -47,15 +47,22 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         protected float attackStartAfterTime = 1f;
-        
+
         [SerializeField]
         protected float hurtTime = 1f;
 
         [SerializeField]
         protected PassiveTimer dashTime = new(0.2f);
-        
+
+        [SerializeField]
+        protected PassiveTimer stopAtDashEndTimer = new(0f);
+
         [SerializeField]
         private bool tryDashBeforeJump;
+
+        [SerializeField]
+        [Tooltip("After how many second of not moving try to switch direction")]
+        protected bool useNotMovingTimer = true;
 
         [SerializeField]
         [Tooltip("After how many second of not moving try to switch direction")]
@@ -70,7 +77,7 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         protected bool canAirAttack; // TODO: move to getter and check Ground/Flying enemy, or to inherited class.
-        
+
         [SerializeField]
         protected float minDistanceForMovementWhenHavePlayer = 1f;
 
@@ -121,7 +128,7 @@ namespace Mechanics.Enemies
             set => animationControls.IsGrounded = value;
         }
 
-        public ICanBeAttacked PlayerContact
+        public virtual ICanBeAttacked PlayerContact
         {
             get => _playerContact;
             set
@@ -131,13 +138,14 @@ namespace Mechanics.Enemies
                 {
                     return;
                 }
-                
+
                 // TODO: add script for attack strategy
                 HasPlayerContact = value != null;
-                if (!canDetectPlayer)
+                if (!CanDetectPlayer)
                 {
                     return;
                 }
+
                 if (HasPlayerContact)
                 {
                     WalkTarget = value!.GetTransform();
@@ -163,7 +171,7 @@ namespace Mechanics.Enemies
             }
         }
 
-        protected bool HasPlayerContact { get; set; } 
+        protected bool HasPlayerContact { get; set; }
 
         public NpcDataScriptable NpcDataScriptable
         {
@@ -191,19 +199,24 @@ namespace Mechanics.Enemies
 
         protected virtual Transform WalkTargetHelper(Transform value)
         {
-            if (HasPlayerContact && canDetectPlayer)
+            if (HasPlayerContact && !CanDetectPlayer && value == PlayerContact.GetTransform())
             {
-                value = _playerContact.GetTransform();
-                if (MovementBehaviour != null) // TODO: remove this on build
+                if (animationControls.CanMove && MovementBehaviour != null) // TODO: remove this on build
                 {
-                    MovementBehaviour.EnabledBehaviour = false;
+                    MovementBehaviour.EnabledBehaviour = true;
+                    MovementBehaviour.GoToNextPoint();
                 }
             }
 
             return value;
         }
 
-        public bool EdgeInFront { get; set; }
+        public bool EdgeInFront
+        {
+            get => edgeInFront;
+            set => edgeInFront = value;
+            // checkEdge = edgeInFront;
+        }
 
         public bool DetectEdges
         {
@@ -214,7 +227,7 @@ namespace Mechanics.Enemies
         public Direction CurrentDirection => animationControls.Direction;
         public bool IsDashing => dashTime.IsSet && dashTime.IsActive;
 
-        public bool CanAttack { get; set; } = true;
+        public bool CanAttack { get; protected set; } = true;
 
         #endregion
 
@@ -224,12 +237,16 @@ namespace Mechanics.Enemies
 
         protected StatsHandler MyStatsHandler;
         private INpcMovementBehaviour _movementBehaviour;
-        protected Transform _walkTarget; // TODO: create type of WalkTarget?
+        private Transform _walkTarget; // TODO: create type of WalkTarget?
         protected bool HasDestination;
 
         protected Rigidbody2D MyRigidbody;
         protected Vector2 DesiredVelocity;
         protected Vector2 Velocity;
+
+        protected float DashAlertDistance = 7f;
+        protected DashAndAlertControl DashAlertControl;
+        protected bool HasDashControl;
 
         protected readonly PassiveTimer AttackCdTimer = new();
         protected readonly PassiveTimer StopMovementTimer = new();
@@ -237,8 +254,11 @@ namespace Mechanics.Enemies
         protected bool ShouldMove = true;
         protected bool IsDead;
 
-        protected Direction defaultDirection;
-        protected bool hasDefaultDirection;
+        protected Direction DefaultDirection;
+        protected bool HasDefaultDirection;
+
+        protected bool edgeInFront;
+        // protected bool checkEdge;
 
         #endregion
 
@@ -249,6 +269,16 @@ namespace Mechanics.Enemies
             MyStatsHandler = GetComponent<StatsHandler>();
             MyRigidbody = GetComponent<Rigidbody2D>();
             notMovingTimer.Clear();
+            DashAlertControl = GetComponentInChildren<DashAndAlertControl>();
+            HasDashControl = DashAlertControl != null;
+        }
+
+        protected virtual void OnEnable()
+        {
+            if (HasDashControl)
+            {
+                DashAlertDistance = DashAlertControl.Radius;
+            }
         }
 
         protected void OnDisable()
@@ -299,10 +329,16 @@ namespace Mechanics.Enemies
 
         public virtual void StopDash()
         {
+            if (!IsDashing)
+            {
+                return;
+            }
+
             dashTime.Clear();
             MyStatsHandler.CurrentStats.movementSpeed -= MyStatsHandler.CurrentStats.extraDashSpeed;
             animationControls.StopDirectionSwitch = false;
             events.onDashEnd.Invoke();
+            StopMovement(stopAtDashEndTimer.Duration);
         }
 
         protected virtual void HandleAttackUpdate()
@@ -363,9 +399,9 @@ namespace Mechanics.Enemies
 
                 RunWithoutAcceleration();
             }
-            else if (hasDefaultDirection)
+            else if (HasDefaultDirection)
             {
-                animationControls.Direction = defaultDirection;
+                animationControls.Direction = DefaultDirection;
             }
         }
 
@@ -373,7 +409,7 @@ namespace Mechanics.Enemies
         {
             events.onAttack.Invoke();
             var attackParameters = GetAttackParameters();
-            
+
             foreach (var target in AttackTargets)
             {
                 AttackTargetUsingParams(target, attackParameters);
@@ -388,12 +424,13 @@ namespace Mechanics.Enemies
         public void HandleDirectionSwitch()
         {
             EdgeInFront = false;
-
+            StopDash();
             DesiredVelocity.x = 0f;
             if (animationControls.StopDirectionSwitch)
             {
-                return;  // TODO: move the check inside animationControls.SwitchDirection
+                return; // TODO: move the check inside animationControls.SwitchDirection
             }
+
             if (MovementBehaviour is {EnabledBehaviour: true})
             {
                 MovementBehaviour?.GoToNextPoint();
@@ -416,6 +453,7 @@ namespace Mechanics.Enemies
                 {
                     return;
                 }
+
                 Dash();
             }
 
@@ -470,7 +508,7 @@ namespace Mechanics.Enemies
         }
 
         public Transform GetTransform() => transform;
-        
+
         protected virtual void AttackTargetUsingParams(ICanBeAttacked attackTarget, AttackParameters attackParameters)
         {
             var succeeded = attackTarget.Hurt(attackParameters);
@@ -484,7 +522,9 @@ namespace Mechanics.Enemies
                 damage: GetDamage(),
                 knockBack: MyStatsHandler.CurrentStats.knockBack,
                 type: MyStatsHandler.CurrentStats.type,
-                followTransform: transform);
+                followTransform: transform,
+                shotSpeed: MyStatsHandler.CurrentStats.shotSpeed,
+                direction: CurrentDirection);
         }
 
         [Button]
@@ -554,15 +594,22 @@ namespace Mechanics.Enemies
 
         public void StopMovement(float time)
         {
+            if (time <= 0f)
+            {
+                return; // TODO: StartMovement
+            }
+
             // TODO: stop for time using enumerator or the animator!
             if (!StopMovementTimer.IsSet || (StopMovementTimer.IsSet && StopMovementTimer.RemainingTime < time))
             {
                 StopMovementTimer.Start(time);
             }
+
             if (debug)
             {
                 Logger.Log($"Stopped Movement {time} {StopMovementTimer.IsSet}", this);
             }
+
             StopMovementHelper();
         }
 
@@ -586,13 +633,13 @@ namespace Mechanics.Enemies
 
         public void SetDefaultDirection(Direction newDir)
         {
-            defaultDirection = newDir;
-            hasDefaultDirection = true;
+            DefaultDirection = newDir;
+            HasDefaultDirection = true;
         }
 
         public void RemoveDefaultDirection()
         {
-            hasDefaultDirection = false;
+            HasDefaultDirection = false;
         }
 
         #endregion
@@ -605,6 +652,7 @@ namespace Mechanics.Enemies
             {
                 return;
             }
+
             Velocity.x = DesiredVelocity.x;
             var minVelocity = 0.05f; // TODO: expose
             Velocity.x = Mathf.Abs(Velocity.x) < minVelocity ? 0f : Velocity.x;
@@ -615,6 +663,12 @@ namespace Mechanics.Enemies
         protected bool ShouldSwitchDirectionWhenNotMoving()
         {
             var shouldSwitch = false;
+
+            if (!useNotMovingTimer)
+            {
+                return false;
+            }
+
             if (!animationControls.IsMoving)
             {
                 if (!notMovingTimer.IsSet)
@@ -631,6 +685,7 @@ namespace Mechanics.Enemies
             {
                 notMovingTimer.Clear();
             }
+
 
             return shouldSwitch && animationControls.CanMove;
         }
@@ -704,4 +759,5 @@ namespace Mechanics.Enemies
         #endregion
 
     }
+
 }
