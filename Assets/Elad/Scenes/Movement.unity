@@ -4053,6 +4053,10 @@ PrefabInstance:
       propertyPath: minVelocityToGlide
       value: -0.106
       objectReference: {fileID: 0}
+    - target: {fileID: 8023889160803529536, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: dodgeRollCoolDown
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 3
