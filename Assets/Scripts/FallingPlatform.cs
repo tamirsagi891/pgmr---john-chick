@@ -14,6 +14,8 @@ public class FallingPlatform : MonoBehaviour
 
     private Vector2 originalPosition;
     private bool isFalling = false;
+    private bool isReadyToReset = false;
+    private float respawnTimer = 0f;
 
     private void Awake()
     {
@@ -27,7 +29,10 @@ public class FallingPlatform : MonoBehaviour
     {
         if (collision.collider.CompareTag(playerTag) && !isFalling)
         {
-            StartCoroutine(ShakeAndFall());
+            if (collision.contacts[0].normal.y < 0) // If the player is above the platform
+            {
+                StartCoroutine(ShakeAndFall());
+            }
         }
     }
 
@@ -47,11 +52,6 @@ public class FallingPlatform : MonoBehaviour
         // Fall
         boxCollider.isTrigger = true;
         rb.bodyType = RigidbodyType2D.Dynamic;
-
-        yield return new WaitForSeconds(respawnDelay);
-
-        // Reset
-        ResetPlatform();
     }
 
     private void ResetPlatform()
@@ -61,21 +61,24 @@ public class FallingPlatform : MonoBehaviour
         boxCollider.isTrigger = false;
         rb.bodyType = RigidbodyType2D.Static;
         isFalling = false;
+        isReadyToReset = false;
+        respawnTimer = 0f;
     }
 
     private void Update()
     {
         if (isFalling && Vector2.Distance(playerTransform.position, transform.position) > distanceFromPlayerToDeactivate)
         {
-            gameObject.SetActive(false);
+            isReadyToReset = true;
         }
-    }
 
-    private void OnEnable()
-    {
-        if (isFalling)
+        if (isReadyToReset)
         {
-            ResetPlatform();
+            respawnTimer += Time.deltaTime;
+            if (respawnTimer >= respawnDelay)
+            {
+                ResetPlatform();
+            }
         }
     }
 }

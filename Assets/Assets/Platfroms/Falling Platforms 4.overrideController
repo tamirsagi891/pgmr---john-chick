@@ -8,4 +8,6 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Falling Platforms 4
   m_Controller: {fileID: 9100000, guid: 2574f39486c6e9f4db6c0f61d2a6aa1a, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 7e32a174b62503e44aaee23e0714c565, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 517ff54441cb12f46b35b231d6bf9957, type: 2}
