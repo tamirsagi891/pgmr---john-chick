@@ -134,7 +134,7 @@ namespace Mechanics.Enemies
                 
                 // TODO: add script for attack strategy
                 HasPlayerContact = value != null;
-                if (!canDetectPlayer)
+                if (!CanDetectPlayer)
                 {
                     return;
                 }
@@ -191,12 +191,12 @@ namespace Mechanics.Enemies
 
         protected virtual Transform WalkTargetHelper(Transform value)
         {
-            if (HasPlayerContact && canDetectPlayer)
+            if (HasPlayerContact && !CanDetectPlayer && value == PlayerContact.GetTransform())
             {
-                value = _playerContact.GetTransform();
-                if (MovementBehaviour != null) // TODO: remove this on build
+                if (animationControls.CanMove && MovementBehaviour != null) // TODO: remove this on build
                 {
-                    MovementBehaviour.EnabledBehaviour = false;
+                    MovementBehaviour.EnabledBehaviour = true;
+                    MovementBehaviour.GoToNextPoint();
                 }
             }
 

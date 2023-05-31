@@ -29,20 +29,17 @@ namespace Mechanics.Enemies
 
         protected override Transform WalkTargetHelper(Transform value)
         {
-            if (HasPlayerContact && _walkTarget != PlayerContact.GetTransform())
+            value = base.WalkTargetHelper(value);
+            if (HasPlayerContact && CanDetectPlayer && value != PlayerContact.GetTransform())
             {
-                canDetectPlayer = true;
-            }
-
-            if (HasPlayerContact && canDetectPlayer)
-            {
-                value = PlayerContact.GetTransform();
                 if (MovementBehaviour != null) // TODO: remove this on build
                 {
                     MovementBehaviour.EnabledBehaviour = false;
                 }
-            }
 
+                value = PlayerContact.GetTransform();
+            }
+        
             return value;
         }
 
@@ -72,6 +69,8 @@ namespace Mechanics.Enemies
         {
             base.Dash();
             DesiredPosition = WalkTarget.position;
+            Vector2 directionToMove = DesiredPosition - transform.position;
+            animationControls.Direction = directionToMove.x < 0 ? Direction.Left : Direction.Right;
         }
 
 
@@ -89,14 +88,24 @@ namespace Mechanics.Enemies
 
                 var minDistance = 0.01f; // TODO: move both to fields
                 // Logger.Log(WalkTarget);
-                if (HasPlayerContact && WalkTarget == PlayerContact.GetTransform())
+                if (HasPlayerContact)
                 {
-                    // TODO: calculate in validate
-                    if (directionToMove.sqrMagnitude < _dashAlertDistance * _dashAlertDistance)
+                    if (WalkTarget == PlayerContact.GetTransform())
                     {
-                        if (_hasDashControl && !IsDashing)
+                        if (directionToMove.sqrMagnitude < _dashAlertDistance * _dashAlertDistance)
                         {
-                            _dashAlertControl.StartDashAlertSequence();
+                            if (_hasDashControl && !IsDashing)
+                            {
+                                _dashAlertControl.StartDashAlertSequence();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var distanceToPlayer = (PlayerContact.GetTransform().position - transform.position);
+                        if (distanceToPlayer.sqrMagnitude > _dashAlertDistance * _dashAlertDistance)
+                        {
+                            CanDetectPlayer = true;
                         }
                     }
 
@@ -159,10 +168,11 @@ namespace Mechanics.Enemies
 
         public void DropPickup()
         {
-            if (PickupTarget == null)
-            {
-                return;
-            }
+            // var oldTarget = PickupTarget;
+            // if (PickupTarget == null)
+            // {
+            //     return;
+            // }
 
             PickupTarget = null;
             CanAttack = true;
@@ -177,6 +187,15 @@ namespace Mechanics.Enemies
             }
 
             WalkTarget = nestLocation;
+        }
+
+        public override void StopDash()
+        {
+            base.StopDash();
+            if (AttackTargets.Count == 0)
+            {
+                DropPickup();
+            }
         }
     }
 }
