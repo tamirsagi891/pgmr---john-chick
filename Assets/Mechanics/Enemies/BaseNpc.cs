@@ -178,14 +178,7 @@ namespace Mechanics.Enemies
             get => _walkTarget;
             set
             {
-                if (HasPlayerContact && canDetectPlayer)
-                {
-                    value = _playerContact.GetTransform();
-                    if (MovementBehaviour != null) // TODO: remove this on build
-                    {
-                        MovementBehaviour.EnabledBehaviour = false;
-                    }
-                }
+                value = WalkTargetHelper(value);
                 if (debug)
                 {
                     Logger.Log($"Target old: {_walkTarget} | new: {value}", this);
@@ -194,6 +187,20 @@ namespace Mechanics.Enemies
                 _walkTarget = value;
                 HasDestination = _walkTarget != null;
             }
+        }
+
+        protected virtual Transform WalkTargetHelper(Transform value)
+        {
+            if (HasPlayerContact && canDetectPlayer)
+            {
+                value = _playerContact.GetTransform();
+                if (MovementBehaviour != null) // TODO: remove this on build
+                {
+                    MovementBehaviour.EnabledBehaviour = false;
+                }
+            }
+
+            return value;
         }
 
         public bool EdgeInFront { get; set; }
