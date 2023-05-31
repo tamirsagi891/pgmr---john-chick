@@ -86,7 +86,7 @@ namespace Mechanics.Enemies
                     if (!npcToReportTo.AttackTargets.Contains(value))
                     {
                         npcToReportTo.AttackTargets.Add(value); // TODO: dont remove if someone else added?
-                        if (stopVelocityWhenEnterTrigger)
+                        if (npcToReportTo.CanAttack && stopVelocityWhenEnterTrigger)
                         {
                             npcToReportTo.StopMovement(Time.fixedDeltaTime);
                         }

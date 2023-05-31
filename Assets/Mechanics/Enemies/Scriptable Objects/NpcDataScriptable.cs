@@ -43,6 +43,9 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         public float damage = 3f;
+        
+        [SerializeField]
+        public Vector2 knockBack = Vector2.zero;
 
         [SerializeField]
         [Min(0)]
@@ -65,6 +68,9 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         public float deBuff;
+
+        [SerializeField]
+        public AttackType type = AttackType.Regular;
 
         public override string ToString()
         {

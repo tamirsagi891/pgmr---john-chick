@@ -1,7 +1,11 @@
-﻿namespace Mechanics.Enemies
+﻿using UnityEngine;
+
+namespace Mechanics.Enemies
 {
     public interface ICanBeAttacked
     {
-        public bool Hurt(IAttacker attacker);
+        public bool Hurt(AttackParameters attackParameters);
+
+        public Transform GetTransform();
     }
 }

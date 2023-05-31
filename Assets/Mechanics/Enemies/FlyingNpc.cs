@@ -1,4 +1,5 @@
 ﻿using Avrahamy.Math;
+using BitStrap;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Logger = Nemesh.Logger;
@@ -13,6 +14,13 @@ namespace Mechanics.Enemies
         [SerializeField]
         private float velocitySmoothTime = 0.5f;
 
+        [SerializeField]
+        [RequiredReference]
+        private Transform nestLocation;
+
+        public ICanBeAttacked PickupTarget { get; set; }
+
+        
         public override bool IsGrounded 
         {
             get => animationControls.IsGrounded && !animationControls.CanMove;
@@ -58,5 +66,44 @@ namespace Mechanics.Enemies
                 ref Velocity, velocitySmoothTime, MyStatsHandler.CurrentStats.movementSpeed, Time.fixedDeltaTime);
             MyRigidbody.velocity = newVelocity;
         }
+        
+        
+        protected override void AttackTargetUsingParams(ICanBeAttacked attackTarget, AttackParameters attackParameters)
+        {
+            var succeeded = attackTarget.Hurt(attackParameters);
+            if (attackParameters.Type == AttackType.Pickup && succeeded)
+            {
+                CanAttack = false;
+                PickupTarget = attackTarget;
+                AttackTargets.Remove(attackTarget);
+                WalkTarget = nestLocation;
+                if (MovementBehaviour != null) // TODO: remove this on build
+                {
+                    MovementBehaviour.EnabledBehaviour = false;
+                }
+            
+            }
+            
+            events.onAttack.Invoke();
+        }
+
+
+        public void DropPickup(ICanBeAttacked attackTarget)
+        {
+            if (PickupTarget == null)
+            {
+                return;
+            }
+            
+            PickupTarget = null;
+            CanAttack = true; 
+            AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
+            if (MovementBehaviour != null) // TODO: remove this on build
+            {
+                MovementBehaviour.EnabledBehaviour = true;
+                MovementBehaviour.GoToNextPoint();
+            }
+        }
+
     }
 }

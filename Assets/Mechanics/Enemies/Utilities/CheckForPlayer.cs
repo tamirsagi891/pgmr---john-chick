@@ -50,7 +50,7 @@ InThat case, we might want to change to list and stop the disable",
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var playerController = other.GetComponent<PlayerAttackController>(); // TODO: move to using Tags instead.
+            var playerController = other.GetComponent<ICanBeAttacked>(); // TODO: move to using Tags instead.
             if (playerController != null)
             {
                 npcToReportTo.PlayerContact = playerController;
@@ -59,7 +59,7 @@ InThat case, we might want to change to list and stop the disable",
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            var playerController = other.GetComponent<PlayerAttackController>();
+            var playerController = other.GetComponent<ICanBeAttacked>();
             if (playerController != null && npcToReportTo.PlayerContact == playerController)
             {
                 npcToReportTo.PlayerContact = null; // TODO: Add to attack targets instead?
