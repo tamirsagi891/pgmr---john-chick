@@ -7,7 +7,7 @@ namespace Elad.Scripts
     {
         private Camera _camera;
 
-        [SerializeField]private GameObject _player;
+        private GameObject _player;
         private float DistanceFromPlayer => transform.position.z - _player.transform.position.z;
 
         private float ClippingPlane => _camera.transform.position.z +
