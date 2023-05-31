@@ -34,14 +34,19 @@ public class ParticleScaler : MonoBehaviour
         Vector2 currentObjectSize = spriteRenderer.bounds.size;
 
         // Calculate the scale factor based on the GameObject size
-        float scaleFactor = Mathf.Max(currentObjectSize.x, currentObjectSize.y) / Mathf.Max(originalObjectSize.x, originalObjectSize.y);
+        float scaleFactorX = currentObjectSize.x /originalObjectSize.x;
+        float scaleFactorY = currentObjectSize.y /originalObjectSize.y;
+        print(currentObjectSize);
+        print("X: " + scaleFactorX);
+        print("Y: " + scaleFactorY);
 
         foreach (ParticleSystem particles in particleSystems)
         {
             // Apply scale to each Particle System
             ParticleSystem.MainModule mainModule = particles.main;
-            mainModule.scalingMode = ParticleSystemScalingMode.Hierarchy;
-            particles.transform.localScale = originalParticleScale * scaleFactor;
+            mainModule.scalingMode = ParticleSystemScalingMode.Local;
+            particles.transform.localScale = new Vector3(originalParticleScale.x * scaleFactorY, originalParticleScale.y,
+                originalParticleScale.z * scaleFactorX);
         }
     }
 }
