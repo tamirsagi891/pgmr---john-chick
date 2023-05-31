@@ -11,10 +11,12 @@ namespace Elad.Scripts
         public static int maxHealth;
         public static int curHealth;
         public static bool isFacingRight;
-
+        
         public static ArrowData CurrentArrowDataData;
         public static EggData CurrentEggData;
 
         public static Vector2 playerVelocity;
+
+        public static bool PlayerIsInvincible;
     }
 }
