@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Avrahamy;
 using BitStrap;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
@@ -16,6 +17,7 @@ namespace Mechanics.Enemies
     [RequireComponent(typeof(Rigidbody2D))]
     public class BaseNpc : MonoBehaviour, IAttacker, ICanBeAttacked
     {
+
         #region Inspector
 
         [Header("Base NPC Fields")]
@@ -33,17 +35,24 @@ namespace Mechanics.Enemies
         [RequiredReference]
         protected GameObject attackController; // TODO: MonoBehaviour of some type
 
+        [FormerlySerializedAs("attackTime")]
         [Space]
         [HelpBox("THIS SHOULD BE FROM ANIMATION NOT HERE! But im too lazy.",
             HelpBoxAttribute.MessageType.Warning)]
         [SerializeField]
-        protected float attackTime = 1f;
+        protected float stopMovementDuringAttackTime = 1f;
 
+        [SerializeField]
+        protected float attackStartAfterTime = 1f;
+        
         [SerializeField]
         protected float hurtTime = 1f;
 
         [SerializeField]
         protected PassiveTimer dashTime = new(0.2f);
+        
+        [SerializeField]
+        private bool tryDashBeforeJump;
 
         [SerializeField]
         [Tooltip("After how many second of not moving try to switch direction")]
@@ -58,6 +67,9 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         protected bool canAirAttack; // TODO: move to getter and check Ground/Flying enemy, or to inherited class.
+        
+        [SerializeField]
+        protected float minDistanceForMovementWhenHavePlayer = 1f;
 
         [Space]
         [SerializeField]
@@ -112,7 +124,8 @@ namespace Mechanics.Enemies
                 }
 
                 // TODO: add script for attack strategy
-                if (value != null)
+                HasPlayerContact = value != null;
+                if (HasPlayerContact)
                 {
                     WalkTarget = value.transform;
                     events.onPlayerDetected.Invoke();
@@ -136,6 +149,8 @@ namespace Mechanics.Enemies
                 }
             }
         }
+
+        protected bool HasPlayerContact { get; set; } 
 
         public NpcDataScriptable NpcDataScriptable
         {
@@ -164,7 +179,8 @@ namespace Mechanics.Enemies
         }
 
         public Direction CurrentDirection => animationControls.Direction;
-        
+        public bool IsDashing => dashTime.IsSet && dashTime.IsActive;
+
         #endregion
 
         #region Private Fields
@@ -285,7 +301,7 @@ namespace Mechanics.Enemies
             {
                 if (IsGrounded) // TODO: Dash + Jump doesnt work cause of this
                 {
-                    var targetLeft = _walkTarget.position.x < transform.position.x;
+                    var targetLeft = WalkTarget.position.x < transform.position.x;
                     animationControls.Direction = targetLeft ? Direction.Left : Direction.Right;
 
                     var speed = MyStatsHandler.CurrentStats.movementSpeed;
@@ -293,13 +309,17 @@ namespace Mechanics.Enemies
                     DesiredVelocity.x = speed;
 
                     ShouldMove = Mathf.Abs(DesiredVelocity.x) > 0.01f;
+                    // if (HasPlayerContact)
+                    // {
+                    //     animationControls.StopDirectionSwitch = Mathf.Abs(WalkTarget.position.x - transform.position.x) < minDistanceForMovementWhenHavePlayer;
+                    // }
 
                     if ((DetectEdges && EdgeInFront) || shouldSwitch) // TODO: ignore edges in pursuit?
                     {
                         HandleDirectionSwitch();
                     }
                 }
-                
+
                 RunWithoutAcceleration();
             }
             else if (hasDefaultDirection)
@@ -328,7 +348,11 @@ namespace Mechanics.Enemies
             EdgeInFront = false;
 
             DesiredVelocity.x = 0f;
-            if (MovementBehaviour is { EnabledBehaviour: true })
+            if (animationControls.StopDirectionSwitch)
+            {
+                return;  // TODO: move the check inside animationControls.SwitchDirection
+            }
+            if (MovementBehaviour is {EnabledBehaviour: true})
             {
                 MovementBehaviour?.GoToNextPoint();
             }
@@ -339,9 +363,18 @@ namespace Mechanics.Enemies
         [Button]
         public void Jump()
         {
-            if (!IsGrounded)
+            if (!IsGrounded || !animationControls.CanMove)
             {
                 return;
+            }
+
+            if (tryDashBeforeJump)
+            {
+                if (dashTime.IsSet && dashTime.IsActive)
+                {
+                    return;
+                }
+                Dash();
             }
 
             MyRigidbody.AddForce(new Vector2(0f, MyStatsHandler.CurrentStats.jumpForce), ForceMode2D.Impulse);
@@ -365,6 +398,7 @@ namespace Mechanics.Enemies
             dashTime.Start();
             animationControls.StopDirectionSwitch = true;
             MyStatsHandler.CurrentStats.movementSpeed += MyStatsHandler.CurrentStats.extraDashSpeed;
+            DesiredVelocity.x = Mathf.Sign(DesiredVelocity.x) * MyStatsHandler.CurrentStats.movementSpeed;
             // TODO: Copy elad's implementation
             animationControls.Dash = true;
             events.onDash.Invoke();
@@ -378,24 +412,29 @@ namespace Mechanics.Enemies
                 return false;
             }
 
-            StopMovement(attackTime);
-
-            AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
-
-            animationControls.Attack = true;
-
-            attackTarget.Hurt(this);
-            return true;
-        }
-
-        public void Attack()
-        {
-            StopMovement(attackTime);
+            StopMovement(stopMovementDuringAttackTime);
             animationControls.Attack = true;
             AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
             events.onAttackStart.Invoke();
 
-            StartCoroutine(DelayExecution(attackTime, AttackAllTarget));
+
+            StartCoroutine(DelayExecution(attackStartAfterTime, 
+                () => { attackTarget.Hurt(this); events.onAttack.Invoke();}
+                )
+            );
+
+            return true;
+        }
+
+        [Button]
+        public void Attack()
+        {
+            StopMovement(stopMovementDuringAttackTime);
+            animationControls.Attack = true;
+            AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
+            events.onAttackStart.Invoke();
+
+            StartCoroutine(DelayExecution(attackStartAfterTime, AttackAllTarget));
         }
 
 
@@ -405,9 +444,10 @@ namespace Mechanics.Enemies
             {
                 return false;
             }
+
             var dmgTaken = attacker.GetDamage();
             var knockBack = attacker.GetKnockBack();
-            
+
             if (dmgTaken <= 0)
             {
                 return false;
@@ -424,7 +464,7 @@ namespace Mechanics.Enemies
 
             StopMovementHelper();
             MyRigidbody.gravityScale = 1f;
-            MyRigidbody.constraints |= RigidbodyConstraints2D.FreezePositionX;  // TODO: do we want to?
+            MyRigidbody.constraints |= RigidbodyConstraints2D.FreezePositionX; // TODO: do we want to?
 
             events.onDeath.Invoke();
             // TODO: collider to sprite?
@@ -492,6 +532,10 @@ namespace Mechanics.Enemies
 
         protected virtual void RunWithoutAcceleration()
         {
+            if (!ShouldMove)
+            {
+                return;
+            }
             Velocity.x = DesiredVelocity.x;
             var minVelocity = 0.05f; // TODO: expose
             Velocity.x = Mathf.Abs(Velocity.x) < minVelocity ? 0f : Velocity.x;
@@ -577,14 +621,14 @@ namespace Mechanics.Enemies
                 method();
             }
         }
-        
+
         public static IEnumerator DelayExecution(float delay, Action method)
         {
             yield return new WaitForSeconds(delay);
             method();
         }
 
-
         #endregion
+
     }
 }

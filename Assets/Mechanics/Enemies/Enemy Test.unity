@@ -3937,7 +3937,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &783334324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3950,15 +3950,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d52b2b1f0b9594cae6a3a5aefa0f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityPercentagesDuringGlide: 0.1
   airWalkSpeed: 3
   walkSpeed: 5
-  jumpImpulse: 8
-  doubleJumpImpulse: 3
   _isWallSliding: 0
-  wallSlidingSpeed: 2
-  wallJumpingPower: {x: 16, y: 5}
-  wallJumpingTime: 0.15
 --- !u!50 &783334325
 Rigidbody2D:
   serializedVersion: 4
@@ -4250,6 +4244,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1cc58a78-c76d-4814-8f69-dde0ce3a4d57
     m_ActionName: Player/Gliding[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 62fe8871-6e85-40f0-b025-c749d4edd1bd
+    m_ActionName: Player/ArrowAttack[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c9ed6e64-03dc-4b28-ad4d-0f60290a0b30
+    m_ActionName: Items/UseItem[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b93c2861-cd34-4993-a5af-30249be7e7b0
+    m_ActionName: Items/NavigateItems[/Keyboard/q,/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4323,6 +4329,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76efba027e2ef6046affe250f9524fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  castFilterPlatform:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
   castFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -4525,6 +4545,7 @@ MonoBehaviour:
   maxSpeedRunning: 20
   maxSpeedCrouching: 5
   crouchingWalkSpeed: 3
+  _lockKey: 0
 --- !u!114 &783334335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4563,6 +4584,10 @@ MonoBehaviour:
   jumpBuffer: 0.15
   doubleJumpMultiplier: 1.5
   canJumpAgain: 0
+  glideWhenPushAndDown: 0
+  glideWhenDoublePush: 0
+  gravityMultiplierGliding: 0.3
+  linearDragGliding: 2
 --- !u!114 &783334337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4575,6 +4600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48ffeb0adae427e9c6d044ea56c179b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackAmount: 10
+  knockBack: {x: 0, y: 0}
   debug: 1
 --- !u!1 &813619470
 GameObject:
@@ -10164,10 +10191,6 @@ PrefabInstance:
       propertyPath: debug
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
-      propertyPath: myData
-      value: 
-      objectReference: {fileID: 11400000, guid: ffd832a75854f2d4b94fa37ccfcc1c67, type: 2}
     - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: notMovingTimer.duration
       value: 0.25

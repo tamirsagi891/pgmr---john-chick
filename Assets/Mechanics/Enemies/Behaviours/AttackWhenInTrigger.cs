@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
@@ -8,6 +9,9 @@ namespace Mechanics.Enemies
     {
 
         #region Inspector
+
+        [SerializeField]
+        private bool stopVelocityWhenEnterTrigger = true;
 
         [Space]
         [SerializeField]
@@ -79,9 +83,16 @@ namespace Mechanics.Enemies
                 }
                 else
                 {
-                    npcToReportTo.AttackTargets.Add(value); // TODO: dont remove if someone else added?
+                    if (!npcToReportTo.AttackTargets.Contains(value))
+                    {
+                        npcToReportTo.AttackTargets.Add(value); // TODO: dont remove if someone else added?
+                        if (stopVelocityWhenEnterTrigger)
+                        {
+                            npcToReportTo.StopMovement(Time.fixedDeltaTime);
+                        }
+                    }
                 }
-
+            
                 _attackTarget = value;
             }
         }
