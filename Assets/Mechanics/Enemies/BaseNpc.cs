@@ -53,6 +53,9 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         protected PassiveTimer dashTime = new(0.2f);
+
+        [SerializeField]
+        protected PassiveTimer stopAtDashEndTimer = new(0f);
         
         [SerializeField]
         private bool tryDashBeforeJump;
@@ -203,7 +206,15 @@ namespace Mechanics.Enemies
             return value;
         }
 
-        public bool EdgeInFront { get; set; }
+        public bool EdgeInFront
+        {
+            get => edgeInFront;
+            set
+            {
+                edgeInFront = value;
+                checkEdge = edgeInFront;
+            }
+        }
 
         public bool DetectEdges
         {
@@ -239,6 +250,8 @@ namespace Mechanics.Enemies
 
         protected Direction defaultDirection;
         protected bool hasDefaultDirection;
+        protected bool edgeInFront;
+        protected bool checkEdge;
 
         #endregion
 
@@ -299,10 +312,15 @@ namespace Mechanics.Enemies
 
         public virtual void StopDash()
         {
+            if (!IsDashing)
+            {
+                return;
+            }
             dashTime.Clear();
             MyStatsHandler.CurrentStats.movementSpeed -= MyStatsHandler.CurrentStats.extraDashSpeed;
             animationControls.StopDirectionSwitch = false;
             events.onDashEnd.Invoke();
+            StopMovement(stopAtDashEndTimer.Duration);
         }
 
         protected virtual void HandleAttackUpdate()
@@ -388,7 +406,7 @@ namespace Mechanics.Enemies
         public void HandleDirectionSwitch()
         {
             EdgeInFront = false;
-
+            StopDash();
             DesiredVelocity.x = 0f;
             if (animationControls.StopDirectionSwitch)
             {
@@ -554,6 +572,10 @@ namespace Mechanics.Enemies
 
         public void StopMovement(float time)
         {
+            if (time <= 0f)
+            {
+                return;  // TODO: StartMovement
+            }
             // TODO: stop for time using enumerator or the animator!
             if (!StopMovementTimer.IsSet || (StopMovementTimer.IsSet && StopMovementTimer.RemainingTime < time))
             {
