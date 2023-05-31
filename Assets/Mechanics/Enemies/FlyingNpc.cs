@@ -19,30 +19,60 @@ namespace Mechanics.Enemies
         private Transform nestLocation;
 
         public ICanBeAttacked PickupTarget { get; set; }
+        public Vector3 DesiredPosition { get; set; }
 
-        
-        public override bool IsGrounded 
+        public override Transform WalkTarget 
+        { 
+            get => base.WalkTarget;
+            set
+            {
+                if (HasDestination && WalkTarget != PlayerContact.GetTransform())
+                {
+                    canDetectPlayer = true;
+                } 
+                base.WalkTarget = value;
+            }
+        }
+
+        public override bool IsGrounded
         {
             get => animationControls.IsGrounded && !animationControls.CanMove;
             set => animationControls.IsGrounded = value;
         }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            events.onDashEnd.AddListener(DropPickup);
+        }
+
+        public override void Dash()
+        {
+            base.Dash();
+            DesiredPosition = WalkTarget.position;
+        }
+
 
         protected override void HandleMovementFixedUpdate()
         {
             if (animationControls.CanMove)
             {
                 var shouldSwitch = ShouldSwitchDirectionWhenNotMoving();
-                
-                Vector2 directionToMove = WalkTarget.position - transform.position;
+                var targetPosition = IsDashing ? DesiredPosition : WalkTarget.position;
+                Vector2 directionToMove = targetPosition - transform.position;
+                if (!IsDashing)
+                {
+                    animationControls.Direction = directionToMove.x < 0 ? Direction.Left : Direction.Right;
+                }
 
-                animationControls.Direction = directionToMove.x < 0 ? Direction.Left : Direction.Right;
                 var minDistance = 0.01f; // TODO: move both to fields
                 // Logger.Log(WalkTarget);
-                if (HasPlayerContact && WalkTarget != nestLocation)
+                if (HasPlayerContact && WalkTarget == PlayerContact.GetTransform())
                 {
                     minDistance = minDistanceForMovementWhenHavePlayer;
                     // animationControls.StopDirectionSwitch = directionToMove.sqrMagnitude > minDistance;
                 }
+
                 ShouldMove = directionToMove.sqrMagnitude > minDistance;
                 DesiredVelocity = ShouldMove
                     ? directionToMove.GetWithMagnitude(MyStatsHandler.CurrentStats.movementSpeed)
@@ -67,43 +97,51 @@ namespace Mechanics.Enemies
                 ref Velocity, velocitySmoothTime, MyStatsHandler.CurrentStats.movementSpeed, Time.fixedDeltaTime);
             MyRigidbody.velocity = newVelocity;
         }
-        
-        
+
+
         protected override void AttackTargetUsingParams(ICanBeAttacked attackTarget, AttackParameters attackParameters)
         {
             var succeeded = attackTarget.Hurt(attackParameters);
-            if (attackParameters.Type == AttackType.Pickup && succeeded)
+            if (attackParameters.Type == AttackType.Pickup)
             {
                 CanAttack = false;
                 PickupTarget = attackTarget;
                 WalkTarget = nestLocation;
+                if (!succeeded)
+                {
+                    DropPickup();
+                    return;
+                }
+
                 if (MovementBehaviour != null) // TODO: remove this on build
                 {
                     MovementBehaviour.EnabledBehaviour = false;
                 }
+
+                events.onAttack.Invoke();
             }
-            
-            events.onAttack.Invoke();
         }
 
-
-        public void DropPickup(ICanBeAttacked attackTarget)
+        public void DropPickup()
         {
             if (PickupTarget == null)
             {
                 return;
             }
-            
-            AttackTargets.Remove(attackTarget);
+
             PickupTarget = null;
-            CanAttack = true; 
+            CanAttack = true;
             AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
-            if (MovementBehaviour != null) // TODO: remove this on build
+            CanDetectPlayer = false;
+
+            if (MovementBehaviour != null)
             {
                 MovementBehaviour.EnabledBehaviour = true;
                 MovementBehaviour.GoToNextPoint();
+                return;
             }
-        }
 
+            WalkTarget = nestLocation;
+        }
     }
 }
