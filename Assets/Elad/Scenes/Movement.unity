@@ -3709,6 +3709,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1189470082490828380, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: blinkColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189470082490828380, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: blinkColor.b
+      value: 0.24007654
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189470082490828380, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: blinkColor.g
+      value: 0.24007654
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189470082490828380, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: blinkColor.r
+      value: 0.6132076
+      objectReference: {fileID: 0}
     - target: {fileID: 2161271046664357137, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_Name
       value: Chick Boy 3
