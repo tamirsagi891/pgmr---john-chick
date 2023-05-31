@@ -256,8 +256,8 @@ MonoBehaviour:
   myData: {fileID: 11400000, guid: a29e617e589118e4782850b9801a9de7, type: 2}
   animationControls: {fileID: 8483125766429725516}
   attackController: {fileID: 6587525368756741524}
-  stopMovementDuringAttackTime: 1
-  attackStartAfterTime: 1
+  stopMovementDuringAttackTime: 0.2
+  attackStartAfterTime: 0.1
   hurtTime: 1
   dashTime:
     duration: 0.5
@@ -310,6 +310,7 @@ MonoBehaviour:
         m_Calls: []
   debug: 0
   velocitySmoothTime: 0.5
+  nestLocation: {fileID: 0}
 --- !u!114 &3885345000180925774 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8575191063788109129, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
