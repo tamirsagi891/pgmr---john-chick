@@ -34,7 +34,10 @@ namespace Mechanics.Enemies
         [SerializeField]
         [RequiredReference]
         protected GameObject attackController; // TODO: MonoBehaviour of some type
-
+        
+        [SerializeField]
+        protected bool canDetectPlayer = true;
+        
         [FormerlySerializedAs("attackTime")]
         [Space]
         [HelpBox("THIS SHOULD BE FROM ANIMATION NOT HERE! But im too lazy.",
@@ -91,6 +94,12 @@ namespace Mechanics.Enemies
 
         #region Public Properties
 
+        public bool CanDetectPlayer
+        {
+            get => canDetectPlayer;
+            set => canDetectPlayer = value;
+        }
+
         public INpcMovementBehaviour MovementBehaviour
         {
             get => _movementBehaviour;
@@ -125,6 +134,10 @@ namespace Mechanics.Enemies
                 
                 // TODO: add script for attack strategy
                 HasPlayerContact = value != null;
+                if (!canDetectPlayer)
+                {
+                    return;
+                }
                 if (HasPlayerContact)
                 {
                     WalkTarget = value!.GetTransform();
@@ -160,15 +173,24 @@ namespace Mechanics.Enemies
 
         public List<ICanBeAttacked> AttackTargets { get; set; } = new();
 
-        public Transform WalkTarget
+        public virtual Transform WalkTarget
         {
             get => _walkTarget;
             set
             {
+                if (HasPlayerContact && canDetectPlayer)
+                {
+                    value = _playerContact.GetTransform();
+                    if (MovementBehaviour != null) // TODO: remove this on build
+                    {
+                        MovementBehaviour.EnabledBehaviour = false;
+                    }
+                }
                 if (debug)
                 {
                     Logger.Log($"Target old: {_walkTarget} | new: {value}", this);
                 }
+
                 _walkTarget = value;
                 HasDestination = _walkTarget != null;
             }
@@ -195,7 +217,7 @@ namespace Mechanics.Enemies
 
         protected StatsHandler MyStatsHandler;
         private INpcMovementBehaviour _movementBehaviour;
-        private Transform _walkTarget; // TODO: create type of WalkTarget?
+        protected Transform _walkTarget; // TODO: create type of WalkTarget?
         protected bool HasDestination;
 
         protected Rigidbody2D MyRigidbody;
@@ -215,7 +237,7 @@ namespace Mechanics.Enemies
 
         #region MonoBehaviour
 
-        protected void Awake()
+        protected virtual void Awake()
         {
             MyStatsHandler = GetComponent<StatsHandler>();
             MyRigidbody = GetComponent<Rigidbody2D>();
@@ -232,7 +254,7 @@ namespace Mechanics.Enemies
             events.onDisable.Invoke(this);
         }
 
-        protected void Update()
+        protected virtual void Update()
         {
             if (HandleTimersAndCheckIfNeedsUpdate())
             {
@@ -259,6 +281,7 @@ namespace Mechanics.Enemies
                 dashTime.Clear();
                 MyStatsHandler.CurrentStats.movementSpeed -= MyStatsHandler.CurrentStats.extraDashSpeed;
                 animationControls.StopDirectionSwitch = false;
+                events.onDashEnd.Invoke();
             }
 
             if (!IsDead && StopMovementTimer.IsSet && !StopMovementTimer.IsActive &&
@@ -270,7 +293,7 @@ namespace Mechanics.Enemies
             return false;
         }
 
-        protected void HandleAttackUpdate()
+        protected virtual void HandleAttackUpdate()
         {
             if (!CanAttack || AttackTargets.Count == 0 || !canAirAttack && !IsGrounded)
             {
@@ -390,7 +413,7 @@ namespace Mechanics.Enemies
         }
 
         [Button]
-        public void Dash()
+        public virtual void Dash()
         {
             if (!animationControls.CanMove)
             {
@@ -520,11 +543,14 @@ namespace Mechanics.Enemies
         public void StopMovement(float time)
         {
             // TODO: stop for time using enumerator or the animator!
-            if (!StopMovementTimer.IsSet || StopMovementTimer.RemainingTime < time)
+            if (!StopMovementTimer.IsSet || (StopMovementTimer.IsSet && StopMovementTimer.RemainingTime < time))
             {
                 StopMovementTimer.Start(time);
             }
-
+            if (debug)
+            {
+                Logger.Log($"Stopped Movement {time} {StopMovementTimer.IsSet}", this);
+            }
             StopMovementHelper();
         }
 

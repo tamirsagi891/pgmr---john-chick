@@ -2,6 +2,7 @@
 using Avrahamy;
 using BitStrap;
 using UnityEngine;
+using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
@@ -91,6 +92,9 @@ namespace Mechanics.Enemies
         [SerializeField]
         private Animator myAnimator;
 
+        [SerializeField]
+        private bool debug;
+
         #endregion
         
         #region Animator Properties
@@ -129,6 +133,10 @@ namespace Mechanics.Enemies
             {
                 canMove = value; // TODO: this is not used now in the controller!
                 animatorParameters.canMove.Set(myAnimator, canMove);
+                if (debug)
+                {
+                    Logger.Log($"Movement {canMove}", this);
+                }
             }
         }
 
