@@ -165,6 +165,10 @@ namespace Mechanics.Enemies
             get => _walkTarget;
             set
             {
+                if (debug)
+                {
+                    Logger.Log($"Target old: {_walkTarget} | new: {value}", this);
+                }
                 _walkTarget = value;
                 HasDestination = _walkTarget != null;
             }
