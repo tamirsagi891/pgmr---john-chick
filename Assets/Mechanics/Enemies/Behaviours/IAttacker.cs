@@ -7,6 +7,8 @@ namespace Mechanics.Enemies
     {
         public bool Attack(ICanBeAttacked attackTarget);
 
+        public AttackParameters GetAttackParameters();
+
         public void DropPickup()
         {
             return;
@@ -22,10 +24,6 @@ namespace Mechanics.Enemies
             return GetAttackParameters().KnockBack;
         }
 
-        public AttackParameters GetAttackParameters()
-        {
-            return new AttackParameters(this);
-        }
     }
 
     [Serializable]

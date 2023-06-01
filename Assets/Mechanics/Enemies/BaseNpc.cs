@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Avrahamy;
 using BitStrap;
 using UnityEngine;
 using UnityEngine.Serialization;
+using static Mechanics.Enemies.CorotuineUtils;
 using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
@@ -737,26 +736,7 @@ namespace Mechanics.Enemies
         }
 
         #endregion
-
-
-        #region Coroutines
-
-        public static IEnumerator DelayExecution(float delay, Action method, Func<bool> predicate)
-        {
-            yield return new WaitForSeconds(delay);
-            if (predicate())
-            {
-                method();
-            }
-        }
-
-        public static IEnumerator DelayExecution(float delay, Action method)
-        {
-            yield return new WaitForSeconds(delay);
-            method();
-        }
-
-        #endregion
+        
 
     }
 

@@ -3,6 +3,7 @@ using Avrahamy;
 using Avrahamy.Math;
 using BitStrap;
 using UnityEngine;
+using static Mechanics.Enemies.Porcupine.ProjectileUtils;
 using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies.Porcupine
@@ -10,11 +11,8 @@ namespace Mechanics.Enemies.Porcupine
     [AddComponentMenu("NPC/Attack Controls/Needle Shooter")]
     public class NeedleShooter : MonoBehaviour
     {
-
         #region Inspector
-
-        [HelpBox("PLACE HOLDER UNTIL ELAD HELPS OR I HAVE TIME!",
-            HelpBoxAttribute.MessageType.Error)]
+        
         [Header("Debug")]
         [SerializeField]
         [Tooltip("Should debug functions be used (rays, logs, etc)")]
@@ -28,6 +26,19 @@ namespace Mechanics.Enemies.Porcupine
         private int _currentNeedle;
         private int _currentBurstSize;
         private AttackParameters _currentAttackParameters;
+        private ProjectilePool _myPool;
+
+        public ProjectilePool MyPool
+        {
+            get
+            {
+                if (_myPool == null)
+                {
+                    _myPool = ProjectilePoolManager.GetPool(ProjectilePoolType.Porcupine);
+                }
+                return _myPool;
+            }
+        }
 
         #endregion
 
@@ -68,9 +79,9 @@ namespace Mechanics.Enemies.Porcupine
                 this);
             var shotDirection = attackParameters.Direction switch
             {
-                Direction.Left => Vector2.left,
-                Direction.Right => Vector2.right,
-                _ => Vector2.right
+                Direction.Left => Vector3.left,
+                Direction.Right => Vector3.right,
+                _ => Vector3.right
             };
             if (debug)
             {
@@ -79,7 +90,10 @@ namespace Mechanics.Enemies.Porcupine
                     Color.red, 
                     _burstTimer.Duration / 2f);
             }
-            // TODO: call a child that has a pool at send an arrow in front direction
+
+            var needle = MyPool.Pool.Get();
+            needle.Parameters = attackParameters;
+            needle.Shot(transform.position + shotDirection);
         }
 
         public void BurstAttack(int count, float time, AttackParameters attackParameters)

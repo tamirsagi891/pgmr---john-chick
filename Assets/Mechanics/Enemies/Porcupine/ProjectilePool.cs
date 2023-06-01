@@ -2,48 +2,68 @@
 using BitStrap;
 using UnityEngine;
 using UnityEngine.Pool;
+using static Mechanics.Enemies.Porcupine.ProjectileUtils;
+using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies.Porcupine
 {
     public class ProjectilePool : MonoBehaviour
     {
+
+        [SerializeField]
+        [ReadOnly(onlyInPlaymode = true)]
+        protected ProjectilePoolType poolFor = ProjectilePoolType.Porcupine;
+
         [SerializeField]
         [RequiredReference]
-        private Projectile projectilePrefab;
-        
-        public LinkedPool<Projectile> MyPool { get; set; }
-        private void Awake()
+        protected Projectile projectilePrefab;
+
+        public LinkedPool<Projectile> Pool { get; set; }
+
+        protected void Awake()
         {
-            MyPool = new LinkedPool<Projectile>(
-                InitProjectile, 
+            var instance = ProjectilePoolManager.GetPool(poolFor);
+            if (instance != null)
+            {
+                Logger.LogWarning($"Pool of type {poolFor} already exists! ({instance.name})", gameObject);
+                Destroy(this);
+                return;
+            }
+
+            Pool = new LinkedPool<Projectile>(
+                InitProjectile,
                 GetProjectile,
                 ReleaseProjectile,
                 DestroyProjectile);
+            ProjectilePoolManager.SetPool(poolFor, this);
         }
 
-        private void DestroyProjectile(Projectile projectile)
+        private void OnDestroy()
+        {
+            ProjectilePoolManager.RemovePool(poolFor, this);
+        }
+
+        protected void DestroyProjectile(Projectile projectile)
         {
             Destroy(projectile.gameObject);
         }
 
-        private void ReleaseProjectile(Projectile projectile)
+        protected void ReleaseProjectile(Projectile projectile)
         {
             projectile.gameObject.SetActive(false);
         }
 
-        private Projectile InitProjectile()
+        protected Projectile InitProjectile()
         {
             var projectile = Instantiate(projectilePrefab, transform);
-            projectile.MyPool = this;
+            projectile.MyProjectilePool = this;
             return projectile;
         }
 
-        private void GetProjectile(Projectile projectile)
+        protected void GetProjectile(Projectile projectile)
         {
             projectile.gameObject.SetActive(true);
             projectile.InitObject();
         }
-        
-        
     }
 }
