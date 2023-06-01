@@ -90054,6 +90054,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 7982099607021136109, guid: d63282da1f631da46a4258330e095ce8, type: 3}
+      propertyPath: m_ColliderMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 8625825356668157277, guid: d63282da1f631da46a4258330e095ce8, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8
