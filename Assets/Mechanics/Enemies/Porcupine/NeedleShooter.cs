@@ -73,10 +73,6 @@ namespace Mechanics.Enemies.Porcupine
 
         public void ShotNeedle(AttackParameters attackParameters)
         {
-            Logger.LogWarning($"SHOULD IMPLEMENT SHOOTING NEEDLES." +
-                              $" Needle {_currentNeedle} / {_currentBurstSize}." +
-                              $"{_currentAttackParameters}",
-                this);
             var shotDirection = attackParameters.Direction switch
             {
                 Direction.Left => Vector3.left,
