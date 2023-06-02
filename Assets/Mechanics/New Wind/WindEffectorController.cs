@@ -28,5 +28,15 @@ namespace Mechanics.New_Wind
             get => myForceField;
             set => myForceField = value;
         }
+        
+#if UNITY_EDITOR
+        void OnDrawGizmosSelected()
+        {
+            // Draw a semitransparent red cube at the transforms position
+            Gizmos.color = new Color(0.13f, 0.93f, 1f, 0.21f);
+            var transform1 = transform;
+            Gizmos.DrawCube(transform1.position, transform1.lossyScale);
+        }
+#endif
     }
 }

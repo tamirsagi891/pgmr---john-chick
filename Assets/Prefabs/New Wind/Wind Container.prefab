@@ -1047,8 +1047,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.48891202
         - serializedVersion: 3
-          time: 0.45859864
-          value: 0.6360167
+          time: 0.4384877
+          value: 0.7701579
           inSlope: -0.17064941
           outSlope: -0.17064941
           tangentMode: 0
@@ -1056,8 +1056,8 @@ ParticleSystem:
           inWeight: 0.27859974
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.9272343
-          value: 0.27626118
+          time: 0.9071233
+          value: 0.41040233
           inSlope: -2.838291
           outSlope: -2.838291
           tangentMode: 0
@@ -1084,6 +1084,15 @@ ParticleSystem:
           value: 0
           inSlope: 0
           outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.51256275
+          value: 0.5209824
+          inSlope: 0.4376181
+          outSlope: 0.4376181
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
@@ -4152,12 +4161,12 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     minVertexDistance: 0.2
-    textureMode: 0
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     ribbonCount: 1
     shadowBias: 0.5
     worldSpace: 0
-    dieWithParticles: 1
+    dieWithParticles: 0
     sizeAffectsWidth: 1
     sizeAffectsLifetime: 0
     inheritParticleColor: 1
@@ -4969,7 +4978,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 0
+  m_RenderMode: 5
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -6816,8 +6825,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.48891202
         - serializedVersion: 3
-          time: 0.45859864
-          value: 0.6360167
+          time: 0.4384877
+          value: 0.7701579
           inSlope: -0.17064941
           outSlope: -0.17064941
           tangentMode: 0
@@ -6825,8 +6834,8 @@ ParticleSystem:
           inWeight: 0.27859974
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.9272343
-          value: 0.27626118
+          time: 0.9071233
+          value: 0.41040233
           inSlope: -2.838291
           outSlope: -2.838291
           tangentMode: 0
@@ -6853,6 +6862,15 @@ ParticleSystem:
           value: 0
           inSlope: 0
           outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.51256275
+          value: 0.5209824
+          inSlope: 0.4376181
+          outSlope: 0.4376181
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
@@ -9958,7 +9976,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     minVertexDistance: 0.2
-    textureMode: 0
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     ribbonCount: 1
     shadowBias: 0.5
@@ -10775,7 +10793,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 0
+  m_RenderMode: 5
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -11864,8 +11882,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.48891202
         - serializedVersion: 3
-          time: 0.45859864
-          value: 0.6360167
+          time: 0.4384877
+          value: 0.7701579
           inSlope: -0.17064941
           outSlope: -0.17064941
           tangentMode: 0
@@ -11873,8 +11891,8 @@ ParticleSystem:
           inWeight: 0.27859974
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.9272343
-          value: 0.27626118
+          time: 0.9071233
+          value: 0.41040233
           inSlope: -2.838291
           outSlope: -2.838291
           tangentMode: 0
@@ -11901,6 +11919,15 @@ ParticleSystem:
           value: 0
           inSlope: 0
           outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.51256275
+          value: 0.5209824
+          inSlope: 0.4376181
+          outSlope: 0.4376181
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
@@ -14969,12 +14996,12 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     minVertexDistance: 0.2
-    textureMode: 0
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     ribbonCount: 1
     shadowBias: 0.5
     worldSpace: 0
-    dieWithParticles: 1
+    dieWithParticles: 0
     sizeAffectsWidth: 1
     sizeAffectsLifetime: 0
     inheritParticleColor: 1
@@ -15786,7 +15813,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 0
+  m_RenderMode: 5
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -16870,8 +16897,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.48891202
         - serializedVersion: 3
-          time: 0.45859864
-          value: 0.6360167
+          time: 0.4384877
+          value: 0.7701579
           inSlope: -0.17064941
           outSlope: -0.17064941
           tangentMode: 0
@@ -16879,8 +16906,8 @@ ParticleSystem:
           inWeight: 0.27859974
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.9272343
-          value: 0.27626118
+          time: 0.9071233
+          value: 0.41040233
           inSlope: -2.838291
           outSlope: -2.838291
           tangentMode: 0
@@ -16907,6 +16934,15 @@ ParticleSystem:
           value: 0
           inSlope: 0
           outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.51256275
+          value: 0.5209824
+          inSlope: 0.4376181
+          outSlope: 0.4376181
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
@@ -19975,12 +20011,12 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     minVertexDistance: 0.2
-    textureMode: 0
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     ribbonCount: 1
     shadowBias: 0.5
     worldSpace: 0
-    dieWithParticles: 1
+    dieWithParticles: 0
     sizeAffectsWidth: 1
     sizeAffectsLifetime: 0
     inheritParticleColor: 1
@@ -20792,7 +20828,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 0
+  m_RenderMode: 5
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -21831,8 +21867,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.48891202
         - serializedVersion: 3
-          time: 0.45859864
-          value: 0.6360167
+          time: 0.4384877
+          value: 0.7701579
           inSlope: -0.17064941
           outSlope: -0.17064941
           tangentMode: 0
@@ -21840,8 +21876,8 @@ ParticleSystem:
           inWeight: 0.27859974
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.9272343
-          value: 0.27626118
+          time: 0.9071233
+          value: 0.41040233
           inSlope: -2.838291
           outSlope: -2.838291
           tangentMode: 0
@@ -21868,6 +21904,15 @@ ParticleSystem:
           value: 0
           inSlope: 0
           outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.51256275
+          value: 0.5209824
+          inSlope: 0.4376181
+          outSlope: 0.4376181
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
@@ -24936,12 +24981,12 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     minVertexDistance: 0.2
-    textureMode: 0
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     ribbonCount: 1
     shadowBias: 0.5
     worldSpace: 0
-    dieWithParticles: 1
+    dieWithParticles: 0
     sizeAffectsWidth: 1
     sizeAffectsLifetime: 0
     inheritParticleColor: 1
@@ -25753,7 +25798,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 0
+  m_RenderMode: 5
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
