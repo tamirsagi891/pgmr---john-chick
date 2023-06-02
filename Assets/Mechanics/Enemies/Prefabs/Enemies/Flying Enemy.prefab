@@ -105,6 +105,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -771825177, guid: a1e5441687d9fab49a684795dc8d76f8, type: 3}
+    - target: {fileID: 1494918269260386976, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_Size.x
+      value: 1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494918269260386976, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_Size.y
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: myData
       value: 
@@ -173,6 +181,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6417013262451331545, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7108527668574679784, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: m_Controller
       value: 
@@ -209,6 +221,18 @@ PrefabInstance:
       propertyPath: npcToReportTo
       value: 
       objectReference: {fileID: 8770152237173548149}
+    - target: {fileID: 8408709203302138750, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: npcToReportTo
+      value: 
+      objectReference: {fileID: 8770152237173548149}
+    - target: {fileID: 8512780028415018659, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512780028415018659, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.16
+      objectReference: {fileID: 0}
     - target: {fileID: 8540338018443971006, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

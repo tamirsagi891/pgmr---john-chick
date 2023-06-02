@@ -26,6 +26,8 @@ namespace Mechanics.Enemies
             set => currentStats.hp = Mathf.Max(0f, value);
         }
 
+        public float Cooldown => currentStats.cooldown;
+
         #endregion
 
         #region Private Fields

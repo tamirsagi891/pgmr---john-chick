@@ -61,6 +61,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 471768248, guid: c358da1023a66bb459a420ef1f877b39, type: 3}
+    - target: {fileID: 1494918269260386976, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_Size.x
+      value: 2.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494918269260386976, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_Size.y
+      value: 1.44
+      objectReference: {fileID: 0}
     - target: {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: events.onAttack.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -141,6 +149,10 @@ PrefabInstance:
       propertyPath: m_IncludeLayers.m_Bits
       value: 192
       objectReference: {fileID: 0}
+    - target: {fileID: 6417013262451331545, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7108527668574679784, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: m_Controller
       value: 
@@ -160,6 +172,18 @@ PrefabInstance:
     - target: {fileID: 8142108185975888213, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: npcToReportTo
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8408709203302138750, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: npcToReportTo
+      value: 
+      objectReference: {fileID: 2473120765080898529}
+    - target: {fileID: 8512780028415018659, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512780028415018659, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.64
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1549835583372036680, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}

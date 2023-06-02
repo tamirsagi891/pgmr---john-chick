@@ -2,6 +2,7 @@
 using Avrahamy;
 using BitStrap;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.Serialization;
 using static Mechanics.Enemies.CorotuineUtils;
 using Logger = Nemesh.Logger;
@@ -227,6 +228,9 @@ namespace Mechanics.Enemies
         public bool IsDashing => dashTime.IsSet && dashTime.IsActive;
 
         public bool CanAttack { get; protected set; } = true;
+
+        // public NpcStats Stats => MyStatsHandler.CurrentStats; 
+        public float Cooldown => MyStatsHandler.Cooldown; 
 
         #endregion
 
@@ -491,10 +495,8 @@ namespace Mechanics.Enemies
                 return false;
             }
 
-            StopMovement(stopMovementDuringAttackTime);
-            animationControls.Attack = true;
+            HandleAttackStart(true);
             AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
-            events.onAttackStart.Invoke();
 
             var attackParameters = GetAttackParameters();
 
@@ -529,12 +531,21 @@ namespace Mechanics.Enemies
         [Button]
         public void Attack()
         {
-            StopMovement(stopMovementDuringAttackTime);
-            animationControls.Attack = true;
+            HandleAttackStart(true);
+
             AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
-            events.onAttackStart.Invoke();
 
             StartCoroutine(DelayExecution(attackStartAfterTime, AttackAllTarget));
+        }
+
+        public void HandleAttackStart(bool stopMovement)
+        {
+            animationControls.Attack = true;
+            events.onAttackStart.Invoke();
+            if (stopMovement)
+            {
+                StopMovement(stopMovementDuringAttackTime);
+            }
         }
 
 

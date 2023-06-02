@@ -47,15 +47,15 @@ namespace Mechanics.Enemies
             ShotSpeed = shotSpeed;
         }
 
-        public float Damage { get; }
-        public Vector2 KnockBack { get; }
-        public AttackType Type { get; }
-        public Transform FollowTransform { get; }
-        public IAttacker Attacker { get; }
-        
-        public float ShotSpeed { get; }
-        
-        public Direction Direction { get; }
+        public float Damage { get; set; }
+        public Vector2 KnockBack { get; set; }
+        public AttackType Type { get; set; }
+        public Transform FollowTransform { get; set; }
+        public IAttacker Attacker { get; set; }
+
+        public float ShotSpeed { get; set; }
+
+        public Direction Direction { get; set; }
 
         public override string ToString()
         {
