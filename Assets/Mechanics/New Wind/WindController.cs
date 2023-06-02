@@ -1,3 +1,4 @@
+using System;
 using Avrahamy.EditorGadgets;
 using Avrahamy.Math;
 using BitStrap;
@@ -8,6 +9,15 @@ namespace Mechanics.New_Wind
     [AddComponentMenu("Wind/Wind Controller")]
     public class WindController : MonoBehaviour
     {
+        [Serializable]
+        public enum WindType
+        {
+            Regular,
+            Explosive
+        }
+
+        [SerializeField]
+        private WindType windType = WindType.Regular;
         // [SerializeField]
         // private bool useKnobForSize;
         
@@ -88,23 +98,26 @@ namespace Mechanics.New_Wind
         [Button]
         public void SetNewForce()
         {
-            if (!_hasKnob)
+            if (windType == WindType.Regular)
             {
-                return;
+                if (!_hasKnob)
+                {
+                    return;
+                }
+
+                var force = Force;
+                WindEffector.forceAngle = Angle;
+                WindEffector.forceMagnitude = force.magnitude;
+                WindEffector.drag = wantedDrag;
+                MyForceField.directionX = force.x / particleForceFactor;
+                MyForceField.directionY = force.y / particleForceFactor;
+
+                // if (useKnobForSize)
+                // {
+                //     var dist = Vector2.Distance(transform.position, Knob.transform.position);
+                //     windEffectorController.transform.localScale = new Vector3(dist, dist, 1f);
+                // }
             }
-
-            var force = Force;
-            WindEffector.forceAngle = Angle;
-            WindEffector.forceMagnitude = force.magnitude;
-            WindEffector.drag = wantedDrag;
-            MyForceField.directionX = force.x / particleForceFactor;
-            MyForceField.directionY = force.y / particleForceFactor;
-
-            // if (useKnobForSize)
-            // {
-            //     var dist = Vector2.Distance(transform.position, Knob.transform.position);
-            //     windEffectorController.transform.localScale = new Vector3(dist, dist, 1f);
-            // }
         }
 
     }
