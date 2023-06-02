@@ -11,8 +11,6 @@ namespace Mechanics.Enemies
     public class PorcupineEnemy : BaseNpc
     {
         [Header("Porcupine")]
-        [HelpBox("ELAD _ THIS SHOULD BE YOU OBJECT WITH YOUR TYPE AND NOT GAMEOBJECT!",
-            HelpBoxAttribute.MessageType.Error)]
         [SerializeField]
         [RequiredReference]
         private NeedleShooter needleController;
