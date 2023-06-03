@@ -597,21 +597,21 @@ MonoBehaviour:
   maxJumpHeight: 5.2
   timeToReachPeakHeight: 0.5
   gravityMultiplierAscending: 1.3
-  gravityMultiplierDescending: 12
+  gravityMultiplierDescending: 13
   canDoubleJump: 0
   dropWhenStopPushingJump: 1
   gravityPercentLetGoJump: 4
-  maxFallSpeed: 5
+  maxFallSpeed: 7.5
   coyoteTime: 0.05
   jumpBuffer: 0.1
   doubleJumpMultiplier: 1
   canJumpAgain: 0
-  glideHorizontallyMovement: 5
+  glideHorizontallyMovement: 7.5
   regularGlide: 1
   glideJump: {x: 0, y: 21}
-  gravityMultiplierGliding: 0.08
+  gravityMultiplierGliding: 0.2
   minVelocityToGlide: -0.05
-  linearDragGliding: 11.5
+  linearDragGliding: 13
   canJumpWhileCrouch: 1
   hitGlideDelayTime: 0.05
 --- !u!114 &7924112369440353100

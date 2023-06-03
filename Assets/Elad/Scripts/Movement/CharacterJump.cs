@@ -186,8 +186,7 @@ public class CharacterJump : MonoBehaviour
                         return;
                     }
                 }
-
-
+                
                 if (_touchingDirection.IsGrounded || _wallMovement.IsWallSliding)
                 {
                     _desiredJump = true;
@@ -196,22 +195,12 @@ public class CharacterJump : MonoBehaviour
                 _pressingJump = true;
                 OnGlide();
             }
-
             
-
             if (context.canceled)
             {
                 _pressingJump = false;
                 OnGlide();
             }
-            // else
-            // {
-            //     if (!_pressingJump)
-            //     {
-            //         _pressingJump = true;    
-            //     }
-            //     
-            // }
         }
     }
 
@@ -485,13 +474,12 @@ public class CharacterJump : MonoBehaviour
                     _animator.SetBool(AnimationStrings.isGliding, true);
                     IsGliding = true;
                 }
-
-                if (IsGliding && !_pressingJump)
-                {
-                    _rB.drag = linearDragRegular;
-                    _animator.SetBool(AnimationStrings.isGliding, false);
-                    IsGliding = false;
-                }
+            }
+            if (IsGliding && !_pressingJump)
+            {
+                _rB.drag = linearDragRegular;
+                _animator.SetBool(AnimationStrings.isGliding, false);
+                IsGliding = false;
             }
         }
 
@@ -505,13 +493,16 @@ public class CharacterJump : MonoBehaviour
                     _rB.drag = linearDragGliding;
                     // _animator.SetBool(AnimationStrings.isGliding, true);
                     IsGliding = true;
+                    Logger.Log("CCCC");
                 }
+                Logger.Log("BBBB");
             }
             if (IsGliding && !_pressingJump)
             {
                 _rB.drag = linearDragRegular;
                 // _animator.SetBool(AnimationStrings.isGliding, false);
                 IsGliding = false;
+                Logger.Log("AAAAA");
             }
         }
     }
