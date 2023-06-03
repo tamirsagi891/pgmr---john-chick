@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BitStrap;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ namespace Mechanics.New_Wind
         [SerializeField]
         [RequiredReference]
         private ParticleSystemForceField myForceField;
-
+        
         public AreaEffector2D WindEffector
         {
             get => windEffector;
@@ -36,6 +37,36 @@ namespace Mechanics.New_Wind
         }
 
         public HashSet<GameObject> Contacts { get; } = new();
+
+        private readonly List<WindParticleCallbackHandler> _myParticleSystems = new ();
+        
+        #region Public Methods
+
+        public void PauseParticles()
+        {
+            foreach (var particle in _myParticleSystems)
+            {
+                particle.PauseParticles();
+            }
+        }
+
+        public void ResumeParticles()
+        {
+            foreach (var particle in _myParticleSystems)
+            {
+                particle.ResumeParticles();
+            }
+        }
+
+        #endregion
+
+        #region MonoBehaviour
+
+        private void Awake()
+        {
+            _myParticleSystems.Clear();
+            _myParticleSystems.AddRange(GetComponentsInChildren<WindParticleCallbackHandler>());
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -52,6 +83,8 @@ namespace Mechanics.New_Wind
                 Contacts.Remove(other.gameObject);
             }
         }
+
+        #endregion
         
 #if UNITY_EDITOR
         public void OnDrawGizmosSelected()

@@ -16,6 +16,8 @@ namespace Mechanics.New_Wind
         private readonly List<ParticleSystem.Particle> _exit = new();
         private bool _hasSystem;
 
+        #region MonoBehaviour
+
         private void OnValidate()
         {
             _hasSystem = TryGetComponent(out _myParticleSystem);
@@ -26,6 +28,30 @@ namespace Mechanics.New_Wind
         {
             _hasSystem = TryGetComponent(out _myParticleSystem);
         }
+
+        #endregion
+
+        #region Public Methods
+
+        public void PauseParticles()
+        {
+            if (_hasSystem)
+            {
+                _myParticleSystem.Pause(true);
+            }   
+        }
+
+        public void ResumeParticles()
+        {
+            if (_hasSystem)
+            {
+                _myParticleSystem.Play(true);
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
 
         private void OnParticleTrigger()
         {
@@ -45,6 +71,8 @@ namespace Mechanics.New_Wind
             
             _myParticleSystem.SetTriggerParticles(ParticleSystemTriggerEventType.Exit, _exit);
         }
+
+        #endregion
         
 #if UNITY_EDITOR
         public void OnDrawGizmosSelected()
