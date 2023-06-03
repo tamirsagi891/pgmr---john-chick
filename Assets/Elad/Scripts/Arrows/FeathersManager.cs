@@ -161,24 +161,24 @@ namespace Elad.Scripts
 
         public void AddFeather(FeatherKind featherKind)
         {
-            if (_featherAmountDic.ContainsKey(featherKind))
-            {
-                _featherAmountDic[featherKind] += 1;
-            }
-
-            else
-            {
-                _featherAmountDic[featherKind] = 1;
-            }
+            // if (_featherAmountDic.ContainsKey(featherKind))
+            // {
+            //     _featherAmountDic[featherKind] += 1;
+            // }
+            //
+            // else
+            // {
+            //     _featherAmountDic[featherKind] = 1;
+            // }
         }
 
         public void RemoveFeather(FeatherKind featherKind)
         {
-            int curAmount = _featherAmountDic[featherKind];
-            if (curAmount > 0)
-            {
-                _featherAmountDic[featherKind] -= 1;
-            }
+            // int curAmount = _featherAmountDic[featherKind];
+            // if (curAmount > 0)
+            // {
+            //     _featherAmountDic[featherKind] -= 1;
+            // }
         }
 
         public int HowMany(FeatherKind featherKind)
@@ -235,3 +235,4 @@ namespace Elad.Scripts
         }
     }
 }
+

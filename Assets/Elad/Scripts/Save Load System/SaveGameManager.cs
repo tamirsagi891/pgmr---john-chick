@@ -13,13 +13,11 @@ namespace Elad.Save_Load_System
 
         public static UnityAction OnLoadGameStart;
         public static UnityAction OnLoadGameFinish;
+
+        [Header("Elements we want to save")] public static SaveData CurrentSaveData = new SaveData();
         
-        [Header("Elements we want to save")]
-        public static SaveData CurrentSaveData = new SaveData();
-        
-        public static bool SaveGame(string wantedFileName, SaveData saveData)
+        public static bool SaveGame(string wantedFileName)
         {
-            CurrentSaveData = saveData;
             var dir = Application.persistentDataPath + SaveDirectory;
 
             if (!Directory.Exists(dir))
