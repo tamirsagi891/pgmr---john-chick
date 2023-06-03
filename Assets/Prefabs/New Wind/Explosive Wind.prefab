@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: windType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveX.scalar
       value: 0.0067339214

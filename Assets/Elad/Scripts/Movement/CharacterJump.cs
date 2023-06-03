@@ -136,6 +136,7 @@ public class CharacterJump : MonoBehaviour
     private void OnDisable()
     {
         characterEvents.CharacterDamaged.RemoveListener(StopGlideFromHit);
+        
     }
 
     void Awake()
@@ -149,6 +150,15 @@ public class CharacterJump : MonoBehaviour
         linearDragRegular = _rB.drag;
         _wallMovement = GetComponent<WallMovement>();
         _horizontalMovement = GetComponent<HorizontalMovement>();
+        PlayerStatus.JumpController = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (PlayerStatus.JumpController == this)
+        {
+            PlayerStatus.JumpController = null;
+        }
     }
 
     public void OnJump(InputAction.CallbackContext context)

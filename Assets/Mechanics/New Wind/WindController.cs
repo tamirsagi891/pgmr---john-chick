@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Avrahamy.EditorGadgets;
 using Avrahamy.Math;
 using BitStrap;
+using Elad.Scripts;
 using UnityEditor;
 using UnityEngine;
+using Logger = Nemesh.Logger;
 
 namespace Mechanics.New_Wind
 {
@@ -16,31 +18,30 @@ namespace Mechanics.New_Wind
         {
             [InspectorName("Normal, Always on")]
             Regular,
+
             [InspectorName("Single Burst")]
             Explosive,
+
             [InspectorName("Glide only")]
             Glide,
         }
-        
+
         [SerializeField]
         private WindType windType = WindType.Regular;
 
-        [SerializeField]
-        [TagSelector]
-        private string playerTag = "Player";
         // [SerializeField]
         // private bool useKnobForSize;
-        
+
         [SerializeField]
         private bool useKnobForMagnitude;
 
         [ConditionalHide("useKnobForMagnitude", false, true)]
         [SerializeField]
         private float magnitude = 200f;
-        
+
         [SerializeField]
         private float wantedDrag = 50f;
-        
+
         [Space]
         [SerializeField]
         [Tooltip("Slowdown the particles by this factor")]
@@ -51,7 +52,7 @@ namespace Mechanics.New_Wind
         [SerializeField]
         [RequiredReference]
         private WindEffectorController windEffectorController;
-        
+
         public WindKnob Knob
         {
             get => _knob;
@@ -69,16 +70,12 @@ namespace Mechanics.New_Wind
         {
             get
             {
-                if (windType == WindType.Glide && !HasContact)
-                {
-                    return Vector2.zero;
-                }
                 var force = Knob.transform.position - transform.position;
                 return useKnobForMagnitude ? force : force.GetWithMagnitude(magnitude);
             }
         }
 
-        public bool HasContact => _contacts.Count > 0;
+        public bool HasContact => windEffectorController.Contacts.Count > 0;
 
         public bool UseKnobForMagnitude
         {
@@ -90,6 +87,14 @@ namespace Mechanics.New_Wind
 
         public ParticleSystemForceField MyForceField => windEffectorController.MyForceField;
 
+        public float WantedDrag
+        {
+            get => NotGlidingCondition ? 0 : wantedDrag;
+            set => wantedDrag = value;
+        }
+
+        private bool NotGlidingCondition => windType == WindType.Glide && (!HasContact || !PlayerStatus.IsGliding);
+
         // public float Magnitude
         // {
         //     get
@@ -100,7 +105,6 @@ namespace Mechanics.New_Wind
 
         private WindKnob _knob;
         private bool _hasKnob;
-        private HashSet<GameObject> _contacts;
 
         private void OnValidate()
         {
@@ -110,30 +114,6 @@ namespace Mechanics.New_Wind
         private void FixedUpdate()
         {
             SetNewForce();
-        }
-        
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (windType != WindType.Glide)
-            {
-                return;
-            }
-            if (other.CompareTag(playerTag))
-            {
-                _contacts.Add(other.gameObject);
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (windType != WindType.Glide)
-            {
-                return;
-            }
-            if (other.CompareTag(playerTag))
-            {
-                _contacts.Remove(other.gameObject);
-            }
         }
 
         [Button]
@@ -150,11 +130,18 @@ namespace Mechanics.New_Wind
             }
 
             var force = Force;
-            WindEffector.forceAngle = Angle;
-            WindEffector.forceMagnitude = force.magnitude;
-            WindEffector.drag = wantedDrag;
+
             MyForceField.directionX = force.x / particleForceFactor;
             MyForceField.directionY = force.y / particleForceFactor;
+
+            if (NotGlidingCondition)
+            {
+                force = Vector2.zero;
+            }
+
+            WindEffector.forceAngle = Angle;
+            WindEffector.forceMagnitude = force.magnitude;
+            WindEffector.drag = WantedDrag;
 
             // if (useKnobForSize)
             // {
@@ -162,14 +149,14 @@ namespace Mechanics.New_Wind
             //     windEffectorController.transform.localScale = new Vector3(dist, dist, 1f);
             // }
         }
-        
-                
+
+
 #if UNITY_EDITOR
         public void OnDrawGizmos()
         {
             Gizmos.DrawIcon(transform.position, "wind");
         }
-        
+
         public void OnDrawGizmosSelected()
         {
             windEffectorController.OnDrawGizmosSelected();

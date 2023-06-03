@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windType: 0
-  playerTag: Player
   useKnobForMagnitude: 0
   magnitude: 200
   wantedDrag: 50
@@ -81,7 +80,7 @@ Transform:
   m_GameObject: {fileID: 467286100121838158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8954430983689920626}
@@ -5022,7 +5021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeAtExit: 0.5
+  lifeAtExit: 0.15
 --- !u!1 &1056747810991743420
 GameObject:
   m_ObjectHideFlags: 0
@@ -5635,6 +5634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2583f43c08e9479b8cdab2c139c63e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTag: Player
   windEffector: {fileID: 1674326627119685546}
   myForceField: {fileID: 6294074780216098104}
 --- !u!1 &1579580449182872917
@@ -5667,7 +5667,7 @@ Transform:
   m_GameObject: {fileID: 1579580449182872917}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8954430983689920626}
@@ -6244,7 +6244,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 1
-    maxNumParticles: 10
+    maxNumParticles: 20
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -6510,8 +6510,8 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
-      minScalar: 1
+      scalar: 2.5
+      minScalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6696,7 +6696,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 2
+        scalar: 3
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -6754,7 +6754,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 2
+        scalar: 3
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -10837,7 +10837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeAtExit: 0.5
+  lifeAtExit: 0.15
 --- !u!23 &8638329089676582436
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10916,7 +10916,7 @@ Transform:
   m_GameObject: {fileID: 2951783924243020796}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -0.5, y: -0.5, z: 1}
+  m_LocalScale: {x: -0.7, y: -0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8954430983689920626}
@@ -15857,7 +15857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeAtExit: 0.5
+  lifeAtExit: 0.15
 --- !u!1 &5033086864568913384
 GameObject:
   m_ObjectHideFlags: 0
@@ -15931,7 +15931,7 @@ Transform:
   m_GameObject: {fileID: 5259362209860639893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: -0.5, z: 1}
+  m_LocalScale: {x: 0.7, y: -0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8954430983689920626}
@@ -20872,7 +20872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeAtExit: 0.5
+  lifeAtExit: 0.15
 --- !u!1 &8599833288196777885
 GameObject:
   m_ObjectHideFlags: 0
@@ -20901,7 +20901,7 @@ Transform:
   m_GameObject: {fileID: 8599833288196777885}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: -0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8954430983689920626}
@@ -25842,4 +25842,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeAtExit: 0.5
+  lifeAtExit: 0.15

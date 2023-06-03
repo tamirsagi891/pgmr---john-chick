@@ -1,4 +1,5 @@
-﻿using BitStrap;
+﻿using System.Collections.Generic;
+using BitStrap;
 using UnityEngine;
 
 namespace Mechanics.New_Wind
@@ -9,6 +10,11 @@ namespace Mechanics.New_Wind
     [RequireComponent(typeof(ParticleSystemForceField))]
     public class WindEffectorController : MonoBehaviour
     {
+        [SerializeField]
+        [TagSelector]
+        private string playerTag = "Player";
+        
+        [Space]
         [SerializeField]
         [RequiredReference]
         private AreaEffector2D windEffector;  // TODO: get from code instead
@@ -27,6 +33,24 @@ namespace Mechanics.New_Wind
         {
             get => myForceField;
             set => myForceField = value;
+        }
+
+        public HashSet<GameObject> Contacts { get; } = new();
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag(playerTag))
+            {
+                Contacts.Add(other.gameObject);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.CompareTag(playerTag))
+            {
+                Contacts.Remove(other.gameObject);
+            }
         }
         
 #if UNITY_EDITOR

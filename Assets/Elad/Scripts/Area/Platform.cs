@@ -55,7 +55,7 @@ public class Platform : MonoBehaviour
     {
         if (other.collider.CompareTag(TagStrings.playerTag))
         {
-            Logger.Log("player got hit");
+            // Logger.Log("player got hit");
             if (noSurface)
             {
                 _platformEffector2D.surfaceArc = 180;

@@ -18,5 +18,7 @@ namespace Elad.Scripts
         public static Vector2 playerVelocity;
 
         public static bool PlayerIsInvincible;
+        public static CharacterJump JumpController { get; set; }
+        public static bool IsGliding => JumpController.IsGliding;
     }
 }
