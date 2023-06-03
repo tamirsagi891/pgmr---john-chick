@@ -5092,7 +5092,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeAtExit: 0.15
-  behaviourOnPause: 1
 --- !u!1 &1056747810991743420
 GameObject:
   m_ObjectHideFlags: 0
@@ -10918,7 +10917,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeAtExit: 0.15
-  behaviourOnPause: 1
 --- !u!23 &8638329089676582436
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16006,7 +16004,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeAtExit: 0.15
-  behaviourOnPause: 1
 --- !u!1 &5033086864568913384
 GameObject:
   m_ObjectHideFlags: 0
@@ -21089,7 +21086,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeAtExit: 0.15
-  behaviourOnPause: 1
 --- !u!1 &8599833288196777885
 GameObject:
   m_ObjectHideFlags: 0
@@ -26127,4 +26123,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeAtExit: 0.15
-  behaviourOnPause: 1

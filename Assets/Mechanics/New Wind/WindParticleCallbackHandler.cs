@@ -13,13 +13,14 @@ namespace Mechanics.New_Wind
         [SerializeField]
         private float lifeAtExit = 0.5f;
 
-        [Space]
-        [SerializeField]
-        private ParticleSystemStopBehavior behaviourOnPause = ParticleSystemStopBehavior.StopEmitting; 
+        // [Space]
+        // [SerializeField]
+        // [HideInInspector]
+        // private ParticleSystemStopBehavior behaviourOnPause = ParticleSystemStopBehavior.StopEmitting; 
 
         private ParticleSystem _myParticleSystem;
         private readonly List<ParticleSystem.Particle> _exit = new();
-        private ParticleSystem.Particle[] _pauseParticles;
+        // private ParticleSystem.Particle[] _pauseParticles;
         private bool _hasSystem;
 
         #region MonoBehaviour
@@ -27,20 +28,20 @@ namespace Mechanics.New_Wind
         private void OnValidate()
         {
             _hasSystem = TryGetComponent(out _myParticleSystem);
-            if (_hasSystem)
-            {
-                _pauseParticles = new ParticleSystem.Particle[_myParticleSystem.main.maxParticles];
-            }
+            // if (_hasSystem)
+            // {
+            //     _pauseParticles = new ParticleSystem.Particle[_myParticleSystem.main.maxParticles];
+            // }
         }
 
         // Start is called before the first frame update
         void OnEnable()
         {
             _hasSystem = TryGetComponent(out _myParticleSystem);
-            if (_hasSystem)
-            {
-                _pauseParticles = new ParticleSystem.Particle[_myParticleSystem.main.maxParticles];
-            }
+            // if (_hasSystem)
+            // {
+            //     _pauseParticles = new ParticleSystem.Particle[_myParticleSystem.main.maxParticles];
+            // }
         }
 
         #endregion
