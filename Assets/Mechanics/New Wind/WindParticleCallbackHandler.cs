@@ -19,6 +19,7 @@ namespace Mechanics.New_Wind
 
         private ParticleSystem _myParticleSystem;
         private readonly List<ParticleSystem.Particle> _exit = new();
+        private ParticleSystem.Particle[] _pauseParticles;
         private bool _hasSystem;
 
         #region MonoBehaviour
@@ -26,12 +27,20 @@ namespace Mechanics.New_Wind
         private void OnValidate()
         {
             _hasSystem = TryGetComponent(out _myParticleSystem);
+            if (_hasSystem)
+            {
+                _pauseParticles = new ParticleSystem.Particle[_myParticleSystem.main.maxParticles];
+            }
         }
 
         // Start is called before the first frame update
         void OnEnable()
         {
             _hasSystem = TryGetComponent(out _myParticleSystem);
+            if (_hasSystem)
+            {
+                _pauseParticles = new ParticleSystem.Particle[_myParticleSystem.main.maxParticles];
+            }
         }
 
         #endregion
@@ -41,18 +50,50 @@ namespace Mechanics.New_Wind
         [Button]
         public void PauseParticles()
         {
-            if (_hasSystem && _myParticleSystem.isPlaying)
+            if (_hasSystem && _myParticleSystem.isEmitting)
             {
-                _myParticleSystem.Stop(true, behaviourOnPause);
+                var em = _myParticleSystem.emission;
+                em.enabled = false;
+                // _myParticleSystem.Stop(true, behaviourOnPause);
+                // if (behaviourOnPause == ParticleSystemStopBehavior.StopEmitting)
+                // {
+                //     var numExit = _myParticleSystem.GetParticles(_pauseParticles);
+                //     for (var i = 0; i < numExit; i++)
+                //     {
+                //         var p = _pauseParticles[i];
+                //         p.remainingLifetime = lifeAtExit;
+                //         _pauseParticles[i] = p;
+                //     }
+                //     _myParticleSystem.SetParticles(_pauseParticles, numExit);
+                // }
+                // else
+                // {
+                //     _myParticleSystem.Clear(true);
+                // }
             }   
         }
 
         [Button]
         public void ResumeParticles()
         {
-            if (_hasSystem && _myParticleSystem.isStopped)
+            if (_hasSystem && !_myParticleSystem.isEmitting)
             {
-                _myParticleSystem.Play(true);
+                if (_myParticleSystem.isStopped)
+                {
+                    _myParticleSystem.Play();
+                }
+
+                var em = _myParticleSystem.emission;
+                em.enabled = true;
+                // if (em.burstCount > 0)
+                // {
+                //     var count = em.GetBurst(0).count;
+                //     _myParticleSystem.Emit((int) count.constant);
+                // }
+                _myParticleSystem.Emit(1);
+                // _myParticleSystem.Clear(true);
+                // _myParticleSystem.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                // _myParticleSystem.Play(true);
             }
         }
 

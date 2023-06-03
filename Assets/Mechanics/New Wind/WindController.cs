@@ -12,15 +12,15 @@ using Logger = Nemesh.Logger;
 namespace Mechanics.New_Wind
 {
     [AddComponentMenu("Wind/Wind Controller")]
-    public class WindController : MonoBehaviour
+    public class WindController : OptimizedBehaviour
     {
         [Serializable]
         public enum WindType
         {
-            [InspectorName("Normal, Always on")]
+            [InspectorName("Constant")]
             Regular,
             
-            [InspectorName("Glide only")]
+            [InspectorName("Constant Glide only")]
             Glide,
 
             [InspectorName("Single Burst")]
@@ -89,17 +89,30 @@ namespace Mechanics.New_Wind
                 }
 
                 var force = Knob.transform.position - transform.position;
-                return useKnobForMagnitude ? force : force.GetWithMagnitude(magnitude);
+                if (transform.lossyScale.x < 0)
+                {
+                    force.x = -force.x;
+                }
+                
+                var ret = UseKnobForMagnitude ? force : force.GetWithMagnitude(Magnitude);
+
+                return ret;
+            }
+            set
+            {
+                Knob.transform.position = (Vector3)value + transform.position;
+                // TODO: also update magnitude = force.magnitude?
+                // TODO: Test scale?
             }
         }
-
-        public bool HasContact => windEffectorController.Contacts.Count > 0;
 
         public bool UseKnobForMagnitude
         {
             get => useKnobForMagnitude;
             set => useKnobForMagnitude = value;
         }
+
+        public bool HasContact => windEffectorController.Contacts.Count > 0;
 
         public AreaEffector2D WindEffector => windEffectorController.WindEffector;
 
@@ -120,24 +133,37 @@ namespace Mechanics.New_Wind
             set => wantedDrag = value;
         }
 
+        public float Magnitude
+        {
+            get => magnitude;
+            set => magnitude = value;
+        }
+
+        public Vector2 ForceOffset
+        {
+            get => _forceOffset;
+            set
+            {
+                _forceOffset = value;
+                _hasOffset = _forceOffset != Vector2.zero;
+            }
+        }
+
         private bool NotGlidingCondition => !HasContact || HasContact && !PlayerStatus.IsGliding;
+
         private bool NotExplodingCondition => !explosiveTime.IsSet || explosiveTime.IsSet && !explosiveTime.IsActive;
 
         private bool IsExplodingType => windType is WindType.Explosive or WindType.ExplosiveGlide;
 
         private bool IsGlidingType => windType is WindType.Glide or WindType.ExplosiveGlide;
 
-        // public float Magnitude
-        // {
-        //     get
-        //     {
-        //         return useKnobForMagnitude ? Force.magnitude : magnitude;
-        //     }
-        // }
+        private Vector2 ForwardVector => transform.lossyScale.x < 0 ? Vector2.left : Vector2.right;
 
         private WindKnob _knob;
         private bool _hasKnob;
         private bool _firstExplosiveFrame;
+        private bool _hasOffset;
+        private Vector2 _forceOffset;
 
         #region MonoBehaviour
 
@@ -173,13 +199,19 @@ namespace Mechanics.New_Wind
         [Button("Explode Wind")]
         public void Explode()
         {
-            if (IsExplodingType)
+            if (!IsExplodingType)
             {
-                windEffectorController.ResumeParticles();
-                explosiveTime.Start();
+                Logger.Log("Not Explosive type.", this);
+                return;
             }
+
+            _firstExplosiveFrame = false;
+            explosiveTime.Start();
+            SetNewForce();
+            windEffectorController.ResumeParticles();
         }
 
+        [Button]
         public void EndExplosion()
         {
             explosiveTime.Clear();
@@ -198,12 +230,22 @@ namespace Mechanics.New_Wind
                 }
             }
 
+            HandleBaseForce();
+        }
+
+        private void HandleBaseForce()
+        {
+
             if (!_hasKnob)
             {
                 return;
             }
 
             var force = Force;
+            if (_hasOffset)
+            {
+                force = (ForceOffset + force).GetWithMagnitude(force.magnitude);
+            }
 
             MyForceField.directionX = force.x / particleForceFactor;
             MyForceField.directionY = force.y / particleForceFactor;
@@ -223,7 +265,6 @@ namespace Mechanics.New_Wind
             //     windEffectorController.transform.localScale = new Vector3(dist, dist, 1f);
             // }
         }
-
 
         #endregion
 
