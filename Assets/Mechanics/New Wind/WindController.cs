@@ -258,6 +258,10 @@ namespace Mechanics.New_Wind
             WindEffector.forceAngle = Angle;
             WindEffector.forceMagnitude = force.magnitude;
             WindEffector.drag = WantedDrag;
+            if (debug)
+            {
+                // Logger.Log(PlayerStatus.JumpController && PlayerStatus.IsGliding);
+            }
 
             // if (useKnobForSize)
             // {
