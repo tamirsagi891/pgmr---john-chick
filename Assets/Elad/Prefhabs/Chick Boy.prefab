@@ -495,6 +495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedDashing: 24
   maxSpeedDodgeRoll: 24
+  dodgeRollCoolDown: 1
   minVelocityToDodge: 6
 --- !u!114 &4756532907892497648
 MonoBehaviour:
@@ -575,10 +576,11 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  groundDistance: 0.2
+  groundDistance: 0.23
   wallDistance: 0.2
   ceilingDistance: 0.05
   groundOffset: {x: 0, y: 0}
+  groundGapAmount: 0.5
   wallOffset: {x: 0, y: 0.2}
 --- !u!114 &6849811474403503977
 MonoBehaviour:
@@ -592,8 +594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4494c0f868a57c444804a8e0da524f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJumpHeight: 5
-  timeToReachPeakHeight: 0.6
+  maxJumpHeight: 5.2
+  timeToReachPeakHeight: 0.5
   gravityMultiplierAscending: 1.3
   gravityMultiplierDescending: 12
   canDoubleJump: 0
@@ -603,13 +605,13 @@ MonoBehaviour:
   coyoteTime: 0.05
   jumpBuffer: 0.1
   doubleJumpMultiplier: 1
-  canJumpAgain: 1
-  regularGlide: 0
+  canJumpAgain: 0
+  regularGlide: 1
   glideJump: {x: 0, y: 21}
-  gravityMultiplierGliding: 0.1
+  gravityMultiplierGliding: 0.08
   minVelocityToGlide: -0.05
-  linearDragGliding: 20
-  canJumpWhileCrouch: 0
+  linearDragGliding: 11.5
+  canJumpWhileCrouch: 1
   hitGlideDelayTime: 0.05
 --- !u!114 &7924112369440353100
 MonoBehaviour:

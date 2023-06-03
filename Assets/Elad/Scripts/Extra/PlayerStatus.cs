@@ -20,5 +20,8 @@ namespace Elad.Scripts
         public static bool PlayerIsInvincible;
         public static CharacterJump JumpController { get; set; }
         public static bool IsGliding => JumpController.IsGliding;
+        
+        public static Platform PlatformController { get; set; }
+        public static bool IsMovingThrowPlatform => PlatformController.IsMovingThrowPlatform;
     }
 }

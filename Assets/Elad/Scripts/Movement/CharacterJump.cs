@@ -65,10 +65,11 @@ public class CharacterJump : MonoBehaviour
     private bool onGround;
     private bool _currentlyJumping;
 
-    [Header("Gliding")] [SerializeField] private bool regularGlide = true;
+    [Header("Gliding")] [SerializeField] private float glideHorizontallyMovement = 5f; 
+    [SerializeField] private bool regularGlide = true;
     [SerializeField] private Vector2 glideJump = Vector2.zero;
 
-    [SerializeField, Range(0f, 20f)] [Tooltip("Gravity multiplier to apply when gliding")]
+    [SerializeField, Range(0f, 0.5f)] [Tooltip("Gravity multiplier to apply when gliding")]
     private float gravityMultiplierGliding = 0.3f;
 
     private bool _wantToGlide;
@@ -89,7 +90,7 @@ public class CharacterJump : MonoBehaviour
     {
         get
         {
-            var returnValue = !(_touchingDirection.IsGrounded);
+            var returnValue = (!(_touchingDirection.IsGrounded) && (!PlayerStatus.IsMovingThrowPlatform));
             return returnValue;
         }
     }
@@ -120,6 +121,12 @@ public class CharacterJump : MonoBehaviour
 
             return returnValue;
         }
+    }
+
+    public float GlideHorizontallyMovement
+    {
+        get => glideHorizontallyMovement;
+        set => glideHorizontallyMovement = value;
     }
 
     [Space(3)] [Header("On Hit")] [SerializeField]
@@ -190,11 +197,20 @@ public class CharacterJump : MonoBehaviour
                 OnGlide();
             }
 
+            
 
             if (context.canceled)
             {
                 _pressingJump = false;
                 OnGlide();
+            }
+            else
+            {
+                if (!_pressingJump)
+                {
+                    _pressingJump = true;    
+                }
+                
             }
         }
     }
@@ -204,6 +220,7 @@ public class CharacterJump : MonoBehaviour
     {
         setPhysics();
 
+        IsGliding = !_touchingDirection.IsGrounded && IsGliding;
         if (_inHit)
         {
             _hitGlideDelayTimer -= Time.deltaTime;
