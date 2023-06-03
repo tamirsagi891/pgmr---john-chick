@@ -52,6 +52,7 @@ public class WindArea : MonoBehaviour
 
     private void Update()
     {
+       
         if (!_working &&_canWork && _insideCollider && _characterJump && _characterJump.IsGliding)
         {
             _areaEffector2D.forceMagnitude = wantedForce;

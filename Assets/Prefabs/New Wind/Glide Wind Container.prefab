@@ -174,7 +174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1674326627119685546, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_ForceAngle
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1674326627119685546, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_ForceMagnitude
@@ -230,7 +230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: windType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveX.scalar
@@ -238,7 +238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveY.scalar
-      value: 0
+      value: 1.3333334
       objectReference: {fileID: 0}
     - target: {fileID: 8191129843839394188, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_LocalScale.y

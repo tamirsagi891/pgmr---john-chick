@@ -489,13 +489,12 @@ public class CharacterJump : MonoBehaviour
                     // _animator.SetBool(AnimationStrings.isGliding, true);
                     IsGliding = true;
                 }
-
-                if (IsGliding && !_pressingJump)
-                {
-                    _rB.drag = linearDragRegular;
-                    // _animator.SetBool(AnimationStrings.isGliding, false);
-                    IsGliding = false;
-                }
+            }
+            if (IsGliding && !_pressingJump)
+            {
+                _rB.drag = linearDragRegular;
+                // _animator.SetBool(AnimationStrings.isGliding, false);
+                IsGliding = false;
             }
         }
     }

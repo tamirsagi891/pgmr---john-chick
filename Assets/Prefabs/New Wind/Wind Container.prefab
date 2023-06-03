@@ -54,6 +54,7 @@ MonoBehaviour:
     duration: 2
   particleForceFactor: 150
   windEffectorController: {fileID: 1510235350894021610}
+  debug: 0
 --- !u!1 &467286100121838158
 GameObject:
   m_ObjectHideFlags: 0

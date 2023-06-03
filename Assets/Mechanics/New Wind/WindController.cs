@@ -60,6 +60,11 @@ namespace Mechanics.New_Wind
         [SerializeField]
         [RequiredReference]
         private WindEffectorController windEffectorController;
+        
+        [Space]
+        [Header("Debug")]
+        [SerializeField]
+        protected bool debug;
 
         public WindKnob Knob
         {
@@ -115,7 +120,7 @@ namespace Mechanics.New_Wind
             set => wantedDrag = value;
         }
 
-        private bool NotGlidingCondition => !HasContact || !PlayerStatus.IsGliding;
+        private bool NotGlidingCondition => !HasContact || HasContact && !PlayerStatus.IsGliding;
         private bool NotExplodingCondition => !explosiveTime.IsSet || explosiveTime.IsSet && !explosiveTime.IsActive;
 
         private bool IsExplodingType => windType is WindType.Explosive or WindType.ExplosiveGlide;
