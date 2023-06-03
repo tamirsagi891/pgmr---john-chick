@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windType: 0
+  playerTag: Player
   useKnobForMagnitude: 0
   magnitude: 200
   wantedDrag: 50

@@ -26,7 +26,7 @@ namespace Mechanics.New_Wind
 
 
 #if UNITY_EDITOR
-        void OnDrawGizmosSelected()
+        public void OnDrawGizmosSelected()
         {
             Gizmos.color = new Color(0.13f, 0.93f, 1f, 1f);
             Gizmos.DrawSphere(transform.position, 0.3f);

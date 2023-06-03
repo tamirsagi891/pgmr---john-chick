@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Avrahamy.EditorGadgets;
 using Avrahamy.Math;
 using BitStrap;
+using UnityEditor;
 using UnityEngine;
 
 namespace Mechanics.New_Wind
@@ -12,12 +14,20 @@ namespace Mechanics.New_Wind
         [Serializable]
         public enum WindType
         {
+            [InspectorName("Normal, Always on")]
             Regular,
-            Explosive
+            [InspectorName("Single Burst")]
+            Explosive,
+            [InspectorName("Glide only")]
+            Glide,
         }
-
+        
         [SerializeField]
         private WindType windType = WindType.Regular;
+
+        [SerializeField]
+        [TagSelector]
+        private string playerTag = "Player";
         // [SerializeField]
         // private bool useKnobForSize;
         
@@ -59,10 +69,16 @@ namespace Mechanics.New_Wind
         {
             get
             {
+                if (windType == WindType.Glide && !HasContact)
+                {
+                    return Vector2.zero;
+                }
                 var force = Knob.transform.position - transform.position;
                 return useKnobForMagnitude ? force : force.GetWithMagnitude(magnitude);
             }
         }
+
+        public bool HasContact => _contacts.Count > 0;
 
         public bool UseKnobForMagnitude
         {
@@ -84,6 +100,7 @@ namespace Mechanics.New_Wind
 
         private WindKnob _knob;
         private bool _hasKnob;
+        private HashSet<GameObject> _contacts;
 
         private void OnValidate()
         {
@@ -94,37 +111,69 @@ namespace Mechanics.New_Wind
         {
             SetNewForce();
         }
+        
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (windType != WindType.Glide)
+            {
+                return;
+            }
+            if (other.CompareTag(playerTag))
+            {
+                _contacts.Add(other.gameObject);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (windType != WindType.Glide)
+            {
+                return;
+            }
+            if (other.CompareTag(playerTag))
+            {
+                _contacts.Remove(other.gameObject);
+            }
+        }
 
         [Button]
         public void SetNewForce()
         {
-            if (windType == WindType.Regular)
+            // if (windType == WindType.Glide)
+            // {
+            //     return;
+            // }
+
+            if (!_hasKnob)
             {
-                if (!_hasKnob)
-                {
-                    return;
-                }
-
-                var force = Force;
-                WindEffector.forceAngle = Angle;
-                WindEffector.forceMagnitude = force.magnitude;
-                WindEffector.drag = wantedDrag;
-                MyForceField.directionX = force.x / particleForceFactor;
-                MyForceField.directionY = force.y / particleForceFactor;
-
-                // if (useKnobForSize)
-                // {
-                //     var dist = Vector2.Distance(transform.position, Knob.transform.position);
-                //     windEffectorController.transform.localScale = new Vector3(dist, dist, 1f);
-                // }
+                return;
             }
+
+            var force = Force;
+            WindEffector.forceAngle = Angle;
+            WindEffector.forceMagnitude = force.magnitude;
+            WindEffector.drag = wantedDrag;
+            MyForceField.directionX = force.x / particleForceFactor;
+            MyForceField.directionY = force.y / particleForceFactor;
+
+            // if (useKnobForSize)
+            // {
+            //     var dist = Vector2.Distance(transform.position, Knob.transform.position);
+            //     windEffectorController.transform.localScale = new Vector3(dist, dist, 1f);
+            // }
         }
         
                 
 #if UNITY_EDITOR
-        void OnDrawGizmos()
+        public void OnDrawGizmos()
         {
             Gizmos.DrawIcon(transform.position, "wind");
+        }
+        
+        public void OnDrawGizmosSelected()
+        {
+            windEffectorController.OnDrawGizmosSelected();
+            _knob!.OnDrawGizmosSelected();
         }
 #endif
 

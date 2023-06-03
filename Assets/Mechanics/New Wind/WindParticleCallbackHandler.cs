@@ -47,7 +47,7 @@ namespace Mechanics.New_Wind
         }
         
 #if UNITY_EDITOR
-        void OnDrawGizmosSelected()
+        public void OnDrawGizmosSelected()
         {
             // Draw a semitransparent red cube at the transforms position
             Gizmos.color = new Color(0.95f, 0.2f, 1f, 0.21f);
