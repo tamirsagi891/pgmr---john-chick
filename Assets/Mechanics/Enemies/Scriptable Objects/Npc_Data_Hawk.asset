@@ -25,5 +25,6 @@ MonoBehaviour:
     extraDashSpeed: 14
     defense: 0
     deBuff: 0
-    type: 1
+    type: 2
+    shotSpeed: 0
   characterIcon: {fileID: 0}

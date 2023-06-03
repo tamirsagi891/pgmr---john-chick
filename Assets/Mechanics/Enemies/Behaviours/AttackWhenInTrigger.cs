@@ -1,44 +1,16 @@
-﻿using UnityEngine;
+﻿using Avrahamy;
+using UnityEngine;
+using UnityEngine.Serialization;
 using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
     [AddComponentMenu("NPC/Attack Behaviours/Attack When In Trigger")]
     [RequireComponent(typeof(Collider2D))]
-    public class AttackWhenInTrigger : MonoBehaviour // TODO: type
+    public class AttackWhenInTrigger : AttackBehaviour
     {
 
-        #region Inspector
-
-        [SerializeField]
-        private bool stopVelocityWhenEnterTrigger = true;
-
-        [Space]
-        [SerializeField]
-        private BaseNpc npcToReportTo;
-
-        #endregion
-
-        #region Private Method
-
-        private void Disable()
-        {
-            gameObject.SetActive(false);
-        }
-
-        #endregion
-
         #region MonoBehaviour
-
-        private void OnEnable()
-        {
-            npcToReportTo.events.onDeath.AddListener(Disable);
-        }
-
-        private void OnDisable()
-        {
-            npcToReportTo.events.onDeath.RemoveListener(Disable);
-        }
 
         private void Start() // TODO: make this also the attack strategy controller? or separate object?
         {
@@ -83,10 +55,11 @@ namespace Mechanics.Enemies
                 }
                 else
                 {
-                    if (!npcToReportTo.AttackTargets.Contains(value))
+                    // TODO: move EnableBehaviour to encompass the entire setter?
+                    if (EnableBehaviour && !npcToReportTo.AttackTargets.Contains(value))  
                     {
                         npcToReportTo.AttackTargets.Add(value); // TODO: dont remove if someone else added?
-                        if (npcToReportTo.CanAttack && stopVelocityWhenEnterTrigger)
+                        if (npcToReportTo.CanAttack && stopVelocityWhenAttacking)
                         {
                             npcToReportTo.StopMovement(Time.fixedDeltaTime);
                         }

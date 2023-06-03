@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 105802588699490999}
   - component: {fileID: 1203719939592848768}
   - component: {fileID: 7700219339685525992}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Wind Partical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 155685958245675892}
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.005968312, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.005968125, y: -0.49999994, z: 0}
   m_LocalScale: {x: 0.5986801, y: 1, z: 0.45068327}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1488,8 +1488,8 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
-    tilesX: 1
-    tilesY: 1
+    tilesX: 2
+    tilesY: 2
     animationType: 0
     rowIndex: 0
     cycles: 1
@@ -5005,7 +5005,7 @@ GameObject:
   - component: {fileID: 7982099607021136109}
   - component: {fileID: 3526620184718296151}
   - component: {fileID: 1819394516320346008}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Wind Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5139,7 +5139,7 @@ AreaEffector2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013204000088733660}
   m_Enabled: 1
-  m_UseColliderMask: 1
+  m_UseColliderMask: 0
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -5189,7 +5189,7 @@ GameObject:
   - component: {fileID: 8751164597037368889}
   - component: {fileID: 620172661935388040}
   - component: {fileID: 6253999834752621772}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Wind Partical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5204,7 +5204,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3202689594256124052}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: -0.005968312, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.005968125, y: -0.49999994, z: 0}
   m_LocalScale: {x: 0.5986801, y: 1, z: 0.45068327}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10180,7 +10180,7 @@ GameObject:
   - component: {fileID: 1060221868960110260}
   - component: {fileID: 7544650086537859446}
   - component: {fileID: 2026158400374914237}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Wind Partical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10195,7 +10195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3238693929369540613}
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.005968312, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.005968125, y: -0.49999994, z: 0}
   m_LocalScale: {x: 0.5986801, y: 1, z: 0.45068327}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15171,7 +15171,7 @@ GameObject:
   - component: {fileID: 8625825356668157277}
   - component: {fileID: 2586304769344602965}
   - component: {fileID: 8683507954879247958}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Wind Partical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15186,7 +15186,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4654128895757412959}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: -0.005968312, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.005968125, y: -0.49999994, z: 0}
   m_LocalScale: {x: 0.5986801, y: 1, z: 0.45068327}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20144,7 +20144,7 @@ GameObject:
   - component: {fileID: 6653423629704245072}
   - component: {fileID: 7173508732918279548}
   - component: {fileID: 2112240982283344269}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Wind Partical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20159,7 +20159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5860730884536546647}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: -0.005968312, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.005968125, y: -0.49999994, z: 0}
   m_LocalScale: {x: 0.5986801, y: 1, z: 0.45068327}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25135,7 +25135,7 @@ GameObject:
   - component: {fileID: 1105352654962999378}
   - component: {fileID: 9071962523603739736}
   - component: {fileID: 2524613334588315734}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Wind Partical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25150,7 +25150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7709107938197836450}
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.005968312, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.005968125, y: -0.49999994, z: 0}
   m_LocalScale: {x: 0.5986801, y: 1, z: 0.45068327}
   m_ConstrainProportionsScale: 0
   m_Children: []
