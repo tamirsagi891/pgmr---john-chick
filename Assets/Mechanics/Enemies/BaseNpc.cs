@@ -340,6 +340,7 @@ namespace Mechanics.Enemies
             dashTime.Clear();
             MyStatsHandler.CurrentStats.movementSpeed -= MyStatsHandler.CurrentStats.extraDashSpeed;
             animationControls.StopDirectionSwitch = false;
+            animationControls.IsDashing = false;
             events.onDashEnd.Invoke();
             StopMovement(stopAtDashEndTimer.Duration);
         }
@@ -483,7 +484,7 @@ namespace Mechanics.Enemies
             MyStatsHandler.CurrentStats.movementSpeed += MyStatsHandler.CurrentStats.extraDashSpeed;
             DesiredVelocity.x = Mathf.Sign(DesiredVelocity.x) * MyStatsHandler.CurrentStats.movementSpeed;
             // TODO: Copy elad's implementation
-            animationControls.Dash = true;
+            animationControls.IsDashing = true;
             events.onDash.Invoke();
         }
 

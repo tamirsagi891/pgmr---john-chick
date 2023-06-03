@@ -101,6 +101,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Detect Enemy For Dash
       objectReference: {fileID: 0}
+    - target: {fileID: 8969229689713622878, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
+      propertyPath: events.onDashEnd.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969229689713622878, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
+      propertyPath: events.onDashEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969229689713622878, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
+      propertyPath: events.onDashEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4217088320943031687}
+    - target: {fileID: 8969229689713622878, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
+      propertyPath: events.onDashEnd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969229689713622878, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
+      propertyPath: events.onDashEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndExplosion
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969229689713622878, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
+      propertyPath: events.onDashEnd.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Mechanics.New_Wind.WindController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969229689713622878, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
+      propertyPath: events.onDashEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1266566204972871832, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
     - {fileID: 145945756891820901, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
@@ -108,6 +136,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
+--- !u!114 &4217088320943031687 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3892362545322687287, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}
+  m_PrefabInstance: {fileID: 901397640690564784}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1037286e12e844bb8946f698020a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6085971113384432986 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6410836803341593578, guid: a182d5305e06d2440bbd04c95a4b07b5, type: 3}

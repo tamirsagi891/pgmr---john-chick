@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BitStrap;
 using UnityEngine;
 using Logger = Nemesh.Logger;
 
@@ -11,6 +12,10 @@ namespace Mechanics.New_Wind
     {
         [SerializeField]
         private float lifeAtExit = 0.5f;
+
+        [Space]
+        [SerializeField]
+        private ParticleSystemStopBehavior behaviourOnPause = ParticleSystemStopBehavior.StopEmitting; 
 
         private ParticleSystem _myParticleSystem;
         private readonly List<ParticleSystem.Particle> _exit = new();
@@ -33,17 +38,19 @@ namespace Mechanics.New_Wind
 
         #region Public Methods
 
+        [Button]
         public void PauseParticles()
         {
-            if (_hasSystem)
+            if (_hasSystem && _myParticleSystem.isPlaying)
             {
-                _myParticleSystem.Pause(true);
+                _myParticleSystem.Stop(true, behaviourOnPause);
             }   
         }
 
+        [Button]
         public void ResumeParticles()
         {
-            if (_hasSystem)
+            if (_hasSystem && _myParticleSystem.isStopped)
             {
                 _myParticleSystem.Play(true);
             }
@@ -78,7 +85,7 @@ namespace Mechanics.New_Wind
         public void OnDrawGizmosSelected()
         {
             // Draw a semitransparent red cube at the transforms position
-            Gizmos.color = new Color(0.95f, 0.2f, 1f, 0.21f);
+            Gizmos.color = new Color(0.95f, 0.2f, 1f, 0.1f);
             var transform1 = transform;
             Gizmos.DrawCube(transform1.position, transform1.lossyScale);
         }

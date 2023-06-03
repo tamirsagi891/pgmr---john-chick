@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
@@ -31,6 +32,11 @@ namespace Mechanics.Enemies
             if (resetCooldownOnDashEnd)
             {
                 AttackCdTimer.Clear();
+            }
+
+            if (debug)
+            {
+                Logger.Log("Dash End", this);
             }
         }
     }

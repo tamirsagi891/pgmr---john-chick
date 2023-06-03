@@ -130,6 +130,7 @@ MonoBehaviour:
   isRunning: 0
   isGrounded: 0
   isDead: 0
+  isDashing: 0
   jump: 0
   dash: 0
   attack: 0
@@ -154,6 +155,8 @@ MonoBehaviour:
       name: isGrounded
     isDead:
       name: isDead
+    isDashing:
+      name: dashing
     jump:
       name: jump
     dash:

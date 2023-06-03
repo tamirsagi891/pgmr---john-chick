@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Avrahamy;
 using Avrahamy.EditorGadgets;
 using Avrahamy.Math;
 using BitStrap;
@@ -18,15 +19,18 @@ namespace Mechanics.New_Wind
         {
             [InspectorName("Normal, Always on")]
             Regular,
+            
+            [InspectorName("Glide only")]
+            Glide,
 
             [InspectorName("Single Burst")]
             Explosive,
-
-            [InspectorName("Glide only")]
-            Glide,
+            
+            [InspectorName("Single Burst, Glide only")]
+            ExplosiveGlide,
         }
 
-        [SerializeField]
+        [SerializeField] // TODO: if we make this puclib, we must have setter that sets _firstExplosiveFrame!
         private WindType windType = WindType.Regular;
 
         // [SerializeField]
@@ -41,6 +45,10 @@ namespace Mechanics.New_Wind
 
         [SerializeField]
         private float wantedDrag = 50f;
+
+        [Header("Explosive")]
+        [SerializeField]
+        private PassiveTimer explosiveTime = new(2f);
 
         [Space]
         [SerializeField]
@@ -70,6 +78,11 @@ namespace Mechanics.New_Wind
         {
             get
             {
+                if (IsExplodingType && NotExplodingCondition)
+                {
+                    return Vector2.zero;
+                }
+
                 var force = Knob.transform.position - transform.position;
                 return useKnobForMagnitude ? force : force.GetWithMagnitude(magnitude);
             }
@@ -89,11 +102,25 @@ namespace Mechanics.New_Wind
 
         public float WantedDrag
         {
-            get => NotGlidingCondition ? 0 : wantedDrag;
+            get
+            {
+                return windType switch
+                {
+                    WindType.Glide => NotGlidingCondition ? 0 : wantedDrag,
+                    WindType.Explosive => NotExplodingCondition ? 0 : wantedDrag,
+                    WindType.ExplosiveGlide => NotGlidingCondition || NotExplodingCondition ? 0 : wantedDrag,
+                    _ => wantedDrag
+                };
+            }
             set => wantedDrag = value;
         }
 
-        private bool NotGlidingCondition => windType == WindType.Glide && (!HasContact || !PlayerStatus.IsGliding);
+        private bool NotGlidingCondition => !HasContact || !PlayerStatus.IsGliding;
+        private bool NotExplodingCondition => !explosiveTime.IsSet || explosiveTime.IsSet && !explosiveTime.IsActive;
+
+        private bool IsExplodingType => windType is WindType.Explosive or WindType.ExplosiveGlide;
+
+        private bool IsGlidingType => windType is WindType.Glide or WindType.ExplosiveGlide;
 
         // public float Magnitude
         // {
@@ -105,24 +132,66 @@ namespace Mechanics.New_Wind
 
         private WindKnob _knob;
         private bool _hasKnob;
+        private bool _firstExplosiveFrame;
+
+        #region MonoBehaviour
 
         private void OnValidate()
         {
+            if (IsExplodingType && !explosiveTime.IsSet)
+            {
+                _firstExplosiveFrame = true;
+            }
+
             SetNewForce();
         }
+
+        private void Awake()
+        {
+            explosiveTime.Clear();
+            if (IsExplodingType && !explosiveTime.IsSet)
+            {
+                _firstExplosiveFrame = true;
+            }
+        }
+
 
         private void FixedUpdate()
         {
             SetNewForce();
         }
 
+        #endregion
+
+        #region Public Methods
+
+        [Button("Explode Wind")]
+        public void Explode()
+        {
+            if (IsExplodingType)
+            {
+                windEffectorController.ResumeParticles();
+                explosiveTime.Start();
+            }
+        }
+
+        public void EndExplosion()
+        {
+            explosiveTime.Clear();
+            windEffectorController.PauseParticles();
+            _firstExplosiveFrame = false;
+        }
+
         [Button]
         public void SetNewForce()
         {
-            // if (windType == WindType.Glide)
-            // {
-            //     return;
-            // }
+            if (IsExplodingType)
+            {
+                if (NotExplodingCondition || _firstExplosiveFrame)
+                {
+                    EndExplosion();
+                }
+            }
 
             if (!_hasKnob)
             {
@@ -134,7 +203,7 @@ namespace Mechanics.New_Wind
             MyForceField.directionX = force.x / particleForceFactor;
             MyForceField.directionY = force.y / particleForceFactor;
 
-            if (NotGlidingCondition)
+            if (IsGlidingType && NotGlidingCondition)
             {
                 force = Vector2.zero;
             }
@@ -150,6 +219,8 @@ namespace Mechanics.New_Wind
             // }
         }
 
+
+        #endregion
 
 #if UNITY_EDITOR
         public void OnDrawGizmos()

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1142788403923164722}
   - component: {fileID: 6288711501106238515}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Wind Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   - {fileID: 336156327975876706}
   - {fileID: 8954430983689920626}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6288711501106238515
 MonoBehaviour:
@@ -50,6 +50,8 @@ MonoBehaviour:
   useKnobForMagnitude: 0
   magnitude: 200
   wantedDrag: 50
+  explosiveTime:
+    duration: 2
   particleForceFactor: 150
   windEffectorController: {fileID: 1510235350894021610}
 --- !u!1 &467286100121838158
@@ -64,7 +66,7 @@ GameObject:
   - component: {fileID: 3368667043852732146}
   - component: {fileID: 5801249501006059608}
   - component: {fileID: 6218006855676251982}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Wind Partical Loop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5022,6 +5024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeAtExit: 0.15
+  behaviourOnPause: 1
 --- !u!1 &1056747810991743420
 GameObject:
   m_ObjectHideFlags: 0
@@ -5080,7 +5083,7 @@ ParticleSystemForceField:
     m_DirectionCurveX:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.006733891
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5133,7 +5136,7 @@ ParticleSystemForceField:
     m_DirectionCurveY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.3333163
+      scalar: 1.3333334
       minScalar: 2
       maxCurve:
         serializedVersion: 2
@@ -5616,7 +5619,7 @@ AreaEffector2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_UseGlobalAngle: 1
-  m_ForceAngle: 89.71063
+  m_ForceAngle: 90
   m_ForceMagnitude: 200
   m_ForceVariation: 2
   m_ForceTarget: 0
@@ -5651,7 +5654,7 @@ GameObject:
   - component: {fileID: 6982400568756630788}
   - component: {fileID: 8638329089676582436}
   - component: {fileID: 2261096956140237513}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Wind Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10838,6 +10841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeAtExit: 0.15
+  behaviourOnPause: 1
 --- !u!23 &8638329089676582436
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10900,7 +10904,7 @@ GameObject:
   - component: {fileID: 9030578893295297790}
   - component: {fileID: 2183192247642693819}
   - component: {fileID: 2484812891968572166}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Wind Partical Loop (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15858,6 +15862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeAtExit: 0.15
+  behaviourOnPause: 1
 --- !u!1 &5033086864568913384
 GameObject:
   m_ObjectHideFlags: 0
@@ -15868,7 +15873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 336156327975876706}
   - component: {fileID: 4437916223975092761}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Knob
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -15883,7 +15888,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5033086864568913384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.002, y: 0.396, z: 0}
+  m_LocalPosition: {x: 0, y: 0.396, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15915,7 +15920,7 @@ GameObject:
   - component: {fileID: 1436146788343665289}
   - component: {fileID: 5286866521112881813}
   - component: {fileID: 910209146146711602}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Wind Partical Loop (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20873,6 +20878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeAtExit: 0.15
+  behaviourOnPause: 1
 --- !u!1 &8599833288196777885
 GameObject:
   m_ObjectHideFlags: 0
@@ -20885,7 +20891,7 @@ GameObject:
   - component: {fileID: 904433092900884517}
   - component: {fileID: 9223313102323046770}
   - component: {fileID: 3161693548004916253}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Wind Partical Loop (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25843,3 +25849,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeAtExit: 0.15
+  behaviourOnPause: 1
