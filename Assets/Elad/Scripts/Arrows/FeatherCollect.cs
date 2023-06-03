@@ -13,7 +13,6 @@ namespace Elad.Scripts
             PlayerController pC = other.GetComponent<PlayerController>();
             if (pC)
             {
-                Damageable dam = other.GetComponent<Damageable>();
                 characterEvents.AddFeather.Invoke(myFeatherKind);
                 Destroy(gameObject);
             }

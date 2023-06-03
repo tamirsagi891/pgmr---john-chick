@@ -204,14 +204,14 @@ public class CharacterJump : MonoBehaviour
                 _pressingJump = false;
                 OnGlide();
             }
-            else
-            {
-                if (!_pressingJump)
-                {
-                    _pressingJump = true;    
-                }
-                
-            }
+            // else
+            // {
+            //     if (!_pressingJump)
+            //     {
+            //         _pressingJump = true;    
+            //     }
+            //     
+            // }
         }
     }
 

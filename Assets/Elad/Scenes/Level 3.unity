@@ -2427,10 +2427,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6849811474403503977, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
-      propertyPath: glideHorizontallyMovement
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 1
