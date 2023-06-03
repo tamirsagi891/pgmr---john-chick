@@ -119,6 +119,14 @@ namespace Mechanics.New_Wind
                 // }
             }
         }
+        
+                
+#if UNITY_EDITOR
+        void OnDrawGizmos()
+        {
+            Gizmos.DrawIcon(transform.position, "wind");
+        }
+#endif
 
     }
 
