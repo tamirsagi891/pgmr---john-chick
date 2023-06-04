@@ -2423,10 +2423,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: John Chick
       objectReference: {fileID: 0}
-    - target: {fileID: 5353845689653691137, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 1

@@ -4,5 +4,6 @@ using UnityEngine;
 
 internal static class SceneNamesStrings
 {
-    internal static string menuScene = "Menu";     
+    internal static string menuScene = "MainMenu";   
+    internal static string firstLevel = "Level 3";   
 }

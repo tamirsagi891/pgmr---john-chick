@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Logger = Nemesh.Logger;
 
@@ -17,18 +18,22 @@ public class PauseMenu : MonoBehaviour
         
     }
 
-    public void OnPause()
-    {
-         
-        if (GameIsPaused)
-        {
-            Resume();
-        }
 
-        else
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.started)
         {
-            Pause();
+            if (GameIsPaused)
+            {
+                Resume();
+            }
+
+            else
+            {
+                Pause();
+            }    
         }
+        
     }
 
     public void Resume()
