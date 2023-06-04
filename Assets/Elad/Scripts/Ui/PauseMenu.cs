@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Elad.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,14 +9,18 @@ using Logger = Nemesh.Logger;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    public bool gameIsPaused;
 
     public GameObject pauseMenuUI;
-    
-    // Update is called once per frame
-    void Update()
+
+    public bool GameIsPaused
     {
-        
+        get => gameIsPaused;
+        set
+        {
+            gameIsPaused = value;
+            PlayerStatus.isGamePause = value;
+        }
     }
 
 
@@ -31,9 +36,8 @@ public class PauseMenu : MonoBehaviour
             else
             {
                 Pause();
-            }    
+            }
         }
-        
     }
 
     public void Resume()
@@ -42,7 +46,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
-    
+
     private void Pause()
     {
         pauseMenuUI.SetActive(true);
@@ -54,9 +58,8 @@ public class PauseMenu : MonoBehaviour
     {
         Logger.Log("load menu");
         SceneManager.LoadScene(SceneNamesStrings.menuScene);
-
     }
-    
+
     public void QuitGame()
     {
         Logger.Log("quit game");

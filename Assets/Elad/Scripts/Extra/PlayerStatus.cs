@@ -9,6 +9,8 @@ namespace Elad.Scripts
 {
     public static class PlayerStatus
     {
+        public static bool isGamePause;
+        
         public static GameObject player;
         public static int maxHealth;
         public static int curHealth;

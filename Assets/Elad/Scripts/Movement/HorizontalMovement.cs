@@ -135,6 +135,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext context)
     {
+        if (PlayerStatus.isGamePause) return;
         var direction = Vector2.zero;
         if (context.phase != InputActionPhase.Canceled && _playerController.CanMove)
         {
@@ -169,14 +170,13 @@ public class HorizontalMovement : MonoBehaviour
     {
         PlayerStatus.playerVelocity = _rB.velocity;
         var currentDirX = CanMove ? directionX : 0;
-        
-        
+
+
         _pressingMovementKey = (currentDirX != 0);
-        
+
         //Must be after the line above because of the automate gliding horizontal movement
         currentDirX = PlayerStatus.IsGliding ? (IsFacingRight ? 1 : -1) : currentDirX;
         _desiredVelocity = new Vector2(currentDirX, 0f) * Mathf.Max(CurrentMoveSpeed - friction, 0f);
-        
     }
 
     private float CurrentMoveSpeed
@@ -190,17 +190,15 @@ public class HorizontalMovement : MonoBehaviour
 
             if (PlayerStatus.IsGliding && !_pressingMovementKey)
             {
-                
                 return _playerJump.GlideHorizontallyMovement;
             }
-            
+
             if (IsCrouching)
                 return maxSpeedCrouching;
 
             if (IsRunning)
                 return maxSpeedRunning;
-            
-            
+
 
             return maxSpeed;
         }
@@ -253,7 +251,7 @@ public class HorizontalMovement : MonoBehaviour
         else
         {
             //And if we're not pressing a direction at all, use the _deceleration stat
-            
+
             _maxSpeedChange = _deceleration * Time.deltaTime;
         }
 
