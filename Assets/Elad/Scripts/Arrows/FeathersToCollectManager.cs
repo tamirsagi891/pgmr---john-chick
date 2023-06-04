@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Elad.Events;
 using Elad.Save_Load_System;
 using UnityEngine;
 using Logger = Nemesh.Logger;
@@ -9,9 +10,22 @@ namespace Elad.Scripts.Arrows
     public class FeathersToCollectManager : MonoBehaviour
     {
         [SerializeField] private GameObject Feather;
-        private FeathersToCollectData _feathersToCollectData = new FeathersToCollectData();
+        private FeatherToCollectLists _featherToCollectLists = new FeatherToCollectLists();
 
         [SerializeField] private bool initializeFromJason;
+
+
+        private void OnEnable()
+        {
+            characterEvents.FunctionsSave.AddListener(SaveFeathersStatus);
+            characterEvents.FunctionsLoad.AddListener(LoadFeathersStatus);
+        }
+
+        private void OnDisable()
+        {
+            characterEvents.FunctionsSave.RemoveListener(SaveFeathersStatus);
+            characterEvents.FunctionsLoad.RemoveListener(LoadFeathersStatus);
+        }
 
         private void Awake()
         {
@@ -24,41 +38,39 @@ namespace Elad.Scripts.Arrows
             if (initializeFromJason)
             {
                 LoadFeathersStatus();
+                initializeFromJason = false;
             }
         }
 
-        public void Add(Feather feather)
+        public void AddFeather(FeatherToCollect featherToCollect)
         {
-            _feathersToCollectData.FeatherList.Add(feather);
+            _featherToCollectLists.featherList.Add(featherToCollect);
         }
 
-        public void Remove(Feather feather)
+        public void RemoveFeather(FeatherToCollect featherToCollect)
         {
-            _feathersToCollectData.FeatherList.Remove(feather);
+            _featherToCollectLists.featherList.Remove(featherToCollect);
         }
 
         public void SaveFeathersStatus()
         {
-            SaveGameManager.CurrentSaveData.feathersToCollectData = _feathersToCollectData;
+            SaveGameOnJson.CurrentSaveData.featherToCollectLists = _featherToCollectLists;
         }
 
         public void LoadFeathersStatus()
         {
-            var temp = SaveGameManager.CurrentSaveData.feathersToCollectData;
-            foreach (var featherData in temp.FeatherList)
+            _featherToCollectLists = SaveGameOnJson.CurrentSaveData.featherToCollectLists;
+
+            foreach (var featherData in _featherToCollectLists.featherList)
             {
-                
-                    Instantiate(Feather, featherData.Position, Quaternion.identity);
+                featherData.gameObject.SetActive(true);
             }
-
-            _feathersToCollectData = temp;
-
         }
     }
 
     [System.Serializable]
-    public class FeathersToCollectData
+    public class FeatherToCollectLists
     {
-        public List<Feather> FeatherList = new List<Feather>();
+        public List<FeatherToCollect> featherList = new List<FeatherToCollect>();
     }
 }

@@ -19,5 +19,13 @@ namespace Elad.Events
         
         public static UnityEvent<bool> playerCrouchAndJumpOnPlatform  = new();
 
+        public static UnityEvent OnJsonLoadStart = new();
+        public static UnityEvent OnJsonLoadFinish = new();
+        
+        public static UnityEvent FunctionsSave  = new();
+        public static UnityEvent FunctionsLoad  = new();
+        
+        
+
     }
 }

@@ -456,18 +456,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SaveItems",
+                    "name": "save",
                     "type": "Button",
-                    "id": "f1bbb13b-22ec-49e3-b4a2-4a34cec74cc8",
+                    "id": "da5dc1fc-2498-4516-9e39-6f8486430106",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LoadItems",
+                    "name": "Load",
                     "type": "Button",
-                    "id": "44d82b02-62c8-4f6a-bb2b-295236f667d9",
+                    "id": "aff864bc-fb92-452d-be8c-f232ba5c0436",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -521,23 +521,23 @@
                 },
                 {
                     "name": "",
-                    "id": "a37c56b8-8598-46fc-b46e-2620d2f38e10",
+                    "id": "6efb18bc-285d-453c-8216-56f0cbc76f22",
                     "path": "<Keyboard>/m",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SaveItems",
+                    "action": "save",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "127024b8-1bd5-41b5-b9b2-9e635bfab45e",
+                    "id": "d4821458-9458-4bcc-8878-7bbd06fd3ee6",
                     "path": "<Keyboard>/n",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LoadItems",
+                    "action": "Load",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

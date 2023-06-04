@@ -1,61 +1,63 @@
-using System.IO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Elad.Events;
+using Elad.Save_Load_System;
+using Elad.Scripts;
+using Elad.Scripts.Save_Load_System;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
 
-namespace Elad.Save_Load_System
+public class SaveGameManager : MonoBehaviour
 {
-    public static class SaveGameManager
+    private CheckPoints _lastCheckPoint;
+    [SerializeField] private bool canSave = true;
+
+    private void OnEnable()
+    {
+        characterEvents.OnJsonLoadFinish.AddListener(OnLoadFinish);
+    
+    }
+    
+    private void OnDisable()
+    {
+        characterEvents.OnJsonLoadFinish.RemoveListener(OnLoadFinish);
+    
+    }
+    
+    private void Awake()
+    {
+        PlayerStatus.SaveGameManager = this;
+    }
+
+    public void SaveGameFromCheckPoint(InputAction.CallbackContext context)
     {
         
-        public const string SaveDirectory = "/SaveData/";
-        public const string FileName = "SaveGame.sav";
-
-        public static UnityAction OnLoadGameStart;
-        public static UnityAction OnLoadGameFinish;
-
-        [Header("Elements we want to save")] public static SaveData CurrentSaveData = new SaveData();
-        
-        public static bool SaveGame(string wantedFileName)
+        if (context.started && PlayerStatus.PlayerInsideCheckPoint)
         {
-            var dir = Application.persistentDataPath + SaveDirectory;
-
-            if (!Directory.Exists(dir))
-            {
-                Directory.CreateDirectory(dir);
-            }
-
-            string json = JsonUtility.ToJson(CurrentSaveData, true);
-            
-            
-            // File.WriteAllText(dir + wantedFileName, json);
-            File.WriteAllText(dir + FileName, json);
-
-            GUIUtility.systemCopyBuffer = dir;
-            return true;
+            characterEvents.FunctionsSave.Invoke();
+            SaveGameOnJson.SaveGame();
         }
+    }
 
-        public static void LoadGame(string wantedFileName)
+    public void LoadGameFromCheckPoint(InputAction.CallbackContext context)
+    {
+        if (context.started)
         {
-            OnLoadGameStart?.Invoke();
-            string fullPath = Application.persistentDataPath + SaveDirectory + FileName;
-
-            SaveData tempSaveData = new SaveData();
-
-            if (File.Exists(fullPath))
-            {
-                string json = File.ReadAllText(fullPath);
-                tempSaveData = JsonUtility.FromJson<SaveData>(json);
-            }
-            else
-            {
-                Logger.Log("Save file is not exist");
-            }
-
-            CurrentSaveData = tempSaveData;
-            
-            OnLoadGameFinish?.Invoke();
+            SaveGameOnJson.LoadGame();
         }
-        
+    }
+
+    public void LoadGameFromCheckPoint()
+    {
+        SaveGameOnJson.LoadGame();
+    }
+    
+
+    private void OnLoadFinish()
+    {
+        characterEvents.FunctionsLoad.Invoke();
+        PlayerStatus.player.transform.position = PlayerStatus.LastCheckPoint.Position;
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using Elad.Scripts;
 using Elad.Scripts.Arrows;
+using Elad.Scripts.Save_Load_System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,5 +28,10 @@ namespace Elad.Scripts
 
         public static FeathersToCollectManager FeathersToCollectManager;
         public static bool InitializeFromJason;
+        
+        public static bool PlayerInsideCheckPoint;
+        public static SaveGameManager SaveGameManager;
+        public static CheckPoints LastCheckPoint;
+        public static bool canSave = true;
     }
 }

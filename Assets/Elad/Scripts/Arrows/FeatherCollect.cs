@@ -1,14 +1,10 @@
-using System;
 using Elad.Events;
-using Elad.Save_Load_System;
-using Elad.Scripts.Arrows;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Elad.Scripts
+namespace Elad.Scripts.Arrows
 {
     [RequireComponent(typeof(Collectable))]
-    public class Feather : MonoBehaviour
+    public class FeatherToCollect : MonoBehaviour
     {
         [SerializeField] private FeathersManager.FeatherKind myFeatherKind;
         private Vector3 _position;
@@ -25,20 +21,21 @@ namespace Elad.Scripts
             set => myFeatherKind = value;
         }
 
-        
+
+     
 
         private void Start()
         {
             if (PlayerStatus.InitializeFromJason)
             {
-                Destroy(gameObject); 
+                Destroy(gameObject);
             }
-            
+
             if (PlayerStatus.FeathersToCollectManager)
             {
-                PlayerStatus.FeathersToCollectManager.Add(this);    
+                PlayerStatus.FeathersToCollectManager.AddFeather(this);
             }
-            
+
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -46,9 +43,10 @@ namespace Elad.Scripts
             if (other.CompareTag(TagStrings.playerTag))
             {
                 characterEvents.AddFeather.Invoke(MyFeatherKind);
-                PlayerStatus.FeathersToCollectManager.Remove(this);
-                
+                PlayerStatus.FeathersToCollectManager.RemoveFeather(this);
             }
         }
+
+
     }
 }

@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        PlayerStatus.player = gameObject;
+        PlayerStatus.player = this.gameObject;
         _rB = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _touchingDirection = GetComponent<TouchingDirection>();

@@ -25,7 +25,7 @@ public class Collectable : MonoBehaviour
         if (collision.CompareTag(playerTag))
         {
             Debug.Log("Collectable collected!");
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
