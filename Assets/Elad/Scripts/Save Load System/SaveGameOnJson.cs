@@ -19,7 +19,6 @@ namespace Elad.Save_Load_System
         public static bool SaveGame()
         {
             var dir = Application.persistentDataPath + SaveDirectory;
-
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
@@ -30,6 +29,8 @@ namespace Elad.Save_Load_System
             
             // File.WriteAllText(dir + wantedFileName, json);
             File.WriteAllText(dir + FileName, json);
+            
+            Logger.Log($"Saved file: {dir + FileName}", Color.green);
 
             GUIUtility.systemCopyBuffer = dir;
             return true;
@@ -39,6 +40,7 @@ namespace Elad.Save_Load_System
         {
             characterEvents.OnJsonLoadStart.Invoke();
             string fullPath = Application.persistentDataPath + SaveDirectory + FileName;
+            Logger.Log($"Load file: {fullPath}", Color.green);
 
             SaveData tempSaveData = new SaveData();
 
