@@ -906,9 +906,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8684596560658534600}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: Play
+      - m_Target: {fileID: 8684596560658534601}
+        m_TargetAssemblyTypeName: Managers.LoadSceneManager, Nemesh
+        m_MethodName: GoToNext
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1424,6 +1424,7 @@ GameObject:
   - component: {fileID: 8684596560658534599}
   - component: {fileID: 808649788590595271}
   - component: {fileID: 8684596560658534600}
+  - component: {fileID: 8684596560658534601}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1459,6 +1460,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa8d13fa6647284eba57b52d02f59ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8684596560658534601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8218190747240272114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6361d660d66d61645a5e3bc8d3f99aa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad:
+    asset: {fileID: 102900000, guid: e0c24c80ec8cce24d9387d63ae7090c0, type: 3}
+    guid: e0c24c80ec8cce24d9387d63ae7090c0
+  loadMode: 0
+  setAsActiveAfterLoad: 1
+  unloadIfAdditive: 1
+  loadOnStart: 1
+  loadNext: 0
+  currentLoadingProgress: 0
+  sentReadyMassage: 0
+  onProgressBarUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onProgressBarUpdateNormalized:
+    m_PersistentCalls:
+      m_Calls: []
+  onReadyState:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartSwitch:
+    m_PersistentCalls:
+      m_Calls: []
+  onLoadComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  loadStarted: 0
 --- !u!114 &8685991303314273969
 MonoBehaviour:
   m_ObjectHideFlags: 0
