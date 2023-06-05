@@ -106,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4867889372719428831, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: explosiveTime.duration
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8371543063079130600, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: lifeAtExit
@@ -144,11 +144,35 @@ MonoBehaviour:
   timeForAlert:
     duration: 0.5
   timeBetweenBursts:
-    duration: 5
+    duration: 6
   explodeOnFirstFrame: 1
   onAlertStart:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onExplodeStart:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
