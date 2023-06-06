@@ -12,11 +12,13 @@ using Logger = Nemesh.Logger;
 
 public class Damageable : MonoBehaviour, ICanBeAttacked
 {
+    [Header("Times")] private float timeToOpenGameOverMenu = 2f;
     [Header("Components")] private Animator _animator;
     private SpriteRenderer _spriteRenderer;
 
     [Header("Amounts")] [SerializeField] private int initialHealth = 100;
     [SerializeField] private int maxHealth = 100;
+
 
     public UnityEvent<int, Vector2> damageableHit;
 
@@ -36,6 +38,7 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
             _curHealth = value;
             if (_curHealth <= 0)
             {
+                _curHealth = 0;
                 IsAlive = false;
             }
         }
@@ -48,11 +51,13 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
         get => isInvincible;
         set
         {
+            Logger.Log("player Died -1");
             PlayerStatus.PlayerIsInvincible = value;
             isInvincible = value;
             _blinkTimer = blinkTime;
             if (!value)
             {
+                Logger.Log("player Died 0");
                 // Logger.Log("stop being IsInvincible");
                 _spriteRenderer.color = _originalColor;
             }
@@ -67,8 +72,17 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
         get => isAlive;
         set
         {
-            isAlive = value;
-            _animator.SetBool(AnimationStrings.isAlive, value);
+            if (isAlive)
+            {
+                Logger.Log("player Died 1");
+                isAlive = value;
+                _animator.SetBool(AnimationStrings.isAlive, value);
+                if (!value)
+                {
+                    Logger.Log("player Died 2");
+                    characterEvents.PlayerDied.Invoke();
+                }
+            }
         }
     }
 
@@ -91,6 +105,9 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
     [SerializeField] private float blinkTime = 0.01f;
     private float _blinkTimer;
     private bool _inOriginalColor = true;
+
+    [Space(3)] [Header("Tests")] [SerializeField] [Range(0, 100)]
+    private int testLife = 100;
 
     private void Awake()
     {
@@ -121,6 +138,8 @@ public class Damageable : MonoBehaviour, ICanBeAttacked
             isInvincibleTest = false;
             IsInvincible = true;
         }
+
+        Health = testLife;
     }
 
     private void Blink()

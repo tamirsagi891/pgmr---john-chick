@@ -7,7 +7,7 @@ namespace Elad.Events
 {
     public static class characterEvents
     {
-        
+        public static UnityEvent PlayerDied = new();
         public static UnityEvent<GameObject, int> CharacterDamaged = new();
         public static UnityEvent<GameObject, int> CharacterHealed = new();
     
