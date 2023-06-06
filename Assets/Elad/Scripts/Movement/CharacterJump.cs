@@ -65,7 +65,8 @@ public class CharacterJump : MonoBehaviour
     private bool onGround;
     private bool _currentlyJumping;
 
-    [Header("Gliding")] [SerializeField] private float glideHorizontallyMovement = 5f; 
+    [Header("Gliding")] [SerializeField][Tooltip("Horizontal speed without holding the key")] private float glideHorizontallyMovementStaticStatic = 5f;
+    [SerializeField][Tooltip("Horizontal speed with holding the key")] private float glideHorizontallyMovement = 5f;
     [SerializeField] private bool regularGlide = true;
     [SerializeField] private Vector2 glideJump = Vector2.zero;
 
@@ -91,6 +92,8 @@ public class CharacterJump : MonoBehaviour
         get
         {
             var returnValue = (!(_touchingDirection.IsGrounded) && (!PlayerStatus.IsMovingThrowPlatform));
+            returnValue = returnValue && !((_wallMovement.IsWallSliding || _inHit));
+            
             return returnValue;
         }
     }
@@ -123,6 +126,12 @@ public class CharacterJump : MonoBehaviour
         }
     }
 
+    public float GlideHorizontallyMovementStatic
+    {
+        get => glideHorizontallyMovementStaticStatic;
+        set => glideHorizontallyMovementStaticStatic = value;
+    }
+
     public float GlideHorizontallyMovement
     {
         get => glideHorizontallyMovement;
@@ -143,7 +152,6 @@ public class CharacterJump : MonoBehaviour
     private void OnDisable()
     {
         characterEvents.CharacterDamaged.RemoveListener(StopGlideFromHit);
-        
     }
 
     void Awake()
@@ -177,6 +185,7 @@ public class CharacterJump : MonoBehaviour
             //Also, use the started and canceled contexts to know if we're currently holding the button
             if (context.started)
             {
+                _pressingJump = true;
                 if (_horizontalMovement.IsCrouching)
                 {
                     if (_touchingDirection.IsOnPlatform)
@@ -186,21 +195,20 @@ public class CharacterJump : MonoBehaviour
                         return;
                     }
                 }
-                
+
                 if (_touchingDirection.IsGrounded || _wallMovement.IsWallSliding)
                 {
                     _desiredJump = true;
                 }
-
-                _pressingJump = true;
-                OnGlide();
+                
             }
-            
-            if (context.canceled)
+
+            else if (context.canceled)
             {
                 _pressingJump = false;
-                OnGlide();
             }
+
+           
         }
     }
 
@@ -208,7 +216,7 @@ public class CharacterJump : MonoBehaviour
     void Update()
     {
         setPhysics();
-
+        OnGlide();
         IsGliding = !_touchingDirection.IsGrounded && IsGliding;
         if (_inHit)
         {
@@ -283,82 +291,21 @@ public class CharacterJump : MonoBehaviour
     {
         //We change the character's gravity based on her Y direction
 
+        if (IsGliding) _gravMultiplier = gravityMultiplierGliding;
 
+        else if (_wallMovement.IsWallSliding)
+            _gravMultiplier = _wallMovement.GravityMultiplierWallSliding;
         //If Kit is going up...
-        if (_rB.velocity.y > 0.01f)
-        {
-            if (onGround)
-            {
-                //Don't change it if Kit is stood on something (such as a moving platform)
-                _gravMultiplier = _defaultGravityScale;
-            }
-            else
-            {
-                //If we're using variable jump height...)
-                if (dropWhenStopPushingJump)
-                {
-                    //Apply upward multiplier if player is rising and holding jump
-                    if (_pressingJump && _currentlyJumping)
-                    {
-                        _gravMultiplier = gravityMultiplierAscending;
-                    }
-                    //But apply a special downward multiplier if the player lets go of jump
-                    else
-                    {
-                        _gravMultiplier = gravityPercentLetGoJump;
-                    }
-                }
-                else
-                {
-                    _gravMultiplier = gravityMultiplierAscending;
-                }
-
-                if (_wallMovement.IsWallSliding)
-                {
-                    _gravMultiplier = _wallMovement.GravityMultiplierWallSliding;
-                }
-            }
-        }
+        else if (_rB.velocity.y > 0.01f) calculateGravityUp();
 
         //Else if going down...
-        else if (_rB.velocity.y < -0.01f)
-        {
-            OnGlide();
-            if (onGround)
-                //Don't change it if Kit is stood on something (such as a moving platform)
-            {
-                _gravMultiplier = _defaultGravityScale;
-            }
-            else if (_wallMovement.IsWallSliding)
-            {
-                _gravMultiplier = _wallMovement.GravityMultiplierWallSliding;
-            }
+        else if (_rB.velocity.y < -0.01f) calculateGravityDown();
 
-            else if (IsGliding)
-            {
-                _gravMultiplier = gravityMultiplierGliding;
-            }
-
-            else
-            {
-                //Otherwise, apply the downward gravity multiplier as Kit comes back to Earth
-                _gravMultiplier = gravityMultiplierDescending;
-            }
-        }
         //Else not moving vertically at all
         else
         {
-            if (onGround)
-            {
-                _currentlyJumping = false;
-            }
-
+            _currentlyJumping = false;
             _gravMultiplier = _defaultGravityScale;
-        }
-
-        if (_wallMovement.IsWallSliding)
-        {
-            _gravMultiplier = _wallMovement.GravityMultiplierWallSliding;
         }
 
         //Set the character's Rigidbody's _velocity
@@ -366,6 +313,34 @@ public class CharacterJump : MonoBehaviour
 
         _rB.velocity = new Vector3(_velocity.x, Mathf.Clamp(_velocity.y, -maxFallSpeed, 100));
     }
+
+    private void calculateGravityUp()
+    {
+        //If we're using variable jump height...)
+        if (dropWhenStopPushingJump)
+        {
+            //Apply upward multiplier if player is rising and holding jump
+            if (_pressingJump && _currentlyJumping)
+            {
+                _gravMultiplier = gravityMultiplierAscending;
+            }
+            //But apply a special downward multiplier if the player lets go of jump
+            else
+            {
+                _gravMultiplier = gravityPercentLetGoJump;
+            }
+        }
+        else
+        {
+            _gravMultiplier = gravityMultiplierAscending;
+        }
+    }
+
+    private void calculateGravityDown()
+    {
+        _gravMultiplier = gravityMultiplierDescending;
+    }
+
 
     private void DoAJump()
     {
@@ -379,7 +354,6 @@ public class CharacterJump : MonoBehaviour
 
             // Determine the power of the jump, based on our gravity and stats
             _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * _rB.gravityScale * maxJumpHeight);
-
 
             // If we have double jump on, allow us to jump again (but only once)
             if (canDoubleJump)
@@ -443,16 +417,39 @@ public class CharacterJump : MonoBehaviour
         _rB.AddForce(Vector2.up * bounceAmount, ForceMode2D.Impulse);
     }
 
-    public void OnGlide(InputAction.CallbackContext context)
+
+    private void OnGlide()
     {
-        if (context.started && CanGlide && !IsGliding)
+        if (!CanGlide)
         {
-            _rB.drag = linearDragGliding;
-            _animator.SetBool(AnimationStrings.isGliding, true);
-            IsGliding = true;
+            CancelGlide();
+            return;
         }
 
-        if (context.canceled && IsGliding)
+        if (regularGlide)
+        {
+            if (_rB.velocity.y < minVelocityToGlide)
+            {
+                if (!IsGliding && _pressingJump)
+                {
+                    _rB.drag = linearDragGliding;
+                    _animator.SetBool(AnimationStrings.isGliding, true);
+                    IsGliding = true;
+                }
+            }
+
+            CancelGlide();
+        }
+
+        else
+        {
+            SpecialGlide(); 
+        }
+    }
+
+    private void CancelGlide()
+    {
+        if (IsGliding && (!_pressingJump || !CanGlide))
         {
             _rB.drag = linearDragRegular;
             _animator.SetBool(AnimationStrings.isGliding, false);
@@ -460,50 +457,29 @@ public class CharacterJump : MonoBehaviour
         }
     }
 
-    private void OnGlide()
+    private void SpecialGlide()
     {
-        if (_wallMovement.IsWallSliding || _inHit) return;
-
-        if (regularGlide)
+        if (_rB.velocity.y < 0f)
         {
-            if (_rB.velocity.y < minVelocityToGlide)
+            if (CanGlide && !IsGliding && _pressingJump)
             {
-                if (CanGlide && !IsGliding && _pressingJump)
-                {
-                    _rB.drag = linearDragGliding;
-                    _animator.SetBool(AnimationStrings.isGliding, true);
-                    IsGliding = true;
-                }
+                _horizontalMovement.OnHit(0, glideJump);
+                _rB.drag = linearDragGliding;
+                Logger.Log("kakakakak");
+                // _animator.SetBool(AnimationStrings.isGliding, true);
+                IsGliding = true;
+                Logger.Log("CCCC");
             }
-            if (IsGliding && !_pressingJump)
-            {
-                _rB.drag = linearDragRegular;
-                _animator.SetBool(AnimationStrings.isGliding, false);
-                IsGliding = false;
-            }
+
+            Logger.Log("BBBB");
         }
 
-        else
+        if (IsGliding && !_pressingJump)
         {
-            if (_rB.velocity.y < 0f)
-            {
-                if (CanGlide && !IsGliding && _pressingJump)
-                {
-                    _horizontalMovement.OnHit(0, glideJump);
-                    _rB.drag = linearDragGliding;
-                    // _animator.SetBool(AnimationStrings.isGliding, true);
-                    IsGliding = true;
-                    Logger.Log("CCCC");
-                }
-                Logger.Log("BBBB");
-            }
-            if (IsGliding && !_pressingJump)
-            {
-                _rB.drag = linearDragRegular;
-                // _animator.SetBool(AnimationStrings.isGliding, false);
-                IsGliding = false;
-                Logger.Log("AAAAA");
-            }
+            _rB.drag = linearDragRegular;
+            // _animator.SetBool(AnimationStrings.isGliding, false);
+            IsGliding = false;
+            Logger.Log("AAAAA");
         }
     }
 

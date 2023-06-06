@@ -188,9 +188,17 @@ public class HorizontalMovement : MonoBehaviour
                 return _specialMovements.CurrentSpeed;
             }
 
-            if (PlayerStatus.IsGliding && !_pressingMovementKey)
+            if (PlayerStatus.IsGliding)
             {
-                return _playerJump.GlideHorizontallyMovement;
+                if (_pressingMovementKey)
+                {
+                    return _playerJump.GlideHorizontallyMovement; 
+                }
+                else
+                {
+                    return _playerJump.GlideHorizontallyMovementStatic;    
+                }
+                
             }
 
             if (IsCrouching)

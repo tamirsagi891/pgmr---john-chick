@@ -2937,6 +2937,14 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6849811474403503977, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: glideHorizontallyMovement
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6849811474403503977, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: glideHorizontallyMovementStaticStatic
+      value: 7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 1

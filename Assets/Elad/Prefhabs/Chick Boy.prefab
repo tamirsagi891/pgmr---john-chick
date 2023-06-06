@@ -606,7 +606,8 @@ MonoBehaviour:
   jumpBuffer: 0.1
   doubleJumpMultiplier: 1
   canJumpAgain: 0
-  glideHorizontallyMovement: 7.5
+  glideHorizontallyMovementStaticStatic: 5
+  glideHorizontallyMovement: 10
   regularGlide: 1
   glideJump: {x: 0, y: 21}
   gravityMultiplierGliding: 0.2
