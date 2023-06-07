@@ -15,6 +15,9 @@ namespace Elad.Scripts
         private InputActionAsset uiInputs;
         [SerializeField] private GameObject damageTextPrefab;
         [SerializeField] private GameObject healthTextPrefab;
+
+        [SerializeField]
+        private bool createDamageText;
         
         [SerializeField]
         private Canvas numbersCanvas;
@@ -86,6 +89,10 @@ namespace Elad.Scripts
 
         private void InstantiateText(GameObject character, int amount, bool heal)
         {
+            if (!createDamageText)
+            {
+                return;
+            }
             Vector3 spawnPosition = Camera.main.WorldToScreenPoint(character.transform.position);
             GameObject textPrefab;
             switch (heal)
