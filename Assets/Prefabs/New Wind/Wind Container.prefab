@@ -5091,6 +5091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killImmediate: 0
   lifeAtExit: 0.15
 --- !u!1 &1056747810991743420
 GameObject:
@@ -10916,6 +10917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killImmediate: 0
   lifeAtExit: 0.15
 --- !u!23 &8638329089676582436
 MeshRenderer:
@@ -16003,6 +16005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killImmediate: 0
   lifeAtExit: 0.15
 --- !u!1 &5033086864568913384
 GameObject:
@@ -21085,6 +21088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killImmediate: 0
   lifeAtExit: 0.15
 --- !u!1 &8599833288196777885
 GameObject:
@@ -26122,4 +26126,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killImmediate: 0
   lifeAtExit: 0.15

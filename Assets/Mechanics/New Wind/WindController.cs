@@ -112,6 +112,8 @@ namespace Mechanics.New_Wind
             set => useKnobForMagnitude = value;
         }
 
+        public WindEffectorController EffectorController => windEffectorController;
+
         public bool HasContact => windEffectorController.Contacts.Count > 0;
 
         public AreaEffector2D WindEffector => windEffectorController.WindEffector;
@@ -158,7 +160,7 @@ namespace Mechanics.New_Wind
         private bool IsGlidingType => windType is WindType.Glide or WindType.ExplosiveGlide;
 
         private Vector2 ForwardVector => transform.lossyScale.x < 0 ? Vector2.left : Vector2.right;
-
+        
         private WindKnob _knob;
         private bool _hasKnob;
         private bool _firstExplosiveFrame;

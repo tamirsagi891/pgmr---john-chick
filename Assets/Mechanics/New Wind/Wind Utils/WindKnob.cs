@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Mechanics.New_Wind
 {
-    [AddComponentMenu("Wind/Wind Knob")]
+    [AddComponentMenu("Wind/Utils/Wind Knob")]
     public class WindKnob : OptimizedBehaviour
     {
         [SerializeField]
