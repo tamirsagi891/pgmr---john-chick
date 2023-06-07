@@ -12,17 +12,7 @@ namespace Elad.Scripts.Ui
         private float _openGameOverMenuTimer;
         private bool openMenu; 
         public GameObject gameOverMenuUI;
-        public bool gameIsPaused;
-        public bool GameIsPaused
-        {
-            get => gameIsPaused;
-            set
-            {
-                gameIsPaused = value;
-                PlayerStatus.IsGamePause = value;
-            }
-        }
-        
+
         private void OnEnable()
         {
             characterEvents.PlayerDied.AddListener(PlayerDied);
@@ -51,21 +41,8 @@ namespace Elad.Scripts.Ui
         {
             Logger.Log("in return to last check point function");
             gameOverMenuUI.SetActive(false);
-            Time.timeScale = 1f;
-            GameIsPaused = false;
+            PlayerStatus.IsGamePause = false;
             PlayerStatus.SaveGameManager.LoadGameFromCheckPoint();
-        }
-        
-        public void LoadMenu()
-        {
-            Logger.Log("load menu");
-            SceneManager.LoadScene(SceneNamesStrings.menuScene);
-        }
-
-        public void QuitGame()
-        {
-            Logger.Log("quit game");
-            Application.Quit();
         }
 
         private void PlayerDied()
@@ -78,8 +55,7 @@ namespace Elad.Scripts.Ui
         {
             Logger.Log("in open game over menu");
             gameOverMenuUI.SetActive(true);
-            Time.timeScale = 0f;
-            GameIsPaused = true;
+            PlayerStatus.IsGamePause = true;
         }
     }
 }
