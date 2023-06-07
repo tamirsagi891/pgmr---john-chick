@@ -1,5 +1,6 @@
 using System;
 using Elad.Events;
+using Elad.Scripts.Combat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Logger = Nemesh.Logger;
@@ -54,6 +55,8 @@ namespace Elad.Scripts.Ui
             Time.timeScale = 1f;
             GameIsPaused = false;
             PlayerStatus.SaveGameManager.LoadGameFromCheckPoint();
+            PlayerStatus.player.GetComponent<Damageable>().RevivePlayer();
+            
         }
         
         public void LoadMenu()

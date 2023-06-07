@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using Elad.Scripts;
 using Elad.Scripts.Arrows;
 using Elad.Scripts.Save_Load_System;
@@ -36,6 +37,8 @@ namespace Elad.Scripts
         public static CheckPoints LastCheckPoint;
         public static bool canSave = true;
         public static PlayerSaveData _playerSaveData = new PlayerSaveData();
+
+        public static CinemachineVirtualCamera CurrentVirtualCamara;
     }
     
     [System.Serializable]

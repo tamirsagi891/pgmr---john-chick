@@ -511,7 +511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 15
   maxAcceleration: 52
-  maxDeceleration: 52
+  maxDeceleration: 100
   maxTurnSpeed: 80
   maxAirAcceleration: 100
   maxAirDeceleration: 100
@@ -667,7 +667,7 @@ MonoBehaviour:
   invincibilityTimer: 1
   blinkColor: {r: 0, g: 0, b: 0, a: 0}
   blinkTime: 0.01
-  testLife: 100
+  setLifeValue: 50
 --- !u!114 &1025812936479675675
 MonoBehaviour:
   m_ObjectHideFlags: 0
