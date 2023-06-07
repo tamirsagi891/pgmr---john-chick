@@ -106,6 +106,27 @@ Notice you must enter the scene! Once loading started, changing this value is un
             }
         }
 
+        public void ReloadScene()
+        {
+            var current = SceneManager.GetActiveScene();
+            SceneReference currentScene = SceneReference.FromScenePath(current.path);
+            GoToScene(currentScene);
+        }
+
+        public void GoToScene(SceneReference sceneReference)
+        {
+            if (loadStarted)
+            {
+                Logger.LogWarning("Manager already loading a scene. Should use GoToNext", this);
+            }
+            else
+            {
+                sceneToLoad = sceneReference;
+                StartLoadScene();
+            }
+            loadNext = true;
+        }
+
         
         [Button]
         public void GoToNext()

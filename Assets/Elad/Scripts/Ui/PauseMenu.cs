@@ -28,6 +28,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (context.started)
         {
+            print(context.phase);
             if (GameIsPaused)
             {
                 Resume();
