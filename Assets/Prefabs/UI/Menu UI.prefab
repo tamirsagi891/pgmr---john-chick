@@ -176,6 +176,7 @@ MonoBehaviour:
   uiInputs: {fileID: -944628639613478452, guid: e0aa96020dd5b544e9c5ee4904cc438d, type: 3}
   damageTextPrefab: {fileID: 1466930799609479193, guid: 391fac134de352048a3ced559ab44daf, type: 3}
   healthTextPrefab: {fileID: 1466930799609479193, guid: a2e0cb8cd5eae0a43b05b0a8bc8e8e03, type: 3}
+  createDamageText: 0
   numbersCanvas: {fileID: 0}
   onPauseEvent:
     m_PersistentCalls:
@@ -220,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openGameOverMenuTime: 3
-  gameOverMenuUI: {fileID: 0}
+  gameOverMenuUI: {fileID: 3817327443516167499}
 --- !u!114 &4791929204022327953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872,6 +873,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99db78a7430e4fa41a9c3dc1432d68a2, type: 3}
+--- !u!1 &3817327443516167499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7706754493857845745, guid: 99db78a7430e4fa41a9c3dc1432d68a2, type: 3}
+  m_PrefabInstance: {fileID: 6776293963023991994}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4906159125579426544 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1881403826609106506, guid: 99db78a7430e4fa41a9c3dc1432d68a2, type: 3}
