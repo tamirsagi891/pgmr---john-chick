@@ -11,16 +11,19 @@ namespace Mechanics.New_Wind
     public class WindParticleCallbackHandler : MonoBehaviour
     {
         [SerializeField]
+        private bool killImmediate;
+        
+        [SerializeField]
         private float lifeAtExit = 0.5f;
 
-        // [Space]
-        // [SerializeField]
-        // [HideInInspector]
-        // private ParticleSystemStopBehavior behaviourOnPause = ParticleSystemStopBehavior.StopEmitting; 
+        public bool KillImmediate
+        {
+            get => killImmediate;
+            set => killImmediate = value;
+        }
 
         private ParticleSystem _myParticleSystem;
         private readonly List<ParticleSystem.Particle> _exit = new();
-        // private ParticleSystem.Particle[] _pauseParticles;
         private bool _hasSystem;
 
         #region MonoBehaviour
@@ -114,7 +117,7 @@ namespace Mechanics.New_Wind
             for (var i = 0; i < numExit; i++)
             {
                 var p = _exit[i];
-                p.remainingLifetime = lifeAtExit;
+                p.remainingLifetime = KillImmediate ? Time.fixedDeltaTime : lifeAtExit;
                 _exit[i] = p;
             }
             
