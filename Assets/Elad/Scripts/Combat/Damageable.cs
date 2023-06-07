@@ -268,6 +268,4 @@ namespace Elad.Scripts.Combat
             Health = setLifeValue;
         }
     }
-    
-    
 }
