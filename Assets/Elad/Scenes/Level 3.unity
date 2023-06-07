@@ -90760,6 +90760,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 5654597020295020589, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7466703351909341142, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: m_RootOrder
       value: 10

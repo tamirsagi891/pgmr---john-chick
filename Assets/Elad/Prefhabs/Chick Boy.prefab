@@ -195,7 +195,7 @@ Transform:
   - {fileID: 477490774842866114}
   - {fileID: 6269055292998302254}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8728776469950805241
 Rigidbody2D:
@@ -607,7 +607,7 @@ MonoBehaviour:
   doubleJumpMultiplier: 1
   canJumpAgain: 0
   glideHorizontallyMovementStaticStatic: 5
-  glideHorizontallyMovement: 10
+  glideHorizontallyMovement: 15
   regularGlide: 1
   glideJump: {x: 0, y: 21}
   gravityMultiplierGliding: 0.2
@@ -667,6 +667,7 @@ MonoBehaviour:
   invincibilityTimer: 1
   blinkColor: {r: 0, g: 0, b: 0, a: 0}
   blinkTime: 0.01
+  testLife: 100
 --- !u!114 &1025812936479675675
 MonoBehaviour:
   m_ObjectHideFlags: 0
