@@ -4,6 +4,7 @@ using Nemesh.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Logger = Nemesh.Logger;
 
 public class PauseMenu : MonoBehaviour
@@ -20,7 +21,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        _firstSelected = pauseMenuUI.transform.GetChild(0).gameObject;
+        _firstSelected = pauseMenuUI.GetComponentInChildren<Button>().gameObject;
         EventSystem.current.SetSelectedGameObject(_firstSelected);
     }
 
