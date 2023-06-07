@@ -9,7 +9,18 @@ namespace Nemesh.ScriptableObjects
     [CreateAssetMenu(fileName = "SceneManager", menuName = "Scenes/Manager", order = 0)]
     public class ScenesHolder : ScriptableObject
     {
-        public static ScenesHolder Instance = null;
+        public static ScenesHolder Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = Resources.Load<ScenesHolder>("Settings/SceneManager");
+                }
+                return instance;
+            }
+            private set => instance = value;
+        }
 
         public static SceneReference MainMenu => Instance.mainMenu;
         public static List<SceneReference> Levels => Instance.levels;
@@ -19,6 +30,8 @@ namespace Nemesh.ScriptableObjects
 
         [SerializeField]
         public List<SceneReference> levels = new();
+
+        private static ScenesHolder instance = null;
 
         private void Awake()
         {
