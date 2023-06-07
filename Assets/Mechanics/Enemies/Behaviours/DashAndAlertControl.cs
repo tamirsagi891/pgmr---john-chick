@@ -31,6 +31,8 @@ namespace Mechanics.Enemies
         #endregion
 
         #region Public Properties
+        
+        public bool WaitingForDash => waitForDashTimer.IsSet && waitForDashTimer.IsActive;
 
         public float Radius
         {
@@ -98,7 +100,7 @@ namespace Mechanics.Enemies
             }
         }
 
-        private void OnTriggerStay2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (!useTrigger)
             {

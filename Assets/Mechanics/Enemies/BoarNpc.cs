@@ -9,22 +9,19 @@ namespace Mechanics.Enemies
         [Header("Boar")]
         [SerializeField]
         private bool resetCooldownOnDashEnd = true;
-        
-        public override ICanBeAttacked PlayerContact
-        {
-            get => base.PlayerContact;
-            set
-            {
-                base.PlayerContact = value;
-                if (CanDashAttack)
-                {
-                    DashAlertControl.StartDashAlertSequence();
-                }
-            }
-        }
 
         private bool CanDashAttack => HasPlayerContact && HasDashControl && !IsDashing && IsGrounded && CanAttack &&
                                       !(AttackCdTimer.IsSet && AttackCdTimer.IsActive);
+
+        protected override void Update()
+        {
+            if (CanDashAttack && !DashAlertControl.WaitingForDash)
+            {
+                DashAlertControl.StartDashAlertSequence();
+            }
+
+            base.Update();
+        }
 
         public override void StopDash()
         {

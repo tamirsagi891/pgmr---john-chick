@@ -19,7 +19,7 @@ MonoBehaviour:
     detectionRadius: 15
     damage: 25
     knockBack: {x: 30, y: 25}
-    cooldown: 1
+    cooldown: 1.5
     movementSpeed: 3
     jumpForce: 12
     extraDashSpeed: 10
