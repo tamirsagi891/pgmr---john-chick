@@ -243,7 +243,8 @@ namespace Elad.Scripts.Combat
                 case AttackType.Shot:
                 case AttackType.Regular:
                 default:
-                    return GotHit((int) attackParameters.Damage, attackParameters.KnockBack);
+                    return GotHit((int) 1, attackParameters.KnockBack);
+                    // return GotHit((int) attackParameters.Damage, attackParameters.KnockBack);
             }
         }
         
