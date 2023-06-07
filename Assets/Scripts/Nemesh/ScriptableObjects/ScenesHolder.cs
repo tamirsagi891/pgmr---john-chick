@@ -31,17 +31,19 @@ namespace Nemesh.ScriptableObjects
 
         private static ScenesHolder instance = null;
 
-        private void Awake()
-        {
-            Logger.Log("Here");
-            if (Instance != null)
-            {
-                Logger.LogException("Error! Only a single ScenesHolder can exist at runtime.");
-                Destroy(this);
-                return;
-            }
-
-            Instance = this;
-        }
+//         private void Awake()
+//         {
+//             if (Instance != null)
+//             {
+// #if UNITY_EDITOR
+//                 DestroyImmediate(this);
+//                 return;
+// #endif
+//                 Destroy(this);
+//                 return;
+//             }
+//
+//             Instance = this;
+//         }
     }
 }

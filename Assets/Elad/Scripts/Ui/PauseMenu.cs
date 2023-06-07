@@ -1,14 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Elad.Scripts;
 using Managers;
 using Nemesh.ScriptableObjects;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using Logger = Nemesh.Logger;
 
 public class PauseMenu : MonoBehaviour
@@ -26,6 +21,7 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         _firstSelected = pauseMenuUI.transform.GetChild(0).gameObject;
+        EventSystem.current.SetSelectedGameObject(_firstSelected);
     }
 
 
