@@ -2,6 +2,7 @@ using System;
 using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
+using Mechanics.Enemies;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -298,11 +299,20 @@ public class HorizontalMovement : MonoBehaviour
     }
 
 
-    public void OnHit(int damage, Vector2 knockBack)
+    public void OnHit(int damage, Vector2 knockBack, float delay = 0f)
     {
-        float xKnockBack = _isFacingRight ? -knockBack.x : knockBack.x;
-        xKnockBack = MathF.Abs(_rB.velocity.x) > 0.1 ? _rB.velocity.x + xKnockBack : 0;
-        float yKnockBack = _rB.velocity.y + knockBack.y;
-        _rB.velocity = new Vector2(xKnockBack, yKnockBack);
+        if (delay > 0)
+        {
+            StartCoroutine(CorotuineUtils.DelayExecution(delay, 
+                () => {
+                    _rB.AddForce(knockBack, ForceMode2D.Impulse);
+                }
+                )
+            );
+            return;
+        }
+
+        _rB.AddForce(knockBack, ForceMode2D.Impulse);
+
     }
 }

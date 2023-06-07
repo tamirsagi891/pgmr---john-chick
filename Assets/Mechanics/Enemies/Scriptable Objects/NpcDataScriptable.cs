@@ -75,6 +75,9 @@ namespace Mechanics.Enemies
         [SerializeField]
         public float shotSpeed = 0f;
 
+        [SerializeField]
+        public float knockBackDelay;
+
         public override string ToString()
         {
             return $@"Stats:

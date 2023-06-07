@@ -999,6 +999,7 @@ MonoBehaviour:
     deBuff: 0
     type: 0
     shotSpeed: 0
+    knockBackDelay: 0
 --- !u!50 &1125365599050158354
 Rigidbody2D:
   serializedVersion: 4

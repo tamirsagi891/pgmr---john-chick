@@ -35,11 +35,13 @@ namespace Mechanics.Enemies
             AttackType type = AttackType.Regular, 
             Vector2 knockBack = new (),
             float shotSpeed = 0f,
-            Direction direction = Direction.Right
+            Direction direction = Direction.Right,
+            float knockBackDelay = 0f
         )
         {
             Attacker = attacker;
             Direction = direction;
+            KnockBackDelay = knockBackDelay;
             FollowTransform = followTransform;
             Type = type;
             KnockBack = knockBack;
@@ -56,6 +58,8 @@ namespace Mechanics.Enemies
         public float ShotSpeed { get; set; }
 
         public Direction Direction { get; set; }
+        
+        public float KnockBackDelay { get; set; }
 
         public override string ToString()
         {

@@ -18,7 +18,7 @@ namespace Elad.Scripts.Combat
         [SerializeField] private int maxHealth = 100;
 
 
-        public UnityEvent<int, Vector2> damageableHit;
+        public UnityEvent<int, Vector2, float> damageableHit;
 
         public int MaxHealth
         {
@@ -199,7 +199,7 @@ namespace Elad.Scripts.Combat
         }
 
 
-        public bool GotHit(int damage, Vector2 knockBack)
+        public bool GotHit(int damage, Vector2 knockBack, float knockBackDelay=0f)
         {
             if (IsAlive && !IsInvincible)
             {
@@ -207,7 +207,7 @@ namespace Elad.Scripts.Combat
                 IsInvincible = true;
                 LockVelocity = true;
                 _animator.SetTrigger(AnimationStrings.hitTrigger);
-                damageableHit?.Invoke(damage, knockBack);
+                damageableHit?.Invoke(damage, knockBack, knockBackDelay);
                 PlayerStatusSetVariables();
                 characterEvents.CharacterDamaged.Invoke(gameObject, damage);
                 return true;
@@ -252,7 +252,7 @@ namespace Elad.Scripts.Combat
                 case AttackType.Shot:
                 case AttackType.Regular:
                 default:
-                    return GotHit((int) 1, attackParameters.KnockBack);
+                    return GotHit(1, attackParameters.KnockBack, attackParameters.KnockBackDelay);
                     // return GotHit((int) attackParameters.Damage, attackParameters.KnockBack);
             }
         }

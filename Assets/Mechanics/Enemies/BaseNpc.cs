@@ -519,14 +519,21 @@ namespace Mechanics.Enemies
 
         public virtual AttackParameters GetAttackParameters()
         {
+            var knockBack = MyStatsHandler.CurrentStats.knockBack;
+            if (CurrentDirection != Direction.Right)
+            {
+                knockBack = new Vector2(-knockBack.x, knockBack.y);
+            }
+
             return new AttackParameters(
                 attacker: this,
                 damage: GetDamage(),
-                knockBack: MyStatsHandler.CurrentStats.knockBack,
+                knockBack: knockBack,
                 type: MyStatsHandler.CurrentStats.type,
                 followTransform: transform,
                 shotSpeed: MyStatsHandler.CurrentStats.shotSpeed,
-                direction: CurrentDirection);
+                direction: CurrentDirection,
+                knockBackDelay: MyStatsHandler.CurrentStats.knockBackDelay);
         }
 
         [Button]
