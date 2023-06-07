@@ -49,7 +49,9 @@ namespace Elad.Scripts
         public static PlayerSaveData _playerSaveData = new PlayerSaveData();
 
         public static CinemachineVirtualCamera CurrentVirtualCamara;
-        private static bool isGamePause;
+        public static bool isGamePause;
+
+        public static int CollectedFeatherAmount;
     }
     
     [System.Serializable]

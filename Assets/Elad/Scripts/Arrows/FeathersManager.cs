@@ -5,6 +5,7 @@ using Elad.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
+using Logger = Nemesh.Logger;
 
 namespace Elad.Scripts
 {
@@ -56,12 +57,24 @@ namespace Elad.Scripts
         [SerializeField] private int _maxPoolSize = 100;
         [SerializeField] private bool usePoolArrow = true;
 
+        private int _totalFeathersAmount = 0;
+        
         public bool UsePoolArrow
         {
             get => usePoolArrow;
             set => usePoolArrow = value;
         }
-        
+
+        public int TotalFeathersAmount
+        {
+            get => _totalFeathersAmount;
+            set
+            {
+                PlayerStatus.CollectedFeatherAmount = value;
+                _totalFeathersAmount = value;
+            }
+        }
+
         [SerializeField] private Vector2 knockBackArrow = Vector2.zero;
         
 
@@ -153,6 +166,7 @@ namespace Elad.Scripts
         private void DictionaryInit()
         {
             _arrowDataDic = new Dictionary<FeatherKind, ArrowData>();
+            _featherAmountDic = new Dictionary<FeatherKind, int>();
             foreach (var arrow in arrowAttacksList)
             {
                 _arrowDataDic[arrow.featherKind] = arrow;
@@ -161,26 +175,34 @@ namespace Elad.Scripts
 
         public void AddFeather(FeatherKind featherKind)
         {
-            // if (_featherAmountDic.ContainsKey(featherKind))
-            // {
-            //     _featherAmountDic[featherKind] += 1;
-            // }
-            //
-            // else
-            // {
-            //     _featherAmountDic[featherKind] = 1;
-            // }
+            
+            if (_featherAmountDic.ContainsKey(featherKind))
+            {
+                _featherAmountDic[featherKind] += 1;
+            }
+            
+            else
+            {
+                _featherAmountDic[featherKind] = 1;
+            }
+
+            TotalFeathersAmount += 1;
+            Logger.Log("fether added");
+            Logger.Log("amounts of fethers are: " + TotalFeathersAmount);
         }
 
         public void RemoveFeather(FeatherKind featherKind)
         {
-            // int curAmount = _featherAmountDic[featherKind];
-            // if (curAmount > 0)
-            // {
-            //     _featherAmountDic[featherKind] -= 1;
-            // }
+            
+            int curAmount = _featherAmountDic[featherKind];
+            if (curAmount > 0)
+            {
+                _featherAmountDic[featherKind] -= 1;
+                TotalFeathersAmount -= 1;
+            }
         }
 
+        
         public int HowMany(FeatherKind featherKind)
         {
             int curAmount = _featherAmountDic[featherKind];
