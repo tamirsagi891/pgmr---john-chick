@@ -77,12 +77,7 @@ public class PlayerController : MonoBehaviour
         get { return _animator.GetBool(AnimationStrings.isAlive); }
     }
 
-
-
-   
     
-    
-
     public void ChangeCollider(ColliderKind colliderKind)
     {
         switch (colliderKind)

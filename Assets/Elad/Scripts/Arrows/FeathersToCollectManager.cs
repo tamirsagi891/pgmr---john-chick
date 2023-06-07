@@ -38,7 +38,7 @@ namespace Elad.Scripts.Arrows
             if (initializeFromJason)
             {
                 LoadFeathersStatus();
-                initializeFromJason = false;
+                // initializeFromJason = false;
             }
         }
 

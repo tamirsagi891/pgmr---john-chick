@@ -2945,6 +2945,10 @@ PrefabInstance:
       propertyPath: glideHorizontallyMovementStaticStatic
       value: 7.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7924112369440353100, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: gravityMultiplierWallSliding
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -90759,6 +90763,10 @@ PrefabInstance:
     - target: {fileID: 3404076856901261961, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905601513025218582, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: openGameOverMenuTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5654597020295020589, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: m_IsActive

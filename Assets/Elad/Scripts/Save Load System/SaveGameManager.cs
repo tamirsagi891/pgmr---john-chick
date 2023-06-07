@@ -2,6 +2,7 @@ using Elad.Events;
 using Elad.Save_Load_System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Logger = Nemesh.Logger;
 
 namespace Elad.Scripts.Save_Load_System
 {
@@ -41,12 +42,14 @@ namespace Elad.Scripts.Save_Load_System
         {
             if (context.started)
             {
+                Logger.Log("load game from button");
                 SaveGameOnJson.LoadGame();
             }
         }
 
         public void LoadGameFromCheckPoint()
         {
+            Logger.Log("load game after player die");
             SaveGameOnJson.LoadGame();
         }
     

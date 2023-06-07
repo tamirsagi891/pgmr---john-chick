@@ -1,6 +1,7 @@
 using System;
 using Elad.Events;
 using Elad.Scripts;
+using Elad.Scripts.Combat;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;

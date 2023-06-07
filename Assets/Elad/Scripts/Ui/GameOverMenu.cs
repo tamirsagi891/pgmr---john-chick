@@ -41,6 +41,7 @@ namespace Elad.Scripts.Ui
                 _openGameOverMenuTimer -= Time.deltaTime;
                 if (_openGameOverMenuTimer <= 0)
                 {
+                    openMenu = false;
                     OpenGameOverMenu();
                 }
             }
@@ -48,6 +49,7 @@ namespace Elad.Scripts.Ui
 
         public void ReturnToLastCheckPoint()
         {
+            Logger.Log("in return to last check point function");
             gameOverMenuUI.SetActive(false);
             Time.timeScale = 1f;
             GameIsPaused = false;
@@ -74,6 +76,7 @@ namespace Elad.Scripts.Ui
 
         private void OpenGameOverMenu()
         {
+            Logger.Log("in open game over menu");
             gameOverMenuUI.SetActive(true);
             Time.timeScale = 0f;
             GameIsPaused = true;

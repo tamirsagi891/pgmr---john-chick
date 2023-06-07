@@ -1,3 +1,4 @@
+using Elad.Scripts.Combat;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
