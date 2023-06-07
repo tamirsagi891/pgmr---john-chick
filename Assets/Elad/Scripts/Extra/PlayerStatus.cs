@@ -35,5 +35,12 @@ namespace Elad.Scripts
         public static SaveGameManager SaveGameManager;
         public static CheckPoints LastCheckPoint;
         public static bool canSave = true;
+        public static PlayerSaveData _playerSaveData = new PlayerSaveData();
+    }
+    
+    [System.Serializable]
+    public class PlayerSaveData
+    {
+        public int health;
     }
 }

@@ -104,7 +104,11 @@ namespace Elad.Scripts.Combat
         [SerializeField] private float blinkTime = 0.01f;
         private float _blinkTimer;
         private bool _inOriginalColor = true;
-        private PlayerSaveData _playerSaveData = new PlayerSaveData();
+        private PlayerSaveData _playerSaveData
+        {
+            get => PlayerStatus._playerSaveData;
+            set => PlayerStatus._playerSaveData = value;
+        }
 
         [Header("Tests")] [SerializeField] private int setLifeValue = 50;
         private void OnEnable()
@@ -264,9 +268,5 @@ namespace Elad.Scripts.Combat
         }
     }
     
-    [System.Serializable]
-    public class PlayerSaveData
-    {
-        public int health;
-    }
+    
 }
