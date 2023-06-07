@@ -4,35 +4,71 @@ using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Elad.Scripts
 {
     public class UiManager : MonoBehaviour
     {
+        [SerializeField]
+        private InputActionAsset uiInputs;
         [SerializeField] private GameObject damageTextPrefab;
         [SerializeField] private GameObject healthTextPrefab;
+        
+        [SerializeField]
+        private Canvas numbersCanvas;
 
-        private Canvas _gameCanvas;
+        [Header("Events")]
+        [SerializeField]
+        private UnityEvent<InputAction.CallbackContext> onPauseEvent;
 
+
+        #region MonoBehaviour
 
         private void Awake()
         {
-            _gameCanvas = FindObjectOfType<Canvas>();
-            
+            if (numbersCanvas == null)
+            {
+                numbersCanvas = FindObjectOfType<Canvas>();
+            }
         }
 
         private void OnEnable()
         {
             characterEvents.CharacterDamaged.AddListener(CharacterTookDamage);
             characterEvents.CharacterHealed.AddListener(CharacterHealed);
-
+            
+            var map = uiInputs.FindActionMap("UI");
+            var pauseAction = map.FindAction("Pause");
+            pauseAction.Enable();
+            pauseAction.started += OnPause;
         }
 
         private void OnDisable()
         {   
             characterEvents.CharacterDamaged.RemoveListener(CharacterTookDamage);
             characterEvents.CharacterHealed.RemoveListener(CharacterHealed);
+            
+            var map = uiInputs.FindActionMap("UI");
+            var pauseAction = map.FindAction("Pause");
+            pauseAction.started -= OnPause;
+            pauseAction.Disable();
+            
         }
+
+        #endregion
+
+        #region Input Callbacks
+
+        private void OnPause(InputAction.CallbackContext context)
+        {
+            onPauseEvent.Invoke(context);
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public void CharacterTookDamage(GameObject character, int damageAmount)
         {
@@ -43,6 +79,10 @@ namespace Elad.Scripts
         {
             InstantiateText(character, healthAmount, true);
         }
+
+        #endregion
+
+        #region Private Methods
 
         private void InstantiateText(GameObject character, int amount, bool heal)
         {
@@ -60,8 +100,10 @@ namespace Elad.Scripts
                     break;
             }
             TMP_Text tmpText = Instantiate(textPrefab, spawnPosition, 
-                quaternion.identity, _gameCanvas.transform).GetComponent<TMP_Text>();
+                quaternion.identity, numbersCanvas.transform).GetComponent<TMP_Text>();
             tmpText.text = amount.ToString();
         }
+
+        #endregion
     }
 }

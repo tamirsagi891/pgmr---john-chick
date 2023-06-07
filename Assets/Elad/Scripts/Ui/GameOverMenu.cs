@@ -19,7 +19,7 @@ namespace Elad.Scripts.Ui
             set
             {
                 gameIsPaused = value;
-                PlayerStatus.isGamePause = value;
+                PlayerStatus.IsGamePause = value;
             }
         }
         

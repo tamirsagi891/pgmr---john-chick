@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using BitStrap;
 using Eflatun.SceneReference;
-using UnityEditor;
+using Nemesh.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -14,6 +14,18 @@ namespace Managers
     {
 
         #region Inspector
+
+        #region For PGMR
+
+        [SerializeField]
+        private bool loadByLevel = true;
+        
+        [SerializeField]
+        [Min(0)]
+        private int levelToLoad;
+        [Space]
+
+        #endregion
 
         [HelpBox(@"The following scene will be loaded.
 Notice you must enter the scene! Once loading started, changing this value is undefined.",
@@ -82,8 +94,14 @@ Notice you must enter the scene! Once loading started, changing this value is un
 
         #region MonoBehaviour
 
+        private void OnValidate()
+        {
+            levelToLoad %= ScenesHolder.Levels.Count;
+        }
+
         private void Start()
         {
+            levelToLoad %= ScenesHolder.Levels.Count;
             if (loadOnStart)
             {
                 StartLoadScene();
@@ -96,6 +114,17 @@ Notice you must enter the scene! Once loading started, changing this value is un
 
         public void StartLoadScene()
         {
+            if (loadByLevel)
+            {
+                if (levelToLoad < ScenesHolder.Levels.Count)
+                {
+                    sceneToLoad = ScenesHolder.Levels[levelToLoad];
+                }
+                else
+                {
+                    Logger.LogAssertion("Error: Invalid level number.");
+                }
+            }
             if (!loadStarted || sceneToLoad.IsSafeToUse)
             {
                 StartCoroutine(LoadScene(sceneToLoad));
@@ -121,6 +150,7 @@ Notice you must enter the scene! Once loading started, changing this value is un
             }
             else
             {
+                loadByLevel = false;
                 sceneToLoad = sceneReference;
                 StartLoadScene();
             }
