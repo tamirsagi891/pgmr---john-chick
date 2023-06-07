@@ -136,14 +136,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (PlayerStatus.isGamePause)
-        {
-            Logger.Log(CanMove);
-            
-            Logger.Log("player is paused");
-            return;
-        }
-        
+        if (PlayerStatus.IsGamePause) return;
         var direction = Vector2.zero;
         if (context.phase != InputActionPhase.Canceled && _playerController.CanMove)
         {

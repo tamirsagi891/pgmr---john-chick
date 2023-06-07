@@ -42,6 +42,14 @@ namespace Mechanics.New_Wind
         
         #region Public Methods
 
+        public void SetKillImmediate(bool killImmediate)
+        {
+            foreach (var particle in _myParticleSystems)
+            {
+                particle.KillImmediate = killImmediate;
+            }
+        }
+
         public void PauseParticles()
         {
             foreach (var particle in _myParticleSystems)

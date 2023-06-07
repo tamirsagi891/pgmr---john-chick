@@ -286,46 +286,6 @@ MonoBehaviour:
     m_ActionId: 31d6b581-47b7-489d-8ae4-56bbf1d8c758
     m_ActionName: Player/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c226e7c3-d595-43d6-8d78-994f9fe39339
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 19578d3a-1736-4701-9609-8e62e0bf4bdb
-    m_ActionName: UI/Submit[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 93923b9e-911a-47f1-b5e7-344779894062
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ce7129b1-0eb5-4743-be94-0d7cd7cbec69
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f6be10a7-1f90-4672-b672-5964a80c89bc
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 722377d0-fa65-4525-9418-6970c15a1d19
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c2952208-1e4f-48dc-8c9e-c158c141ca6c
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b48f1393-0423-4ad3-8dd2-580273d82e61
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: dd40d1b7-9fe0-4852-9ee5-0f960ad21bb1
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 3fdb593c-ea2d-49f6-ab66-8c6d78c70e39
-    m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4756532907892497648}
         m_TargetAssemblyTypeName: HorizontalMovement, Assembly-CSharp
@@ -461,8 +421,20 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6c0496e7-f67d-41db-b13d-4c342a1d1227
     m_ActionName: Player/EggAttack[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 323f37c6-d8bf-48ac-a5e3-dc54e13a028d
+    m_ActionName: UI/Pause[/Keyboard/escape,/Keyboard/b]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: da5dc1fc-2498-4516-9e39-6f8486430106
+    m_ActionName: Items/save[/Keyboard/m]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: aff864bc-fb92-452d-be8c-f232ba5c0436
+    m_ActionName: Items/Load[/Keyboard/n]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

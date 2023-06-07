@@ -1,4 +1,5 @@
 using System;
+using BitStrap;
 using UnityEngine;
 
 public class DoorHandle : MonoBehaviour
@@ -20,7 +21,8 @@ public class DoorHandle : MonoBehaviour
             OpenDoor();
         }
     }
-
+    
+    [Button]
     public void OpenDoor()
     {
         if (door != null && door.OpenDoor())

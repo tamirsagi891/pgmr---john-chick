@@ -2,36 +2,32 @@ using System;
 using Elad.Events;
 using Elad.Scripts.Combat;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Logger = Nemesh.Logger;
 
 namespace Elad.Scripts.Ui
 {
     public class GameOverMenu : MonoBehaviour
     {
-        [SerializeField][Range(0.5f,5f)] private float openGameOverMenuTime = 3f;
+        [SerializeField]
+        [Range(0.5f, 5f)]
+        private float openGameOverMenuTime = 3f;
+
         private float _openGameOverMenuTimer;
-        private bool openMenu; 
+        private bool openMenu;
         public GameObject gameOverMenuUI;
-        public bool gameIsPaused;
-        public bool GameIsPaused
-        {
-            get => gameIsPaused;
-            set
-            {
-                gameIsPaused = value;
-                PlayerStatus.isGamePause = value;
-            }
-        }
-        
+        private GameObject _firstSelected;
+
         private void OnEnable()
         {
+            _firstSelected = gameOverMenuUI.GetComponentInChildren<Button>().gameObject;
             characterEvents.PlayerDied.AddListener(PlayerDied);
-
         }
 
         private void OnDisable()
-        {   
+        {
             characterEvents.PlayerDied.RemoveListener(PlayerDied);
         }
 
@@ -52,23 +48,10 @@ namespace Elad.Scripts.Ui
         {
             Logger.Log("in return to last check point function");
             gameOverMenuUI.SetActive(false);
-            Time.timeScale = 1f;
-            GameIsPaused = false;
+            PlayerStatus.IsGamePause = false;
             PlayerStatus.SaveGameManager.LoadGameFromCheckPoint();
             PlayerStatus.player.GetComponent<Damageable>().RevivePlayer();
             
-        }
-        
-        public void LoadMenu()
-        {
-            Logger.Log("load menu");
-            SceneManager.LoadScene(SceneNamesStrings.menuScene);
-        }
-
-        public void QuitGame()
-        {
-            Logger.Log("quit game");
-            Application.Quit();
         }
 
         private void PlayerDied()
@@ -79,10 +62,10 @@ namespace Elad.Scripts.Ui
 
         private void OpenGameOverMenu()
         {
+            EventSystem.current.SetSelectedGameObject(_firstSelected);
             Logger.Log("in open game over menu");
             gameOverMenuUI.SetActive(true);
-            Time.timeScale = 0f;
-            GameIsPaused = true;
+            PlayerStatus.IsGamePause = true;
         }
     }
 }
