@@ -38,6 +38,7 @@ public class RoomTransition : MonoBehaviour
         if (other.CompareTag("Player") && !other.isTrigger)
         {
             virtualCam.SetActive(true);
+            PlayerStatus.CurrentVirtualCamara = virtualCam.GetComponent<CinemachineVirtualCamera>();
         }
     }
     

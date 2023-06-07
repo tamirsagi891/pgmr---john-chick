@@ -1,5 +1,6 @@
 using System;
 using Elad.Events;
+using Elad.Scripts.Combat;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -49,6 +50,8 @@ namespace Elad.Scripts.Ui
             gameOverMenuUI.SetActive(false);
             PlayerStatus.IsGamePause = false;
             PlayerStatus.SaveGameManager.LoadGameFromCheckPoint();
+            PlayerStatus.player.GetComponent<Damageable>().RevivePlayer();
+            
         }
 
         private void PlayerDied()

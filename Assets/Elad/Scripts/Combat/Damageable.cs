@@ -33,14 +33,17 @@ namespace Elad.Scripts.Combat
             get => _curHealth;
             set
             {
-                _curHealth = value;
-                if (_curHealth <= 0)
+                if (value != _curHealth)
                 {
-                    _curHealth = 0;
-                    IsAlive = false;
-                }
+                    _curHealth = value;
+                    if (_curHealth <= 0)
+                    {
+                        _curHealth = 0;
+                        IsAlive = false;
+                    }
 
-                _playerSaveData.health = _curHealth;
+                    _playerSaveData.health = _curHealth;
+                }
             }
         }
 
@@ -72,17 +75,21 @@ namespace Elad.Scripts.Combat
             get => isAlive;
             set
             {
-                if (isAlive)
+                isAlive = value;
+                _animator.SetBool(AnimationStrings.isAlive, value);
+                if (!value)
                 {
-                    isAlive = value;
-                    _animator.SetBool(AnimationStrings.isAlive, value);
-                    if (!value)
-                    {
-                        Logger.Log("in IsAlive");
-                        characterEvents.PlayerDied.Invoke();
-                    }
+                    Logger.Log("in IsAlive");
+                    characterEvents.PlayerDied.Invoke();
                 }
             }
+        }
+
+
+        public void RevivePlayer()
+        {
+            IsAlive = true;
+            
         }
 
         public bool LockVelocity
@@ -104,6 +111,7 @@ namespace Elad.Scripts.Combat
         [SerializeField] private float blinkTime = 0.01f;
         private float _blinkTimer;
         private bool _inOriginalColor = true;
+
         private PlayerSaveData _playerSaveData
         {
             get => PlayerStatus._playerSaveData;
@@ -111,6 +119,7 @@ namespace Elad.Scripts.Combat
         }
 
         [Header("Tests")] [SerializeField] private int setLifeValue = 50;
+
         private void OnEnable()
         {
             characterEvents.FunctionsSave.AddListener(SavePlayerStatus);
@@ -122,7 +131,7 @@ namespace Elad.Scripts.Combat
             characterEvents.FunctionsSave.RemoveListener(SavePlayerStatus);
             characterEvents.FunctionsLoad.RemoveListener(LoadPlayerStatus);
         }
-        
+
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -152,13 +161,13 @@ namespace Elad.Scripts.Combat
                 isInvincibleTest = false;
                 IsInvincible = true;
             }
-        
         }
 
         [Button]
         public void Kill()
         {
-            characterEvents.PlayerDied.Invoke();
+            IsAlive = false;
+            // characterEvents.PlayerDied.Invoke();
         }
 
         private void Blink()
@@ -247,7 +256,7 @@ namespace Elad.Scripts.Combat
                     // return GotHit((int) attackParameters.Damage, attackParameters.KnockBack);
             }
         }
-        
+
         public void SavePlayerStatus()
         {
             SaveGameOnJson.CurrentSaveData.playerSaveData = _playerSaveData;
