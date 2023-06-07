@@ -52,17 +52,23 @@ public class WindArea : MonoBehaviour
 
     private void Update()
     {
-        if (_canWork && _insideCollider && _characterJump && _characterJump.IsGliding)
+       
+        if (!_working &&_canWork && _insideCollider && _characterJump && _characterJump.IsGliding)
         {
             _areaEffector2D.forceMagnitude = wantedForce;
             _areaEffector2D.drag = wantedDrag;
             _working = true;
         }
+        
         else
         {
-            _areaEffector2D.forceMagnitude = 0;
-            _areaEffector2D.drag = 0;
-            _working = false;
+            if (_working)
+            {
+                _areaEffector2D.forceMagnitude = 0;
+                _areaEffector2D.drag = 0;
+                _working = false;
+            }
+           
         }
 
         if (!_working)

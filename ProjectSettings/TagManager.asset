@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Platform
+  - Wind Gate
   layers:
   - Default
   - TransparentFX
@@ -19,9 +20,9 @@ TagManager:
   - Player
   - 
   - 
-  - 
-  - 
-  - 
+  - Wind
+  - Wind Particles
+  - Wind Gates
   - 
   - Enemy Collider
   - Ground Detection Layer

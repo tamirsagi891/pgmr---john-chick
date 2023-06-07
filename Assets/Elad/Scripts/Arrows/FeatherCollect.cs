@@ -1,22 +1,52 @@
 using Elad.Events;
 using UnityEngine;
 
-namespace Elad.Scripts
+namespace Elad.Scripts.Arrows
 {
-    public class Feather : MonoBehaviour
+    [RequireComponent(typeof(Collectable))]
+    public class FeatherToCollect : MonoBehaviour
     {
         [SerializeField] private FeathersManager.FeatherKind myFeatherKind;
-        
-        
-        private void OnTriggerEnter2D(Collider2D other)
+        private Vector3 _position;
+
+        public Vector3 Position
         {
-            PlayerController pC = other.GetComponent<PlayerController>();
-            if (pC)
+            get => _position;
+            set => _position = value;
+        }
+
+        public FeathersManager.FeatherKind MyFeatherKind
+        {
+            get => myFeatherKind;
+            set => myFeatherKind = value;
+        }
+
+
+     
+
+        private void Start()
+        {
+            if (PlayerStatus.InitializeFromJason)
             {
-                Damageable dam = other.GetComponent<Damageable>();
-                characterEvents.AddFeather.Invoke(myFeatherKind);
                 Destroy(gameObject);
             }
+
+            if (PlayerStatus.FeathersToCollectManager)
+            {
+                PlayerStatus.FeathersToCollectManager.AddFeather(this);
+            }
+
         }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag(TagStrings.playerTag))
+            {
+                characterEvents.AddFeather.Invoke(MyFeatherKind);
+                PlayerStatus.FeathersToCollectManager.RemoveFeather(this);
+            }
+        }
+
+
     }
 }

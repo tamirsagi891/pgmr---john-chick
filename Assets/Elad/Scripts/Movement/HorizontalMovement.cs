@@ -1,10 +1,12 @@
 using System;
 using Elad.Events;
 using Elad.Scripts;
+using Elad.Scripts.Combat;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using Logger = Nemesh.Logger;
 
 public class HorizontalMovement : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class HorizontalMovement : MonoBehaviour
     private Animator _animator;
     private SpecialMovements _specialMovements;
     private Damageable _damageable;
+    private CharacterJump _playerJump;
 
     [Space(10)] [Header("Ground Movement")] [SerializeField, Range(0f, 20f)]
     private float maxSpeed = 10f;
@@ -99,7 +102,7 @@ public class HorizontalMovement : MonoBehaviour
             _isFacingRight = value;
         }
     }
-    
+
 
     private void Awake()
     {
@@ -110,12 +113,17 @@ public class HorizontalMovement : MonoBehaviour
         _animator = GetComponent<Animator>();
         _specialMovements = GetComponent<SpecialMovements>();
         _damageable = GetComponent<Damageable>();
+        _playerJump = GetComponent<CharacterJump>();
     }
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
-        if (context.started && _playerController.CanMove && !IsCrouching && _touchingDirection.IsGrounded)
-            IsCrouching = true;
+        if (!context.canceled)
+        {
+            if (_playerController.CanMove && !IsCrouching)
+                IsCrouching = true;
+        }
+
 
         else if (context.canceled)
             IsCrouching = false;
@@ -128,22 +136,21 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        
+        if (PlayerStatus.IsGamePause) return;
         var direction = Vector2.zero;
         if (context.phase != InputActionPhase.Canceled && _playerController.CanMove)
         {
             direction = context.ReadValue<Vector2>();
         }
-        
+
 
         directionX = direction.x;
         _playerController.IsMoving = (directionX != 0);
         SetFacingDirection(directionX);
     }
-    
+
     public void CloseMovementToWall(float newMovement)
     {
-        
     }
 
     public void OnRun(InputAction.CallbackContext context)
@@ -165,8 +172,11 @@ public class HorizontalMovement : MonoBehaviour
         PlayerStatus.playerVelocity = _rB.velocity;
         var currentDirX = CanMove ? directionX : 0;
 
+
         _pressingMovementKey = (currentDirX != 0);
 
+        //Must be after the line above because of the automate gliding horizontal movement
+        currentDirX = PlayerStatus.IsGliding ? (IsFacingRight ? 1 : -1) : currentDirX;
         _desiredVelocity = new Vector2(currentDirX, 0f) * Mathf.Max(CurrentMoveSpeed - friction, 0f);
     }
 
@@ -179,11 +189,25 @@ public class HorizontalMovement : MonoBehaviour
                 return _specialMovements.CurrentSpeed;
             }
 
+            if (PlayerStatus.IsGliding)
+            {
+                if (_pressingMovementKey)
+                {
+                    return _playerJump.GlideHorizontallyMovement; 
+                }
+                else
+                {
+                    return _playerJump.GlideHorizontallyMovementStatic;    
+                }
+                
+            }
+
             if (IsCrouching)
                 return maxSpeedCrouching;
 
             if (IsRunning)
                 return maxSpeedRunning;
+
 
             return maxSpeed;
         }
@@ -219,7 +243,7 @@ public class HorizontalMovement : MonoBehaviour
         _deceleration = _onGround ? maxDeceleration : maxAirDeceleration;
         _turnSpeed = _onGround ? maxTurnSpeed : maxAirTurnSpeed;
 
-        if (_pressingMovementKey)
+        if (_pressingMovementKey || PlayerStatus.IsGliding)
         {
             //If the sign (i.e. positive or negative) of our input direction doesn't match our movement,
             //it means we're turning around and so should use the turn speed stat.
@@ -236,6 +260,7 @@ public class HorizontalMovement : MonoBehaviour
         else
         {
             //And if we're not pressing a direction at all, use the _deceleration stat
+
             _maxSpeedChange = _deceleration * Time.deltaTime;
         }
 
@@ -272,13 +297,11 @@ public class HorizontalMovement : MonoBehaviour
         return directionX;
     }
 
-  
 
-    
     public void OnHit(int damage, Vector2 knockBack)
     {
         float xKnockBack = _isFacingRight ? -knockBack.x : knockBack.x;
-        xKnockBack = MathF.Abs(_rB.velocity.x) > 0.1 ? _rB.velocity.x + xKnockBack : 0;  
+        xKnockBack = MathF.Abs(_rB.velocity.x) > 0.1 ? _rB.velocity.x + xKnockBack : 0;
         float yKnockBack = _rB.velocity.y + knockBack.y;
         _rB.velocity = new Vector2(xKnockBack, yKnockBack);
     }

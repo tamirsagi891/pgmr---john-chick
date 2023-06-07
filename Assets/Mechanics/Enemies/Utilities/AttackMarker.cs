@@ -42,6 +42,10 @@ namespace Mechanics.Enemies
 
         public void StartAttackMark()
         {
+            if (!isActiveAndEnabled)
+            {
+                return;
+            }
             markerTimer.Start();
             onAttackStart.Invoke();
         }

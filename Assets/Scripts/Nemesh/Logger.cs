@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 namespace Nemesh
 {
-    public static class Logger  // TODO: use ILogger and ILogHandler!
+    public static class Logger // TODO: use ILogger and ILogHandler!
     {
         public static readonly Color DontFormat = Color.clear;
         private static readonly Color DefaultLogColor = Color.white;

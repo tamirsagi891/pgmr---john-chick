@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
+using Elad.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Logger = Nemesh.Logger;
 
 public class SpecialMovements : MonoBehaviour
 {
@@ -15,7 +18,8 @@ public class SpecialMovements : MonoBehaviour
     private bool _isDodgeRoll;
     [SerializeField] private float maxSpeedDodgeRoll = 24f;
     private float dodgeRollTime = 0.2f;
-    private float dodgeRollCoolDown = 1f;
+    [SerializeField] private float dodgeRollCoolDown = 1f;
+    [SerializeField] private float minVelocityToDodge = 0.1f;
 
     [Space(10)] [Header("Components")] private TouchingDirection _touchingDirection;
     private Rigidbody2D _rB;
@@ -103,8 +107,9 @@ public class SpecialMovements : MonoBehaviour
 
     public void OnDodgeRoll(InputAction.CallbackContext context)
     {
-        if (_touchingDirection.IsGrounded)
+        if (_touchingDirection.IsGrounded && MathF.Abs(PlayerStatus.playerVelocity.magnitude) >= minVelocityToDodge)
         {
+            Logger.Log("in dodge role");
             if (_currentMovementStatus == MovementStatus.None)
             {
                 if (context.started && _canDodgeRoll)

@@ -1,4 +1,5 @@
-﻿using Avrahamy.Math;
+﻿using System;
+using Avrahamy.Math;
 using BitStrap;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -17,25 +18,23 @@ namespace Mechanics.Enemies
         [SerializeField]
         [RequiredReference]
         private Transform nestLocation;
-
+        
         public ICanBeAttacked PickupTarget { get; set; }
         public Vector3 DesiredPosition { get; set; }
 
         protected override Transform WalkTargetHelper(Transform value)
         {
-            if (HasPlayerContact && _walkTarget != PlayerContact.GetTransform())
+            value = base.WalkTargetHelper(value);
+            if (HasPlayerContact && CanDetectPlayer && value != PlayerContact.GetTransform())
             {
-                canDetectPlayer = true;
-            }   
-            if (HasPlayerContact && canDetectPlayer)
-            {
-                value = PlayerContact.GetTransform();
                 if (MovementBehaviour != null) // TODO: remove this on build
                 {
                     MovementBehaviour.EnabledBehaviour = false;
                 }
-            }
 
+                value = PlayerContact.GetTransform();
+            }
+        
             return value;
         }
 
@@ -55,6 +54,8 @@ namespace Mechanics.Enemies
         {
             base.Dash();
             DesiredPosition = WalkTarget.position;
+            Vector2 directionToMove = DesiredPosition - transform.position;
+            animationControls.Direction = directionToMove.x < 0 ? Direction.Left : Direction.Right;
         }
 
 
@@ -72,13 +73,36 @@ namespace Mechanics.Enemies
 
                 var minDistance = 0.01f; // TODO: move both to fields
                 // Logger.Log(WalkTarget);
-                if (HasPlayerContact && WalkTarget == PlayerContact.GetTransform())
+                if (HasPlayerContact)
                 {
+                    if (WalkTarget == PlayerContact.GetTransform())
+                    {
+                        if (directionToMove.sqrMagnitude < DashAlertDistance * DashAlertDistance)
+                        {
+                            if (HasDashControl && !IsDashing)
+                            {
+                                DashAlertControl.StartDashAlertSequence();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var distanceToPlayer = (PlayerContact.GetTransform().position - transform.position);
+                        if (distanceToPlayer.sqrMagnitude > DashAlertDistance * DashAlertDistance)
+                        {
+                            CanDetectPlayer = true;
+                        }
+                    }
+
                     minDistance = minDistanceForMovementWhenHavePlayer;
                     // animationControls.StopDirectionSwitch = directionToMove.sqrMagnitude > minDistance;
                 }
 
                 ShouldMove = directionToMove.sqrMagnitude > minDistance;
+                if (!ShouldMove && IsDashing)
+                {
+                    StopDash();
+                }
                 DesiredVelocity = ShouldMove
                     ? directionToMove.GetWithMagnitude(MyStatsHandler.CurrentStats.movementSpeed)
                     : Vector2.zero;
@@ -90,9 +114,9 @@ namespace Mechanics.Enemies
 
                 RunWithoutAcceleration();
             }
-            else if (hasDefaultDirection)
+            else if (HasDefaultDirection)
             {
-                animationControls.Direction = defaultDirection;
+                animationControls.Direction = DefaultDirection;
             }
         }
 
@@ -129,10 +153,11 @@ namespace Mechanics.Enemies
 
         public void DropPickup()
         {
-            if (PickupTarget == null)
-            {
-                return;
-            }
+            // var oldTarget = PickupTarget;
+            // if (PickupTarget == null)
+            // {
+            //     return;
+            // }
 
             PickupTarget = null;
             CanAttack = true;
@@ -147,6 +172,15 @@ namespace Mechanics.Enemies
             }
 
             WalkTarget = nestLocation;
+        }
+
+        public override void StopDash()
+        {
+            base.StopDash();
+            if (AttackTargets.Count == 0)
+            {
+                DropPickup();
+            }
         }
     }
 }

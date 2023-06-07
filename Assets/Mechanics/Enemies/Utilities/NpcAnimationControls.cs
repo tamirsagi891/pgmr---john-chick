@@ -38,13 +38,16 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         private bool isDead;
+        
+        [SerializeField]
+        private bool isDashing;
 
         [Space]
         [SerializeField]
         private bool jump;
 
-        [SerializeField]
-        private bool dash;
+        // [SerializeField]
+        // private bool dash;
 
         [SerializeField]
         private bool attack;
@@ -159,6 +162,16 @@ namespace Mechanics.Enemies
                 animatorParameters.isRunning.Set(myAnimator, isRunning);
             }
         }
+        
+        public bool IsDashing
+        {
+            get => isDashing;
+            set
+            {
+                isDashing = value;
+                animatorParameters.isDashing.Set(myAnimator, isDashing);
+            }
+        }
 
         public bool IsGrounded
         {
@@ -248,19 +261,19 @@ namespace Mechanics.Enemies
             }
         }
 
-        public bool Dash
-        {
-            get => dash;
-            set
-            {
-                if (value)
-                {
-                    animatorParameters.dash.Set(myAnimator);
-                }
-
-                dash = false;
-            }
-        }
+        // public bool Dash
+        // {
+        //     get => dash;
+        //     set
+        //     {
+        //         if (value)
+        //         {
+        //             animatorParameters.dash.Set(myAnimator);
+        //         }
+        //
+        //         dash = false;
+        //     }
+        // }
 
         public bool Attack
         {
@@ -419,7 +432,6 @@ namespace Mechanics.Enemies
         private void HandleTriggers()
         {
             Jump = jump;
-            Dash = dash;
             Attack = attack;
             Hurt = hurt;
             DoubleJump = doubleJump;
@@ -457,13 +469,16 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         public BoolAnimationParameter isDead;
-
+        
+        [SerializeField]
+        public BoolAnimationParameter isDashing;
+        
         [Space]
         [SerializeField]
         public TriggerAnimationParameter jump;
 
-        [SerializeField]
-        public TriggerAnimationParameter dash;
+        // [SerializeField]
+        // public TriggerAnimationParameter dash;
 
         [SerializeField]
         public TriggerAnimationParameter attack;

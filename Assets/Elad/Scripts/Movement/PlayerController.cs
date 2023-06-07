@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        PlayerStatus.player = gameObject;
+        PlayerStatus.player = this.gameObject;
         _rB = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _touchingDirection = GetComponent<TouchingDirection>();
@@ -77,12 +77,7 @@ public class PlayerController : MonoBehaviour
         get { return _animator.GetBool(AnimationStrings.isAlive); }
     }
 
-
-
-   
     
-    
-
     public void ChangeCollider(ColliderKind colliderKind)
     {
         switch (colliderKind)

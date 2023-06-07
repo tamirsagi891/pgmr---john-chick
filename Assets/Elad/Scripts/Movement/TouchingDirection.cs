@@ -75,6 +75,8 @@ public class TouchingDirection : MonoBehaviour
 
     [Space(10)] [Header("Offsets for the rays")] [SerializeField]
     private Vector2 groundOffset = new Vector2(0f, 0f);
+
+    [SerializeField] private float groundGapAmount = 0.1f;
     [SerializeField]
     private Vector2 wallOffset = new Vector2(0f, 0f);
     
@@ -101,17 +103,24 @@ public class TouchingDirection : MonoBehaviour
         Vector2 castOrigin = _circleCollider2D.bounds.center;
         castOrigin.y -= _circleCollider2D.bounds.extents.y;
         castOrigin += groundOffset;
+
+
+        Vector2 castLeft = castOrigin - new Vector2(groundGapAmount/2, 0);
+        Vector2 casRight = castOrigin + new Vector2(groundGapAmount/2, 0);
         
-        // Perform the raycast from the bottom of the circle collider
-        RaycastHit2D hitGround =
-            Physics2D.Raycast(castOrigin, Vector2.down, groundDistance, castFilterGround.layerMask);
-
-
+        
+        RaycastHit2D hitGroundLeft =
+            Physics2D.Raycast(castLeft, Vector2.down, groundDistance, castFilterGround.layerMask);
+        
+        RaycastHit2D hitGroundRight =
+            Physics2D.Raycast(casRight, Vector2.down, groundDistance, castFilterGround.layerMask);
+        
         // Draw debug line for the cast
-        Debug.DrawRay(castOrigin, Vector2.down * groundDistance, Color.red);
-
+        Debug.DrawRay(castLeft, Vector2.down * groundDistance, Color.red);
+        Debug.DrawRay(casRight, Vector2.down * groundDistance, Color.red);
+        
         // Check if the raycast hit something
-        IsGrounded = hitGround.collider != null;
+        IsGrounded = ((hitGroundLeft.collider != null) || hitGroundRight.collider != null);
 
         //Same raycast position but now for the platforms
         RaycastHit2D hitPlatform =

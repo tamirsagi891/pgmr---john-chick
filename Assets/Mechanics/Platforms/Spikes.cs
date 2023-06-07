@@ -1,3 +1,4 @@
+using Elad.Scripts.Combat;
 using UnityEngine;
 
 [RequireComponent(typeof(CompositeCollider2D))]

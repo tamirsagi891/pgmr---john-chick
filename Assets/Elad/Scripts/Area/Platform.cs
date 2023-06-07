@@ -2,21 +2,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Elad.Events;
+using Elad.Scripts;
 using UnityEngine;
+using Logger = Nemesh.Logger;
 
 public class Platform : MonoBehaviour
 {
 
-    [SerializeField] private float noSurfaceTime = 0.5f;
-    [SerializeField] private float noSurfaceTimer;
+    // [SerializeField] private float noSurfaceTime = 0.5f;
+    // private float noSurfaceTimer;
 
-    private bool noSurface;
+    private bool _noSurface;
     private PlatformEffector2D _platformEffector2D;
+    private bool _isMovingThrowPlatform;
 
+    public bool IsMovingThrowPlatform
+    {
+        get => _isMovingThrowPlatform;
+        set => _isMovingThrowPlatform = value;
+    }
 
     private void Awake()
     {
         _platformEffector2D = GetComponent<PlatformEffector2D>();
+        PlayerStatus.PlatformController = this;
     }
 
     private void OnEnable()
@@ -28,27 +37,28 @@ public class Platform : MonoBehaviour
     {
         characterEvents.playerCrouchAndJumpOnPlatform.RemoveListener(playerCrouchAndJump);
     }
-
-    private void Update()
-    {
-        if (noSurface)
-        {
-            noSurfaceTimer -= Time.deltaTime;
-            if (noSurfaceTimer <= 0)
-            {
-                _platformEffector2D.surfaceArc = 180;
-                noSurface = false;
-            }
-        }
-    }
-
+    
 
     private void playerCrouchAndJump(bool state)
     {
         _platformEffector2D.surfaceArc = 0;
-        noSurfaceTimer = noSurfaceTime;
-        noSurface = true;
+        // noSurfaceTimer = noSurfaceTime;
+        _noSurface = true;
+        IsMovingThrowPlatform = true;
     }
 
-    
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.collider.CompareTag(TagStrings.playerTag))
+        {
+            // Logger.Log("player got hit");
+            if (_noSurface)
+            {
+                IsMovingThrowPlatform = false;
+                _platformEffector2D.surfaceArc = 180;
+                _noSurface = false;
+            }
+        }
+        
+    }
 }

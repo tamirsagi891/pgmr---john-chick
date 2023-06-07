@@ -46,6 +46,17 @@ InThat case, we might want to change to list and stop the disable",
             {
                 col.radius = npcToReportTo.NpcDataScriptable.stats.detectionRadius;
             }
+            else
+            {
+                var colBox = _myCollider as BoxCollider2D;
+                if (colBox == null)
+                {
+                    return;
+                }
+                colBox.size = new Vector2(npcToReportTo.NpcDataScriptable.stats.detectionRadius, colBox.size.y);
+                colBox.offset = new Vector2(npcToReportTo.NpcDataScriptable.stats.detectionRadius / 2f, colBox.offset.y);
+            }
+            
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -62,7 +73,7 @@ InThat case, we might want to change to list and stop the disable",
             var playerController = other.GetComponent<ICanBeAttacked>();
             if (playerController != null && npcToReportTo.PlayerContact == playerController)
             {
-                npcToReportTo.PlayerContact = null; // TODO: Add to attack targets instead?
+                npcToReportTo.PlayerContact = null; // TODO: AddFeather to attack targets instead?
             }
         }
 
