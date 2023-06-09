@@ -70,7 +70,7 @@ public class CharacterJump : MonoBehaviour
     [SerializeField] private bool regularGlide = true;
     [SerializeField] private Vector2 glideJump = Vector2.zero;
 
-    [SerializeField, Range(0f, 0.5f)] [Tooltip("Gravity multiplier to apply when gliding")]
+    [SerializeField, Range(0f, 10f)] [Tooltip("Gravity multiplier to apply when gliding")]
     private float gravityMultiplierGliding = 0.3f;
 
     private bool _wantToGlide;
@@ -488,7 +488,8 @@ public class CharacterJump : MonoBehaviour
     {
         if (player.CompareTag(TagStrings.playerTag))
         {
-            _pressingJump = false;
+            _currentlyJumping = false;
+            _coyoteTimeCounter = coyoteTime;
             _rB.drag = linearDragRegular;
             _animator.SetBool(AnimationStrings.isGliding, false);
             IsGliding = false;

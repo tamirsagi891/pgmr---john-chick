@@ -98,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1142788403923164722, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1142788403923164722, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_LocalScale.x
@@ -192,6 +192,14 @@ PrefabInstance:
       propertyPath: m_ForceMagnitude
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2183192247642693819, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_SortingLayer
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183192247642693819, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1681244417
+      objectReference: {fileID: 0}
     - target: {fileID: 3207293525920471852, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.6415876
@@ -240,9 +248,29 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.15634
       objectReference: {fileID: 0}
+    - target: {fileID: 5286866521112881813, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_SortingLayer
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286866521112881813, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1681244417
+      objectReference: {fileID: 0}
+    - target: {fileID: 5801249501006059608, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_SortingLayer
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5801249501006059608, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1681244417
+      objectReference: {fileID: 0}
     - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: windType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: magnitude
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveX.scalar
@@ -250,7 +278,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveY.scalar
-      value: 1.3333334
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6748792059297130984, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_SortingLayer
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6748792059297130984, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1681244417
       objectReference: {fileID: 0}
     - target: {fileID: 8191129843839394188, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_LocalScale.y
@@ -307,6 +343,14 @@ PrefabInstance:
     - target: {fileID: 9030578893295297790, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: ColorBySpeedModule.gradient.minGradient.key1.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9223313102323046770, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_SortingLayer
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9223313102323046770, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1681244417
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

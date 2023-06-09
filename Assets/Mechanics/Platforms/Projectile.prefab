@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 116766676001827002}
   - component: {fileID: 7939233768200107123}
   - component: {fileID: 4584536748973587347}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,4 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0798c5cbddc06a4098b9f54b66eb371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
+  knockBackForce: 5
   maxDistanceFromPlayer: 50

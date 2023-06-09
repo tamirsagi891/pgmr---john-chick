@@ -318,7 +318,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: magnitude
-      value: 350
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: particleForceFactor
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: explosiveTime.duration

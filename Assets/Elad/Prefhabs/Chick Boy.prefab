@@ -506,6 +506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76efba027e2ef6046affe250f9524fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isGrounded: 1
   castFilterPlatform:
     useTriggers: 0
     useLayerMask: 0
@@ -573,20 +574,20 @@ MonoBehaviour:
   canDoubleJump: 0
   dropWhenStopPushingJump: 1
   gravityPercentLetGoJump: 4
-  maxFallSpeed: 7.5
+  maxFallSpeed: 4
   coyoteTime: 0.05
   jumpBuffer: 0.1
   doubleJumpMultiplier: 1
   canJumpAgain: 0
-  glideHorizontallyMovementStaticStatic: 5
+  glideHorizontallyMovementStaticStatic: 8
   glideHorizontallyMovement: 15
   regularGlide: 1
   glideJump: {x: 0, y: 21}
-  gravityMultiplierGliding: 0.2
+  gravityMultiplierGliding: 0.75
   minVelocityToGlide: -0.05
-  linearDragGliding: 13
+  linearDragGliding: 10
   canJumpWhileCrouch: 1
-  hitGlideDelayTime: 0.05
+  hitGlideDelayTime: 0.2
 --- !u!114 &7924112369440353100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,8 +616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77b6b1e2c6269458232a3e72fa35fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 100
-  maxHealth: 100
+  initialHealth: 20
+  maxHealth: 20
   damageableHit:
     m_PersistentCalls:
       m_Calls:

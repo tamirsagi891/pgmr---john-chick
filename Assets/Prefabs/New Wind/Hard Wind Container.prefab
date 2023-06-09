@@ -184,9 +184,17 @@ PrefabInstance:
       propertyPath: ColorBySpeedModule.gradient.minGradient.key0.r
       value: 0.6613395
       objectReference: {fileID: 0}
+    - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: particleForceFactor
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveX.scalar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_Parameters.m_DirectionCurveY.scalar
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9030578893295297790, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: ColorBySpeedModule.gradient.maxGradient.key0.b

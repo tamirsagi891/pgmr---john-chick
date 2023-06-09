@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
+using Logger = Nemesh.Logger;
 
 public class WallMovement : MonoBehaviour
 {
@@ -24,10 +26,13 @@ public class WallMovement : MonoBehaviour
 
         set
         {
-            
+            if (value != _isWallSliding)
+            {
+                // TODO: This conflicts with glide
+                _rB.drag = value ? linearDragWallSliding : _linearDragRegular;
+            }
             _isWallSliding = value;
             _animator.SetBool(AnimationStrings.isWallSliding, value);
-            _rB.drag = value ? linearDragWallSliding : _linearDragRegular;
         }
     }
 
@@ -74,9 +79,7 @@ public class WallMovement : MonoBehaviour
     private void Update()
     {
         WallCheck();
-        IsWallSliding = _wantToWallSlide;    
-        
-        
+        IsWallSliding = _wantToWallSlide;
     }
 
     void WallCheck()

@@ -39,7 +39,6 @@ namespace Mechanics.New_Wind
         [SerializeField]
         private bool useKnobForMagnitude;
 
-        [ConditionalHide("useKnobForMagnitude", false, true)]
         [SerializeField]
         private float magnitude = 200f;
 

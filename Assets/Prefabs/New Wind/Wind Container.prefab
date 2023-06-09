@@ -32,7 +32,7 @@ Transform:
   - {fileID: 336156327975876706}
   - {fileID: 8954430983689920626}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6288711501106238515
 MonoBehaviour:
@@ -48,11 +48,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windType: 0
   useKnobForMagnitude: 0
-  magnitude: 200
-  wantedDrag: 50
+  magnitude: 100
+  wantedDrag: 0
   explosiveTime:
     duration: 2
-  particleForceFactor: 150
+  particleForceFactor: 100
   windEffectorController: {fileID: 1510235350894021610}
   debug: 0
 --- !u!1 &467286100121838158
@@ -97,7 +97,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 467286100121838158}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -813,8 +813,8 @@ ParticleSystem:
     m_TextureAlphaAffectsParticles: 1
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 0.1
-    sphericalDirectionAmount: 0.1
-    randomPositionAmount: 0.1
+    sphericalDirectionAmount: 0
+    randomPositionAmount: 0
     radius:
       value: 1
       mode: 0
@@ -5204,7 +5204,7 @@ ParticleSystemForceField:
     m_DirectionCurveY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.3333334
+      scalar: 1
       minScalar: 2
       maxCurve:
         serializedVersion: 2
@@ -5688,10 +5688,10 @@ AreaEffector2D:
     m_Bits: 4294967295
   m_UseGlobalAngle: 1
   m_ForceAngle: 90
-  m_ForceMagnitude: 200
+  m_ForceMagnitude: 100
   m_ForceVariation: 0
   m_ForceTarget: 0
-  m_Drag: 50
+  m_Drag: 0
   m_AngularDrag: 0
 --- !u!114 &1510235350894021610
 MonoBehaviour:
@@ -5752,7 +5752,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579580449182872917}
   serializedVersion: 8
-  lengthInSec: 7
+  lengthInSec: 4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -6468,8 +6468,8 @@ ParticleSystem:
     m_TextureAlphaAffectsParticles: 1
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 0.1
-    sphericalDirectionAmount: 0.1
-    randomPositionAmount: 0.1
+    sphericalDirectionAmount: 0
+    randomPositionAmount: 0
     radius:
       value: 1
       mode: 0
@@ -11011,7 +11011,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2951783924243020796}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -11727,8 +11727,8 @@ ParticleSystem:
     m_TextureAlphaAffectsParticles: 1
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 0.1
-    sphericalDirectionAmount: 0.1
-    randomPositionAmount: 0.1
+    sphericalDirectionAmount: 0
+    randomPositionAmount: 0
     radius:
       value: 1
       mode: 0
@@ -16094,7 +16094,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5259362209860639893}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -16810,8 +16810,8 @@ ParticleSystem:
     m_TextureAlphaAffectsParticles: 1
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 0.1
-    sphericalDirectionAmount: 0.1
-    randomPositionAmount: 0.1
+    sphericalDirectionAmount: 0
+    randomPositionAmount: 0
     radius:
       value: 1
       mode: 0
@@ -21132,7 +21132,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8599833288196777885}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -21848,8 +21848,8 @@ ParticleSystem:
     m_TextureAlphaAffectsParticles: 1
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 0.1
-    sphericalDirectionAmount: 0.1
-    randomPositionAmount: 0.1
+    sphericalDirectionAmount: 0
+    randomPositionAmount: 0
     radius:
       value: 1
       mode: 0

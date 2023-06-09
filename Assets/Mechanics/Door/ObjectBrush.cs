@@ -2,7 +2,6 @@
 using UnityEditor;
 using UnityEditor.Tilemaps;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 [CustomGridBrush(false, true, false, "ObjectBrush")]
 [CreateAssetMenu(fileName = "GameObjectBrush", menuName = "Brushes/ObjectBrush", order = 1)]
@@ -50,4 +49,15 @@ public class ObjectBrush : GridBrush
         }
     }
 }
+
+
+/// <summary>
+/// The Brush Editor for a GameObject Brush.
+/// </summary>
+[CustomEditor(typeof(ObjectBrush))]
+public class ObjectBrushEditor : GridBrushEditor
+{
+}
+
+
 #endif

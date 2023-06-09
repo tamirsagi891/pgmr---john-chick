@@ -264,9 +264,9 @@ public class HorizontalMovement : MonoBehaviour
 
             _maxSpeedChange = _deceleration * Time.deltaTime;
         }
-
         //Move our _velocity towards the desired _velocity, at the rate of the number calculated above
         _velocity.x = Mathf.MoveTowards(_velocity.x, _desiredVelocity.x, _maxSpeedChange);
+        // print($"{_velocity.x} :: {_desiredVelocity.x} :: {_rB.velocity.x}");
 
         //Update the Rigidbody with this new _velocity
         _rB.velocity = _velocity;
