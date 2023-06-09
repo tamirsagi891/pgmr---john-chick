@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BitStrap;
 using UnityEngine;
 
 public class TouchingDirection : MonoBehaviour
 {
     private Vector2 wallCheckDirection => gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+    [SerializeField]
+    [ReadOnly]
     private bool _isGrounded = true;
 
     public bool IsGrounded
