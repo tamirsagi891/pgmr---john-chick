@@ -1,10 +1,10 @@
 ﻿using BitStrap;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
-namespace Mechanics.UI
+namespace Mechanics.UI.Menus
 {
+    [AddComponentMenu("Menus/Base Menu Controller", -1)]
     public class BaseMenuController : MonoBehaviour
     {
         [Header("Menu Controller")]

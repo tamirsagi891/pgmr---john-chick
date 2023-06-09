@@ -1,15 +1,10 @@
-using System;
 using Elad.Events;
-using Elad.Scripts.Combat;
-using Mechanics.UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Logger = Nemesh.Logger;
 
-namespace Elad.Scripts.Ui
+namespace Mechanics.UI.Menus
 {
+    [AddComponentMenu("Menus/Game Over Menu")]
     public class GameOverMenu : BaseMenuController
     {
         [Space]
@@ -42,15 +37,6 @@ namespace Elad.Scripts.Ui
                     MenuManager.Menu.OpenGameOverMenu();
                 }
             }
-        }
-
-        public void ReturnToLastCheckPoint()
-        {
-            Logger.Log("in return to last check point function");
-            MenuManager.Menu.CloseAllMenus();
-            PlayerStatus.SaveGameManager.LoadGameFromCheckPoint();
-            PlayerStatus.player.GetComponent<Damageable>().RevivePlayer();
-            
         }
 
         private void PlayerDied()

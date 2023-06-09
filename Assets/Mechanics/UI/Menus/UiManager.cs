@@ -1,18 +1,15 @@
-using System;
 using Elad.Events;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
-namespace Elad.Scripts
+namespace Mechanics.UI.Menus
 {
+    [AddComponentMenu("Menus/UI Manager™️ (by Elad)")]
     public class UiManager : MonoBehaviour
     {
-        [SerializeField]
-        private InputActionAsset uiInputs;
         [SerializeField] private GameObject damageTextPrefab;
         [SerializeField] private GameObject healthTextPrefab;
 
@@ -21,11 +18,6 @@ namespace Elad.Scripts
         
         [SerializeField]
         private Canvas numbersCanvas;
-
-        [Header("Events")]
-        [SerializeField]
-        private UnityEvent<InputAction.CallbackContext> onPauseEvent;
-
 
         #region MonoBehaviour
 
@@ -41,32 +33,12 @@ namespace Elad.Scripts
         {
             characterEvents.CharacterDamaged.AddListener(CharacterTookDamage);
             characterEvents.CharacterHealed.AddListener(CharacterHealed);
-            
-            var map = uiInputs.FindActionMap("UI");
-            var pauseAction = map.FindAction("Pause");
-            pauseAction.Enable();
-            pauseAction.started += OnPause;
         }
 
         private void OnDisable()
         {   
             characterEvents.CharacterDamaged.RemoveListener(CharacterTookDamage);
             characterEvents.CharacterHealed.RemoveListener(CharacterHealed);
-            
-            var map = uiInputs.FindActionMap("UI");
-            var pauseAction = map.FindAction("Pause");
-            pauseAction.started -= OnPause;
-            pauseAction.Disable();
-            
-        }
-
-        #endregion
-
-        #region Input Callbacks
-
-        private void OnPause(InputAction.CallbackContext context)
-        {
-            onPauseEvent.Invoke(context);
         }
 
         #endregion
