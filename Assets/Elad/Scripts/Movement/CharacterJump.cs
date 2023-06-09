@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
 using System;
+using BitStrap;
 using UnityEngine;
 
 //This script handles moving the character on the Y axis, for jumping and gravity
@@ -42,7 +43,7 @@ public class CharacterJump : MonoBehaviour
     [SerializeField] [Tooltip("The fastest speed the character can fall")]
     private float maxFallSpeed;
 
-    [SerializeField, Range(0f, 0.3f)] [Tooltip("How long should coyote time last?")]
+    [SerializeField, Range(0f, 1f)] [Tooltip("How long should coyote time last?")]
     private float coyoteTime = 0.15f;
 
     [SerializeField, Range(0f, 0.3f)] [Tooltip("How far from ground should we cache your jump?")]
@@ -60,6 +61,8 @@ public class CharacterJump : MonoBehaviour
     [Header("Current State")] public bool canJumpAgain = false;
     private bool _desiredJump;
     private float _jumpBufferCounter;
+    [SerializeField]
+    [ReadOnly]
     private float _coyoteTimeCounter = 0;
     private bool _pressingJump;
     private bool onGround;
@@ -120,8 +123,8 @@ public class CharacterJump : MonoBehaviour
             }
 
             var returnValue = (onGround || (_coyoteTimeCounter < coyoteTime) || canJumpAgain ||
-                               _wallMovement.IsWallSliding) && (!_isCrouching);
-
+                               _wallMovement.IsWallSliding) && (!_isCrouching) && !_inHit;
+            
             return returnValue;
         }
     }
@@ -178,6 +181,10 @@ public class CharacterJump : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (context.canceled)
+        {
+            _pressingJump = false;
+        }
         //This function is called when one of the jump buttons (like space or the A button) is pressed.
         if (_playerController.CanMove)
         {
@@ -196,26 +203,18 @@ public class CharacterJump : MonoBehaviour
                     }
                 }
 
-                if (_touchingDirection.IsGrounded || _wallMovement.IsWallSliding)
+                if (CanJump)
                 {
                     _desiredJump = true;
                 }
                 
             }
-
-            else if (context.canceled)
-            {
-                _pressingJump = false;
-            }
-
-           
         }
     }
 
 
     void Update()
     {
-        setPhysics();
         OnGlide();
         IsGliding = !_touchingDirection.IsGrounded && IsGliding;
         if (_inHit)
@@ -262,15 +261,24 @@ public class CharacterJump : MonoBehaviour
 
     private void setPhysics()
     {
+        _rB.gravityScale = GetGravityScale(_gravMultiplier);
+    }
+
+    private float GetGravityScale(float mult)
+    {
+
         //Determine the character's gravity scale, using the stats provided. Multiply it by a _gravMultiplier, used later
         Vector2 newGravity = new Vector2(0, (-2 * maxJumpHeight) / (timeToReachPeakHeight * timeToReachPeakHeight));
-        _rB.gravityScale = (newGravity.y / Physics2D.gravity.y) * _gravMultiplier;
+        var a = (newGravity.y / Physics2D.gravity.y) * mult;
+        return a;
     }
 
     private void FixedUpdate()
     {
         //Get _velocity from Kit's Rigidbody 
         _velocity = _rB.velocity;
+        calculateGravity();
+        setPhysics();
 
         //Keep trying to do a jump, for as long as _desiredJump is true
         if (_desiredJump)
@@ -283,7 +291,6 @@ public class CharacterJump : MonoBehaviour
             return;
         }
 
-        calculateGravity();
         _animator.SetFloat(AnimationStrings.yVelocity, _rB.velocity.y);
     }
 
@@ -291,18 +298,23 @@ public class CharacterJump : MonoBehaviour
     {
         //We change the character's gravity based on her Y direction
 
-        if (IsGliding) _gravMultiplier = gravityMultiplierGliding;
-
-        else if (_wallMovement.IsWallSliding)
+        if (IsGliding)
+        {
+            _gravMultiplier = gravityMultiplierGliding;
+        }
+        else if (_wallMovement.IsWallSliding)        //If Kit is going up...
+        {
             _gravMultiplier = _wallMovement.GravityMultiplierWallSliding;
-        //If Kit is going up...
-        else if (_rB.velocity.y > 0.01f) calculateGravityUp();
-
-        //Else if going down...
-        else if (_rB.velocity.y < -0.01f) calculateGravityDown();
-
-        //Else not moving vertically at all
-        else
+        }
+        else if (_rB.velocity.y > 0.01f)
+        {
+            calculateGravityUp();
+        }
+        else if (_rB.velocity.y < -0.01f && !onGround)        //Else if going down...
+        {
+            calculateGravityDown();
+        }
+        else  //Else not moving vertically at all
         {
             _currentlyJumping = false;
             _gravMultiplier = _defaultGravityScale;
@@ -351,10 +363,10 @@ public class CharacterJump : MonoBehaviour
             _jumpBufferCounter = 0;
             _coyoteTimeCounter = 0;
 
-
             // Determine the power of the jump, based on our gravity and stats
-            _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * _rB.gravityScale * maxJumpHeight);
-
+            var gScale = GetGravityScale(_wallMovement.IsWallSliding ? _wallMovement.GravityMultiplierWallSliding : _defaultGravityScale);
+            _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * gScale * maxJumpHeight);
+            
             // If we have double jump on, allow us to jump again (but only once)
             if (canDoubleJump)
             {
@@ -384,7 +396,7 @@ public class CharacterJump : MonoBehaviour
             }
             else if (_velocity.y < 0f)
             {
-                _jumpSpeed += Mathf.Abs(_rB.velocity.y);
+                _jumpSpeed += Mathf.Abs(_velocity.y);
             }
 
             float xAddVelocity = 0;
@@ -397,7 +409,7 @@ public class CharacterJump : MonoBehaviour
                 _wallMovement.IsWallSliding = false;
                 // _horizontalMovement.SetFacingDirection(-xAddVelocity);
             }
-
+            
             _velocity.y += _jumpSpeed;
             _velocity.x += xAddVelocity;
             _currentlyJumping = true;
