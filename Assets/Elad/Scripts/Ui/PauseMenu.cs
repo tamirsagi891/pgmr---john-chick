@@ -1,84 +1,76 @@
-using Elad.Scripts;
 using Managers;
+using Mechanics.UI;
 using Nemesh.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using Logger = Nemesh.Logger;
 
-public class PauseMenu : MonoBehaviour
+namespace Elad.Scripts.Ui
 {
-    public bool gameIsPaused;
-
-    public GameObject pauseMenuUI;
-
-    [SerializeField]
-    public LoadSceneManager loadSceneManager;
-
-    private GameObject _firstSelected;
-
-
-    private void Awake()
+    public class PauseMenu : BaseMenuController
     {
-        _firstSelected = pauseMenuUI.GetComponentInChildren<Button>().gameObject;
-        EventSystem.current.SetSelectedGameObject(_firstSelected);
-    }
+        [Space]
+        [Header("Pause Menu")]
+        [SerializeField]
+        public LoadSceneManager loadSceneManager;
 
 
-    public void OnPause(InputAction.CallbackContext context)
-    {
-        if (context.started)
+        private void Awake()
         {
-            if (PlayerStatus.IsGamePause)
+            EventSystem.current.SetSelectedGameObject(firstSelected);
+        }
+
+
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            if (context.started)
             {
-                Resume();
-            }
-            else
-            {
-                Pause();
+                if (GeneralGameManager.IsGamePause)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
             }
         }
-    }
 
-    public void Resume()
-    {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        PlayerStatus.IsGamePause = false;
-    }
+        public void Resume()
+        {
+            MenuManager.Menu.CloseAllMenus();
+        }
 
-    public void ReloadLevel()
-    {
-        PlayerStatus.IsGamePause = false;
-        Time.timeScale = 1f;
-        Logger.Log("Reload Level");
-        loadSceneManager.ReloadScene();
-    }
+        private void Pause()
+        {
+            MenuManager.Menu.OpenPauseMenu();
+        }
 
-    private void Pause()
-    {
-        pauseMenuUI.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(_firstSelected);
-        Time.timeScale = 0f;
-        PlayerStatus.IsGamePause = true;
-    }
+        
+        // TODO: move all of this to the MenuManager
+        public void ReloadLevel()
+        {
+            GeneralGameManager.IsGamePause = false;
+            Logger.Log("Reload Level");
+            loadSceneManager.ReloadScene();
+        }
 
-    public void LoadMenu()
-    {
-        PlayerStatus.IsGamePause = false;
-        Time.timeScale = 1f;
-        Logger.Log("load menu");
-        loadSceneManager.GoToScene(ScenesHolder.MainMenu);
-    }
+        public void LoadMenu()
+        {
+            GeneralGameManager.IsGamePause = false;
+            Logger.Log("load menu");
+            loadSceneManager.GoToScene(ScenesHolder.MainMenu);
+        }
 
-    public void QuitGame()
-    {
-        PlayerStatus.IsGamePause = false;
-        Logger.Log("quit game");
-        Application.Quit();
+        public void QuitGame()
+        {
+            GeneralGameManager.IsGamePause = false;
+            Logger.Log("quit game");
+            Application.Quit();
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
 #endif
+        }
     }
 }

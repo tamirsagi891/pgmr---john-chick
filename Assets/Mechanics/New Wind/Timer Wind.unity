@@ -1734,6 +1734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killImmediate: 0
   lifeAtExit: 0.15
 --- !u!199 &365699628
 ParticleSystemRenderer:
@@ -93245,16 +93246,116 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 166883416278178464, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 858784239814242805, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 960796953321218310, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720681678285845673, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2733420501845508229, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2733420501845508229, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2733420501845508229, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2733420501845508229, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3404076856901261961, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 3468074765604378702, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3468074765604378702, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3468074765604378702, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3468074765604378702, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503349251803144311, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4328931484784174919, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4328931484784174919, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4328931484784174919, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4328931484784174919, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582267712382026276, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582267712382026276, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582267712382026276, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5654597020295020589, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352216154699110138, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352216154699110138, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384112941076426435, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384112941076426435, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384112941076426435, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384112941076426435, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7466703351909341142, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
@@ -94129,6 +94230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killImmediate: 0
   lifeAtExit: 0.15
 --- !u!199 &1266717786
 ParticleSystemRenderer:
@@ -99443,6 +99545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killImmediate: 0
   lifeAtExit: 0.15
 --- !u!199 &1343557265
 ParticleSystemRenderer:
@@ -105227,6 +105330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killImmediate: 0
   lifeAtExit: 0.15
 --- !u!199 &1512126233
 ParticleSystemRenderer:
@@ -110789,6 +110893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a348897ad4cca468c0236fed1151db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killImmediate: 0
   lifeAtExit: 0.15
 --- !u!199 &1625081412
 ParticleSystemRenderer:

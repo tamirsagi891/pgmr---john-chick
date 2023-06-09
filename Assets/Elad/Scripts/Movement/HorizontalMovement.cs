@@ -137,7 +137,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (PlayerStatus.IsGamePause) return;
+        if (GeneralGameManager.IsGamePause) return;
         var direction = Vector2.zero;
         if (context.phase != InputActionPhase.Canceled && _playerController.CanMove)
         {

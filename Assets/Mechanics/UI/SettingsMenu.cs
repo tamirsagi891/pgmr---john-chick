@@ -1,30 +1,13 @@
-﻿using System;
+﻿using BitStrap;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace Mechanics.UI
 {
-    public class SettingsMenu : MonoBehaviour
+    public class SettingsMenu : BaseMenuController
     {
-        [SerializeField]
-        public SoundEvents soundEvents;
 
-        public void OnMasterChange(float value)
-        {
-            soundEvents.onMasterChange.Invoke(value);
-        }
-        
-        public void OnMusicChange(float value)
-        {
-            soundEvents.onMusicChange.Invoke(value);
-        }
-    }
-
-    [Serializable]
-    public class SoundEvents
-    {
-        public UnityEvent<float> onMasterChange = new();
-        public UnityEvent<float> onMusicChange = new();
     }
 }

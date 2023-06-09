@@ -11,17 +11,6 @@ namespace Elad.Scripts
 {
     public static class PlayerStatus
     {
-        public static bool IsGamePause  // TODO: Move this to another script- this isnt a PlayerStatus, its a GameState
-        {
-            get => isGamePause;
-            set
-            {
-                isGamePause = value;
-                Time.timeScale = isGamePause ? 0f : 1f;
-                // TODO: Save the last and resume it, if we want slowmotion effect
-            }
-        }
-
         public static GameObject player;
         public static int maxHealth;
         public static int curHealth;

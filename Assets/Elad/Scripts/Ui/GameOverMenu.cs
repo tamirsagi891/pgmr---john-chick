@@ -1,6 +1,7 @@
 using System;
 using Elad.Events;
 using Elad.Scripts.Combat;
+using Mechanics.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -9,20 +10,19 @@ using Logger = Nemesh.Logger;
 
 namespace Elad.Scripts.Ui
 {
-    public class GameOverMenu : MonoBehaviour
+    public class GameOverMenu : BaseMenuController
     {
+        [Space]
+        [Header("GameOver Menu")]
         [SerializeField]
         [Range(0.5f, 5f)]
         private float openGameOverMenuTime = 3f;
 
         private float _openGameOverMenuTimer;
         private bool openMenu;
-        public GameObject gameOverMenuUI;
-        private GameObject _firstSelected;
 
         private void OnEnable()
         {
-            _firstSelected = gameOverMenuUI.GetComponentInChildren<Button>().gameObject;
             characterEvents.PlayerDied.AddListener(PlayerDied);
         }
 
@@ -39,7 +39,7 @@ namespace Elad.Scripts.Ui
                 if (_openGameOverMenuTimer <= 0)
                 {
                     openMenu = false;
-                    OpenGameOverMenu();
+                    MenuManager.Menu.OpenGameOverMenu();
                 }
             }
         }
@@ -47,8 +47,7 @@ namespace Elad.Scripts.Ui
         public void ReturnToLastCheckPoint()
         {
             Logger.Log("in return to last check point function");
-            gameOverMenuUI.SetActive(false);
-            PlayerStatus.IsGamePause = false;
+            MenuManager.Menu.CloseAllMenus();
             PlayerStatus.SaveGameManager.LoadGameFromCheckPoint();
             PlayerStatus.player.GetComponent<Damageable>().RevivePlayer();
             
@@ -60,12 +59,10 @@ namespace Elad.Scripts.Ui
             _openGameOverMenuTimer = openGameOverMenuTime;
         }
 
-        private void OpenGameOverMenu()
+        public override void OpenMenu()
         {
-            EventSystem.current.SetSelectedGameObject(_firstSelected);
+            base.OpenMenu();
             Logger.Log("in open game over menu");
-            gameOverMenuUI.SetActive(true);
-            PlayerStatus.IsGamePause = true;
         }
     }
 }

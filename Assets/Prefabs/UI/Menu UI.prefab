@@ -53,6 +53,9 @@ MonoBehaviour:
     onMusicChange:
       m_PersistentCalls:
         m_Calls: []
+  settingsMenu: {fileID: 5345260289228745503}
+  gameOverMenu: {fileID: 4905601513025218582}
+  pauseMenu: {fileID: 3229372096768922436}
 --- !u!1 &3750154957102500097
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,6 +71,7 @@ GameObject:
   - component: {fileID: 169989658977838084}
   - component: {fileID: 3229372096768922436}
   - component: {fileID: 4905601513025218582}
+  - component: {fileID: 5345260289228745503}
   - component: {fileID: 4791929204022327953}
   m_Layer: 5
   m_Name: Menu Canvas
@@ -205,8 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68f7cc8b59c6ab4f851fcd08270b66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameIsPaused: 0
-  pauseMenuUI: {fileID: 858784239814242805}
+  menuUiObject: {fileID: 858784239814242805}
+  firstSelected: {fileID: 1626929108863163448}
   loadSceneManager: {fileID: 4791929204022327953}
 --- !u!114 &4905601513025218582
 MonoBehaviour:
@@ -220,8 +224,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c423a61691eb54ba049e0caa09d444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuUiObject: {fileID: 3817327443516167499}
+  firstSelected: {fileID: 8655914300904889163}
   openGameOverMenuTime: 3
-  gameOverMenuUI: {fileID: 3817327443516167499}
+--- !u!114 &5345260289228745503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750154957102500097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f92de652f0c42328f39b1c8c731644f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuUiObject: {fileID: 9059726308198538941}
+  firstSelected: {fileID: 6776354076557283880}
 --- !u!114 &4791929204022327953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,7 +426,15 @@ PrefabInstance:
     - target: {fileID: 2246332231187977051, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3229372096768922436}
+      objectReference: {fileID: 5482870583449423469}
+    - target: {fileID: 2246332231187977051, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenSettingsMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2246332231187977051, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Mechanics.UI.MenuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3136882433630098447, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -610,6 +637,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6586377405630065588, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
   m_PrefabInstance: {fileID: 5804155778993084993}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1626929108863163448 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5050931612894742137, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
+  m_PrefabInstance: {fileID: 5804155778993084993}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8864475060363497038 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3136882433630098447, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
@@ -759,6 +791,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -100
       objectReference: {fileID: 0}
+    - target: {fileID: 3366709521011419422, guid: 99db78a7430e4fa41a9c3dc1432d68a2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5482870583449423469}
+    - target: {fileID: 3366709521011419422, guid: 99db78a7430e4fa41a9c3dc1432d68a2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenSettingsMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366709521011419422, guid: 99db78a7430e4fa41a9c3dc1432d68a2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Mechanics.UI.MenuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3649734308414885833, guid: 99db78a7430e4fa41a9c3dc1432d68a2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -883,6 +927,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1881403826609106506, guid: 99db78a7430e4fa41a9c3dc1432d68a2, type: 3}
   m_PrefabInstance: {fileID: 6776293963023991994}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8655914300904889163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2744318655306375153, guid: 99db78a7430e4fa41a9c3dc1432d68a2, type: 3}
+  m_PrefabInstance: {fileID: 6776293963023991994}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9179550828875917628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -978,6 +1027,18 @@ PrefabInstance:
     - target: {fileID: 3610869025936206616, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822672859927663556, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5482870583449423469}
+    - target: {fileID: 3822672859927663556, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToPreviousMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822672859927663556, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Mechanics.UI.MenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4576488561241856199, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1159,5 +1220,15 @@ PrefabInstance:
 --- !u!224 &960796953321218310 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8228427722963519546, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+  m_PrefabInstance: {fileID: 9179550828875917628}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6776354076557283880 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2408901293696170772, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+  m_PrefabInstance: {fileID: 9179550828875917628}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9059726308198538941 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 206828876123731841, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
   m_PrefabInstance: {fileID: 9179550828875917628}
   m_PrefabAsset: {fileID: 0}
