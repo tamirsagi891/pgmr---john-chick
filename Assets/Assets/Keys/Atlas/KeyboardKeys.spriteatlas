@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: KeyboardKeys
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: c8a2eec88c1069643bfc4c0bd4641431, type: 3}
+    - {fileID: 2800000, guid: d6d302979302e7a43a4a61479191c31f, type: 3}
+    - {fileID: 2800000, guid: 0946f0bb55f65764eae0faa351e31bee, type: 3}
+    - {fileID: 2800000, guid: 03da23b03c97b5b44a4edd00a882c41e, type: 3}
+    - {fileID: 2800000, guid: fa3563f9114fa62418e925ad051f3fb3, type: 3}
+    - {fileID: 2800000, guid: f82272156c9c45b49bc153f8d61ced65, type: 3}
+    - {fileID: 2800000, guid: 735c202ed74c0dc41bfb6e5c4f5f7c17, type: 3}
+    - {fileID: 2800000, guid: 864a72c4c322c6343ae0671db744650d, type: 3}
+    - {fileID: 2800000, guid: a30a712e954b06d44ad3775c08ed0629, type: 3}
+    - {fileID: 2800000, guid: fd4556cd82d77a04ea0f9ffffb1b2d19, type: 3}
+    - {fileID: 2800000, guid: 522aaf32c58d061428843ece375471f1, type: 3}
+    - {fileID: 2800000, guid: 06f51c39339ee7b408aaed58ad23ae9e, type: 3}
+    - {fileID: 2800000, guid: ffbdddade16a3404b8cbd0fc844e45a0, type: 3}
+    - {fileID: 2800000, guid: 4b948ec1bc5d3ce4baa343becd941617, type: 3}
+    - {fileID: 2800000, guid: b4fbc3f24e7752b439a800216f11455e, type: 3}
+    - {fileID: 2800000, guid: 1ea0ba78134c3c343aa5539b56f431e2, type: 3}
+    - {fileID: 2800000, guid: 1f899f49de86def4abca0e4ee77e410f, type: 3}
+    - {fileID: 2800000, guid: dc95f97134d61684987dd4d4da209b40, type: 3}
+    - {fileID: 2800000, guid: dd06738cb05e1ca4d906c64d909dfa1d, type: 3}
+    - {fileID: 2800000, guid: e39286d3e5f053d4bbe69368efc30f1a, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 03da23b03c97b5b44a4edd00a882c41e: 21300000
+    - dc95f97134d61684987dd4d4da209b40: 21300000
+    - 4b948ec1bc5d3ce4baa343becd941617: 21300000
+    - 522aaf32c58d061428843ece375471f1: 21300000
+    - b4fbc3f24e7752b439a800216f11455e: 21300000
+    - e39286d3e5f053d4bbe69368efc30f1a: 21300000
+    - 864a72c4c322c6343ae0671db744650d: 21300000
+    - f82272156c9c45b49bc153f8d61ced65: 21300000
+    - d6d302979302e7a43a4a61479191c31f: 21300000
+    - 1ea0ba78134c3c343aa5539b56f431e2: 21300000
+    - c8a2eec88c1069643bfc4c0bd4641431: 21300000
+    - 06f51c39339ee7b408aaed58ad23ae9e: 21300000
+    - 1f899f49de86def4abca0e4ee77e410f: 21300000
+    - fa3563f9114fa62418e925ad051f3fb3: 21300000
+    - 0946f0bb55f65764eae0faa351e31bee: 21300000
+    - dd06738cb05e1ca4d906c64d909dfa1d: 21300000
+    - ffbdddade16a3404b8cbd0fc844e45a0: 21300000
+    - fd4556cd82d77a04ea0f9ffffb1b2d19: 21300000
+    - 735c202ed74c0dc41bfb6e5c4f5f7c17: 21300000
+    - a30a712e954b06d44ad3775c08ed0629: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 03da23b03c97b5b44a4edd00a882c41e, type: 3}
+  - {fileID: 21300000, guid: dc95f97134d61684987dd4d4da209b40, type: 3}
+  - {fileID: 21300000, guid: 4b948ec1bc5d3ce4baa343becd941617, type: 3}
+  - {fileID: 21300000, guid: 522aaf32c58d061428843ece375471f1, type: 3}
+  - {fileID: 21300000, guid: b4fbc3f24e7752b439a800216f11455e, type: 3}
+  - {fileID: 21300000, guid: e39286d3e5f053d4bbe69368efc30f1a, type: 3}
+  - {fileID: 21300000, guid: 864a72c4c322c6343ae0671db744650d, type: 3}
+  - {fileID: 21300000, guid: f82272156c9c45b49bc153f8d61ced65, type: 3}
+  - {fileID: 21300000, guid: d6d302979302e7a43a4a61479191c31f, type: 3}
+  - {fileID: 21300000, guid: 1ea0ba78134c3c343aa5539b56f431e2, type: 3}
+  - {fileID: 21300000, guid: c8a2eec88c1069643bfc4c0bd4641431, type: 3}
+  - {fileID: 21300000, guid: 06f51c39339ee7b408aaed58ad23ae9e, type: 3}
+  - {fileID: 21300000, guid: 1f899f49de86def4abca0e4ee77e410f, type: 3}
+  - {fileID: 21300000, guid: fa3563f9114fa62418e925ad051f3fb3, type: 3}
+  - {fileID: 21300000, guid: 0946f0bb55f65764eae0faa351e31bee, type: 3}
+  - {fileID: 21300000, guid: dd06738cb05e1ca4d906c64d909dfa1d, type: 3}
+  - {fileID: 21300000, guid: ffbdddade16a3404b8cbd0fc844e45a0, type: 3}
+  - {fileID: 21300000, guid: fd4556cd82d77a04ea0f9ffffb1b2d19, type: 3}
+  - {fileID: 21300000, guid: 735c202ed74c0dc41bfb6e5c4f5f7c17, type: 3}
+  - {fileID: 21300000, guid: a30a712e954b06d44ad3775c08ed0629, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Shift_Alt_Key_Light
+  - Arrow_Left_Key_Light
+  - Ctrl_Key_Light
+  - Esc_Key_Light
+  - C_Key_Light
+  - Alt_Key_Light
+  - Mouse_Left_Key_Light
+  - Mouse_Right_Key_Light
+  - Tab_Key_Light
+  - Arrow_Down_Key_Light
+  - Tilda_Key_Light
+  - Enter_Key_Light
+  - Arrow_Right_Key_Light
+  - Mouse_Simple_Key_Light
+  - Space_Key_Light
+  - Arrow_Up_Key_Light
+  - E_Key_Light
+  - F10_Key_Light
+  - Mouse_Middle_Key_Light
+  - G_Key_Light
+  m_RenderDataMap: {}
+  m_Tag: KeyboardKeys
+  m_IsVariant: 0
