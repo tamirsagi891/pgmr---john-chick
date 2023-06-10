@@ -69,6 +69,7 @@ namespace Mechanics.UI.Menus
 
         #region Menus
 
+        
         public void OpenSettingsMenu()
         {
             if (_currentOpen != null)
@@ -203,6 +204,7 @@ namespace Mechanics.UI.Menus
                 return;
             }
 
+            PlayerStatus.MenuManager = this;
             Menu = this;
             _lastOpen = pauseMenu;
             _currentOpen = null;

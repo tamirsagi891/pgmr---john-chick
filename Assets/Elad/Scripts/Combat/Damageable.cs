@@ -5,12 +5,19 @@ using Elad.Save_Load_System;
 using Mechanics.Enemies;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using Logger = Nemesh.Logger;
 
 namespace Elad.Scripts.Combat
 {
     public class Damageable : MonoBehaviour, ICanBeAttacked
     {
+        [SerializeField]
+        [Tooltip("The code to open the game over or go to the last check point is in the base menu controller")]
+        private int checkPointsLives = 3;
+
+        private bool _dieButInGlide;
+
         [Header("Times")] private float timeToOpenGameOverMenu = 2f;
         [Header("Components")] private Animator _animator;
         private SpriteRenderer _spriteRenderer;
@@ -42,7 +49,6 @@ namespace Elad.Scripts.Combat
                     {
                         _curHealth = 0;
                         IsAlive = false;
-
                     }
 
                     PlayerSaveData.health = _curHealth;
@@ -80,10 +86,19 @@ namespace Elad.Scripts.Combat
             {
                 isAlive = value;
                 _animator.SetBool(AnimationStrings.isAlive, value);
-                if (!value)
+                if (!value && !_dieButInGlide)
                 {
-                    Logger.Log("in IsAlive");
-                    characterEvents.PlayerDied.Invoke();
+                    if (PlayerStatus.IsGliding)
+                    {
+                        GeneralGameManager.IsGamePause = true;
+                        _dieButInGlide = true;
+                    }
+
+                    else
+                    {
+                        Logger.Log("in IsAlive");
+                        characterEvents.PlayerDied.Invoke();
+                    }
                 }
             }
         }
@@ -92,7 +107,6 @@ namespace Elad.Scripts.Combat
         public void RevivePlayer()
         {
             IsAlive = true;
-            
         }
 
         public bool LockVelocity
@@ -114,12 +128,20 @@ namespace Elad.Scripts.Combat
         [SerializeField] private float blinkTime = 0.01f;
         private float _blinkTimer;
         private bool _inOriginalColor = true;
+        private TouchingDirection _touchingDirection;
 
         private PlayerSaveData PlayerSaveData
         {
             get => PlayerStatus.PlayerSaveData;
             set => PlayerStatus.PlayerSaveData = value;
         }
+
+        public int CheckPointsLives
+        {
+            get => checkPointsLives;
+            set => checkPointsLives = value;
+        }
+
 
         [Header("Tests")] [SerializeField] private int setLifeValue = 50;
 
@@ -137,7 +159,6 @@ namespace Elad.Scripts.Combat
 
         private void Awake()
         {
-            
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _originalColor = _spriteRenderer.color;
             _curHealth = maxHealth;
@@ -145,7 +166,6 @@ namespace Elad.Scripts.Combat
             PlayerStatusSetVariables();
 
             PlayerSaveData.health = _curHealth;
-            
         }
 
         private void Start()
@@ -155,6 +175,22 @@ namespace Elad.Scripts.Combat
 
         private void Update()
         {
+            if (_dieButInGlide)
+            {
+                if (!_touchingDirection)
+                {
+                    _touchingDirection = PlayerStatus.player.GetComponent<TouchingDirection>();
+                }
+                
+                if (_touchingDirection.IsGrounded)
+                {
+                    characterEvents.PlayerDied.Invoke();
+
+                }
+                 
+                return;    
+            }
+            
             if (IsInvincible)
             {
                 if (timeSinceHit > invincibilityTimer)
@@ -212,8 +248,9 @@ namespace Elad.Scripts.Combat
         }
 
 
-        public bool GotHit(int damage, Vector2 knockBack, float knockBackDelay=0f)
+        public bool GotHit(int damage, Vector2 knockBack, float knockBackDelay = 0f)
         {
+            if (GeneralGameManager.IsGamePause) return false;
             if (IsAlive && !IsInvincible)
             {
                 Logger.Log("In got hit");
@@ -267,14 +304,13 @@ namespace Elad.Scripts.Combat
                 case AttackType.Regular:
                 default:
                     return GotHit(1, attackParameters.KnockBack, attackParameters.KnockBackDelay);
-                    // return GotHit((int) attackParameters.Damage, attackParameters.KnockBack);
+                // return GotHit((int) attackParameters.Damage, attackParameters.KnockBack);
             }
         }
 
         public void SavePlayerStatus()
         {
             SaveGameOnJson.CurrentSaveData.playerSaveData = PlayerSaveData;
-
         }
 
         public void LoadPlayerStatus()

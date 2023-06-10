@@ -120,6 +120,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
+        if (GeneralGameManager.IsGamePause) return;
         if (!context.canceled)
         {
             if (_playerController.CanMove && !IsCrouching)
@@ -148,6 +149,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnCrouch(bool state)
     {
+        if (GeneralGameManager.IsGamePause) return;
         IsCrouching = state;
     }
 
@@ -172,6 +174,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnRun(InputAction.CallbackContext context)
     {
+        if (GeneralGameManager.IsGamePause) return;
         if (context.started)
         {
             IsRunning = true;
@@ -330,6 +333,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnHit(int damage, Vector2 knockBack, float delay = 0f)
     {
+        if (GeneralGameManager.IsGamePause) return;
         if (delay > 0)
         {
             StartCoroutine(CorotuineUtils.DelayExecution(delay, 
