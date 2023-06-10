@@ -65,7 +65,7 @@ public class CharacterJump : MonoBehaviour
     [ReadOnly]
     private float _coyoteTimeCounter = 0;
     private bool _pressingJump;
-    private bool onGround;
+    private bool _onGround;
     private bool _currentlyJumping;
 
     [Header("Gliding")] [SerializeField][Tooltip("Horizontal speed without holding the key")] private float glideHorizontallyMovementStaticStatic = 5f;
@@ -122,9 +122,9 @@ public class CharacterJump : MonoBehaviour
                 _isCrouching = _horizontalMovement.IsCrouching;
             }
 
-            var returnValue = (onGround || (_coyoteTimeCounter < coyoteTime) || canJumpAgain ||
+            var returnValue = (OnGround || (_coyoteTimeCounter < coyoteTime) || canJumpAgain ||
                                _wallMovement.IsWallSliding) && (!_isCrouching) && !_inHit;
-            
+
             return returnValue;
         }
     }
@@ -139,6 +139,12 @@ public class CharacterJump : MonoBehaviour
     {
         get => glideHorizontallyMovement;
         set => glideHorizontallyMovement = value;
+    }
+
+    public bool OnGround
+    {
+        get => _touchingDirection.IsGrounded;
+        set => _touchingDirection.IsGrounded = value;
     }
 
     [Space(3)] [Header("On Hit")] [SerializeField]
@@ -225,9 +231,7 @@ public class CharacterJump : MonoBehaviour
                 _inHit = false;
             }
         }
-
-        //Check if we're on ground.
-        onGround = _touchingDirection.IsGrounded;
+        
         //Jump buffer allows us to queue up a jump, which will play when we next hitTrigger the ground
         if (jumpBuffer > 0)
         {
@@ -248,13 +252,14 @@ public class CharacterJump : MonoBehaviour
 
         //If we're not on the ground and we're not currently jumping, that means we've stepped off the edge of a platform.
         //So, start the coyote time counter...
-        if (!_currentlyJumping && !onGround)
+        
+        if (!_currentlyJumping && !OnGround && !_wallMovement.IsWallSliding)
         {
             _coyoteTimeCounter += Time.deltaTime;
         }
-        else
+
+        if (!_currentlyJumping && (OnGround || _wallMovement.IsWallSliding))
         {
-            //Reset it when we touch the ground, or jump
             _coyoteTimeCounter = 0;
         }
     }
@@ -310,7 +315,7 @@ public class CharacterJump : MonoBehaviour
         {
             calculateGravityUp();
         }
-        else if (_rB.velocity.y < -0.01f && !onGround)        //Else if going down...
+        else if (_rB.velocity.y < -0.01f && !OnGround)        //Else if going down...
         {
             calculateGravityDown();
         }
@@ -361,7 +366,7 @@ public class CharacterJump : MonoBehaviour
         {
             _desiredJump = false;
             _jumpBufferCounter = 0;
-            _coyoteTimeCounter = 0;
+            _coyoteTimeCounter = coyoteTime + 1f;
 
             // Determine the power of the jump, based on our gravity and stats
             var gScale = GetGravityScale(_wallMovement.IsWallSliding ? _wallMovement.GravityMultiplierWallSliding : _defaultGravityScale);
