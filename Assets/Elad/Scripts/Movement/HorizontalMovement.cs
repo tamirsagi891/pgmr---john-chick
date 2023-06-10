@@ -70,7 +70,8 @@ public class HorizontalMovement : MonoBehaviour
     [Space(10)] [Header("Crouching")] private bool _isCrouching;
     [SerializeField, Range(0f, 10f)] private float maxSpeedCrouching = 5f;
     [SerializeField] private float crouchingWalkSpeed = 3f;
-
+    private bool _crouchIsPush;
+    
     public bool IsCrouching
     {
         get => _isCrouching;
@@ -122,12 +123,27 @@ public class HorizontalMovement : MonoBehaviour
         if (!context.canceled)
         {
             if (_playerController.CanMove && !IsCrouching)
+            {
                 IsCrouching = true;
+                _crouchIsPush = true;
+            }
+                
         }
 
 
         else if (context.canceled)
-            IsCrouching = false;
+        {
+            if (!_touchingDirection.IsOnCeiling)
+            {
+                IsCrouching = false;
+            }
+
+            _crouchIsPush = false;
+
+        }
+            
+
+        
     }
 
     public void OnCrouch(bool state)
@@ -179,6 +195,23 @@ public class HorizontalMovement : MonoBehaviour
         //Must be after the line above because of the automate gliding horizontal movement
         currentDirX = PlayerStatus.IsGliding ? (IsFacingRight ? 1 : -1) : currentDirX;
         _desiredVelocity = new Vector2(currentDirX, 0f) * Mathf.Max(CurrentMoveSpeed - friction, 0f);
+
+        CrouchHandler();
+    }
+
+    private void CrouchHandler()
+    {
+        if (IsCrouching)
+        {
+            // Logger.Log(_crouchIsPush);
+            // Logger.Log(!_touchingDirection.IsOnCeiling);
+            
+            if (!_crouchIsPush && !_touchingDirection.IsOnCeiling)
+            {
+                IsCrouching = false;
+                Logger.Log("KAKA");
+            }
+        }
     }
 
     private float CurrentMoveSpeed

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BitStrap;
 using UnityEngine;
+using Logger = Nemesh.Logger;
 
 public class TouchingDirection : MonoBehaviour
 {
@@ -95,8 +96,7 @@ public class TouchingDirection : MonoBehaviour
     {
         GroundAndPlatformCast();
         WallCast();
-
-        IsOnCeiling = _capsuleCollider2D.Cast(Vector2.up, castFilterGround, ceilingHits, ceilingDistance) > 0;
+        CeilingCast();
     }
 
 
@@ -131,6 +131,11 @@ public class TouchingDirection : MonoBehaviour
         IsOnPlatform = hitPlatform.collider != null;
     }
 
+    private void CeilingCast()
+    {
+        IsOnCeiling = Physics2D.Raycast(_circleCollider2D.bounds.center, Vector2.up, ceilingDistance, castFilterGround.layerMask);
+
+    }
 
     private void WallCast()
     {
