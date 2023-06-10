@@ -551,7 +551,7 @@ MonoBehaviour:
     maxNormalAngle: 0
   groundDistance: 0.23
   wallDistance: 0.2
-  ceilingDistance: 0.05
+  ceilingDistance: 1.5
   groundOffset: {x: 0, y: 0}
   groundGapAmount: 0.5
   wallOffset: {x: 0, y: 0.2}

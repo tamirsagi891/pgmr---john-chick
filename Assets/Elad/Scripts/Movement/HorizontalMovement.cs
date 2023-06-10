@@ -136,11 +136,11 @@ public class HorizontalMovement : MonoBehaviour
         {
             if (!_touchingDirection.IsOnCeiling)
             {
+                Logger.Log("pipi");
                 IsCrouching = false;
             }
 
             _crouchIsPush = false;
-
         }
             
 
@@ -208,6 +208,7 @@ public class HorizontalMovement : MonoBehaviour
         {
             if (!_crouchIsPush && !_touchingDirection.IsOnCeiling)
             {
+                Logger.Log("kaka");
                 IsCrouching = false;
             }
         }
