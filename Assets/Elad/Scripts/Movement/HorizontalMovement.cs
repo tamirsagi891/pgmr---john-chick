@@ -1,4 +1,5 @@
 using System;
+using BitStrap;
 using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
@@ -106,6 +107,7 @@ public class HorizontalMovement : MonoBehaviour
     }
 
 
+    [SerializeField][Range(5, 20)] private float knockBackMultiplayer = 1;
     private void Awake()
     {
         PlayerStatus.isFacingRight = (transform.localScale.x > 0);
@@ -338,7 +340,9 @@ public class HorizontalMovement : MonoBehaviour
         if (delay > 0)
         {
             StartCoroutine(CorotuineUtils.DelayExecution(delay, 
-                () => {
+                () =>
+                {
+                    knockBack *= knockBackMultiplayer;
                     _rB.AddForce(knockBack, ForceMode2D.Impulse);
                 }
                 )
@@ -346,7 +350,11 @@ public class HorizontalMovement : MonoBehaviour
             return;
         }
 
+        Logger.Log("in on hit, knock back is: " + knockBack);
+            
+        knockBack *= knockBackMultiplayer;
         _rB.AddForce(knockBack, ForceMode2D.Impulse);
 
     }
+    
 }
