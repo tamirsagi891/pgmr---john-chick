@@ -11,12 +11,12 @@ namespace Elad.Scripts.Arrows
     
     public class FeathersToCollectManager : MonoBehaviour
     {
-        [SerializeField] private GameObject Feather;
-        
+        static int howManyTimesCalled = 0;
         [SerializeField] [ReadOnly] private int startFeatherAmount;
+        [SerializeField] [ReadOnly] private int collectedFeatherAmount;
         [SerializeField] [ReadOnly] private int currentFeathersAmount;
         [SerializeField] [ReadOnly] private float percentagesCurrentFeathersAmount;
-        
+        private int _lastFeatherId = 0;
         
         private FeatherToCollectLists _featherToCollectLists = new FeatherToCollectLists();
 
@@ -28,7 +28,7 @@ namespace Elad.Scripts.Arrows
             set
             {
                 currentFeathersAmount = value;
-                PercentagesCurrentFeathersAmount = ((float)currentFeathersAmount / (float)startFeatherAmount) * 100;
+                PercentagesCurrentFeathersAmount = ((float)CollectedFeatherAmount / (float)startFeatherAmount) * 100;
             }
         }
 
@@ -36,6 +36,12 @@ namespace Elad.Scripts.Arrows
         {
             get => percentagesCurrentFeathersAmount;
             set => percentagesCurrentFeathersAmount = value;
+        }
+
+        public int CollectedFeatherAmount
+        {
+            get => collectedFeatherAmount;
+            set => collectedFeatherAmount = value;
         }
 
 
@@ -73,13 +79,21 @@ namespace Elad.Scripts.Arrows
             _featherToCollectLists.featherList.Add(featherToCollect);
             startFeatherAmount += 1;
             CurrentFeathersAmount += 1;
-            
+            featherToCollect.ID = CurrentFeathersAmount;
+
         }
 
         public void RemoveFeather(FeatherToCollect featherToCollect)
         {
-            _featherToCollectLists.featherList.Remove(featherToCollect);
-            CurrentFeathersAmount -= 1;
+            if (featherToCollect.ID != _lastFeatherId)
+            {
+                _lastFeatherId = featherToCollect.ID;
+                CollectedFeatherAmount += 1;
+                _featherToCollectLists.featherList.Remove(featherToCollect);
+                CurrentFeathersAmount -= 1;
+            }
+            
+            
 
         }
 
