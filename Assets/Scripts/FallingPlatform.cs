@@ -8,6 +8,7 @@ public class FallingPlatform : MonoBehaviour
     [SerializeField] private float respawnDelay = 5f;
     [SerializeField] private float popInTime = 0.5f;
     [SerializeField] private float distanceFromPlayerToDeactivate = 20f;
+    [SerializeField] private float shakeIntensity = 0.01f;
 
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb;
@@ -47,7 +48,7 @@ public class FallingPlatform : MonoBehaviour
         float elapsedTime = 0f;
         while (elapsedTime < fallDelay)
         {
-            transform.position = new Vector2(transform.position.x + Mathf.Sin(elapsedTime * 50) * 0.01f, transform.position.y);
+            transform.position = new Vector2(transform.position.x + Mathf.Sin(elapsedTime * 50) * shakeIntensity, transform.position.y);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
