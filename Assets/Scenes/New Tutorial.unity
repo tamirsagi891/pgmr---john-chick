@@ -63115,8 +63115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122c3ee7aa4630d4dbe942f49948c72d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Feather: {fileID: 0}
   startFeatherAmount: 0
+  collectedFeatherAmount: 0
   currentFeathersAmount: 0
   percentagesCurrentFeathersAmount: 0
   initializeFromJason: 0
