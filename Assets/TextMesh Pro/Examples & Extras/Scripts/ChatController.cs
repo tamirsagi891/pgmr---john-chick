@@ -34,7 +34,7 @@ public class ChatController : MonoBehaviour {
         if (ChatDisplayOutput != null)
         {
             // No special formatting for first entry
-            // AddFeather line feed before each subsequent entries
+            // AddFeatherToPlayer line feed before each subsequent entries
             if (ChatDisplayOutput.text == string.Empty)
                 ChatDisplayOutput.text = formattedInput;
             else

@@ -85,13 +85,13 @@ namespace Elad.Scripts
         
         private void OnEnable()
         {
-            characterEvents.AddFeather.AddListener(AddFeather);
+            characterEvents.AddFeatherToPlayer.AddListener(AddFeather);
             characterEvents.RemoveFeather.AddListener(RemoveFeather);
         }
 
         private void OnDisable()
         {
-            characterEvents.AddFeather.RemoveListener(AddFeather);
+            characterEvents.AddFeatherToPlayer.RemoveListener(AddFeather);
             characterEvents.RemoveFeather.RemoveListener(RemoveFeather);
         }
         
@@ -187,8 +187,6 @@ namespace Elad.Scripts
             }
 
             TotalFeathersAmount += 1;
-            Logger.Log("fether added");
-            Logger.Log("amounts of fethers are: " + TotalFeathersAmount);
         }
 
         public void RemoveFeather(FeatherKind featherKind)

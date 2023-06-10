@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using BitStrap;
 using UnityEngine;
 using Cinemachine;
+using Elad.Events;
 using Elad.Scripts;
 using Logger = Nemesh.Logger;
 
@@ -14,7 +16,21 @@ public class ZoomCamera : MonoBehaviour
     [SerializeField] private float wantedDistance;
     [SerializeField] private float zoomSpeed = 0.2f;
 
+    [SerializeField] private bool startZoomWithTimer = true;
+    private bool _startZoom;
+    [SerializeField] private float startZoomTime = 0.2f;
+    [SerializeField] private float _startZoomTimer;
+    
+    
+    private void OnEnable()
+    {
+        characterEvents.FunctionsLoad.AddListener(ReturnToStartDistance);
+    }
 
+    private void OnDisable()
+    {
+        characterEvents.FunctionsLoad.RemoveListener(ReturnToStartDistance);
+    }
     
     private void Awake()
     {
@@ -26,7 +42,19 @@ public class ZoomCamera : MonoBehaviour
         startDistance = _cam.m_Lens.OrthographicSize;
     }
 
-    
+    private void Update()
+    {
+        if (_startZoom)
+        {
+            _startZoomTimer -= Time.deltaTime;
+            if (_startZoomTimer <= 0)
+            {
+                _startZoom = false;
+                ZoomToDistance();
+            }
+        }
+    }
+
     // Function to zoom the camera to a specified distance over time
     public void ZoomToDistance()
     {
@@ -47,12 +75,28 @@ public class ZoomCamera : MonoBehaviour
             yield return null;
             
         }
-        Logger.Log("Got to the final zoom distance");
+        // Logger.Log("Got to the final zoom distance");
+        PlayerStatus.GameOverMenu.OpenMenu();
     }
     
     [Button]
     public void StartZoom()
     {
-        ZoomToDistance();
+        if (startZoomWithTimer)
+        {
+            _startZoom = true;
+            _startZoomTimer = startZoomTime;
+        }
+
+        else
+        {
+            ZoomToDistance();    
+        }
+        
+    }
+
+    public void ReturnToStartDistance()
+    {
+        _cam.m_Lens.OrthographicSize = startDistance;
     }
 }

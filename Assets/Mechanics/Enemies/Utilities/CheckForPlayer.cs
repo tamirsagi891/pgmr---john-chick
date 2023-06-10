@@ -73,7 +73,7 @@ InThat case, we might want to change to list and stop the disable",
             var playerController = other.GetComponent<ICanBeAttacked>();
             if (playerController != null && npcToReportTo.PlayerContact == playerController)
             {
-                npcToReportTo.PlayerContact = null; // TODO: AddFeather to attack targets instead?
+                npcToReportTo.PlayerContact = null; // TODO: AddFeatherToPlayer to attack targets instead?
             }
         }
 

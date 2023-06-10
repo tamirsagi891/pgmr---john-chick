@@ -124,7 +124,7 @@ public class CharacterJump : MonoBehaviour
 
             var returnValue = (OnGround || (_coyoteTimeCounter < coyoteTime) || canJumpAgain ||
                                _wallMovement.IsWallSliding) && (!_isCrouching) && !_inHit;
-            print($"{OnGround} || {_coyoteTimeCounter < coyoteTime} || {canJumpAgain} || {_wallMovement.IsWallSliding}");
+
             return returnValue;
         }
     }

@@ -3,6 +3,7 @@ using Cinemachine;
 using Elad.Scripts;
 using Elad.Scripts.Arrows;
 using Elad.Scripts.Save_Load_System;
+using Mechanics.UI.Menus;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.Events;
@@ -35,12 +36,14 @@ namespace Elad.Scripts
         public static SaveGameManager SaveGameManager;
         public static CheckPoints LastCheckPoint;
         public static bool canSave = true;
-        public static PlayerSaveData _playerSaveData = new PlayerSaveData();
+        public static PlayerSaveData PlayerSaveData = new PlayerSaveData();
 
         public static CinemachineVirtualCamera CurrentVirtualCamara;
         public static bool isGamePause;
-
+        
         public static int CollectedFeatherAmount;
+
+        public static GameOverMenu GameOverMenu;
     }
     
     [System.Serializable]

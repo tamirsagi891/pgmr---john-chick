@@ -117,7 +117,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wantedDistance: 3.5
-  zoomSpeed: 0.1
+  zoomSpeed: 0.05
+  startZoomWithTimer: 1
+  startZoomTime: 0.5
+  _startZoomTimer: 0
 --- !u!1 &8259941828291171472
 GameObject:
   m_ObjectHideFlags: 0

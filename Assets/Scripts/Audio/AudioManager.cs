@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using Mechanics.UI.Menus;
 
 public class AudioManager : MonoBehaviour
 {
@@ -49,6 +51,18 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         InitializeMusic(FMODEvents.instance.Music);
+    }
+
+    private void OnEnable()
+    {
+        MenuManager.Menu.soundEvents.onMasterChange.AddListener(SetMasterVolume);
+        MenuManager.Menu.soundEvents.onMasterChange.AddListener(SetMusicVolume);
+    }
+
+    private void OnDisable()
+    {
+        MenuManager.Menu.soundEvents.onMasterChange.RemoveListener(SetMasterVolume);
+        MenuManager.Menu.soundEvents.onMusicChange.RemoveListener(SetMusicVolume);
     }
 
     private void Update()
@@ -98,4 +112,20 @@ public class AudioManager : MonoBehaviour
     {
         CleanUp();
     }
+
+    #region Event Listeners
+
+    public void SetMasterVolume(float volume)
+    {
+        masterVolume = volume;
+        masterBus.setVolume(masterVolume);
+    }
+    
+    public void SetMusicVolume(float volume)
+    {
+        musicVolume = volume;
+        musicBus.setVolume(volume);
+    }
+
+    #endregion
 }
