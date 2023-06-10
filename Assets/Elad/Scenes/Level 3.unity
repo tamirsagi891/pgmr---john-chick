@@ -720,6 +720,55 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1495396583}
   m_SourcePrefab: {fileID: 100100000, guid: ffd53a52d8a0aeb40af05c3dae2d1e29, type: 3}
+--- !u!1 &139748025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 139748027}
+  - component: {fileID: 139748026}
+  m_Layer: 0
+  m_Name: TimeLine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!320 &139748026
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139748025}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: dd2d8aa61f7a5aa4cb5ddf756e4aa30f, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
+--- !u!4 &139748027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139748025}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &147023352 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
@@ -2597,6 +2646,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1189470082490828380, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: reloadLevelFromStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2161271046664357137, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_Name
       value: John Chick
@@ -93177,6 +93230,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6953914148784886117, guid: 89ac78dedbeffcc4886ad848f31f5417, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8602940064732872052, guid: 89ac78dedbeffcc4886ad848f31f5417, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8602940064732872052, guid: 89ac78dedbeffcc4886ad848f31f5417, type: 3}

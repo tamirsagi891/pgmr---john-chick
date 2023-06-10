@@ -134,6 +134,7 @@ public class TouchingDirection : MonoBehaviour
     private void CeilingCast()
     {
         IsOnCeiling = Physics2D.Raycast(_circleCollider2D.bounds.center, Vector2.up, ceilingDistance, castFilterGround.layerMask);
+        Debug.DrawRay(_circleCollider2D.bounds.center, Vector2.up * ceilingDistance, Color.blue);
 
     }
 

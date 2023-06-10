@@ -187,6 +187,7 @@ public class CharacterJump : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (GeneralGameManager.IsGamePause) return;
         if (context.canceled)
         {
             _pressingJump = false;
@@ -437,6 +438,7 @@ public class CharacterJump : MonoBehaviour
 
     private void OnGlide()
     {
+        if (GeneralGameManager.IsGamePause) return;
         if (!CanGlide)
         {
             CancelGlide();

@@ -1,6 +1,9 @@
 ﻿using BitStrap;
+using Elad.Scripts;
+using Elad.Scripts.Combat;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Logger = Nemesh.Logger;
 
 namespace Mechanics.UI.Menus
 {
@@ -18,8 +21,20 @@ namespace Mechanics.UI.Menus
         
         public virtual void OpenMenu()
         {
-            menuUiObject.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(firstSelected);
+            var damageablePlayer = PlayerStatus.player.GetComponent<Damageable>();
+
+            if (damageablePlayer.CheckPointsLives > 0)
+            {
+                damageablePlayer.CheckPointsLives -= 1;
+                PlayerStatus.MenuManager.ReturnToLastCheckPoint();
+            }
+
+            else
+            {
+                menuUiObject.SetActive(true);
+                EventSystem.current.SetSelectedGameObject(firstSelected); 
+            }
+            
         }
 
         public virtual void CloseMenu()

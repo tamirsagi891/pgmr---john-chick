@@ -41,6 +41,8 @@ namespace Mechanics.UI.Menus
                 if (_openGameOverMenuTimer <= 0)
                 {
                     openMenu = false;
+                    
+                    
                     MenuManager.Menu.OpenGameOverMenu();
                 }
             }
@@ -48,6 +50,7 @@ namespace Mechanics.UI.Menus
 
         private void PlayerDied()
         {
+            
             if (openWithTimer)
             {
                 openMenu = true;
@@ -63,7 +66,7 @@ namespace Mechanics.UI.Menus
         public override void OpenMenu()
         {
             base.OpenMenu();
-            // Logger.Log("in open game over menu");
+            Logger.Log("in open game over menu");
         }
     }
 }

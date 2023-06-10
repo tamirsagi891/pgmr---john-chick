@@ -551,7 +551,7 @@ MonoBehaviour:
     maxNormalAngle: 0
   groundDistance: 0.23
   wallDistance: 0.2
-  ceilingDistance: 0.05
+  ceilingDistance: 1.5
   groundOffset: {x: 0, y: 0}
   groundGapAmount: 0.5
   wallOffset: {x: 0, y: 0.2}
@@ -617,6 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77b6b1e2c6269458232a3e72fa35fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkPointsLives: 3
   initialHealth: 20
   maxHealth: 20
   damageableHit:
@@ -744,9 +745,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.018457592, y: -0.49742246}
+  m_Offset: {x: 0.018457588, y: -0.62783056}
   serializedVersion: 2
-  m_Radius: 0.36892724
+  m_Radius: 0.3635205
 --- !u!212 &9150277205314475265
 SpriteRenderer:
   m_ObjectHideFlags: 0

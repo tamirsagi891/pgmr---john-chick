@@ -12,8 +12,8 @@ namespace Elad.Scripts.Save_Load_System
     public class SaveGameManager : MonoBehaviour
     {
         private CheckPoints _lastCheckPoint;
-        [SerializeField] private bool canSave = true;
-
+        
+        
         private void OnEnable()
         {
             characterEvents.OnJsonLoadFinish.AddListener(OnLoadFinish);
@@ -28,6 +28,7 @@ namespace Elad.Scripts.Save_Load_System
     
         private void Awake()
         {
+            Logger.Log(gameObject.name);
             PlayerStatus.SaveGameManager = this;
         }
 
@@ -58,7 +59,7 @@ namespace Elad.Scripts.Save_Load_System
 
         public void LoadGameFromCheckPoint()
         {
-            // Logger.Log("load game after player die");
+            Logger.Log("load game after player die");
             SaveGameOnJson.LoadGame();
         }
     
