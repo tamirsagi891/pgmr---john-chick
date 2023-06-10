@@ -7,7 +7,7 @@ namespace Elad.Scripts.Arrows
     public class FeatherToCollect : MonoBehaviour
     {
         [SerializeField] private FeathersManager.FeatherKind myFeatherKind;
-        
+        private int _id = 0;
         
         private Vector3 _position;
 
@@ -23,8 +23,12 @@ namespace Elad.Scripts.Arrows
             set => myFeatherKind = value;
         }
 
+        public int ID
+        {
+            get => _id;
+            set => _id = value;
+        }
 
-     
 
         private void Start()
         {
