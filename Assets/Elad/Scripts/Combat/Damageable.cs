@@ -1,3 +1,4 @@
+using System;
 using BitStrap;
 using Elad.Events;
 using Elad.Save_Load_System;
@@ -33,6 +34,7 @@ namespace Elad.Scripts.Combat
             get => _curHealth;
             set
             {
+                // Logger.Log("in health : " + value);
                 if (value != _curHealth)
                 {
                     _curHealth = value;
@@ -40,9 +42,10 @@ namespace Elad.Scripts.Combat
                     {
                         _curHealth = 0;
                         IsAlive = false;
+
                     }
 
-                    _playerSaveData.health = _curHealth;
+                    PlayerSaveData.health = _curHealth;
                 }
             }
         }
@@ -112,10 +115,10 @@ namespace Elad.Scripts.Combat
         private float _blinkTimer;
         private bool _inOriginalColor = true;
 
-        private PlayerSaveData _playerSaveData
+        private PlayerSaveData PlayerSaveData
         {
-            get => PlayerStatus._playerSaveData;
-            set => PlayerStatus._playerSaveData = value;
+            get => PlayerStatus.PlayerSaveData;
+            set => PlayerStatus.PlayerSaveData = value;
         }
 
         [Header("Tests")] [SerializeField] private int setLifeValue = 50;
@@ -134,11 +137,20 @@ namespace Elad.Scripts.Combat
 
         private void Awake()
         {
+            
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _originalColor = _spriteRenderer.color;
             _curHealth = maxHealth;
             _animator = GetComponent<Animator>();
             PlayerStatusSetVariables();
+
+            PlayerSaveData.health = _curHealth;
+            
+        }
+
+        private void Start()
+        {
+            SavePlayerStatus();
         }
 
         private void Update()
@@ -167,6 +179,7 @@ namespace Elad.Scripts.Combat
         public void Kill()
         {
             IsAlive = false;
+            Logger.Log("In kill function");
             // characterEvents.PlayerDied.Invoke();
         }
 
@@ -203,6 +216,7 @@ namespace Elad.Scripts.Combat
         {
             if (IsAlive && !IsInvincible)
             {
+                Logger.Log("In got hit");
                 Health -= damage;
                 IsInvincible = true;
                 LockVelocity = true;
@@ -259,14 +273,15 @@ namespace Elad.Scripts.Combat
 
         public void SavePlayerStatus()
         {
-            SaveGameOnJson.CurrentSaveData.playerSaveData = _playerSaveData;
+            SaveGameOnJson.CurrentSaveData.playerSaveData = PlayerSaveData;
+
         }
 
         public void LoadPlayerStatus()
         {
-            _playerSaveData = SaveGameOnJson.CurrentSaveData.playerSaveData;
-
-            Health = _playerSaveData.health;
+            PlayerSaveData = SaveGameOnJson.CurrentSaveData.playerSaveData;
+            // Logger.Log(SaveGameOnJson.CurrentSaveData.playerSaveData.health);
+            Health = PlayerSaveData.health;
         }
 
         public Transform GetTransform() => transform;

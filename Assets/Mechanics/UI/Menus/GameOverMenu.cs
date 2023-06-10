@@ -1,4 +1,7 @@
+using System;
 using Elad.Events;
+using Elad.Scripts;
+using Unity.VisualScripting;
 using UnityEngine;
 using Logger = Nemesh.Logger;
 
@@ -7,14 +10,17 @@ namespace Mechanics.UI.Menus
     [AddComponentMenu("Menus/Game Over Menu")]
     public class GameOverMenu : BaseMenuController
     {
-        [Space]
-        [Header("GameOver Menu")]
-        [SerializeField]
-        [Range(0.5f, 5f)]
+        [Space] [Header("GameOver Menu")] [SerializeField] [Range(0.5f, 5f)]
         private float openGameOverMenuTime = 3f;
 
+        [SerializeField] bool openWithTimer = false;
         private float _openGameOverMenuTimer;
         private bool openMenu;
+
+        private void Awake()
+        {
+            PlayerStatus.GameOverMenu = this;
+        }
 
         private void OnEnable()
         {
@@ -23,6 +29,7 @@ namespace Mechanics.UI.Menus
 
         private void OnDisable()
         {
+            PlayerStatus.GameOverMenu = null;
             characterEvents.PlayerDied.RemoveListener(PlayerDied);
         }
 
@@ -41,14 +48,22 @@ namespace Mechanics.UI.Menus
 
         private void PlayerDied()
         {
-            openMenu = true;
-            _openGameOverMenuTimer = openGameOverMenuTime;
+            if (openWithTimer)
+            {
+                openMenu = true;
+                _openGameOverMenuTimer = openGameOverMenuTime;
+            }
+
+            else
+            {
+                PlayerStatus.CurrentVirtualCamara.GetComponent<ZoomCamera>().StartZoom();
+            }
         }
 
         public override void OpenMenu()
         {
             base.OpenMenu();
-            Logger.Log("in open game over menu");
+            // Logger.Log("in open game over menu");
         }
     }
 }

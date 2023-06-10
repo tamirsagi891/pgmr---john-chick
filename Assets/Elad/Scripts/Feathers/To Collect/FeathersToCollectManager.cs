@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BitStrap;
 using Elad.Events;
 using Elad.Save_Load_System;
 using UnityEngine;
@@ -7,12 +8,35 @@ using Logger = Nemesh.Logger;
 
 namespace Elad.Scripts.Arrows
 {
+    
     public class FeathersToCollectManager : MonoBehaviour
     {
         [SerializeField] private GameObject Feather;
+        
+        [SerializeField] [ReadOnly] private int startFeatherAmount;
+        [SerializeField] [ReadOnly] private int currentFeathersAmount;
+        [SerializeField] [ReadOnly] private float percentagesCurrentFeathersAmount;
+        
+        
         private FeatherToCollectLists _featherToCollectLists = new FeatherToCollectLists();
 
         [SerializeField] private bool initializeFromJason;
+
+        public int CurrentFeathersAmount
+        {
+            get => currentFeathersAmount;
+            set
+            {
+                currentFeathersAmount = value;
+                PercentagesCurrentFeathersAmount = ((float)currentFeathersAmount / (float)startFeatherAmount) * 100;
+            }
+        }
+
+        public float PercentagesCurrentFeathersAmount
+        {
+            get => percentagesCurrentFeathersAmount;
+            set => percentagesCurrentFeathersAmount = value;
+        }
 
 
         private void OnEnable()
@@ -40,31 +64,44 @@ namespace Elad.Scripts.Arrows
                 LoadFeathersStatus();
                 // initializeFromJason = false;
             }
+            
         }
 
         public void AddFeather(FeatherToCollect featherToCollect)
         {
+            
             _featherToCollectLists.featherList.Add(featherToCollect);
+            startFeatherAmount += 1;
+            CurrentFeathersAmount += 1;
+            
         }
 
         public void RemoveFeather(FeatherToCollect featherToCollect)
         {
             _featherToCollectLists.featherList.Remove(featherToCollect);
+            CurrentFeathersAmount -= 1;
+
         }
 
         public void SaveFeathersStatus()
         {
             SaveGameOnJson.CurrentSaveData.featherToCollectLists = _featherToCollectLists;
+            // Logger.Log(_featherToCollectLists.featherList.Count);
         }
 
         public void LoadFeathersStatus()
         {
+            Logger.Log("In LoadFeathersStatus");
             _featherToCollectLists = SaveGameOnJson.CurrentSaveData.featherToCollectLists;
 
+            int currentFeathersAmountTemp = 0;
             foreach (var featherData in _featherToCollectLists.featherList)
             {
+                currentFeathersAmountTemp += 1;
                 featherData.gameObject.SetActive(true);
             }
+
+            CurrentFeathersAmount = currentFeathersAmountTemp;
         }
     }
 

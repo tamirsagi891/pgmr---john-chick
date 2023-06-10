@@ -17,7 +17,7 @@ namespace TMPro.Examples
 
         void Start()
         {
-            // AddFeather new TextMesh Pro Component
+            // AddFeatherToPlayer new TextMesh Pro Component
             m_textMeshPro = gameObject.AddComponent<TextMeshPro>();
 
             m_textMeshPro.autoSizeTextContainer = true;

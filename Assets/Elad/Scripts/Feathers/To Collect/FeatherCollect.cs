@@ -7,6 +7,8 @@ namespace Elad.Scripts.Arrows
     public class FeatherToCollect : MonoBehaviour
     {
         [SerializeField] private FeathersManager.FeatherKind myFeatherKind;
+        
+        
         private Vector3 _position;
 
         public Vector3 Position
@@ -28,7 +30,7 @@ namespace Elad.Scripts.Arrows
         {
             if (PlayerStatus.InitializeFromJason)
             {
-                Destroy(gameObject);
+                // Destroy(gameObject);
             }
 
             if (PlayerStatus.FeathersToCollectManager)
@@ -42,8 +44,9 @@ namespace Elad.Scripts.Arrows
         {
             if (other.CompareTag(TagStrings.playerTag))
             {
-                characterEvents.AddFeather.Invoke(MyFeatherKind);
+                characterEvents.AddFeatherToPlayer.Invoke(MyFeatherKind);
                 PlayerStatus.FeathersToCollectManager.RemoveFeather(this);
+                this.gameObject.SetActive(false);
             }
         }
 

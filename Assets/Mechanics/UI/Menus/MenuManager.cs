@@ -157,7 +157,7 @@ namespace Mechanics.UI.Menus
         
         public void ReturnToLastCheckPoint()
         {
-            Logger.Log("in return to last check point function", this);
+            // Logger.Log("in return to last check point function", this);
             MenuManager.Menu.CloseAllMenus();
             PlayerStatus.SaveGameManager.LoadGameFromCheckPoint();
             PlayerStatus.player.GetComponent<Damageable>().RevivePlayer();

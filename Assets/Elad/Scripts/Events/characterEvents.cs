@@ -11,7 +11,7 @@ namespace Elad.Events
         public static UnityEvent<GameObject, int> CharacterDamaged = new();
         public static UnityEvent<GameObject, int> CharacterHealed = new();
     
-        public static UnityEvent< FeathersManager.FeatherKind> AddFeather = new();
+        public static UnityEvent< FeathersManager.FeatherKind> AddFeatherToPlayer = new();
         public static UnityEvent< FeathersManager.FeatherKind> RemoveFeather = new();
         
         public static UnityEvent< EggsManager.EggKind> AddEgg = new();

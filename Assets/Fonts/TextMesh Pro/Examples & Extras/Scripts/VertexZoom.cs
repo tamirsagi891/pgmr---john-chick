@@ -131,7 +131,7 @@ namespace TMPro.Examples
                     // Determine the random scale change for each character.
                     float randomScale = Random.Range(1f, 1.5f);
                     
-                    // AddFeather modified scale and index
+                    // AddFeatherToPlayer modified scale and index
                     modifiedCharScale.Add(randomScale);
                     scaleSortingOrder.Add(modifiedCharScale.Count - 1);
 
