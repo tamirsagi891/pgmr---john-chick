@@ -167,9 +167,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  fallDelay: 1
-  respawnDelay: 10
+  fallDelay: 0.5
+  respawnDelay: 2.5
+  popInTime: 0.5
   distanceFromPlayerToDeactivate: 20
+  shakeIntensity: 0.025
 --- !u!50 &3487563264723762186
 Rigidbody2D:
   serializedVersion: 4
@@ -186,7 +188,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3e276357ed37fe644ae915a6a56d48b7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
