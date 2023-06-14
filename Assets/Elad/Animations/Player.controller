@@ -95,6 +95,8 @@ MonoBehaviour:
   updateOnState: 1
   valueOnEnter: 0
   valueOnExit: 0
+  resetAfterTime: 0
+  resetTime: 0
   resetValueOnExit: 1
   callFunction: 0
   functionToCallWhenChanging: 
@@ -801,6 +803,8 @@ MonoBehaviour:
   updateOnState: 1
   valueOnEnter: 1
   valueOnExit: 0
+  resetAfterTime: 1
+  resetTime: 0.2
   resetValueOnExit: 0
   callFunction: 0
   functionToCallWhenChanging: 
@@ -1455,6 +1459,8 @@ MonoBehaviour:
   updateOnState: 1
   valueOnEnter: 1
   valueOnExit: 1
+  resetAfterTime: 0
+  resetTime: 0
   resetValueOnExit: 0
   callFunction: 0
   functionToCallWhenChanging: 
@@ -2489,6 +2495,8 @@ MonoBehaviour:
   updateOnState: 1
   valueOnEnter: 0
   valueOnExit: 1
+  resetAfterTime: 1
+  resetTime: 0.2
   resetValueOnExit: 0
   callFunction: 0
   functionToCallWhenChanging: 
@@ -2528,7 +2536,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.2
+  m_ExitTime: 0.5
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -3008,6 +3016,8 @@ MonoBehaviour:
   updateOnState: 0
   valueOnEnter: 0
   valueOnExit: 1
+  resetAfterTime: 0
+  resetTime: 0
   resetValueOnExit: 0
   callFunction: 0
   functionToCallWhenChanging: 
@@ -3236,7 +3246,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.2
+  m_ExitTime: 0.5
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

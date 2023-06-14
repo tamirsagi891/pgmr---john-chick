@@ -13,7 +13,13 @@ public class SetBoolBehavior : StateMachineBehaviour
     public bool valueOnEnter;
     public bool valueOnExit;
 
+    [Space]
     [Header("Nemesh additions")]
+    public bool resetAfterTime;
+
+    public float resetTime;
+    private float _timeForReset;
+    [Space]
     public bool resetValueOnExit;
     private bool _valueWhenEntered;
 
@@ -21,6 +27,7 @@ public class SetBoolBehavior : StateMachineBehaviour
     public bool callFunction;
     [ConditionalHide("callFunction")]
     public string functionToCallWhenChanging;
+
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -40,13 +47,27 @@ public class SetBoolBehavior : StateMachineBehaviour
                 animator.SendMessage(functionToCallWhenChanging, valueOnEnter);
             }
         }
+
+        _timeForReset = 0;
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (resetAfterTime)
+        {
+            _timeForReset += Time.deltaTime;
+            if (_timeForReset >= resetTime)
+            {
+                var val = resetValueOnExit ? _valueWhenEntered : valueOnExit;
+                animator.SetBool(boolName, val);
+                if (callFunction)
+                {
+                    animator.SendMessage(functionToCallWhenChanging, val);
+                }
+            }
+        }
+    }
 
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

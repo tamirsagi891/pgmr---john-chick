@@ -172,6 +172,7 @@ MonoBehaviour:
   popInTime: 0.5
   distanceFromPlayerToDeactivate: 20
   shakeIntensity: 0.01
+  changeToTriggerOnFall: 0
 --- !u!50 &1880178601728718904
 Rigidbody2D:
   serializedVersion: 4
@@ -187,7 +188,7 @@ Rigidbody2D:
   m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 7.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

@@ -96,7 +96,7 @@ namespace Elad.Scripts.Arrows
             startFeatherAmount += 1;
             CurrentFeathersAmount += 1;
             featherToCollect.ID = CurrentFeathersAmount;
-            Logger.Log("Added Feather", featherToCollect);
+            // Logger.Log("Added Feather", featherToCollect);
         }
 
         public void RemoveFeather(FeatherToCollect featherToCollect)
