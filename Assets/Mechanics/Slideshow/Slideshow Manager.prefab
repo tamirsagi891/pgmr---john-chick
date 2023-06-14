@@ -325,7 +325,19 @@ MonoBehaviour:
           m_Calls: []
       onSlideEnd:
         m_PersistentCalls:
-          m_Calls: []
+          m_Calls:
+          - m_Target: {fileID: 0}
+            m_TargetAssemblyTypeName: Managers.LoadSceneManager, Nemesh
+            m_MethodName: GoToNext
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
   - name: Slide 4
     text: This <color=yellow>will be used as subtitles.</color>
     nextOnTime: 0
@@ -603,7 +615,7 @@ Transform:
   - {fileID: 1085866580718972}
   - {fileID: 8460643438706042290}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3437893050832510082
 GameObject:
@@ -784,9 +796,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6361d660d66d61645a5e3bc8d3f99aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadByLevel: 1
+  levelToLoad: 0
   sceneToLoad:
-    asset: {fileID: 102900000, guid: 8ab7b0504ebdc994285f58d90d4785ff, type: 3}
-    guid: 8ab7b0504ebdc994285f58d90d4785ff
+    asset: {fileID: 0}
+    guid: 00000000000000000000000000000000
   loadMode: 0
   setAsActiveAfterLoad: 1
   unloadIfAdditive: 1

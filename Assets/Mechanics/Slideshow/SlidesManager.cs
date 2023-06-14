@@ -90,6 +90,7 @@ namespace Mechanics.Slideshow
             NextSlide();
         }
         
+        
         public void EndSlideAndGoToNextImmediate()
         {
             if (SlideshowRolling && CurrentSlide != -1)

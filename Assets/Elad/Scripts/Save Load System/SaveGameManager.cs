@@ -11,10 +11,17 @@ namespace Elad.Scripts.Save_Load_System
     [DefaultExecutionOrder(100)]
     public class SaveGameManager : MonoBehaviour
     {
+        private bool _firstTime = true;
         private CheckPoints _lastCheckPoint;
         [SerializeField]
         private InputActionAsset uiInputs;
-        
+
+        public bool FirstTime
+        {
+            get => _firstTime;
+            set => _firstTime = value;
+        }
+
         private void OnEnable()
         {
             characterEvents.OnJsonLoadFinish.AddListener(OnLoadFinish);
@@ -36,7 +43,6 @@ namespace Elad.Scripts.Save_Load_System
     
         private void Awake()
         {
-            Logger.Log(gameObject.name);
             PlayerStatus.SaveGameManager = this;
         }
 

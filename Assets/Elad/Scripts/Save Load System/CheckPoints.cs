@@ -63,19 +63,26 @@ namespace Elad.Scripts.Save_Load_System
 
         private void OpenOrCloseCheckPoint()
         {
-            if (PlayerStatus.LastCheckPoint == this)
+            if (!PlayerStatus.SaveGameManager.FirstTime)
             {
-                // Close checkpoint
-                isOn = false;
-                SpawnChickens();
-                animator.SetBool("isOn", true);
+                if (PlayerStatus.LastCheckPoint == this)
+                {
+                    // Close checkpoint
+                    isOn = false;
+                    SpawnChickens();
+                    animator.SetBool("isOn", true);
+                }
+                else
+                {
+                    // Open checkpoint
+                    isOn = true;
+                    //DestroyChickens();
+                    animator.SetBool("isOn", false);
+                }
             }
             else
             {
-                // Open checkpoint
-                isOn = true;
-                DestroyChickens();
-                animator.SetBool("isOn", false);
+                PlayerStatus.SaveGameManager.FirstTime = false;
             }
         }
 
