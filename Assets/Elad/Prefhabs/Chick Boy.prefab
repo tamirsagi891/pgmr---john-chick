@@ -540,6 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d52b2b1f0b9594cae6a3a5aefa0f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGamePaused: 0
   airWalkSpeed: 3
   walkSpeed: 5
   _isWallSliding: 0
@@ -1360,8 +1361,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 8806686910878253579}
+  m_Follow: {fileID: 8806686910878253579}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5

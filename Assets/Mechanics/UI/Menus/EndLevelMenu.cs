@@ -1,5 +1,6 @@
 ﻿using System;
 using BitStrap;
+using Elad.Scripts;
 using Elad.Scripts.Arrows;
 using Mechanics.UI.Menus.Menu_Utils;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace Mechanics.UI.Menus
         {
             base.OpenMenu();
             featherSlider.StartFeatherAnimation();
-            deathCounter.Count = $"{0}";
+            deathCounter.Count = $"{PlayerStatus.PlayerDamageable.DeathAmounts}";
             Logger.Log("ASK ELAD TO ADD DEATH HERE", Color.red, this);
             TimeSpan time = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
             timeCounter.Count = $"{time:m\\:ss\\.ff}";

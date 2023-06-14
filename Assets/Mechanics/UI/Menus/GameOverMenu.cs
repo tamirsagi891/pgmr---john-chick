@@ -23,6 +23,18 @@ namespace Mechanics.UI.Menus
         private bool _startZoom;
         private ZoomCamera _zoomCamera;
 
+        private void OnEnable()
+        {
+            characterEvents.PlayerDied.AddListener(PlayerDied);
+            characterEvents.OpenGameOverMenu.AddListener(StartOpenScreen);
+        }
+
+        private void OnDisable()
+        {
+            characterEvents.PlayerDied.RemoveListener(PlayerDied);
+            characterEvents.OpenGameOverMenu.RemoveListener(StartOpenScreen);
+        }
+
         private void Update()
         {
             if (_openScreen)
@@ -48,17 +60,6 @@ namespace Mechanics.UI.Menus
             }
         }
 
-        private void OnEnable()
-        {
-            characterEvents.PlayerDied.AddListener(PlayerDied);
-            characterEvents.OpenGameOverMenu.AddListener(StartOpenScreen);
-        }
-
-        private void OnDisable()
-        {
-            characterEvents.PlayerDied.RemoveListener(PlayerDied);
-            characterEvents.OpenGameOverMenu.RemoveListener(StartOpenScreen);
-        }
 
         private void PlayerDied()
         {
@@ -94,6 +95,7 @@ namespace Mechanics.UI.Menus
             if (PlayerStatus.PlayerDamageable.CheckPointsLives > 0)
             {
                 PlayerStatus.PlayerDamageable.CheckPointsLives -= 1;
+                PlayerStatus.PlayerDamageable.DeathAmounts += 1;
                 MenuManager.Menu.ReturnToLastCheckPoint();
             }
             else

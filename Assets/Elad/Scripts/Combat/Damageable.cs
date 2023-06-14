@@ -16,6 +16,8 @@ namespace Elad.Scripts.Combat
         [Tooltip("The code to open the game over or go to the last check point is in the base menu controller")]
         private int checkPointsLives = 3;
 
+        private int _deathAmounts = 0;
+
         private bool _dieButInGlide;
 
         [Header("Times")] private float timeToOpenGameOverMenu = 2f;
@@ -139,6 +141,12 @@ namespace Elad.Scripts.Combat
         {
             get => checkPointsLives;
             set => checkPointsLives = value;
+        }
+
+        public int DeathAmounts
+        {
+            get => _deathAmounts;
+            set => _deathAmounts = value;
         }
 
 
