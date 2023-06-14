@@ -29,6 +29,7 @@ namespace Elad.Scripts
 
         public static int maxHealth;
         public static int curHealth;
+        public static bool IsAlive => PlayerDamageable.IsAlive;
         public static bool PlayerIsInvincible;
 
         public static bool isFacingRight;

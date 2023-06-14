@@ -1,13 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Logger = Nemesh.Logger;
 
 namespace Elad.Scripts.Save_Load_System
 {
     public class CheckPoints : MonoBehaviour
     {
-        [SerializeField]
-        private InputActionAsset uiInputs;
-    
         private Vector3 _position;
 
         public Vector3 Position
@@ -16,25 +14,7 @@ namespace Elad.Scripts.Save_Load_System
             set => _position = value;
         }
 
-        private void OnEnable()
-        {
-            var map = uiInputs.FindActionMap("Player");
-            var moveAction = map.FindAction("Move");
-            // moveAction.started += OnMove;
-            // moveAction.canceled += OnMove;
-            
-        }
 
-        private void OnDisable()
-        {
-            
-            var map = uiInputs.FindActionMap("Player");
-            var moveAction = map.FindAction("Move");
-            // moveAction.started -= TryToSave;
-            // moveAction.canceled -= TryToSave;
-            
-        }
-        
         private void Awake()
         {
             Position = transform.position;
@@ -48,7 +28,7 @@ namespace Elad.Scripts.Save_Load_System
                 PlayerStatus.LastCheckPoint = this;
             }
         }
-    
+
         private void OnTriggerExit2D(Collider2D other)
         {
             if (other.CompareTag(TagStrings.playerTag))
@@ -56,11 +36,5 @@ namespace Elad.Scripts.Save_Load_System
                 PlayerStatus.PlayerInsideCheckPoint = false;
             }
         }
-
-        // private void TryToSave(callba)
-        // {
-        //     
-        // }
-        //
     }
 }
