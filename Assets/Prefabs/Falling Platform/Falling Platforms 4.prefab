@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTag: Player
   fallDelay: 1
-  respawnDelay: 10
+  respawnDelay: 2
   popInTime: 0.5
   distanceFromPlayerToDeactivate: 20
   shakeIntensity: 0.01

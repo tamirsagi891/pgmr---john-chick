@@ -152,6 +152,14 @@ PrefabInstance:
       propertyPath: ColorBySpeedModule.gradient.minGradient.key0.r
       value: 0.6613395
       objectReference: {fileID: 0}
+    - target: {fileID: 1674326627119685546, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_Drag
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1674326627119685546, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: m_ForceMagnitude
+      value: 600
+      objectReference: {fileID: 0}
     - target: {fileID: 3368667043852732146, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: ColorBySpeedModule.gradient.maxGradient.key0.b
       value: 0.88064957
@@ -185,8 +193,16 @@ PrefabInstance:
       value: 0.6613395
       objectReference: {fileID: 0}
     - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: magnitude
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: wantedDrag
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: particleForceFactor
-      value: 50
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveX.scalar
@@ -194,7 +210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveY.scalar
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9030578893295297790, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: ColorBySpeedModule.gradient.maxGradient.key0.b

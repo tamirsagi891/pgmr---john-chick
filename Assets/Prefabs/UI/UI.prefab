@@ -527,41 +527,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 410466146394191762, guid: af54eb4f564965f439d0910f85914fda, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -49.461487
+      objectReference: {fileID: 0}
+    - target: {fileID: 410466146394191762, guid: af54eb4f564965f439d0910f85914fda, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -14.989014
+      objectReference: {fileID: 0}
     - target: {fileID: 1496687291093613828, guid: af54eb4f564965f439d0910f85914fda, type: 3}
       propertyPath: m_Name
       value: UI Player Data
       objectReference: {fileID: 0}
-    - target: {fileID: 2107534657057165168, guid: af54eb4f564965f439d0910f85914fda, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2107534657057165168, guid: af54eb4f564965f439d0910f85914fda, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2107534657057165168, guid: af54eb4f564965f439d0910f85914fda, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2107534657057165168, guid: af54eb4f564965f439d0910f85914fda, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2107534657057165168, guid: af54eb4f564965f439d0910f85914fda, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2107534657057165168, guid: af54eb4f564965f439d0910f85914fda, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2250598638087505573, guid: af54eb4f564965f439d0910f85914fda, type: 3}
-      propertyPath: m_RenderMode
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 8096734593922374805, guid: af54eb4f564965f439d0910f85914fda, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af54eb4f564965f439d0910f85914fda, type: 3}
