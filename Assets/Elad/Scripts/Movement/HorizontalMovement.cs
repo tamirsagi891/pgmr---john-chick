@@ -72,7 +72,7 @@ public class HorizontalMovement : MonoBehaviour
     [SerializeField, Range(0f, 10f)] private float maxSpeedCrouching = 5f;
     [SerializeField] private float crouchingWalkSpeed = 3f;
     private bool _crouchIsPush;
-    
+
     public bool IsCrouching
     {
         get => _isCrouching;
@@ -107,7 +107,8 @@ public class HorizontalMovement : MonoBehaviour
     }
 
 
-    [SerializeField][Range(5, 20)] private float knockBackMultiplayer = 1;
+    [SerializeField] [Range(5, 20)] private float knockBackMultiplayer = 1;
+
     private void Awake()
     {
         PlayerStatus.isFacingRight = (transform.localScale.x > 0);
@@ -122,15 +123,12 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause) return;
-        if (!context.canceled)
+        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
+
+        if (_playerController.CanMove && !IsCrouching)
         {
-            if (_playerController.CanMove && !IsCrouching)
-            {
-                IsCrouching = true;
-                _crouchIsPush = true;
-            }
-                
+            IsCrouching = true;
+            _crouchIsPush = true;
         }
 
 
@@ -144,20 +142,17 @@ public class HorizontalMovement : MonoBehaviour
 
             _crouchIsPush = false;
         }
-            
-
-        
     }
 
     public void OnCrouch(bool state)
     {
-        if (GeneralGameManager.IsGamePause) return;
+        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
         IsCrouching = state;
     }
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause) return;
+        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
         var direction = Vector2.zero;
         if (context.phase != InputActionPhase.Canceled && _playerController.CanMove)
         {
@@ -176,7 +171,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnRun(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause) return;
+        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
         if (context.started)
         {
             IsRunning = true;
@@ -229,13 +224,12 @@ public class HorizontalMovement : MonoBehaviour
             {
                 if (_pressingMovementKey)
                 {
-                    return _playerJump.GlideHorizontallyMovement; 
+                    return _playerJump.GlideHorizontallyMovement;
                 }
                 else
                 {
-                    return _playerJump.GlideHorizontallyMovementStatic;    
+                    return _playerJump.GlideHorizontallyMovementStatic;
                 }
-                
             }
 
             if (IsCrouching)
@@ -299,6 +293,7 @@ public class HorizontalMovement : MonoBehaviour
 
             _maxSpeedChange = _deceleration * Time.deltaTime;
         }
+
         //Move our _velocity towards the desired _velocity, at the rate of the number calculated above
         _velocity.x = Mathf.MoveTowards(_velocity.x, _desiredVelocity.x, _maxSpeedChange);
         // print($"{_velocity.x} :: {_desiredVelocity.x} :: {_rB.velocity.x}");
@@ -336,25 +331,23 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnHit(int damage, Vector2 knockBack, float delay = 0f)
     {
-        if (GeneralGameManager.IsGamePause) return;
+        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
         if (delay > 0)
         {
-            StartCoroutine(CorotuineUtils.DelayExecution(delay, 
-                () =>
-                {
-                    knockBack *= knockBackMultiplayer;
-                    _rB.AddForce(knockBack, ForceMode2D.Impulse);
-                }
+            StartCoroutine(CorotuineUtils.DelayExecution(delay,
+                    () =>
+                    {
+                        knockBack *= knockBackMultiplayer;
+                        _rB.AddForce(knockBack, ForceMode2D.Impulse);
+                    }
                 )
             );
             return;
         }
 
         Logger.Log("in on hit, knock back is: " + knockBack);
-            
+
         knockBack *= knockBackMultiplayer;
         _rB.AddForce(knockBack, ForceMode2D.Impulse);
-
     }
-    
 }

@@ -90,7 +90,6 @@ namespace Elad.Scripts.Combat
                 {
                     if (PlayerStatus.IsGliding)
                     {
-                        GeneralGameManager.IsGamePause = true;
                         _dieButInGlide = true;
                     }
 
@@ -175,6 +174,7 @@ namespace Elad.Scripts.Combat
 
         private void Update()
         {
+            
             if (_dieButInGlide)
             {
                 if (!_touchingDirection)
@@ -209,6 +209,8 @@ namespace Elad.Scripts.Combat
                 isInvincibleTest = false;
                 IsInvincible = true;
             }
+
+            
         }
 
         [Button]

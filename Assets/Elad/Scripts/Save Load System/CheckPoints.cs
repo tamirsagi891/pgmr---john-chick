@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Logger = Nemesh.Logger;
 
 namespace Elad.Scripts.Save_Load_System
 {
@@ -19,9 +20,9 @@ namespace Elad.Scripts.Save_Load_System
         private void OnEnable()
         {
             var map = uiInputs.FindActionMap("Player");
-            var moveAction = map.FindAction("Move");
-            // moveAction.started += OnMove;
-            // moveAction.canceled += OnMove;
+            var moveAction = map.FindAction("Save"); 
+            moveAction.started += TryToSave;
+            moveAction.canceled += TryToSave;
             
         }
 
@@ -29,9 +30,9 @@ namespace Elad.Scripts.Save_Load_System
         {
             
             var map = uiInputs.FindActionMap("Player");
-            var moveAction = map.FindAction("Move");
-            // moveAction.started -= TryToSave;
-            // moveAction.canceled -= TryToSave;
+            var moveAction = map.FindAction("Save");
+            moveAction.started -= TryToSave;
+            moveAction.canceled -= TryToSave;
             
         }
         
@@ -57,10 +58,10 @@ namespace Elad.Scripts.Save_Load_System
             }
         }
 
-        // private void TryToSave(callba)
-        // {
-        //     
-        // }
-        //
+        private void TryToSave(InputAction.CallbackContext context)
+        {
+            Logger.Log("kaka");
+        }
+        
     }
 }
