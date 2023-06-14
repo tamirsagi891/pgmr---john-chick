@@ -21,20 +21,8 @@ namespace Mechanics.UI.Menus
         
         public virtual void OpenMenu()
         {
-            var damageablePlayer = PlayerStatus.player.GetComponent<Damageable>();
-
-            if (damageablePlayer.CheckPointsLives > 0)
-            {
-                damageablePlayer.CheckPointsLives -= 1;
-                PlayerStatus.MenuManager.ReturnToLastCheckPoint();
-            }
-
-            else
-            {
-                menuUiObject.SetActive(true);
-                EventSystem.current.SetSelectedGameObject(firstSelected); 
-            }
-            
+            menuUiObject.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(firstSelected);
         }
 
         public virtual void CloseMenu()

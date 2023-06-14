@@ -131,6 +131,7 @@ MonoBehaviour:
   menuUiObject: {fileID: 3817327443516167499}
   firstSelected: {fileID: 8655914300904889163}
   openGameOverMenuTime: 3
+  openWithTimer: 0
 --- !u!114 &6236053638251080906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,21 +162,6 @@ MonoBehaviour:
   healthTextPrefab: {fileID: 1466930799609479193, guid: a2e0cb8cd5eae0a43b05b0a8bc8e8e03, type: 3}
   createDamageText: 0
   numbersCanvas: {fileID: 0}
-  onPauseEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7300530423317082995}
-        m_TargetAssemblyTypeName: Elad.Scripts.Ui.PauseMenu, Assembly-CSharp
-        m_MethodName: OnPause
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &3750154957102500097
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,11 +526,11 @@ PrefabInstance:
       objectReference: {fileID: 5482870583449423469}
     - target: {fileID: 4408093710731881532, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReloadLevel
+      value: ReturnToLastCheckPoint
       objectReference: {fileID: 0}
     - target: {fileID: 4408093710731881532, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Mechanics.UI.MenuManager, Assembly-CSharp
+      value: Mechanics.UI.Menus.MenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5956910769433105985, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
       propertyPath: m_AnchorMax.y

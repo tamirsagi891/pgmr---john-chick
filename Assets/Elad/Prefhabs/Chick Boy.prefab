@@ -494,6 +494,7 @@ MonoBehaviour:
   maxSpeedRunning: 20
   maxSpeedCrouching: 7
   crouchingWalkSpeed: 7
+  knockBackMultiplayer: 5
 --- !u!114 &2069969123638755554
 MonoBehaviour:
   m_ObjectHideFlags: 0

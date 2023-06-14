@@ -11,7 +11,7 @@ public class RoomTransition : MonoBehaviour
 
     private void Start()
     {
-        _player = PlayerStatus.player;    
+        _player = PlayerStatus.Player;    
         SetCamera();
     }
 
