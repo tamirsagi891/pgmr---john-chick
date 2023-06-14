@@ -41,12 +41,6 @@ namespace Elad.Scripts.Save_Load_System
             {
                 PlayerStatus.PlayerInsideCheckPoint = true;
                 PlayerStatus.LastCheckPoint = this;
-
-                if (isOn)
-                {
-                    // Spawn chickens
-                    SpawnChickens();
-                }
             }
         }
 
@@ -55,9 +49,6 @@ namespace Elad.Scripts.Save_Load_System
             if (other.CompareTag(TagStrings.playerTag))
             {
                 PlayerStatus.PlayerInsideCheckPoint = false;
-
-                // Destroy chickens
-                DestroyChickens();
             }
         }
 
@@ -76,7 +67,7 @@ namespace Elad.Scripts.Save_Load_System
                 {
                     // Open checkpoint
                     isOn = true;
-                    //DestroyChickens();
+                    DestroyChickens();
                     animator.SetBool("isOn", false);
                 }
             }
@@ -92,7 +83,7 @@ namespace Elad.Scripts.Save_Load_System
             chickens = new GameObject[numChickens];
             for (int i = 0; i < numChickens; i++)
             {
-                chickens[i] = Instantiate(chickenPrefab, transform.position, Quaternion.identity);
+                chickens[i] = Instantiate(chickenPrefab, transform.position, Quaternion.identity, transform);
             }
         }
 
