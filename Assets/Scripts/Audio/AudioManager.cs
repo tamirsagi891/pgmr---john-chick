@@ -5,6 +5,7 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 using Mechanics.UI.Menus;
+using UnityEditor;
 
 public class AudioManager : MonoBehaviour
 {
@@ -61,6 +62,10 @@ public class AudioManager : MonoBehaviour
 
     private void OnDisable()
     {
+        if (MenuManager.Menu == null)
+        {
+            return;
+        }
         MenuManager.Menu.soundEvents.onMasterChange.RemoveListener(SetMasterVolume);
         MenuManager.Menu.soundEvents.onMusicChange.RemoveListener(SetMusicVolume);
     }

@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenFeathers:
-    duration: 0.2
+    duration: 0.1
   scoreManager: {fileID: 3216987198617499037}
   featherImage: {fileID: 8955675272391653108, guid: 68d6ac66cf7bd224194ef65be3666f95, type: 3}
 --- !u!1 &5335677235392187484

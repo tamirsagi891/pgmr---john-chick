@@ -4,6 +4,7 @@ using Elad.Scripts;
 using Elad.Scripts.Combat;
 using Managers;
 using Nemesh.ScriptableObjects;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -260,6 +261,11 @@ namespace Mechanics.UI.Menus
             var pauseAction = map.FindAction("Pause");
             pauseAction.started -= OnPause;
             pauseAction.Disable();
+        }
+
+        private void OnDestroy()
+        {
+            Menu = null;
         }
 
         #endregion
