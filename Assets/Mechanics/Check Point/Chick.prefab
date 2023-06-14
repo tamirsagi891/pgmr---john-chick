@@ -182,9 +182,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minIdleTime: 0.3
   maxIdleTime: 2
-  walkSpeed: 3
-  runSpeed: 12
+  walkSpeed: 6
+  runSpeed: 9
   minStepDistance: 6
+  jumpForce: 4
+  minJumpInterval: 6
+  maxJumpInterval: 10
+  initialJumpDelay: 3
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!95 &463743114742149734
 Animator:
   serializedVersion: 5
