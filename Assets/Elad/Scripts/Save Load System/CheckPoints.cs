@@ -7,6 +7,7 @@ namespace Elad.Scripts.Save_Load_System
 {
     public class CheckPoints : MonoBehaviour
     {
+        [SerializeField] private bool _isInvisibleCheckPoint = false;
         [SerializeField] private GameObject chickenPrefab;
         private Vector3 _position;
         private bool isOn = false;
@@ -79,6 +80,7 @@ namespace Elad.Scripts.Save_Load_System
 
         private void SpawnChickens()
         {
+            if (_isInvisibleCheckPoint) return;
             int numChickens = Random.Range(4, 7);
             chickens = new GameObject[numChickens];
             for (int i = 0; i < numChickens; i++)
@@ -89,6 +91,7 @@ namespace Elad.Scripts.Save_Load_System
 
         private void DestroyChickens()
         {
+            if (_isInvisibleCheckPoint) return;
             if (chickens != null)
             {
                 foreach (GameObject chicken in chickens)
