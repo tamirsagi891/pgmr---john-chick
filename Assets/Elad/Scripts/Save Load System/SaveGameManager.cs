@@ -12,18 +12,26 @@ namespace Elad.Scripts.Save_Load_System
     public class SaveGameManager : MonoBehaviour
     {
         private CheckPoints _lastCheckPoint;
-        
+        [SerializeField]
+        private InputActionAsset uiInputs;
         
         private void OnEnable()
         {
             characterEvents.OnJsonLoadFinish.AddListener(OnLoadFinish);
-    
+            
+            var map = uiInputs.FindActionMap("Player");
+            var moveAction = map.FindAction("Save"); 
+            moveAction.started += SaveGameFromCheckPoint;
+            moveAction.canceled += SaveGameFromCheckPoint;
         }
     
         private void OnDisable()
         {
             characterEvents.OnJsonLoadFinish.RemoveListener(OnLoadFinish);
-    
+            var map = uiInputs.FindActionMap("Player");
+            var moveAction = map.FindAction("Save");
+            moveAction.started -= SaveGameFromCheckPoint;
+            moveAction.canceled -= SaveGameFromCheckPoint;
         }
     
         private void Awake()
