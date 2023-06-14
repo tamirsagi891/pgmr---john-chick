@@ -52,6 +52,7 @@ public class ZoomCamera : MonoBehaviour
     {
         // var currentVirtualCam = PlayerStatus.CurrentVirtualCamara;
         _cam.enabled = true;
+        characterEvents.OpenGameOverMenu.Invoke();
         // currentVirtualCam.enabled = false;
         
     }

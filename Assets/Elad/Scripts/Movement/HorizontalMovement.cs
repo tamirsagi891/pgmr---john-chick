@@ -109,6 +109,17 @@ public class HorizontalMovement : MonoBehaviour
 
     [SerializeField] [Range(5, 20)] private float knockBackMultiplayer = 1;
 
+    private void OnEnable()
+    {
+        characterEvents.FunctionsLoad.AddListener(ResetMovement);
+    }
+
+    private void OnDisable()
+    {
+        characterEvents.FunctionsLoad.RemoveListener(ResetMovement);
+    }
+
+    
     private void Awake()
     {
         PlayerStatus.isFacingRight = (transform.localScale.x > 0);
@@ -163,6 +174,13 @@ public class HorizontalMovement : MonoBehaviour
         directionX = direction.x;
         _playerController.IsMoving = (directionX != 0);
         SetFacingDirection(directionX);
+    }
+    
+    private void ResetMovement()
+    {
+        directionX = 0;
+        _playerController.IsMoving = (directionX != 0);
+
     }
 
     public void CloseMovementToWall(float newMovement)
