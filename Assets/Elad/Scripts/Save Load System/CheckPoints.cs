@@ -60,16 +60,25 @@ namespace Elad.Scripts.Save_Load_System
                 if (PlayerStatus.LastCheckPoint == this)
                 {
                     // Close checkpoint
-                    isOn = false;
+                    
                     SpawnChickens();
-                    animator.SetBool("isOn", true);
+                    isOn = true;
+                    if (animator)
+                    {
+                        animator.SetBool("isOn", true);    
+                    }
+                    
                 }
                 else
                 {
                     // Open checkpoint
-                    isOn = true;
+                    isOn = false;
                     DestroyChickens();
-                    animator.SetBool("isOn", false);
+                    if (animator)
+                    {
+                        animator.SetBool("isOn", false);    
+                    }
+                    
                 }
             }
             else
@@ -80,7 +89,7 @@ namespace Elad.Scripts.Save_Load_System
 
         private void SpawnChickens()
         {
-            if (_isInvisibleCheckPoint) return;
+            if (_isInvisibleCheckPoint || isOn) return;
             int numChickens = Random.Range(4, 7);
             chickens = new GameObject[numChickens];
             for (int i = 0; i < numChickens; i++)
