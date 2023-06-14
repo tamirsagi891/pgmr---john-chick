@@ -73,7 +73,7 @@ public class SpecialMovements : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
+        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
         if (_touchingDirection.IsGrounded)
         {
             if (_currentMovementStatus == MovementStatus.None)
@@ -108,7 +108,7 @@ public class SpecialMovements : MonoBehaviour
 
     public void OnDodgeRoll(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
+        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
         if (_touchingDirection.IsGrounded && MathF.Abs(PlayerStatus.playerVelocity.magnitude) >= minVelocityToDodge)
         {
             Logger.Log("in dodge role");
