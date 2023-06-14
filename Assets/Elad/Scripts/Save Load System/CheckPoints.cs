@@ -7,14 +7,17 @@ namespace Elad.Scripts.Save_Load_System
 {
     public class CheckPoints : MonoBehaviour
     {
+        [SerializeField] private GameObject chickenPrefab;
         private Vector3 _position;
+        private bool isOn = false;
+        private GameObject[] chickens;
+        private Animator animator;
 
         public Vector3 Position
         {
             get => _position;
             set => _position = value;
         }
-
 
         private void OnEnable()
         {
@@ -25,12 +28,11 @@ namespace Elad.Scripts.Save_Load_System
         {
             characterEvents.FunctionsSave.RemoveListener(OpenOrCloseCheckPoint);
         }
-        
-        
-        
+
         private void Awake()
         {
             Position = transform.position;
+            animator = GetComponent<Animator>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -39,6 +41,12 @@ namespace Elad.Scripts.Save_Load_System
             {
                 PlayerStatus.PlayerInsideCheckPoint = true;
                 PlayerStatus.LastCheckPoint = this;
+
+                if (isOn)
+                {
+                    // Spawn chickens
+                    SpawnChickens();
+                }
             }
         }
 
@@ -47,20 +55,48 @@ namespace Elad.Scripts.Save_Load_System
             if (other.CompareTag(TagStrings.playerTag))
             {
                 PlayerStatus.PlayerInsideCheckPoint = false;
+
+                // Destroy chickens
+                DestroyChickens();
             }
         }
 
         private void OpenOrCloseCheckPoint()
         {
-            Logger.Log("kaka");
             if (PlayerStatus.LastCheckPoint == this)
             {
-                
+                // Close checkpoint
+                isOn = false;
+                SpawnChickens();
+                animator.SetBool("isOn", true);
             }
-
             else
             {
-                
+                // Open checkpoint
+                isOn = true;
+                DestroyChickens();
+                animator.SetBool("isOn", false);
+            }
+        }
+
+        private void SpawnChickens()
+        {
+            int numChickens = Random.Range(4, 7);
+            chickens = new GameObject[numChickens];
+            for (int i = 0; i < numChickens; i++)
+            {
+                chickens[i] = Instantiate(chickenPrefab, transform.position, Quaternion.identity);
+            }
+        }
+
+        private void DestroyChickens()
+        {
+            if (chickens != null)
+            {
+                foreach (GameObject chicken in chickens)
+                {
+                    Destroy(chicken);
+                }
             }
         }
     }
