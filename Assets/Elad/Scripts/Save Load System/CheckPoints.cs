@@ -20,8 +20,8 @@ namespace Elad.Scripts.Save_Load_System
         {
             var map = uiInputs.FindActionMap("Player");
             var moveAction = map.FindAction("Move");
-            moveAction.started += OnMove;
-            moveAction.canceled += OnMove;
+            // moveAction.started += OnMove;
+            // moveAction.canceled += OnMove;
             
         }
 
@@ -30,8 +30,8 @@ namespace Elad.Scripts.Save_Load_System
             
             var map = uiInputs.FindActionMap("Player");
             var moveAction = map.FindAction("Move");
-            moveAction.started -= TryToSave;
-            moveAction.canceled -= TryToSave;
+            // moveAction.started -= TryToSave;
+            // moveAction.canceled -= TryToSave;
             
         }
         
@@ -57,10 +57,10 @@ namespace Elad.Scripts.Save_Load_System
             }
         }
 
-        private void TryToSave()
-        {
-            
-        }
-    
+        // private void TryToSave(callba)
+        // {
+        //     
+        // }
+        //
     }
 }

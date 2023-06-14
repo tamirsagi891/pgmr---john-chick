@@ -24,8 +24,8 @@ public class ZoomCamera : MonoBehaviour
     private void Awake()
     {
         _cam = GetComponent<CinemachineVirtualCamera>();
-        
-        
+        PlayerStatus.ZoomCamera = this;
+
     }
 
     private void Start()
