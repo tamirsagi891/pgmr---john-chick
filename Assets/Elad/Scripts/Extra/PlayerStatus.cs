@@ -50,6 +50,7 @@ namespace Elad.Scripts
         public static PlayerSaveData PlayerSaveData = new PlayerSaveData();
 
         public static CinemachineVirtualCamera CurrentVirtualCamara;
+        public static ZoomCamera ZoomCamera;
 
         public static bool isGamePause;
 

@@ -9,17 +9,15 @@ namespace Mechanics.UI.Menus
     [AddComponentMenu("Menus/Game Over Menu")]
     public class GameOverMenu : BaseMenuController
     {
-        [Space]
-        [Header("GameOver Menu")]
-        [SerializeField]
-        [Range(0.5f, 5f)]
+        [Space] [Header("GameOver Menu")] [SerializeField] [Range(0.5f, 5f)]
         private float openGameOverMenuTime = 3f;
 
-        [SerializeField]
-        private bool openWithTimer;
+        [SerializeField] private bool openWithTimer;
 
         private float _openGameOverMenuTimer;
         private bool _openMenu;
+
+        private ZoomCamera _zoomCamera;
 
         private void Update()
         {
@@ -56,13 +54,20 @@ namespace Mechanics.UI.Menus
 
             else
             {
-                PlayerStatus.CurrentVirtualCamara.GetComponent<ZoomCamera>().StartZoom();
+                if (_zoomCamera)
+                {
+                    _zoomCamera.StartZoom();
+                }
+                else
+                {
+                    _zoomCamera = PlayerStatus.ZoomCamera;
+                    _zoomCamera.StartZoom();
+                }
             }
         }
 
         public override void OpenMenu()
         {
-
             if (PlayerStatus.PlayerDamageable.CheckPointsLives > 0)
             {
                 PlayerStatus.PlayerDamageable.CheckPointsLives -= 1;
