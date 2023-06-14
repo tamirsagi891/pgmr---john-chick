@@ -4,6 +4,7 @@ using BitStrap;
 using Elad.Events;
 using Elad.Save_Load_System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Logger = Nemesh.Logger;
 
 namespace Elad.Scripts.Arrows
@@ -21,27 +22,39 @@ namespace Elad.Scripts.Arrows
         private FeatherToCollectLists _featherToCollectLists = new FeatherToCollectLists();
 
         [SerializeField] private bool initializeFromJason;
-
+        
+        public static event EventHandler<float> OnPercentageChange;
+        
         public int CurrentFeathersAmount
         {
             get => currentFeathersAmount;
             set
             {
                 currentFeathersAmount = value;
-                PercentagesCurrentFeathersAmount = ((float)CollectedFeatherAmount / (float)startFeatherAmount) * 100;
+                PercentagesCurrentFeathersAmount = ((float)CollectedFeatherAmount / (float)startFeatherAmount);
             }
         }
 
         public float PercentagesCurrentFeathersAmount
         {
             get => percentagesCurrentFeathersAmount;
-            set => percentagesCurrentFeathersAmount = value;
+            set
+            {
+                percentagesCurrentFeathersAmount = value;
+                OnPercentageChange?.Invoke(this, percentagesCurrentFeathersAmount);
+            }
         }
 
         public int CollectedFeatherAmount
         {
             get => collectedFeatherAmount;
             set => collectedFeatherAmount = value;
+        }
+
+        public int StartFeatherAmount
+        {
+            get => startFeatherAmount;
+            set => startFeatherAmount = value;
         }
 
 
@@ -75,12 +88,15 @@ namespace Elad.Scripts.Arrows
 
         public void AddFeather(FeatherToCollect featherToCollect)
         {
-            
+            if (_featherToCollectLists.featherList.Contains(featherToCollect))
+            {
+                return;
+            }
             _featherToCollectLists.featherList.Add(featherToCollect);
             startFeatherAmount += 1;
             CurrentFeathersAmount += 1;
             featherToCollect.ID = CurrentFeathersAmount;
-
+            Logger.Log("Added Feather", featherToCollect);
         }
 
         public void RemoveFeather(FeatherToCollect featherToCollect)
@@ -99,6 +115,7 @@ namespace Elad.Scripts.Arrows
 
         public void SaveFeathersStatus()
         {
+            _featherToCollectLists.totalCount = startFeatherAmount;
             SaveGameOnJson.CurrentSaveData.featherToCollectLists = _featherToCollectLists;
             // Logger.Log(_featherToCollectLists.featherList.Count);
         }
@@ -107,7 +124,7 @@ namespace Elad.Scripts.Arrows
         {
             Logger.Log("In LoadFeathersStatus");
             _featherToCollectLists = SaveGameOnJson.CurrentSaveData.featherToCollectLists;
-
+            startFeatherAmount = _featherToCollectLists.totalCount;
             int currentFeathersAmountTemp = 0;
             foreach (var featherData in _featherToCollectLists.featherList)
             {
@@ -115,6 +132,7 @@ namespace Elad.Scripts.Arrows
                 featherData.gameObject.SetActive(true);
             }
 
+            CollectedFeatherAmount = startFeatherAmount - currentFeathersAmountTemp;
             CurrentFeathersAmount = currentFeathersAmountTemp;
         }
     }
@@ -123,5 +141,6 @@ namespace Elad.Scripts.Arrows
     public class FeatherToCollectLists
     {
         public List<FeatherToCollect> featherList = new List<FeatherToCollect>();
+        public int totalCount = 0;
     }
 }

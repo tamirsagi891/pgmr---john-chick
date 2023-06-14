@@ -1,0 +1,105 @@
+﻿using System;
+using Elad.Scripts;
+using Elad.Scripts.Arrows;
+using JetBrains.Annotations;
+using UnityEngine;
+using Logger = Nemesh.Logger;
+
+namespace Mechanics.UI.Menus.Menu_Utils
+{
+    public class DoorKey : MonoBehaviour
+    {
+        [SerializeField]
+        public float openPercentage = 0.6f;
+        
+        [Space]
+        [SerializeField] private float minVisibleDistance = 12f;
+        [SerializeField] private float maxVisibleDistance = 18f;
+        
+        [Space]
+        [SerializeField]
+        private Door myDoor;
+
+        private Transform _playerTransform;
+        private SpriteRenderer _mySprite;
+
+        #region Public Methods
+
+        public void CloseDoorImmediate()
+        {
+            myDoor.CloseDoorImmediate();
+        }
+
+        #endregion
+
+        #region MonoBehaviour
+
+        private void Start()
+        {
+            _playerTransform = PlayerStatus.Player.transform;
+            _mySprite = GetComponent<SpriteRenderer>();
+        }
+
+        private void Update()
+        {
+            
+            float distance = Vector3.Distance(_playerTransform.position, transform.position);
+
+            if (distance <= minVisibleDistance)
+            {
+                // Fully visible
+                SetAlpha(1);
+            }
+            else if (distance > maxVisibleDistance)
+            {
+                // Fully transparent
+                SetAlpha(0);
+            }
+            else
+            {
+                // Interpolate between fully visible and fully transparent based on distance
+                float alpha = 1 - (distance - minVisibleDistance) / (maxVisibleDistance - minVisibleDistance);                
+                SetAlpha(alpha);
+            }
+            
+        }
+
+        private void OnEnable()
+        {
+            FeathersToCollectManager.OnPercentageChange += CollectedFeather;
+        }
+
+        private void OnDisable()
+        {
+            FeathersToCollectManager.OnPercentageChange -= CollectedFeather;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            MenuManager.Menu.OpenEndLevelMenu();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void CollectedFeather([CanBeNull] object sender, float percent)
+        {
+            if (myDoor.IsDoorMoving || percent < openPercentage)
+            {
+                return;
+            }
+            Logger.Log($"Opening End Door {percent}", Color.magenta, myDoor);
+            myDoor.OpenDoor();
+        }
+        
+        private void SetAlpha(float alpha)
+        {
+            var color = _mySprite.color;
+            color.a = alpha;
+            _mySprite.color = color;
+        }
+
+        #endregion
+    }
+}

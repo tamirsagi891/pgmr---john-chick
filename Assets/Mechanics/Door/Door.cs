@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using BitStrap;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,6 +12,10 @@ public class Door : MonoBehaviour
     [Header("Direction and Time")]
     [SerializeField] private Direction direction;
     [SerializeField] private float distance = 4f;
+
+    [SerializeField]
+    private bool stayOpenUntilCommand;
+    
     [Range(0.1f, 5f)][SerializeField] private float doorStayOpenTime = 5f; // time the door stays open
     [SerializeField] private float openTime = 0.5f; // time it takes for the door to open and close
     
@@ -19,8 +24,13 @@ public class Door : MonoBehaviour
     [SerializeField] private float shakeDuration = 0.5f; // time for the shaking effect
     [SerializeField] private float shakeMagnitude = 0.1f; // strength of the shaking effect
     
+    public bool IsDoorMoving => isDoorMoving;
+
+    
     private Vector2 originalPosition;
     private bool isDoorMoving;
+    private bool _canClose;
+
 
     private void Start()
     {
@@ -36,6 +46,7 @@ public class Door : MonoBehaviour
         }
     }
 
+    [Button]
     public bool OpenDoor()
     {
         // Only open the door if it's not currently moving
@@ -46,6 +57,27 @@ public class Door : MonoBehaviour
         }
 
         return false;
+    }
+
+    [Button]
+    public bool CloseDoor()
+    {
+        // Only open the door if it's not currently moving
+        if (!stayOpenUntilCommand)
+        {
+            return false;
+        }
+
+        _canClose = true;
+        return true;
+    }
+    
+    public void CloseDoorImmediate()
+    {
+        StopAllCoroutines();
+        transform.position = originalPosition;
+        isDoorMoving = false;
+        _canClose = false;
     }
 
     private Vector2 GetDirectionVector(Direction direction)
@@ -104,8 +136,16 @@ public class Door : MonoBehaviour
         // Ensure the door has exactly reached the end position
         transform.position = endPosition;
 
-        // Door stays open for doorStayOpenTime seconds
-        yield return new WaitForSeconds(doorStayOpenTime);
+        if (stayOpenUntilCommand)
+        {
+            yield return new WaitUntil(() => _canClose);
+            _canClose = false;
+        }
+        else
+        {
+            // Door stays open for doorStayOpenTime seconds
+            yield return new WaitForSeconds(doorStayOpenTime);
+        }
 
         // Start shaking the door before it closes
         yield return StartCoroutine(ShakeEffect());

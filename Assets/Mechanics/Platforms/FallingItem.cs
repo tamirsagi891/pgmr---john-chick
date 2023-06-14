@@ -36,7 +36,8 @@ public class FallingItem : MonoBehaviour
             Damageable damageable = collision.gameObject.GetComponent<Damageable>();
             if (damageable != null)
             {
-                Vector2 knockBack = (collision.transform.position.x > transform.position.x) ? Vector2.right : Vector2.left;
+                // Vector2 knockBack = (collision.transform.position.x > transform.position.x) ? Vector2.right : Vector2.left;
+                var knockBack = Vector2.up;
                 damageable.GotHit(damage, knockBack * knockBackForce);
             }
             GetComponent<CircleCollider2D>().isTrigger = true;

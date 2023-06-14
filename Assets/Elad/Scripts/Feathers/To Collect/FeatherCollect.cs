@@ -36,8 +36,7 @@ namespace Elad.Scripts.Arrows
             {
                 // Destroy(gameObject);
             }
-
-            if (PlayerStatus.FeathersToCollectManager)
+            else if (PlayerStatus.FeathersToCollectManager)
             {
                 PlayerStatus.FeathersToCollectManager.AddFeather(this);
             }
