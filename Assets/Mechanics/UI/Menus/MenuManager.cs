@@ -7,6 +7,7 @@ using Nemesh.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Logger = Nemesh.Logger;
 
 
@@ -37,6 +38,10 @@ namespace Mechanics.UI.Menus
         [SerializeField]
         [RequiredReference]
         public PauseMenu pauseMenu;
+
+        [SerializeField]
+        [RequiredReference]
+        public EndLevelMenu endLevelMenu;
 
         [Space]
         [Header("Input Management")]
@@ -79,6 +84,7 @@ namespace Mechanics.UI.Menus
             settingsMenu.OpenMenu();
             pauseMenu.CloseMenu();
             gameOverMenu.CloseMenu();
+            endLevelMenu.CloseMenu();
         }
 
         public void OpenPauseMenu()
@@ -93,6 +99,7 @@ namespace Mechanics.UI.Menus
             settingsMenu.CloseMenu();
             pauseMenu.OpenMenu();
             gameOverMenu.CloseMenu();
+            endLevelMenu.CloseMenu();
         }
 
         public void OpenGameOverMenu()
@@ -107,8 +114,26 @@ namespace Mechanics.UI.Menus
             settingsMenu.CloseMenu();
             pauseMenu.CloseMenu();
             gameOverMenu.OpenMenu();
+            endLevelMenu.CloseMenu();
         }
 
+        [Button]
+        public void OpenEndLevelMenu()
+        {
+            if (_currentOpen != null)
+            {
+                _lastOpen = _currentOpen;
+            }
+
+            _currentOpen = endLevelMenu;
+            GeneralGameManager.IsGamePause = true;
+            settingsMenu.CloseMenu();
+            pauseMenu.CloseMenu();
+            gameOverMenu.CloseMenu();
+            endLevelMenu.OpenMenu();
+        }
+
+        [Button]
         public void CloseAllMenus()
         {
             if (_currentOpen != null)
@@ -120,6 +145,8 @@ namespace Mechanics.UI.Menus
             settingsMenu.CloseMenu();
             pauseMenu.CloseMenu();
             gameOverMenu.CloseMenu();
+            endLevelMenu.CloseMenu();
+            _currentOpen = null;
         }
 
         public void BackToPreviousMenu()
@@ -173,6 +200,14 @@ namespace Mechanics.UI.Menus
             GeneralGameManager.IsGamePause = false;
             Logger.Log("LoadMainMenu", this);
             LoadSceneManager.GoToScene(ScenesHolder.MainMenu);
+        }
+
+        public void LoadNextLevel()
+        {
+            GeneralGameManager.IsGamePause = false;
+            Logger.Log("Load Next Level", this);
+            LoadSceneManager.StartLoadScene();
+            LoadSceneManager.GoToNext();
         }
 
         public void QuitGame()
@@ -238,13 +273,16 @@ namespace Mechanics.UI.Menus
                 return;
             }
 
-            if (GeneralGameManager.IsGamePause)
+            if (GeneralGameManager.IsGamePause && _currentOpen == pauseMenu)
             {
                 Resume();
                 return;
             }
 
-            Pause();
+            if (_currentOpen == null)
+            {
+                Pause();
+            }
         }
 
         #endregion

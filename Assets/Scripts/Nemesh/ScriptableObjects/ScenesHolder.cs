@@ -25,6 +25,9 @@ namespace Nemesh.ScriptableObjects
 
         [SerializeField]
         public SceneReference mainMenu;
+        
+        [SerializeField]
+        public SceneReference intro;
 
         [SerializeField]
         public List<SceneReference> levels = new();
