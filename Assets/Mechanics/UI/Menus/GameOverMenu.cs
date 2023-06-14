@@ -9,24 +9,38 @@ namespace Mechanics.UI.Menus
     [AddComponentMenu("Menus/Game Over Menu")]
     public class GameOverMenu : BaseMenuController
     {
-        [Space] [Header("GameOver Menu")] [SerializeField] [Range(0.5f, 5f)]
-        private float openGameOverMenuTime = 3f;
+        [Header("Menu Screen")] [SerializeField] [Range(0.5f, 5f)]
+        private float openScreenTime = 3f;
+
+        private float _openScreenTimer;
+        private bool _openScreen;
+
+        [Header("Zoom Call")] [SerializeField] [Range(0.5f, 5f)]
+        private float startZoomTime = 3f;
 
         [SerializeField] private bool openWithTimer;
-
-        private float _openGameOverMenuTimer;
-        private bool _openMenu;
-
+        private float _startZoomTimer;
+        private bool _startZoom;
         private ZoomCamera _zoomCamera;
 
         private void Update()
         {
-            if (_openMenu)
+            if (_openScreen)
             {
-                _openGameOverMenuTimer -= Time.deltaTime;
-                if (_openGameOverMenuTimer <= 0)
+                _openScreenTimer -= Time.deltaTime;
+                if (_openScreenTimer <= 0)
                 {
-                    _openMenu = false;
+                    OpenMenu();
+                    _openScreen = false;
+                }
+            }
+
+            if (_startZoom)
+            {
+                _startZoomTimer -= Time.deltaTime;
+                if (_startZoomTimer <= 0)
+                {
+                    _startZoom = false;
 
 
                     MenuManager.Menu.OpenGameOverMenu();
@@ -37,19 +51,21 @@ namespace Mechanics.UI.Menus
         private void OnEnable()
         {
             characterEvents.PlayerDied.AddListener(PlayerDied);
+            characterEvents.OpenGameOverMenu.AddListener(StartOpenScreen);
         }
 
         private void OnDisable()
         {
             characterEvents.PlayerDied.RemoveListener(PlayerDied);
+            characterEvents.OpenGameOverMenu.RemoveListener(StartOpenScreen);
         }
 
         private void PlayerDied()
         {
             if (openWithTimer)
             {
-                _openMenu = true;
-                _openGameOverMenuTimer = openGameOverMenuTime;
+                _startZoom = true;
+                _startZoomTimer = startZoomTime;
             }
 
             else
@@ -66,6 +82,13 @@ namespace Mechanics.UI.Menus
             }
         }
 
+
+        public void StartOpenScreen()
+        {
+            _openScreen = true;
+            _openScreenTimer = openScreenTime;
+        }
+
         public override void OpenMenu()
         {
             if (PlayerStatus.PlayerDamageable.CheckPointsLives > 0)
@@ -76,7 +99,7 @@ namespace Mechanics.UI.Menus
             else
             {
                 base.OpenMenu();
-                Logger.Log("in open game over menu");
+                Logger.Log("tuer menu");
             }
         }
     }
