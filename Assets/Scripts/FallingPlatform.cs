@@ -10,6 +10,9 @@ public class FallingPlatform : MonoBehaviour
     [SerializeField] private float distanceFromPlayerToDeactivate = 20f;
     [SerializeField] private float shakeIntensity = 0.01f;
 
+    [SerializeField]
+    private bool changeToTriggerOnFall;
+
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb;
     private Transform playerTransform;
@@ -53,8 +56,11 @@ public class FallingPlatform : MonoBehaviour
             yield return null;
         }
 
+        if (changeToTriggerOnFall)
+        {
+            boxCollider.isTrigger = true;
+        }
         // Fall
-        boxCollider.isTrigger = true;
         rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
