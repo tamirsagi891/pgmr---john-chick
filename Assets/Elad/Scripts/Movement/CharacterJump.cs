@@ -222,6 +222,7 @@ public class CharacterJump : MonoBehaviour
 
     void Update()
     {
+        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
         OnGlide();
         IsGliding = !_touchingDirection.IsGrounded && IsGliding;
         if (_inHit)

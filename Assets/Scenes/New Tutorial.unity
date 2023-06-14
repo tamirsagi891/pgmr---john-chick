@@ -19119,6 +19119,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4943495652032207529, guid: daf633e23d934944d97286f538bc8e50, type: 3}
+      propertyPath: levelToLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4950669921076069914, guid: daf633e23d934944d97286f538bc8e50, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -34055,18 +34059,26 @@ PrefabInstance:
     - target: {fileID: 4738796390982335946, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
-      objectReference: {fileID: 843386146}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7236701180000970523, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 1453763571}
+    - target: {fileID: 7236701180000970523, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: m_LookAt
+      value: 
+      objectReference: {fileID: 1453763571}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 127.7
+      value: -44.41
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 64
+      value: 29.38
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.z
@@ -34260,11 +34272,6 @@ CanvasRenderer:
 --- !u!4 &843386144 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3228273032489155436, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
-  m_PrefabInstance: {fileID: 397181782}
-  m_PrefabAsset: {fileID: 0}
---- !u!60 &843386146 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 1971271272535482658, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
   m_PrefabInstance: {fileID: 397181782}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &878227451
@@ -35870,6 +35877,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!4 &1453763571 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+  m_PrefabInstance: {fileID: 808470234}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1467220575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -99499,7 +99511,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955480041}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 135.541, y: 63.38, z: -15.3}
+  m_LocalPosition: {x: 135.58778, y: 63.38, z: -15.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

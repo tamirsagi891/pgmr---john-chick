@@ -186,6 +186,8 @@ public class HorizontalMovement : MonoBehaviour
 
     private void Update()
     {
+        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
+
         PlayerStatus.playerVelocity = _rB.velocity;
         var currentDirX = CanMove ? directionX : 0;
 
