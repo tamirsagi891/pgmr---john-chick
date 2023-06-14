@@ -1,3 +1,4 @@
+using Elad.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
@@ -15,6 +16,18 @@ namespace Elad.Scripts.Save_Load_System
         }
 
 
+        private void OnEnable()
+        {
+            characterEvents.FunctionsSave.AddListener(OpenOrCloseCheckPoint);
+        }
+
+        private void OnDisable()
+        {
+            characterEvents.FunctionsSave.RemoveListener(OpenOrCloseCheckPoint);
+        }
+        
+        
+        
         private void Awake()
         {
             Position = transform.position;
@@ -34,6 +47,20 @@ namespace Elad.Scripts.Save_Load_System
             if (other.CompareTag(TagStrings.playerTag))
             {
                 PlayerStatus.PlayerInsideCheckPoint = false;
+            }
+        }
+
+        private void OpenOrCloseCheckPoint()
+        {
+            Logger.Log("kaka");
+            if (PlayerStatus.LastCheckPoint == this)
+            {
+                
+            }
+
+            else
+            {
+                
             }
         }
     }

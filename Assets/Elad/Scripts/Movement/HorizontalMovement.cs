@@ -123,7 +123,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
+        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
 
         if (_playerController.CanMove && !IsCrouching)
         {
@@ -146,13 +146,13 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnCrouch(bool state)
     {
-        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
+        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
         IsCrouching = state;
     }
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
+        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
         var direction = Vector2.zero;
         if (context.phase != InputActionPhase.Canceled && _playerController.CanMove)
         {
@@ -171,7 +171,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnRun(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
+        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
         if (context.started)
         {
             IsRunning = true;
@@ -331,7 +331,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnHit(int damage, Vector2 knockBack, float delay = 0f)
     {
-        if (GeneralGameManager.IsGamePause || PlayerStatus.IsAlive) return;
+        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
         if (delay > 0)
         {
             StartCoroutine(CorotuineUtils.DelayExecution(delay,
