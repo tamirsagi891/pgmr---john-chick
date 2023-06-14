@@ -67,7 +67,7 @@ namespace Elad.Scripts.Save_Load_System
         private void OnLoadFinish()
         {
             characterEvents.FunctionsLoad.Invoke();
-            PlayerStatus.player.transform.position = PlayerStatus.LastCheckPoint.Position;
+            PlayerStatus.Player.transform.position = PlayerStatus.LastCheckPoint.Position;
         }
     }
 }

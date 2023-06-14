@@ -2,8 +2,6 @@
 using BitStrap;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
-// using Elad.Scripts;
-// using Elad.Scripts.Combat;
 using Managers;
 using Nemesh.ScriptableObjects;
 using UnityEngine;
@@ -39,7 +37,7 @@ namespace Mechanics.UI.Menus
         [SerializeField]
         [RequiredReference]
         public PauseMenu pauseMenu;
-        
+
         [Space]
         [Header("Input Management")]
         [SerializeField]
@@ -69,39 +67,41 @@ namespace Mechanics.UI.Menus
 
         #region Menus
 
-        
         public void OpenSettingsMenu()
         {
             if (_currentOpen != null)
             {
                 _lastOpen = _currentOpen;
             }
+
             _currentOpen = settingsMenu;
             GeneralGameManager.IsGamePause = true;
             settingsMenu.OpenMenu();
             pauseMenu.CloseMenu();
             gameOverMenu.CloseMenu();
         }
-        
+
         public void OpenPauseMenu()
         {
             if (_currentOpen != null)
             {
                 _lastOpen = _currentOpen;
             }
+
             _currentOpen = pauseMenu;
             GeneralGameManager.IsGamePause = true;
             settingsMenu.CloseMenu();
             pauseMenu.OpenMenu();
             gameOverMenu.CloseMenu();
         }
-        
+
         public void OpenGameOverMenu()
         {
             if (_currentOpen != null)
             {
                 _lastOpen = _currentOpen;
             }
+
             _currentOpen = gameOverMenu;
             GeneralGameManager.IsGamePause = true;
             settingsMenu.CloseMenu();
@@ -115,6 +115,7 @@ namespace Mechanics.UI.Menus
             {
                 _lastOpen = _currentOpen;
             }
+
             GeneralGameManager.IsGamePause = false;
             settingsMenu.CloseMenu();
             pauseMenu.CloseMenu();
@@ -150,7 +151,7 @@ namespace Mechanics.UI.Menus
             MenuManager.Menu.OpenPauseMenu();
         }
 
-        
+
         // TODO: move all of this to the MenuManager
         public void ReloadLevel()
         {
@@ -158,13 +159,13 @@ namespace Mechanics.UI.Menus
             Logger.Log("Reload Level", this);
             LoadSceneManager.ReloadScene();
         }
-        
+
         public void ReturnToLastCheckPoint()
         {
             // Logger.Log("in return to last check point function", this);
             MenuManager.Menu.CloseAllMenus();
             PlayerStatus.SaveGameManager.LoadGameFromCheckPoint();
-            PlayerStatus.player.GetComponent<Damageable>().RevivePlayer();
+            PlayerStatus.PlayerDamageable.RevivePlayer();
         }
 
         public void LoadMainMenu()
@@ -204,7 +205,6 @@ namespace Mechanics.UI.Menus
                 return;
             }
 
-            PlayerStatus.MenuManager = this;
             Menu = this;
             _lastOpen = pauseMenu;
             _currentOpen = null;
@@ -221,7 +221,6 @@ namespace Mechanics.UI.Menus
 
         private void OnDisable()
         {
-            
             var map = uiInputs.FindActionMap("UI");
             var pauseAction = map.FindAction("Pause");
             pauseAction.started -= OnPause;
@@ -231,7 +230,7 @@ namespace Mechanics.UI.Menus
         #endregion
 
         #region Inputs
-        
+
         public void OnPause(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
@@ -249,7 +248,6 @@ namespace Mechanics.UI.Menus
         }
 
         #endregion
-
     }
 
     [Serializable]

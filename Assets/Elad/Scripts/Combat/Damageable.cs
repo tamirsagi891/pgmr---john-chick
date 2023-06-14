@@ -179,7 +179,7 @@ namespace Elad.Scripts.Combat
             {
                 if (!_touchingDirection)
                 {
-                    _touchingDirection = PlayerStatus.player.GetComponent<TouchingDirection>();
+                    _touchingDirection = PlayerStatus.Player.GetComponent<TouchingDirection>();
                 }
                 
                 if (_touchingDirection.IsGrounded)

@@ -1,20 +1,36 @@
-using System;
 using Cinemachine;
-using Elad.Scripts;
 using Elad.Scripts.Arrows;
+using Elad.Scripts.Combat;
 using Elad.Scripts.Save_Load_System;
-using Mechanics.UI.Menus;
 using UnityEngine;
-using UnityEngine.Android;
-using UnityEngine.Events;
 
 namespace Elad.Scripts
 {
     public static class PlayerStatus
     {
-        public static GameObject player;
+        public static GameObject Player
+        {
+            get => player;
+            set
+            {
+                player = value;
+                if (player != null)
+                {
+                    PlayerDamageable = player.GetComponent<Damageable>();
+                }
+            }
+        }
+
+        public static Damageable PlayerDamageable { get; set; }
+        public static CharacterJump JumpController { get; set; }
+        public static Platform PlatformController { get; set; }
+        public static bool IsMovingThrowPlatform => PlatformController.IsMovingThrowPlatform;
+        public static bool IsGliding => JumpController.IsGliding;
+
         public static int maxHealth;
         public static int curHealth;
+        public static bool PlayerIsInvincible;
+
         public static bool isFacingRight;
 
         public static ArrowData CurrentArrowDataData;
@@ -22,34 +38,24 @@ namespace Elad.Scripts
 
         public static Vector2 playerVelocity;
 
-        public static bool PlayerIsInvincible;
-        public static CharacterJump JumpController { get; set; }
-        public static bool IsGliding => JumpController.IsGliding;
-        
-
-        public static Platform PlatformController { get; set; }
-        public static bool IsMovingThrowPlatform => PlatformController.IsMovingThrowPlatform;
-
+        public static int CollectedFeatherAmount;
         public static FeathersToCollectManager FeathersToCollectManager;
-        public static bool InitializeFromJason;
-        
+
         public static bool PlayerInsideCheckPoint;
+
+        public static bool InitializeFromJason;
         public static SaveGameManager SaveGameManager;
         public static CheckPoints LastCheckPoint;
         public static bool canSave = true;
         public static PlayerSaveData PlayerSaveData = new PlayerSaveData();
 
         public static CinemachineVirtualCamera CurrentVirtualCamara;
+
         public static bool isGamePause;
-        
-        public static int CollectedFeatherAmount;
-    
-        public static GameOverMenu GameOverMenu;
-        
-        
-        public static MenuManager MenuManager;
+
+        private static GameObject player;
     }
-    
+
     [System.Serializable]
     public class PlayerSaveData
     {

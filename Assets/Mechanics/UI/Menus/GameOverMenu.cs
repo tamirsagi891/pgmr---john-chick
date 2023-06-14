@@ -1,7 +1,6 @@
-using System;
 using Elad.Events;
 using Elad.Scripts;
-using Unity.VisualScripting;
+using Elad.Scripts.Combat;
 using UnityEngine;
 using Logger = Nemesh.Logger;
 
@@ -10,16 +9,31 @@ namespace Mechanics.UI.Menus
     [AddComponentMenu("Menus/Game Over Menu")]
     public class GameOverMenu : BaseMenuController
     {
-        [Space] [Header("GameOver Menu")] [SerializeField] [Range(0.5f, 5f)]
+        [Space]
+        [Header("GameOver Menu")]
+        [SerializeField]
+        [Range(0.5f, 5f)]
         private float openGameOverMenuTime = 3f;
 
-        [SerializeField] bool openWithTimer = false;
-        private float _openGameOverMenuTimer;
-        private bool openMenu;
+        [SerializeField]
+        private bool openWithTimer;
 
-        private void Awake()
+        private float _openGameOverMenuTimer;
+        private bool _openMenu;
+
+        private void Update()
         {
-            PlayerStatus.GameOverMenu = this;
+            if (_openMenu)
+            {
+                _openGameOverMenuTimer -= Time.deltaTime;
+                if (_openGameOverMenuTimer <= 0)
+                {
+                    _openMenu = false;
+
+
+                    MenuManager.Menu.OpenGameOverMenu();
+                }
+            }
         }
 
         private void OnEnable()
@@ -29,31 +43,14 @@ namespace Mechanics.UI.Menus
 
         private void OnDisable()
         {
-            PlayerStatus.GameOverMenu = null;
             characterEvents.PlayerDied.RemoveListener(PlayerDied);
-        }
-
-        private void Update()
-        {
-            if (openMenu)
-            {
-                _openGameOverMenuTimer -= Time.deltaTime;
-                if (_openGameOverMenuTimer <= 0)
-                {
-                    openMenu = false;
-                    
-                    
-                    MenuManager.Menu.OpenGameOverMenu();
-                }
-            }
         }
 
         private void PlayerDied()
         {
-            
             if (openWithTimer)
             {
-                openMenu = true;
+                _openMenu = true;
                 _openGameOverMenuTimer = openGameOverMenuTime;
             }
 
@@ -65,8 +62,17 @@ namespace Mechanics.UI.Menus
 
         public override void OpenMenu()
         {
-            base.OpenMenu();
-            Logger.Log("in open game over menu");
+
+            if (PlayerStatus.PlayerDamageable.CheckPointsLives > 0)
+            {
+                PlayerStatus.PlayerDamageable.CheckPointsLives -= 1;
+                MenuManager.Menu.ReturnToLastCheckPoint();
+            }
+            else
+            {
+                base.OpenMenu();
+                Logger.Log("in open game over menu");
+            }
         }
     }
 }

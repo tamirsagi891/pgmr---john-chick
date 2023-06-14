@@ -47,7 +47,7 @@ public class ParralaxController : MonoBehaviour
 
     void Start()
     {
-        _player = PlayerStatus.player.gameObject;
+        _player = PlayerStatus.Player.gameObject;
     }
 
 

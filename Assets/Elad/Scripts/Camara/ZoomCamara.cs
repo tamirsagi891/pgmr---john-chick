@@ -5,6 +5,7 @@ using UnityEngine;
 using Cinemachine;
 using Elad.Events;
 using Elad.Scripts;
+using Mechanics.UI.Menus;
 using Logger = Nemesh.Logger;
 
 public class ZoomCamera : MonoBehaviour
@@ -36,8 +37,8 @@ public class ZoomCamera : MonoBehaviour
     {
         _cam = GetComponent<CinemachineVirtualCamera>();
         
-        _cam.LookAt = PlayerStatus.player.transform;
-        _cam.Follow = PlayerStatus.player.transform;
+        _cam.LookAt = PlayerStatus.Player.transform;
+        _cam.Follow = PlayerStatus.Player.transform;
         
         startDistance = _cam.m_Lens.OrthographicSize;
     }
@@ -76,7 +77,7 @@ public class ZoomCamera : MonoBehaviour
             
         }
         // Logger.Log("Got to the final zoom distance");
-        PlayerStatus.GameOverMenu.OpenMenu();
+        MenuManager.Menu.OpenGameOverMenu();
     }
     
     [Button]
