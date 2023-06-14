@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Elad.Scripts.Save_Load_System
 {
     public class CheckPoints : MonoBehaviour
     {
-
+        [SerializeField]
+        private InputActionAsset uiInputs;
     
         private Vector3 _position;
 
@@ -14,6 +16,25 @@ namespace Elad.Scripts.Save_Load_System
             set => _position = value;
         }
 
+        private void OnEnable()
+        {
+            var map = uiInputs.FindActionMap("Player");
+            var moveAction = map.FindAction("Move");
+            moveAction.started += OnMove;
+            moveAction.canceled += OnMove;
+            
+        }
+
+        private void OnDisable()
+        {
+            
+            var map = uiInputs.FindActionMap("Player");
+            var moveAction = map.FindAction("Move");
+            moveAction.started -= TryToSave;
+            moveAction.canceled -= TryToSave;
+            
+        }
+        
         private void Awake()
         {
             Position = transform.position;
@@ -34,6 +55,11 @@ namespace Elad.Scripts.Save_Load_System
             {
                 PlayerStatus.PlayerInsideCheckPoint = false;
             }
+        }
+
+        private void TryToSave()
+        {
+            
         }
     
     }
