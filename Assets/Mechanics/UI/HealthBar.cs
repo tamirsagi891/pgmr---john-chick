@@ -74,12 +74,14 @@ public class HealthBar : MonoBehaviour
         DrawHearts();
         characterEvents.CharacterHealed.AddListener(DrawHeartsFitted);
         characterEvents.CharacterDamaged.AddListener(DrawHeartsFitted);
+        characterEvents.FunctionsLoad.AddListener(DrawHearts);
     }
 
     private void OnDisable()
     {
         characterEvents.CharacterHealed.RemoveListener(DrawHeartsFitted);
         characterEvents.CharacterDamaged.RemoveListener(DrawHeartsFitted);
+        characterEvents.FunctionsLoad.RemoveListener(DrawHearts);
     }
 
 
