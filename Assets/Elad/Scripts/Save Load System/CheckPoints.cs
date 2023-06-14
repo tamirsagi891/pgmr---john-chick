@@ -60,14 +60,13 @@ namespace Elad.Scripts.Save_Load_System
                 if (PlayerStatus.LastCheckPoint == this)
                 {
                     // Close checkpoint
-                    
+
                     SpawnChickens();
                     isOn = true;
                     if (animator)
                     {
-                        animator.SetBool("isOn", true);    
+                        animator.SetBool("isOn", true);
                     }
-                    
                 }
                 else
                 {
@@ -76,14 +75,15 @@ namespace Elad.Scripts.Save_Load_System
                     DestroyChickens();
                     if (animator)
                     {
-                        animator.SetBool("isOn", false);    
+                        animator.SetBool("isOn", false);
                     }
-                    
                 }
             }
             else
             {
                 PlayerStatus.SaveGameManager.FirstTime = false;
+                DestroyChickens();
+                isOn = false;
             }
         }
 

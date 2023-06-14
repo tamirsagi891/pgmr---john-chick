@@ -34059,26 +34059,18 @@ PrefabInstance:
     - target: {fileID: 4738796390982335946, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7236701180000970523, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 1453763571}
-    - target: {fileID: 7236701180000970523, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
-      propertyPath: m_LookAt
-      value: 
-      objectReference: {fileID: 1453763571}
+      objectReference: {fileID: 1524031220}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -44.41
+      value: 128.6
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.38
+      value: 65.4
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.z
@@ -35877,11 +35869,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!4 &1453763571 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
-  m_PrefabInstance: {fileID: 808470234}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1467220575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36096,6 +36083,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513965272}
   m_CullTransparentMesh: 1
+--- !u!60 &1524031220 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1971271272535482658, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
+  m_PrefabInstance: {fileID: 397181782}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1545421743 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3918647210175974456, guid: ffd53a52d8a0aeb40af05c3dae2d1e29, type: 3}
