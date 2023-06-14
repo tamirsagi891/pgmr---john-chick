@@ -15,8 +15,7 @@ public class Spikes : MonoBehaviour
             if (damageable != null)
             {
                 // Determine knockBack direction based on the player's facing direction
-                Vector2 knockBack = (collision.transform.localScale.x > 0) ? Vector2.right * knockBackForce : Vector2.left * knockBackForce;
-                damageable.GotHit(damage, knockBack);
+                damageable.GotHit(damage, knockBackForce * Vector2.up);
             }
         }
     }
