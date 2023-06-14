@@ -320,6 +320,7 @@ namespace Elad.Scripts.Combat
             PlayerSaveData = SaveGameOnJson.CurrentSaveData.playerSaveData;
             // Logger.Log(SaveGameOnJson.CurrentSaveData.playerSaveData.health);
             Health = PlayerSaveData.health;
+            PlayerStatus.curHealth = Health;
         }
 
         public Transform GetTransform() => transform;
