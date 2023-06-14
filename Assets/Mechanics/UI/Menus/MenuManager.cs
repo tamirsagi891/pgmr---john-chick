@@ -104,6 +104,7 @@ namespace Mechanics.UI.Menus
 
         public void OpenGameOverMenu()
         {
+            Logger.Log("in open game over menu");
             if (_currentOpen != null)
             {
                 _lastOpen = _currentOpen;

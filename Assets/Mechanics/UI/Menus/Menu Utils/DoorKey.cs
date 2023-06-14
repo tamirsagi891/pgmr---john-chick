@@ -3,22 +3,20 @@ using Elad.Scripts;
 using Elad.Scripts.Arrows;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Playables;
 using Logger = Nemesh.Logger;
 
 namespace Mechanics.UI.Menus.Menu_Utils
 {
     public class DoorKey : MonoBehaviour
     {
-        [SerializeField]
-        public float openPercentage = 0.6f;
-        
-        [Space]
-        [SerializeField] private float minVisibleDistance = 12f;
+        [SerializeField] private bool isStartTimeLine;
+        [SerializeField] public float openPercentage = 0.6f;
+
+        [Space] [SerializeField] private float minVisibleDistance = 12f;
         [SerializeField] private float maxVisibleDistance = 18f;
-        
-        [Space]
-        [SerializeField]
-        private Door myDoor;
+
+        [Space] [SerializeField] private Door myDoor;
 
         private Transform _playerTransform;
         private SpriteRenderer _mySprite;
@@ -42,7 +40,6 @@ namespace Mechanics.UI.Menus.Menu_Utils
 
         private void Update()
         {
-            
             float distance = Vector3.Distance(_playerTransform.position, transform.position);
 
             if (distance <= minVisibleDistance)
@@ -58,10 +55,9 @@ namespace Mechanics.UI.Menus.Menu_Utils
             else
             {
                 // Interpolate between fully visible and fully transparent based on distance
-                float alpha = 1 - (distance - minVisibleDistance) / (maxVisibleDistance - minVisibleDistance);                
+                float alpha = 1 - (distance - minVisibleDistance) / (maxVisibleDistance - minVisibleDistance);
                 SetAlpha(alpha);
             }
-            
         }
 
         private void OnEnable()
@@ -76,6 +72,14 @@ namespace Mechanics.UI.Menus.Menu_Utils
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            Logger.Log("in key trigger");
+            var playableDirector = GetComponent<PlayableDirector>();
+            playableDirector.Play();
+        }
+
+        public void OpenEndUpMenu()
+        {
+            Logger.Log("in open end up menu");
             MenuManager.Menu.OpenEndLevelMenu();
         }
 
@@ -89,10 +93,11 @@ namespace Mechanics.UI.Menus.Menu_Utils
             {
                 return;
             }
+
             Logger.Log($"Opening End Door {percent}", Color.magenta, myDoor);
             myDoor.OpenDoor();
         }
-        
+
         private void SetAlpha(float alpha)
         {
             var color = _mySprite.color;

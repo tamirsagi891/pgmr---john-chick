@@ -285,7 +285,7 @@ Transform:
   - {fileID: 3821597337839475202}
   - {fileID: 8436590753230531569}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8728776469950805241
 Rigidbody2D:
@@ -709,8 +709,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkPointsLives: 3
-  initialHealth: 20
-  maxHealth: 20
+  initialHealth: 6
+  maxHealth: 6
   damageableHit:
     m_PersistentCalls:
       m_Calls:
@@ -836,9 +836,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.018457588, y: -0.62783056}
+  m_Offset: {x: 0.018457588, y: -0.633134}
   serializedVersion: 2
-  m_Radius: 0.3635205
+  m_Radius: 0.3522608
 --- !u!212 &9150277205314475265
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1334,7 +1334,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5036980728574050023}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -0.13, y: 0, z: -15.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

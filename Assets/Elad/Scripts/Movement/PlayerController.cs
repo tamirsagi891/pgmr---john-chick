@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Elad.Scripts;
+using Mechanics.UI.Menus;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +12,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirection))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private bool isGamePaused;
     [Space(10)] [Header("Movement")] [SerializeField]
     private float airWalkSpeed = 3f;
 
@@ -57,6 +59,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        GeneralGameManager.IsGamePause = false;
         PlayerStatus.Player = this.gameObject;
         _rB = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
@@ -77,7 +80,15 @@ public class PlayerController : MonoBehaviour
         get { return _animator.GetBool(AnimationStrings.isAlive); }
     }
 
-    
+    private void Update()
+    {
+        isGamePaused = GeneralGameManager.IsGamePause;
+    }
+
+    public void OpenEndUpMenu()
+    {
+        MenuManager.Menu.OpenEndLevelMenu();
+    }
     public void ChangeCollider(ColliderKind colliderKind)
     {
         switch (colliderKind)
