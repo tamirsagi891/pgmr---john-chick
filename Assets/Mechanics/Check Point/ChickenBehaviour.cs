@@ -4,18 +4,18 @@ public class ChickenBehaviour : MonoBehaviour
 {
     [SerializeField] private float minIdleTime = 2f;
     [SerializeField] private float maxIdleTime = 5f;
-    [SerializeField] private float minWalkTime = 1f;
-    [SerializeField] private float maxWalkTime = 3f;
     [SerializeField] private float walkSpeed = 1f;
     [SerializeField] private float runSpeed = 2f;
+    [SerializeField] private float minStepDistance = 0.5f; // Minimum step distance
 
     private Animator animator;
     private BoxCollider2D roamArea;
     private Rigidbody2D rb;
     private bool isWalking = false;
     private float timeToChange = 0f;
-    private float direction;
+    private Vector2 targetPosition;
     private float moveSpeed;
+    private float proximityThreshold = 0.1f;  // Threshold to consider the chicken close enough to the target
 
     private void Awake()
     {
@@ -28,9 +28,10 @@ public class ChickenBehaviour : MonoBehaviour
     {
         if (isWalking)
         {
-            MoveRandomly();
+            MoveToTarget();
 
-            if (Time.time >= timeToChange)
+            // Check if chicken reached the target
+            if (Vector2.Distance(rb.position, targetPosition) < proximityThreshold)
             {
                 isWalking = false;
                 animator.SetBool("isWalking", isWalking);
@@ -44,8 +45,13 @@ public class ChickenBehaviour : MonoBehaviour
             {
                 isWalking = true;
                 animator.SetBool("isWalking", isWalking);
-                direction = Random.Range(-1f, 1f);
                 
+                // Set a random target within the roam area in global coordinates, while respecting the minimum step distance
+                float minLimit = Mathf.Max(roamArea.bounds.min.x, rb.position.x - minStepDistance);
+                float maxLimit = Mathf.Min(roamArea.bounds.max.x, rb.position.x + minStepDistance);
+                float x = Random.Range(minLimit, maxLimit);
+                targetPosition = new Vector2(x, rb.position.y);
+
                 // Randomly decide if the chicken should walk or run
                 if (Random.value > 0.5f)
                 {
@@ -57,31 +63,22 @@ public class ChickenBehaviour : MonoBehaviour
                     moveSpeed = runSpeed;
                     animator.speed = 2f; // Set animation speed for running
                 }
-
-                timeToChange = Time.time + Random.Range(minWalkTime, maxWalkTime);
             }
         }
     }
 
-    private void MoveRandomly()
+    private void MoveToTarget()
     {
-        Vector2 newPosition = rb.position + new Vector2(direction * moveSpeed * Time.deltaTime, 0f) * 0.05f;
+        Vector2 newPosition = Vector2.MoveTowards(rb.position, targetPosition, moveSpeed * Time.deltaTime);
 
-        // Check if the new position is inside the roam area
-        if (roamArea.bounds.Contains(newPosition))
-        {
-            rb.MovePosition(newPosition);
-            FlipBasedOnDirection(); // Flip based on direction
-        }
-        else
-        {
-            // If new position is outside the roam area, turn around
-            direction = -direction;
-            FlipBasedOnDirection(); // Flip based on direction
-        }
+        // Update the direction based on the new position
+        float direction = (newPosition.x >= rb.position.x) ? 1 : -1;
+        FlipBasedOnDirection(direction);
+
+        rb.MovePosition(newPosition);
     }
 
-    private void FlipBasedOnDirection()
+    private void FlipBasedOnDirection(float direction)
     {
         if (direction < 0)
         {
