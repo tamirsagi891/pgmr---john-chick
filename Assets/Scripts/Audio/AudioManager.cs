@@ -56,6 +56,10 @@ public class AudioManager : MonoBehaviour
 
     private void OnEnable()
     {
+        if (MenuManager.Menu == null)
+        {
+            return;
+        }
         MenuManager.Menu.soundEvents.onMasterChange.AddListener(SetMasterVolume);
         MenuManager.Menu.soundEvents.onMasterChange.AddListener(SetMusicVolume);
     }
