@@ -172,7 +172,7 @@ MonoBehaviour:
   popInTime: 0.5
   distanceFromPlayerToDeactivate: 20
   shakeIntensity: 0.01
-  changeToTriggerOnFall: 0
+  changeToTriggerOnFall: 1
 --- !u!50 &3529554243210785491
 Rigidbody2D:
   serializedVersion: 4
