@@ -1,5 +1,6 @@
 using Elad.Scripts.Combat;
 using UnityEngine;
+using Logger = Nemesh.Logger;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
 public class FallingItem : MonoBehaviour
@@ -29,8 +30,7 @@ public class FallingItem : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        string collisionTag = collision.gameObject.tag;
-
+        string collisionTag = collision.otherCollider.gameObject.tag;
         if (collisionTag == "Player")
         {
             Damageable damageable = collision.gameObject.GetComponent<Damageable>();

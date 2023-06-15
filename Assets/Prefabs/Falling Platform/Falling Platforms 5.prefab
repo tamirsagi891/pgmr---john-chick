@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5622969752813001513}
   - component: {fileID: 6454436293436657806}
   - component: {fileID: 1880178601728718904}
+  - component: {fileID: 2347534556994160526}
   m_Layer: 6
   m_Name: Falling Platforms 5
   m_TagString: Untagged
@@ -118,7 +119,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.007587433, y: 0.21025944}
   m_SpriteTilingProperty:
@@ -200,3 +201,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
+--- !u!251 &2347534556994160526
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7967147510555785097}
+  m_Enabled: 1
+  m_UseColliderMask: 0
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
