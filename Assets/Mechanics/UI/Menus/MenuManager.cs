@@ -149,7 +149,7 @@ namespace Mechanics.UI.Menus
                 _lastOpen = _currentOpen;
             }
 
-            _currentOpen = endLevelMenu;
+            _currentOpen = levelChooserMenu;
             GeneralGameManager.IsGamePause = true;
             settingsMenu.CloseMenu();
             pauseMenu.CloseMenu();
