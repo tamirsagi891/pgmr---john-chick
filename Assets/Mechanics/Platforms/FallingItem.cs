@@ -30,7 +30,7 @@ public class FallingItem : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        string collisionTag = collision.otherCollider.gameObject.tag;
+        string collisionTag = collision.gameObject.tag;
         if (collisionTag == "Player")
         {
             Damageable damageable = collision.gameObject.GetComponent<Damageable>();
