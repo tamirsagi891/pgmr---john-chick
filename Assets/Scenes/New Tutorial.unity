@@ -21681,7 +21681,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutSceneCamara: {fileID: 1754712870}
-  openMenuTime: 1
+  openMenuTime: 1.75
+  startMovementTime: 1
+  timeScale: 0.5
 --- !u!1001 &551502059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34080,11 +34082,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 136.6
+      value: 130.58
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.45
+      value: 65.4
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.z

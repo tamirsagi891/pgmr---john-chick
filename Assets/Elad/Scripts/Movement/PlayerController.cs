@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using BitStrap;
 using Elad.Scripts;
 using Mechanics.UI.Menus;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using Logger = Nemesh.Logger;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirection))]
 public class PlayerController : MonoBehaviour
@@ -39,6 +41,8 @@ public class PlayerController : MonoBehaviour
     [Space(10)] [Header("Collider")] private CapsuleCollider2D _capsuleCollider2D;
     private CircleCollider2D _circleCollider2D;
 
+    private HorizontalMovement _horizontalMovementPlayer; 
+
     public enum ColliderKind
     {
         Capsule,
@@ -68,6 +72,7 @@ public class PlayerController : MonoBehaviour
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         _circleCollider2D = GetComponent<CircleCollider2D>();
         ChangeCollider(ColliderKind.Capsule);
+        _horizontalMovementPlayer = GetComponent<HorizontalMovement>();
     }
 
 
@@ -111,5 +116,19 @@ public class PlayerController : MonoBehaviour
             case ColliderKind.DodgeRoll:
                 break;
         }
+    }
+
+    public bool CantGetInput()
+    {
+        
+        var retVal = GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive || PlayerStatus.InCutScene;
+        return retVal;
+    }
+    
+    [Button]
+    public void CloseMovement()
+    {
+        _horizontalMovementPlayer.DirectionX = 0;
+        IsMoving = false;
     }
 }

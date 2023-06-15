@@ -187,7 +187,7 @@ public class CharacterJump : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
+        if (_playerController.CantGetInput()) return;
         if (context.canceled)
         {
             _pressingJump = false;
@@ -222,7 +222,7 @@ public class CharacterJump : MonoBehaviour
 
     void Update()
     {
-        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
+        if (_playerController.CantGetInput()) return;
         OnGlide();
         IsGliding = !_touchingDirection.IsGrounded && IsGliding;
         if (_inHit)
@@ -439,7 +439,7 @@ public class CharacterJump : MonoBehaviour
 
     private void OnGlide()
     {
-        if (GeneralGameManager.IsGamePause) return;
+        if (_playerController.CantGetInput()) return;
         if (!CanGlide)
         {
             CancelGlide();

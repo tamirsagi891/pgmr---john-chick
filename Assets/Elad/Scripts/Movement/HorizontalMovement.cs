@@ -119,7 +119,7 @@ public class HorizontalMovement : MonoBehaviour
         characterEvents.FunctionsLoad.RemoveListener(ResetMovement);
     }
 
-    
+
     private void Awake()
     {
         PlayerStatus.isFacingRight = (transform.localScale.x > 0);
@@ -134,7 +134,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
+        if (_playerController.CantGetInput()) return;
 
         if (_playerController.CanMove && !IsCrouching)
         {
@@ -157,13 +157,13 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnCrouch(bool state)
     {
-        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
+        if (_playerController.CantGetInput()) return;
         IsCrouching = state;
     }
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
+        if (_playerController.CantGetInput()) return;
         var direction = Vector2.zero;
         if (context.phase != InputActionPhase.Canceled && _playerController.CanMove)
         {
@@ -171,16 +171,15 @@ public class HorizontalMovement : MonoBehaviour
         }
 
 
-        directionX = direction.x;
-        _playerController.IsMoving = (directionX != 0);
-        SetFacingDirection(directionX);
+        DirectionX = direction.x;
+        _playerController.IsMoving = (DirectionX != 0);
+        SetFacingDirection(DirectionX);
     }
-    
+
     private void ResetMovement()
     {
-        directionX = 0;
-        _playerController.IsMoving = (directionX != 0);
-
+        DirectionX = 0;
+        _playerController.IsMoving = (DirectionX != 0);
     }
 
     public void CloseMovementToWall(float newMovement)
@@ -189,7 +188,7 @@ public class HorizontalMovement : MonoBehaviour
 
     public void OnRun(InputAction.CallbackContext context)
     {
-        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
+        if (_playerController.CantGetInput()) return;
         if (context.started)
         {
             IsRunning = true;
@@ -206,8 +205,8 @@ public class HorizontalMovement : MonoBehaviour
     {
         if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
 
-        PlayerStatus.playerVelocity = _rB.velocity;
-        var currentDirX = CanMove ? directionX : 0;
+            PlayerStatus.playerVelocity = _rB.velocity;
+        var currentDirX = CanMove ? DirectionX : 0;
 
 
         _pressingMovementKey = (currentDirX != 0);
@@ -263,6 +262,12 @@ public class HorizontalMovement : MonoBehaviour
         }
     }
 
+    public float DirectionX
+    {
+        get => directionX;
+        set => directionX = value;
+    }
+
     private void FixedUpdate()
     {
         _onGround = _touchingDirection.IsGrounded;
@@ -297,7 +302,7 @@ public class HorizontalMovement : MonoBehaviour
         {
             //If the sign (i.e. positive or negative) of our input direction doesn't match our movement,
             //it means we're turning around and so should use the turn speed stat.
-            if (Mathf.Sign(directionX) != Mathf.Sign(_velocity.x))
+            if (Mathf.Sign(DirectionX) != Mathf.Sign(_velocity.x))
             {
                 _maxSpeedChange = _turnSpeed * Time.deltaTime;
             }
@@ -345,13 +350,13 @@ public class HorizontalMovement : MonoBehaviour
 
     public float GetHorizontalMovement()
     {
-        return directionX;
+        return DirectionX;
     }
 
 
     public void OnHit(int damage, Vector2 knockBack, float delay = 0f)
     {
-        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
+        if (_playerController.CantGetInput()) return;
         if (delay > 0)
         {
             StartCoroutine(CorotuineUtils.DelayExecution(delay,
@@ -370,13 +375,15 @@ public class HorizontalMovement : MonoBehaviour
         knockBack *= knockBackMultiplayer;
         _rB.AddForce(knockBack, ForceMode2D.Impulse);
     }
-    
+
     public void MoveRight()
     {
         if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive || !_playerController.CanMove) return;
 
-        directionX = 1; // 1 corresponds to moving to the right.
+        DirectionX = 1; // 1 corresponds to moving to the right.
         _playerController.IsMoving = true;
-        SetFacingDirection(directionX);
+        SetFacingDirection(DirectionX);
     }
+
+    
 }

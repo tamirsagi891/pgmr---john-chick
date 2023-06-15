@@ -14,7 +14,14 @@ public class EndLevelCutScene : MonoBehaviour
     private bool _startCutScene;
     private bool _openMenu;
     [SerializeField] private float openMenuTime = 1f;
-    
+
+    private bool _startMovement;
+    [SerializeField] private float startMovementTime = 1f;
+    [SerializeField] [Range(0, 1)] private float timeScale = 0.5f;
+    private void Awake()
+    {
+        GeneralGameManager.IsGamePause = false;
+    }
 
     public bool StartCutScene
     {
@@ -25,8 +32,11 @@ public class EndLevelCutScene : MonoBehaviour
             PlayerStatus.InCutScene = value;
             if (value)
             {
-                _openMenu = true;
+                _startMovement = true;
+                PlayerStatus.InCutScene = true;
+                PlayerStatus.Player.GetComponent<PlayerController>().CloseMovement();
                 cutSceneCamara.enabled = true;
+                Time.timeScale = timeScale;
             }
         }
     }
@@ -43,6 +53,17 @@ public class EndLevelCutScene : MonoBehaviour
 
             }
         }
+
+        if (_startMovement)
+        {
+            startMovementTime -= Time.deltaTime;
+            if (startMovementTime <= 0)
+            {
+                _startMovement = false;
+                PlayerStatus.Player.GetComponent<HorizontalMovement>().MoveRight();
+                _openMenu = true;
+            }
+        }
     }
 
 
@@ -50,5 +71,10 @@ public class EndLevelCutScene : MonoBehaviour
     {
         PlayerStatus.ZoomCamera.StartZoom();
     }
-    
+
+    private void OnDestroy()
+    {
+        PlayerStatus.InCutScene = false;
+        Time.timeScale = 1;
+    }
 }
