@@ -105,6 +105,8 @@ MonoBehaviour:
   onAttack:
     m_PersistentCalls:
       m_Calls: []
+  endLifeAfterTime:
+    duration: 5
   releaseAfterTime: 0
   playerTag: Player
 --- !u!70 &-5304590654977481417

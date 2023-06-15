@@ -54,7 +54,10 @@ namespace Elad.Scripts.Save_Load_System
 
         public void SaveGameFromCheckPoint(InputAction.CallbackContext context)
         {
-        
+            if (GeneralGameManager.IsGamePause)
+            {
+                return;
+            }
             if (context.started && PlayerStatus.PlayerInsideCheckPoint)
             {
                 characterEvents.FunctionsSave.Invoke();

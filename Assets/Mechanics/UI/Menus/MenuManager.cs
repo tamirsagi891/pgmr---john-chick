@@ -1,14 +1,12 @@
 ﻿using System;
 using BitStrap;
 using Elad.Scripts;
-using Elad.Scripts.Combat;
 using Managers;
+using Mechanics.UI.Menus.Menu_Utils;
 using Nemesh.ScriptableObjects;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using Logger = Nemesh.Logger;
 
 
@@ -43,6 +41,10 @@ namespace Mechanics.UI.Menus
         [SerializeField]
         [RequiredReference]
         public EndLevelMenu endLevelMenu;
+
+        [SerializeField]
+        [RequiredReference]
+        public LevelChooser levelChooserMenu;
 
         [Space]
         [Header("Input Management")]
@@ -86,6 +88,7 @@ namespace Mechanics.UI.Menus
             pauseMenu.CloseMenu();
             gameOverMenu.CloseMenu();
             endLevelMenu.CloseMenu();
+            levelChooserMenu.CloseMenu();
         }
 
         public void OpenPauseMenu()
@@ -101,6 +104,7 @@ namespace Mechanics.UI.Menus
             pauseMenu.OpenMenu();
             gameOverMenu.CloseMenu();
             endLevelMenu.CloseMenu();
+            levelChooserMenu.CloseMenu();
         }
 
         public void OpenGameOverMenu()
@@ -117,6 +121,7 @@ namespace Mechanics.UI.Menus
             pauseMenu.CloseMenu();
             gameOverMenu.OpenMenu();
             endLevelMenu.CloseMenu();
+            levelChooserMenu.CloseMenu();
         }
 
         [Button]
@@ -133,6 +138,24 @@ namespace Mechanics.UI.Menus
             pauseMenu.CloseMenu();
             gameOverMenu.CloseMenu();
             endLevelMenu.OpenMenu();
+            levelChooserMenu.CloseMenu();
+        }
+        
+        [Button]
+        public void OpenLevelChooser()
+        {
+            if (_currentOpen != null)
+            {
+                _lastOpen = _currentOpen;
+            }
+
+            _currentOpen = levelChooserMenu;
+            GeneralGameManager.IsGamePause = true;
+            settingsMenu.CloseMenu();
+            pauseMenu.CloseMenu();
+            gameOverMenu.CloseMenu();
+            endLevelMenu.CloseMenu();
+            levelChooserMenu.OpenMenu();
         }
 
         [Button]
@@ -148,6 +171,7 @@ namespace Mechanics.UI.Menus
             pauseMenu.CloseMenu();
             gameOverMenu.CloseMenu();
             endLevelMenu.CloseMenu();
+            levelChooserMenu.CloseMenu();
             _currentOpen = null;
         }
 

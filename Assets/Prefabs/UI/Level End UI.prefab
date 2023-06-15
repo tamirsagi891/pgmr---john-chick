@@ -1245,6 +1245,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4286220399975463506, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 5956910769433105985, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1345,10 +1349,35 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8812022688349359867, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812022688349359867, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812022688349359867, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812022688349359867, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812022688349359867, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812022688349359867, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 864797016835785753, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5050931612894742137, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
+    - {fileID: 4566655828341898510, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3136882433630098447, guid: 2964323aa2614d84d80f705a8804596d, type: 3}
       insertIndex: 1

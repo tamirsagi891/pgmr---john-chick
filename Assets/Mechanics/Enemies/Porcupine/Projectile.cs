@@ -24,7 +24,6 @@ namespace Mechanics.Enemies.Porcupine
 
         [Space]
         [SerializeField]
-        [Min(0)]
         protected PassiveTimer endLifeAfterTime = new(10f);
         
         [SerializeField]

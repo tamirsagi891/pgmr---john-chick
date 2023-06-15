@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7081152905296501240}
   - component: {fileID: 3793848287576002883}
   - component: {fileID: 3487563264723762186}
+  - component: {fileID: 6816861222841424193}
   m_Layer: 6
   m_Name: Falling Platforms 3
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5495329223081139383
 SpriteRenderer:
@@ -118,7 +119,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.032957077, y: 0.21502733}
   m_SpriteTilingProperty:
@@ -172,7 +173,7 @@ MonoBehaviour:
   popInTime: 0.5
   distanceFromPlayerToDeactivate: 20
   shakeIntensity: 0.025
-  changeToTriggerOnFall: 0
+  changeToTriggerOnFall: 1
 --- !u!50 &3487563264723762186
 Rigidbody2D:
   serializedVersion: 4
@@ -200,3 +201,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
+--- !u!251 &6816861222841424193
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3502474248717290060}
+  m_Enabled: 1
+  m_UseColliderMask: 0
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 512
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
