@@ -99,6 +99,7 @@ namespace Elad.Scripts.Combat
                     {
                         Logger.Log("in IsAlive");
                         characterEvents.PlayerDied.Invoke();
+                        _dieButInGlide = false;
                     }
                 }
             }
@@ -193,7 +194,7 @@ namespace Elad.Scripts.Combat
                 if (_touchingDirection.IsGrounded)
                 {
                     characterEvents.PlayerDied.Invoke();
-
+                    _dieButInGlide = false;
                 }
                  
                 return;    
