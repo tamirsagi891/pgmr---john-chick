@@ -73,8 +73,8 @@ namespace Mechanics.UI.Menus.Menu_Utils
         private void OnTriggerEnter2D(Collider2D other)
         {
             Logger.Log("in key trigger");
-            var playableDirector = GetComponent<PlayableDirector>();
-            playableDirector.Play();
+            var startCutScene = GetComponent<EndLevelCutScene>();
+            startCutScene.StartCutScene = true;
         }
 
         public void OpenEndUpMenu()

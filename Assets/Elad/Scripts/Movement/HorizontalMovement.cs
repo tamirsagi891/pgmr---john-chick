@@ -370,4 +370,13 @@ public class HorizontalMovement : MonoBehaviour
         knockBack *= knockBackMultiplayer;
         _rB.AddForce(knockBack, ForceMode2D.Impulse);
     }
+    
+    public void MoveRight()
+    {
+        if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive || !_playerController.CanMove) return;
+
+        directionX = 1; // 1 corresponds to moving to the right.
+        _playerController.IsMoving = true;
+        SetFacingDirection(directionX);
+    }
 }

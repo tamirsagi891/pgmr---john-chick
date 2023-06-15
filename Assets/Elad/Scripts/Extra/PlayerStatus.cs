@@ -56,6 +56,9 @@ namespace Elad.Scripts
         public static bool isGamePause;
 
         private static GameObject player;
+
+        public static PlayerController PlayerController;
+        public static bool InCutScene;
     }
 
     [System.Serializable]

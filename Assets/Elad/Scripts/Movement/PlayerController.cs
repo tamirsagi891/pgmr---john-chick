@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         GeneralGameManager.IsGamePause = false;
         PlayerStatus.Player = this.gameObject;
+        PlayerStatus.PlayerController = this;
         _rB = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _touchingDirection = GetComponent<TouchingDirection>();
@@ -72,7 +73,11 @@ public class PlayerController : MonoBehaviour
 
     public bool CanMove
     {
-        get { return _animator.GetBool(AnimationStrings.canMove); }
+        get
+        {
+            return _animator.GetBool(AnimationStrings.canMove);
+        }
+       
     }
 
     public bool IsAlive
