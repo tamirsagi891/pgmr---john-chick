@@ -27,6 +27,7 @@ namespace Mechanics.UI.Menus
 
         public virtual void CloseMenu()
         {
+            Logger.Log("Here", this);
             menuUiObject.SetActive(false);
         }
 
