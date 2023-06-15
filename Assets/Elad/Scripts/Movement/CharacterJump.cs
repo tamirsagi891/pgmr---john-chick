@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
 using System;
 using BitStrap;
+using Managers;
 using UnityEngine;
 
 //This script handles moving the character on the Y axis, for jumping and gravity

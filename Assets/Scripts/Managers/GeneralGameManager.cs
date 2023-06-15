@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Logger = Nemesh.Logger;
 
-namespace Elad.Scripts
+namespace Managers
 {
     public static class GeneralGameManager
     {
@@ -15,6 +16,13 @@ namespace Elad.Scripts
                 Time.timeScale = _isGamePause ? 0f : 1f;
                 // TODO: Save the last and resume it, if we want slowmotion effect
             }
+        }
+        
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void OnBeforeSceneLoadRuntimeMethod()
+        {
+            Logger.Log("Initializing Game State", Color.black);
+            IsGamePause = false;
         }
     }
 }
