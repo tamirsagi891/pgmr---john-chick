@@ -1,3 +1,4 @@
+using BitStrap;
 using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
@@ -23,6 +24,10 @@ namespace Mechanics.UI.Menus
         private bool _startZoom;
         private ZoomCamera _zoomCamera;
 
+
+        [SerializeField] private float timeNotWithTimeScale = 0;
+        private bool _startTimerWithNeTomeScale;
+        
         private void OnEnable()
         {
             characterEvents.PlayerDied.AddListener(PlayerDied);
@@ -37,6 +42,11 @@ namespace Mechanics.UI.Menus
 
         private void Update()
         {
+            if (_startTimerWithNeTomeScale)
+            {
+                timeNotWithTimeScale += Time.fixedUnscaledDeltaTime;
+            }
+            
             if (_openScreen)
             {
                 _openScreenTimer -= Time.deltaTime;
@@ -60,6 +70,12 @@ namespace Mechanics.UI.Menus
             }
         }
 
+        [Button]
+        public void CloseTimeAndSetTimerNotWithTime()
+        {
+            Time.timeScale = 0;
+            _startTimerWithNeTomeScale = true;
+        }
 
         private void PlayerDied()
         {
@@ -86,12 +102,20 @@ namespace Mechanics.UI.Menus
 
         public void StartOpenScreen()
         {
+            Logger.Log("in start open screen");
             _openScreen = true;
             _openScreenTimer = openScreenTime;
         }
 
+        private void MakeScreenDark()
+        {
+            
+        }
+        
+        
         public override void OpenMenu()
         {
+            Logger.Log("in open menu function");
             if (PlayerStatus.PlayerDamageable.CheckPointsLives > 0)
             {
                 PlayerStatus.PlayerDamageable.CheckPointsLives -= 1;

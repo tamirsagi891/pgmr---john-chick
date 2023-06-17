@@ -102,7 +102,7 @@ public class HorizontalMovement : MonoBehaviour
             if (_isFacingRight != value)
             {
                 transform.localScale *= new Vector2(-1, 1);
-                ParticleEvents.PlayerDust.Invoke();
+                ParticleEvents.PlayerChangeDirection.Invoke();
 
             }
 

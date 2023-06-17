@@ -10,6 +10,8 @@ namespace Elad.Events
         public static UnityEvent OpenGameOverMenu = new();
         
         public static UnityEvent PlayerDied = new();
+        public static UnityEvent PlayerRevive = new();
+        
         public static UnityEvent<GameObject, int> CharacterDamaged = new();
         public static UnityEvent<GameObject, int> CharacterHealed = new();
     
