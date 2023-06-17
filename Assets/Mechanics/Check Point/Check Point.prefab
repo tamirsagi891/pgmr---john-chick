@@ -101,7 +101,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Activate Checkpoint
+  m_text: 'Activate Chickpoint
 
     <sprite tint=1 name=upArrow>'
   m_isRightToLeft: 0
@@ -227,7 +227,7 @@ Transform:
   m_Children:
   - {fileID: 6811502986005465835}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2647823844111089929
 SpriteRenderer:
