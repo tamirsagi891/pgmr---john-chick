@@ -106,7 +106,15 @@ public class CharacterJump : MonoBehaviour
     public bool IsGliding
     {
         get => _isGliding;
-        set => _isGliding = value;
+        set
+        {
+            if (value != _isGliding)
+            {
+                ParticleEvents.PlayerGlide.Invoke(value);        
+            }
+            
+            _isGliding = value;
+        }
     }
 
     [Space(10)] [Header("Crouch Affect jump")] [Tooltip("Let the player to jump from crouching")] [SerializeField]

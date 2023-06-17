@@ -26,6 +26,7 @@ namespace Elad.Scripts
         public static Platform PlatformController { get; set; }
         public static bool IsMovingThrowPlatform => PlatformController.IsMovingThrowPlatform;
         public static bool IsGliding => JumpController.IsGliding;
+        public static bool IsGrounded;
 
         public static int maxHealth;
         public static int curHealth;
