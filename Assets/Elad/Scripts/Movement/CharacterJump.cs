@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
 using System;
 using BitStrap;
+using Elad.Scripts.Events;
 using Managers;
 using UnityEngine;
 
@@ -392,6 +393,7 @@ public class CharacterJump : MonoBehaviour
             }
             else
             {
+                ParticleEvents.PlayerJump.Invoke();
                 _animator.SetTrigger(AnimationStrings.jumpTrigger);
             }
 

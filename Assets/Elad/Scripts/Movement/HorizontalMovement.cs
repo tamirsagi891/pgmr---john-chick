@@ -3,6 +3,7 @@ using BitStrap;
 using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
+using Elad.Scripts.Events;
 using Managers;
 using Mechanics.Enemies;
 using Unity.VisualScripting;
@@ -101,6 +102,8 @@ public class HorizontalMovement : MonoBehaviour
             if (_isFacingRight != value)
             {
                 transform.localScale *= new Vector2(-1, 1);
+                ParticleEvents.PlayerDust.Invoke();
+
             }
 
             _isFacingRight = value;
