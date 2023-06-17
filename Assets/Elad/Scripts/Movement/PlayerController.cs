@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using BitStrap;
+using Elad.Events;
 using Elad.Scripts;
 using Managers;
 using Mechanics.UI.Menus;
@@ -59,8 +60,18 @@ public class PlayerController : MonoBehaviour
     private bool _wallJump;
 
     private float _wallJumpingTimer;
-    
 
+    private void OnEnable()
+    {
+        characterEvents.PlayerDied.AddListener(OnPlayerDied);
+        characterEvents.PlayerRevive.AddListener(OnPlayerRevive);
+    }
+
+    private void OnDisable()
+    {
+        characterEvents.PlayerDied.RemoveListener(OnPlayerDied);
+        characterEvents.PlayerRevive.RemoveListener(OnPlayerRevive);
+    }
 
     private void Awake()
     {
@@ -131,5 +142,16 @@ public class PlayerController : MonoBehaviour
     {
         _horizontalMovementPlayer.DirectionX = 0;
         IsMoving = false;
+    }
+
+    private void OnPlayerDied()
+    {
+        _rB.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+
+    private void OnPlayerRevive()
+    {
+        _rB.constraints = RigidbodyConstraints2D.None;
+        _rB.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }

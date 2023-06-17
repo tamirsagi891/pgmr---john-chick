@@ -122,7 +122,6 @@ namespace Elad.Scripts.Arrows
 
         public void LoadFeathersStatus()
         {
-            Logger.Log("In LoadFeathersStatus");
             _featherToCollectLists = SaveGameOnJson.CurrentSaveData.featherToCollectLists;
             startFeatherAmount = _featherToCollectLists.totalCount;
             int currentFeathersAmountTemp = 0;

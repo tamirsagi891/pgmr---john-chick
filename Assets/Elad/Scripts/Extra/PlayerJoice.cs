@@ -19,14 +19,14 @@ namespace Elad.Scripts
 
         private void OnEnable()
         {
-            ParticleEvents.PlayerDust.AddListener(PlayChangeDirectionParticleS);
+            ParticleEvents.PlayerChangeDirection.AddListener(PlayChangeDirectionParticleS);
             ParticleEvents.PlayerJump.AddListener(PlayJumpParticleS);
             ParticleEvents.PlayerGlide.AddListener(PlayGlideParticles);
         }
 
         private void OnDisable()
         {
-            ParticleEvents.PlayerDust.RemoveListener(PlayChangeDirectionParticleS);
+            ParticleEvents.PlayerChangeDirection.RemoveListener(PlayChangeDirectionParticleS);
             ParticleEvents.PlayerJump.RemoveListener(PlayJumpParticleS);
             ParticleEvents.PlayerGlide.RemoveListener(PlayGlideParticles);
         }

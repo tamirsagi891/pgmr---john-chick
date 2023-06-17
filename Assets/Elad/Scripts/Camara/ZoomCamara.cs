@@ -13,12 +13,25 @@ using Logger = Nemesh.Logger;
 
 public class ZoomCamera : MonoBehaviour
 {
+    [SerializeField] [Range(0, 1)] private float slowTimeTo = 0.5f;
     private CinemachineVirtualCamera _cam;
     [SerializeField] private bool startZoomWithTimer = true;
 
     private bool _startZoom;
     [SerializeField] private float startZoomTime = 0.2f;
     private float _startZoomTimer;
+
+    private void OnEnable()
+    {
+        characterEvents.PlayerRevive.AddListener(ReturnToStartDistance);
+        characterEvents.PlayerRevive.AddListener(OpenTime);
+    }
+
+    private void OnDisable()
+    {
+        characterEvents.PlayerRevive.RemoveListener(OpenTime);
+        characterEvents.PlayerRevive.RemoveListener(ReturnToStartDistance);
+    }
     
 
     private void Awake()
@@ -47,12 +60,26 @@ public class ZoomCamera : MonoBehaviour
         }
     }
 
-
+    [Button]
+    public void SlowTime()
+    {
+        Time.timeScale = slowTimeTo;
+    }
+    
+    [Button]
+    public void OpenTime()
+    {
+        Time.timeScale = 1;
+    }
+    
+    [Button]
     public void ZoomToDistance()
     {
+        
         // var currentVirtualCam = PlayerStatus.CurrentVirtualCamara;
         _cam.enabled = true;
         characterEvents.OpenGameOverMenu.Invoke();
+        SlowTime();
         // currentVirtualCam.enabled = false;
 
     }

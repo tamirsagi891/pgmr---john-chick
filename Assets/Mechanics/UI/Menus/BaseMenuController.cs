@@ -21,13 +21,13 @@ namespace Mechanics.UI.Menus
         
         public virtual void OpenMenu()
         {
+            
             menuUiObject.SetActive(true);
             EventSystem.current.SetSelectedGameObject(firstSelected);
         }
 
         public virtual void CloseMenu()
         {
-            Logger.Log("Here", this);
             menuUiObject.SetActive(false);
         }
 

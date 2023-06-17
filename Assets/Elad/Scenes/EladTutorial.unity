@@ -18943,6 +18943,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -12.5
       objectReference: {fileID: 0}
+    - target: {fileID: 485933084596885386, guid: daf633e23d934944d97286f538bc8e50, type: 3}
+      propertyPath: openScreenTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 549828958541090768, guid: daf633e23d934944d97286f538bc8e50, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -34125,6 +34129,10 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 1524031220}
+    - target: {fileID: 8312583200701729146, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: startZoomWithTimer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 2
