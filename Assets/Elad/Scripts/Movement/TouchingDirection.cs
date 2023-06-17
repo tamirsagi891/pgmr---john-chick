@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BitStrap;
+using Elad.Scripts;
 using UnityEngine;
 using Logger = Nemesh.Logger;
 
@@ -19,6 +20,7 @@ public class TouchingDirection : MonoBehaviour
         {
             _animator.SetBool(AnimationStrings.isGrounded, value);
             _isGrounded = value;
+            PlayerStatus.IsGrounded = value;
         }
     }
 
