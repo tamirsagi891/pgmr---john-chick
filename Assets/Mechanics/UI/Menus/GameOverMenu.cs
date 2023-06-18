@@ -3,6 +3,7 @@ using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using Logger = Nemesh.Logger;
 
 namespace Mechanics.UI.Menus
@@ -27,6 +28,9 @@ namespace Mechanics.UI.Menus
 
         [SerializeField] private float timeNotWithTimeScale = 0;
         private bool _startTimerWithNeTomeScale;
+
+        [SerializeField] private Light2D globalLight;
+        [SerializeField] private Light2D redLight;
         
         private void OnEnable()
         {
@@ -44,6 +48,11 @@ namespace Mechanics.UI.Menus
         {
             if (_startTimerWithNeTomeScale)
             {
+                MakeScreenDark();
+            }
+            
+            if (_startTimerWithNeTomeScale)
+            {
                 timeNotWithTimeScale += Time.fixedUnscaledDeltaTime;
             }
             
@@ -52,7 +61,8 @@ namespace Mechanics.UI.Menus
                 _openScreenTimer -= Time.deltaTime;
                 if (_openScreenTimer <= 0)
                 {
-                    OpenMenu();
+                    // OpenMenu();
+                    // _startTimerWithNeTomeScale = true;
                     _openScreen = false;
                 }
             }
@@ -105,11 +115,19 @@ namespace Mechanics.UI.Menus
             Logger.Log("in start open screen");
             _openScreen = true;
             _openScreenTimer = openScreenTime;
+            _startTimerWithNeTomeScale = true;
+
         }
 
         private void MakeScreenDark()
         {
-            
+            globalLight.intensity -= (Time.fixedUnscaledDeltaTime / 2);
+            redLight.intensity += (Time.fixedUnscaledDeltaTime / 2);
+            if (globalLight.intensity <= 0 )
+            {
+                _startTimerWithNeTomeScale = false;
+                OpenMenu();
+            }
         }
         
         
@@ -129,4 +147,6 @@ namespace Mechanics.UI.Menus
             }
         }
     }
+
+    
 }
