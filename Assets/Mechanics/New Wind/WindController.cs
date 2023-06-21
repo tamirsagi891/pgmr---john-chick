@@ -1,11 +1,12 @@
 using System;
-using System.Collections.Generic;
 using Avrahamy;
-using Avrahamy.EditorGadgets;
 using Avrahamy.Math;
 using BitStrap;
 using Elad.Scripts;
+#if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.IMGUI.Controls;
+#endif
 using UnityEngine;
 using Logger = Nemesh.Logger;
 
@@ -287,5 +288,40 @@ namespace Mechanics.New_Wind
 #endif
 
     }
+#if UNITY_EDITOR
+    [CustomEditor(typeof(WindController))]
+    public class WindControllerEditor: Editor
+    {
+        private readonly BoxBoundsHandle _myBoxBoundsHandle = new();
+        
+        public void OnSceneGUI()
+        {
+            var linkedObject = target as WindController;
+            if (linkedObject is null)
+            {
+                return;
+            }
 
+            var c = linkedObject.EffectorController;
+            _myBoxBoundsHandle.center = c.transform.position;
+            _myBoxBoundsHandle.size = c.MyBounds.size;
+    
+            EditorGUI.BeginChangeCheck();
+            _myBoxBoundsHandle.axes = PrimitiveBoundsHandle.Axes.X | PrimitiveBoundsHandle.Axes.Y;
+            _myBoxBoundsHandle.DrawHandle();
+            
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(c, "Change Bounds");
+                Bounds newBounds = new Bounds
+                {
+                    center = _myBoxBoundsHandle.center,
+                    size = _myBoxBoundsHandle.size
+                };
+                c.SetBounds(newBounds);
+            }
+        }
+        
+    }
+#endif
 }

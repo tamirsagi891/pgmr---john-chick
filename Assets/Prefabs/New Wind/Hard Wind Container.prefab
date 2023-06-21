@@ -45,6 +45,18 @@ PrefabInstance:
       value: Hard Wind Container
       objectReference: {fileID: 0}
     - target: {fileID: 904433092900884517, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 904433092900884517, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 904433092900884517, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: EmissionModule.rateOverTime.minScalar
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 904433092900884517, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: ColorBySpeedModule.gradient.maxGradient.key0.b
       value: 0.88064957
       objectReference: {fileID: 0}
@@ -78,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1142788403923164722, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1142788403923164722, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -121,6 +133,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1436146788343665289, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436146788343665289, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436146788343665289, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: EmissionModule.rateOverTime.minScalar
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436146788343665289, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: ColorBySpeedModule.gradient.maxGradient.key0.b
       value: 0.88064957
       objectReference: {fileID: 0}
@@ -159,6 +183,18 @@ PrefabInstance:
     - target: {fileID: 1674326627119685546, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_ForceMagnitude
       value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 3368667043852732146, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3368667043852732146, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3368667043852732146, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: EmissionModule.rateOverTime.minScalar
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 3368667043852732146, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: ColorBySpeedModule.gradient.maxGradient.key0.b
@@ -202,7 +238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: particleForceFactor
-      value: 150
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveX.scalar
@@ -210,7 +246,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveY.scalar
-      value: 4
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9030578893295297790, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9030578893295297790, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9030578893295297790, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
+      propertyPath: EmissionModule.rateOverTime.minScalar
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 9030578893295297790, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: ColorBySpeedModule.gradient.maxGradient.key0.b

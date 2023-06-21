@@ -125,15 +125,5 @@ namespace Mechanics.New_Wind
         }
 
         #endregion
-        
-#if UNITY_EDITOR
-        public void OnDrawGizmosSelected()
-        {
-            // Draw a semitransparent red cube at the transforms position
-            Gizmos.color = new Color(0.95f, 0.2f, 1f, 0.1f);
-            var transform1 = transform;
-            Gizmos.DrawCube(transform1.position, transform1.lossyScale);
-        }
-#endif
     }
 }
