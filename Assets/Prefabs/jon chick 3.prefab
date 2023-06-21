@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 5642152348197080840}
   - component: {fileID: 7247724320970147989}
   - component: {fileID: 979189269671311244}
+  - component: {fileID: 1425079496583010379}
   m_Layer: 9
   m_Name: jon chick 3
   m_TagString: Player
@@ -650,6 +651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d52b2b1f0b9594cae6a3a5aefa0f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGamePaused: 0
   airWalkSpeed: 3
   walkSpeed: 5
   _isWallSliding: 0
@@ -667,6 +669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedDashing: 24
   maxSpeedDodgeRoll: 24
+  dodgeRollCoolDown: 1
+  minVelocityToDodge: 0.1
 --- !u!114 &1164546509891541806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,6 +696,7 @@ MonoBehaviour:
   maxSpeedRunning: 20
   maxSpeedCrouching: 5
   crouchingWalkSpeed: 3
+  knockBackMultiplayer: 1
 --- !u!114 &8199898187798291659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -704,7 +709,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76efba027e2ef6046affe250f9524fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castFilter:
+  _isGrounded: 1
+  castFilterPlatform:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  castFilterGround:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  castFilterWall:
     useTriggers: 0
     useLayerMask: 0
     useDepth: 0
@@ -721,9 +755,9 @@ MonoBehaviour:
   groundDistance: 0.05
   wallDistance: 0.2
   ceilingDistance: 0.05
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 0
+  groundOffset: {x: 0, y: 0}
+  groundGapAmount: 0.1
+  wallOffset: {x: 0, y: 0}
 --- !u!114 &4140862201167861738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,10 +782,16 @@ MonoBehaviour:
   jumpBuffer: 0.1
   doubleJumpMultiplier: 1
   canJumpAgain: 1
-  glideWhenPushAndDown: 0
-  glideWhenDoublePush: 1
+  _coyoteTimeCounter: 0
+  glideHorizontallyMovementStaticStatic: 5
+  glideHorizontallyMovement: 5
+  regularGlide: 1
+  glideJump: {x: 0, y: 0}
   gravityMultiplierGliding: 0.1
+  minVelocityToGlide: -0.05
   linearDragGliding: 20
+  canJumpWhileCrouch: 0
+  hitGlideDelayTime: 0.05
 --- !u!114 &4215210430994585764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,6 +821,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linearDragWallSliding: 1
   gravityMultiplierWallSliding: 1.3
+  xPowerWhenJump: 2
+  coyoteTime: 0.15
 --- !u!114 &2747589184787659311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,6 +835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77b6b1e2c6269458232a3e72fa35fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkPointsLives: 3
   initialHealth: 100
   maxHealth: 100
   damageableHit:
@@ -812,8 +855,12 @@ MonoBehaviour:
         m_CallState: 2
   _curHealth: 0
   isInvincible: 0
+  isInvincibleTest: 0
   isAlive: 1
   invincibilityTimer: 1
+  blinkColor: {r: 0, g: 0, b: 0, a: 0}
+  blinkTime: 0.01
+  setLifeValue: 50
 --- !u!114 &64389349845653029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,10 +875,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTriggerResetTime: 0.1
   groundAttackCoolDownTime: 0
-  arrowAttackCoolDownTime: 1
-  arrowInstantiatePosition: {fileID: 0}
-  arrowPrefab: {fileID: 4775548294322568153, guid: 5d1c6ddbcc7f9b74a82aa49ba3f67395, type: 3}
-  usePool: 1
 --- !u!95 &201122819194656742
 Animator:
   serializedVersion: 5
@@ -943,7 +986,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1097,6 +1140,26 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 0
+--- !u!114 &1425079496583010379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717997035659364934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4d4f45ed84f584a9b5b46a1b138c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowAttackCoolDownTime: 1
+  curFeatherKind: 0
+  arrowList: {fileID: 0}
+  arrowInstantiatePosition: {fileID: 0}
+  arrowPrefab: {fileID: 0}
+  _maxPoolSize: 100
+  usePoolArrow: 1
+  knockBackArrow: {x: 0, y: 0}
 --- !u!1 &7102181865175361805
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,6 +22,8 @@ namespace Mechanics.UI.Menus
         [SerializeField]
         private MenuCounter timeCounter;
 
+        private int Total => PlayerStatus.FeathersToCollectManager.StartFeatherAmount;
+        
         public override void OpenMenu()
         {
             base.OpenMenu();
@@ -31,5 +33,15 @@ namespace Mechanics.UI.Menus
             TimeSpan time = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
             timeCounter.Count = $"{time:m\\:ss\\.ff}";
         }
+    }
+
+    [Serializable]
+    public struct LevelScore
+    {
+        public int deathCount;
+        public float completionTime;
+        public TimeSpan timeSpan;
+        public int feathersCollected;
+        public int totalFeathers;
     }
 }
