@@ -184,9 +184,7 @@ MonoBehaviour:
   openScreenTime: 3
   startZoomTime: 3
   openWithTimer: 0
-  timeNotWithTimeScale: 0
-  globalLight: {fileID: 0}
-  redLight: {fileID: 0}
+  lightDeath: 0
 --- !u!114 &6236053638251080906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,10 +479,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1923694615086556211, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923694615086556211, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
@@ -631,10 +625,6 @@ PrefabInstance:
     - target: {fileID: 5335677235392187484, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
       propertyPath: m_Name
       value: Level End UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 5335677235392187484, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5477904870423972385, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

@@ -507,19 +507,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 17633219051023110, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: myBounds.m_Center.x
-      value: -27.600922
+      value: -43.48149
       objectReference: {fileID: 0}
     - target: {fileID: 17633219051023110, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: myBounds.m_Center.y
-      value: -11.1062975
+      value: 28.393295
       objectReference: {fileID: 0}
     - target: {fileID: 17633219051023110, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: myBounds.m_Extent.x
-      value: 1.6558523
+      value: 2.0476303
       objectReference: {fileID: 0}
     - target: {fileID: 17633219051023110, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: myBounds.m_Extent.y
-      value: 1.5325022
+      value: 1.8493919
       objectReference: {fileID: 0}
     - target: {fileID: 515096700998922853, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: startDelay.scalar
@@ -655,7 +655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4867889372719428831, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: magnitude
-      value: 350
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 4867889372719428831, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: wantedDrag
@@ -663,11 +663,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4869167414346554836, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: m_Parameters.m_Length
-      value: 3.0650043
+      value: 3.6987839
       objectReference: {fileID: 0}
     - target: {fileID: 4869167414346554836, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: m_Parameters.m_EndRange
-      value: 1.6558523
+      value: 2.0476303
       objectReference: {fileID: 0}
     - target: {fileID: 4869167414346554836, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveX.scalar
@@ -675,11 +675,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6302863557191473167, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: m_Size.x
-      value: 3.3117046
+      value: 4.0952606
       objectReference: {fileID: 0}
     - target: {fileID: 6302863557191473167, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: m_Size.y
-      value: 3.0650043
+      value: 3.6987839
       objectReference: {fileID: 0}
     - target: {fileID: 7306940228985094496, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: m_LocalScale.x
@@ -719,11 +719,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7631801494609085334, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.3117046
+      value: 4.0952606
       objectReference: {fileID: 0}
     - target: {fileID: 7631801494609085334, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.0650043
+      value: 3.6987839
       objectReference: {fileID: 0}
     - target: {fileID: 8371543063079130600, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: lifeAtExit

@@ -14,6 +14,7 @@ namespace Managers
             {
                 _isGamePause = value;
                 Time.timeScale = _isGamePause ? 0f : 1f;
+                Logger.Log(Time.timeScale);
                 // TODO: Save the last and resume it, if we want slowmotion effect
             }
         }

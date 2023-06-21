@@ -91,12 +91,6 @@ namespace Mechanics.UI.Menus
             }
         }
 
-        [Button]
-        public void CloseTimeAndSetTimerNotWithTime()
-        {
-            Time.timeScale = 0f;
-        }
-
         private void PlayerDied()
         {
             if (openWithTimer)
