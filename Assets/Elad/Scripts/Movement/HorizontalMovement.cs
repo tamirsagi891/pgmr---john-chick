@@ -184,6 +184,7 @@ public class HorizontalMovement : MonoBehaviour
     {
         DirectionX = 0;
         _playerController.IsMoving = (DirectionX != 0);
+        IsCrouching = false;
     }
 
     public void CloseMovementToWall(float newMovement)
