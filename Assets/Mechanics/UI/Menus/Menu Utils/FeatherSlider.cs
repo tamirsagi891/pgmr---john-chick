@@ -22,7 +22,9 @@ namespace Mechanics.UI.Menus.Menu_Utils
         private GameObject featherImage;
 
         public LinkedPool<GameObject> Pool { get; set; }
-        
+
+        public EndScoreManager ScoreManager => scoreManager;
+
         private List<GameObject> _images = new();
         private int _currentFeathers;
 
