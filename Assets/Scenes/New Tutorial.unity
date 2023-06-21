@@ -99001,29 +99001,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1405111767}
     m_Modifications:
+    - target: {fileID: 426183261173623201, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Size.x
+      value: 15.863808
+      objectReference: {fileID: 0}
+    - target: {fileID: 426183261173623201, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Size.y
+      value: 32.788902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232976937694561649, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: magnitude
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232976937694561649, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: particleForceFactor
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286236554582028856, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 15.863808
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286236554582028856, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 32.788902
+      objectReference: {fileID: 0}
     - target: {fileID: 4646656984921952211, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_Name
       value: Glide Wind Container
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968872565344767423, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968872565344767423, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: EmissionModule.rateOverTime.minScalar
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5296914632044695408, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_RootOrder
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5296914632044695408, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 25.149252
-      objectReference: {fileID: 0}
-    - target: {fileID: 5296914632044695408, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 35.65898
-      objectReference: {fileID: 0}
-    - target: {fileID: 5296914632044695408, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 107.187805
+      value: 107.7
       objectReference: {fileID: 0}
     - target: {fileID: 5296914632044695408, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 48.816708
+      value: 48.3
       objectReference: {fileID: 0}
     - target: {fileID: 5296914632044695408, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -99056,6 +99080,26 @@ PrefabInstance:
     - target: {fileID: 5296914632044695408, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957412626594519720, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: myBounds.m_Center.x
+      value: 120.95882
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957412626594519720, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: myBounds.m_Center.y
+      value: 52.57329
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957412626594519720, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: myBounds.m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957412626594519720, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: myBounds.m_Extent.x
+      value: 7.931904
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957412626594519720, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: myBounds.m_Extent.y
+      value: 16.394451
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -99120,7 +99164,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -100397,6 +100441,6 @@ SortingGroup:
   m_GameObject: {fileID: 9028931161421770735}
   m_Enabled: 1
   m_SortingLayerID: -1681244417
-  m_SortingLayer: -2
+  m_SortingLayer: -1
   m_SortingOrder: -10
   m_SortAtRoot: 0
