@@ -15307,6 +15307,8 @@ MonoBehaviour:
   checkPointsLives: 3
   initialHealth: 6
   maxHealth: 6
+  useMinLifeInRevived: 1
+  minLifeInRevived: 3
   damageableHit:
     m_PersistentCalls:
       m_Calls:
@@ -25565,7 +25567,7 @@ GameObject:
   - component: {fileID: 5569397579691716084}
   - component: {fileID: 6456058110348019491}
   m_Layer: 0
-  m_Name: Player Light
+  m_Name: Player Red Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

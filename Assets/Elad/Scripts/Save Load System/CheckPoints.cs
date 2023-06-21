@@ -13,6 +13,7 @@ namespace Elad.Scripts.Save_Load_System
         private bool isOn = false;
         private GameObject[] chickens;
         private Animator animator;
+        private FadeText _fadeText;
 
         public Vector3 Position
         {
@@ -34,6 +35,16 @@ namespace Elad.Scripts.Save_Load_System
         {
             Position = transform.position;
             animator = GetComponent<Animator>();
+            _fadeText = GetComponentInChildren<FadeText>();
+
+            if (!_isInvisibleCheckPoint)
+            {
+                DestroyChickens();
+            }
+            else
+            {
+                PlayerStatus.LastCheckPoint = this;
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -55,35 +66,29 @@ namespace Elad.Scripts.Save_Load_System
 
         private void OpenOrCloseCheckPoint()
         {
-            if (!PlayerStatus.SaveGameManager.FirstTime)
+            if (PlayerStatus.LastCheckPoint == this)
             {
-                if (PlayerStatus.LastCheckPoint == this)
-                {
-                    // Close checkpoint
+                if (_fadeText)
+                    _fadeText.gameObject.SetActive(false);
 
-                    SpawnChickens();
-                    isOn = true;
-                    if (animator)
-                    {
-                        animator.SetBool("isOn", true);
-                    }
-                }
-                else
+                SpawnChickens();
+                isOn = true;
+                if (animator)
                 {
-                    // Open checkpoint
-                    isOn = false;
-                    DestroyChickens();
-                    if (animator)
-                    {
-                        animator.SetBool("isOn", false);
-                    }
+                    animator.SetBool("isOn", true);
                 }
             }
             else
             {
-                PlayerStatus.SaveGameManager.FirstTime = false;
-                DestroyChickens();
+                // Open checkpoint
+                if (_fadeText)
+                    _fadeText.gameObject.SetActive(true);
                 isOn = false;
+                DestroyChickens();
+                if (animator)
+                {
+                    animator.SetBool("isOn", false);
+                }
             }
         }
 

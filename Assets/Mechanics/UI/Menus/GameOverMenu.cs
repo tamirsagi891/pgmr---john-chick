@@ -1,3 +1,4 @@
+using System;
 using BitStrap;
 using Elad.Events;
 using Elad.Scripts;
@@ -28,9 +29,9 @@ namespace Mechanics.UI.Menus
 
         [SerializeField] private bool lightDeath;
 
-        [SerializeField] private Light2D globalLight;
-        [SerializeField] private Light2D redLight;
-        [SerializeField] private Light2D playerEnvironmentLight;
+        private Light2D globalLight;
+        private Light2D redLight;
+        private Light2D playerEnvironmentLight;
 
         private bool _startOpenScreen;
         
@@ -48,6 +49,18 @@ namespace Mechanics.UI.Menus
             characterEvents.FunctionsLoad.RemoveListener(RestartLights);
         }
 
+        private void Start()
+        {
+            SetLights();
+        }
+
+        private void SetLights()
+        {
+            globalLight = LightsStatus.GlobalLight;
+            redLight = LightsStatus.RedLightPlayer;
+            playerEnvironmentLight = LightsStatus.EnvironmentLightPlayer;
+        }
+
         private void Update()
         {
             if (_startOpenScreen && lightDeath)
@@ -55,10 +68,6 @@ namespace Mechanics.UI.Menus
                 MakeScreenDark();
             }
 
-           
-            
-
-            
             if (_openScreen)
             {
                 _openScreenTimer -= Time.deltaTime;
