@@ -70,7 +70,6 @@ namespace Elad.Scripts.Save_Load_System
         {
             if (context.started)
             {
-                // Logger.Log("load game from button");
                 SaveGameOnJson.LoadGame();
             }
         }

@@ -26,14 +26,17 @@ namespace Mechanics.UI.Menus
         private ZoomCamera _zoomCamera;
 
 
-        [SerializeField] private float timeNotWithTimeScale = 0;
-        private bool _startTimerWithNeTomeScale;
+        [SerializeField] private bool lightDeath;
 
         [SerializeField] private Light2D globalLight;
         [SerializeField] private Light2D redLight;
+        [SerializeField] private Light2D playerEnvironmentLight;
+
+        private bool _startOpenScreen;
         
         private void OnEnable()
         {
+            characterEvents.FunctionsLoad.AddListener(RestartLights);
             characterEvents.PlayerDied.AddListener(PlayerDied);
             characterEvents.OpenGameOverMenu.AddListener(StartOpenScreen);
         }
@@ -42,28 +45,28 @@ namespace Mechanics.UI.Menus
         {
             characterEvents.PlayerDied.RemoveListener(PlayerDied);
             characterEvents.OpenGameOverMenu.RemoveListener(StartOpenScreen);
+            characterEvents.FunctionsLoad.RemoveListener(RestartLights);
         }
 
         private void Update()
         {
-            if (_startTimerWithNeTomeScale)
+            if (_startOpenScreen && lightDeath)
             {
                 MakeScreenDark();
             }
+
+           
             
-            if (_startTimerWithNeTomeScale)
-            {
-                timeNotWithTimeScale += Time.fixedUnscaledDeltaTime;
-            }
+
             
             if (_openScreen)
             {
                 _openScreenTimer -= Time.deltaTime;
                 if (_openScreenTimer <= 0)
                 {
-                    // OpenMenu();
-                    // _startTimerWithNeTomeScale = true;
                     _openScreen = false;
+                    OpenMenu();
+                    
                 }
             }
 
@@ -73,8 +76,7 @@ namespace Mechanics.UI.Menus
                 if (_startZoomTimer <= 0)
                 {
                     _startZoom = false;
-
-
+                    
                     MenuManager.Menu.OpenGameOverMenu();
                 }
             }
@@ -83,8 +85,7 @@ namespace Mechanics.UI.Menus
         [Button]
         public void CloseTimeAndSetTimerNotWithTime()
         {
-            Time.timeScale = 0;
-            _startTimerWithNeTomeScale = true;
+            Time.timeScale = 0f;
         }
 
         private void PlayerDied()
@@ -113,24 +114,32 @@ namespace Mechanics.UI.Menus
         public void StartOpenScreen()
         {
             Logger.Log("in start open screen");
-            _openScreen = true;
+            _startOpenScreen = true;
             _openScreenTimer = openScreenTime;
-            _startTimerWithNeTomeScale = true;
-
         }
 
         private void MakeScreenDark()
         {
-            globalLight.intensity -= (Time.fixedUnscaledDeltaTime / 2);
-            redLight.intensity += (Time.fixedUnscaledDeltaTime / 2);
-            if (globalLight.intensity <= 0 )
+            if (globalLight && redLight)
             {
-                _startTimerWithNeTomeScale = false;
+                globalLight.intensity -= (Time.fixedUnscaledDeltaTime / 2);
+                redLight.intensity += (Time.fixedUnscaledDeltaTime / 2);
+                playerEnvironmentLight.intensity += (Time.fixedUnscaledDeltaTime / 2);
+                if (globalLight.intensity <= 0)
+                {
+                    _openScreen = true;
+                    _startOpenScreen = false;
+                }
+            }
+
+            else
+            {
+                _startOpenScreen = false;
                 OpenMenu();
             }
         }
-        
-        
+
+
         public override void OpenMenu()
         {
             Logger.Log("in open menu function");
@@ -146,7 +155,13 @@ namespace Mechanics.UI.Menus
                 Logger.Log("tuer menu");
             }
         }
-    }
 
-    
+        private void RestartLights()
+        {
+            
+            globalLight.intensity = 1;
+            redLight.intensity = 0;
+            playerEnvironmentLight.intensity = 0; 
+        }
+    }
 }

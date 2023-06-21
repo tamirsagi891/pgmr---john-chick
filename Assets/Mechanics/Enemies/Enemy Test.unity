@@ -553,7 +553,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -572,7 +572,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1681244417
-  m_SortingLayer: -2
+  m_SortingLayer: -1
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 17729fe1353b2f247bf96445ab7798b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2031,7 +2031,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3950,6 +3950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d52b2b1f0b9594cae6a3a5aefa0f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGamePaused: 0
   airWalkSpeed: 3
   walkSpeed: 5
   _isWallSliding: 0
@@ -4000,7 +4001,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4329,6 +4330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76efba027e2ef6046affe250f9524fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isGrounded: 1
   castFilterPlatform:
     useTriggers: 0
     useLayerMask: 0
@@ -4343,7 +4345,21 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  castFilter:
+  castFilterGround:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  castFilterWall:
     useTriggers: 0
     useLayerMask: 0
     useDepth: 0
@@ -4360,9 +4376,9 @@ MonoBehaviour:
   groundDistance: 0.05
   wallDistance: 0.2
   ceilingDistance: 0.05
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 0
+  groundOffset: {x: 0, y: 0}
+  groundGapAmount: 0.1
+  wallOffset: {x: 0, y: 0}
 --- !u!96 &783334332
 TrailRenderer:
   serializedVersion: 3
@@ -4545,7 +4561,7 @@ MonoBehaviour:
   maxSpeedRunning: 20
   maxSpeedCrouching: 5
   crouchingWalkSpeed: 3
-  _lockKey: 0
+  knockBackMultiplayer: 1
 --- !u!114 &783334335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4560,6 +4576,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedDashing: 24
   maxSpeedDodgeRoll: 24
+  dodgeRollCoolDown: 1
+  minVelocityToDodge: 0.1
 --- !u!114 &783334336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4584,10 +4602,16 @@ MonoBehaviour:
   jumpBuffer: 0.15
   doubleJumpMultiplier: 1.5
   canJumpAgain: 0
-  glideWhenPushAndDown: 0
-  glideWhenDoublePush: 0
+  _coyoteTimeCounter: 0
+  glideHorizontallyMovementStaticStatic: 5
+  glideHorizontallyMovement: 5
+  regularGlide: 1
+  glideJump: {x: 0, y: 0}
   gravityMultiplierGliding: 0.3
+  minVelocityToGlide: -0.05
   linearDragGliding: 2
+  canJumpWhileCrouch: 0
+  hitGlideDelayTime: 0.05
 --- !u!114 &783334337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6456,7 +6480,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6475,7 +6499,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1681244417
-  m_SortingLayer: -2
+  m_SortingLayer: -1
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 072fb9c03f98b8541804c8632eda3b74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6540,7 +6564,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6559,7 +6583,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1681244417
-  m_SortingLayer: -2
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ab01f61b3c6a46c4587ab9734c601f5a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7442,7 +7466,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10630,7 +10654,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10649,7 +10673,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1681244417
-  m_SortingLayer: -2
+  m_SortingLayer: -1
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: f742986c8cfb0f9408700b55894aba73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10772,7 +10796,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10791,7 +10815,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1681244417
-  m_SortingLayer: -2
+  m_SortingLayer: -1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 151eef41825813d4f96dd0d4c8ecdc2f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -28,6 +28,10 @@ namespace Elad.Scripts.Combat
         [Header("Amounts")] [SerializeField] private int initialHealth = 100;
         [SerializeField] private int maxHealth = 100;
 
+        [SerializeField] [Tooltip("Do we want the option of minimum life after revive")] private bool useMinLifeInRevived = true;
+        [SerializeField]
+        [Tooltip("The minimum amount of live the player can have when revive")]
+        private int minLifeInRevived = 2;
 
         public UnityEvent<int, Vector2, float> damageableHit;
 
@@ -233,6 +237,12 @@ namespace Elad.Scripts.Combat
 
         private void Blink()
         {
+            if (!IsAlive)
+            {
+                isInvincible = false;
+                FinishBlink();
+            }
+            
             if (isInvincible)
             {
                 _blinkTimer -= Time.deltaTime;
@@ -254,10 +264,16 @@ namespace Elad.Scripts.Combat
             }
             else
             {
-                _spriteRenderer.color = _originalColor;
-                _inOriginalColor = true;
+                FinishBlink();
             }
         }
+
+        private void FinishBlink()
+        {
+            _spriteRenderer.color = _originalColor;
+            _inOriginalColor = true;
+        }
+        
 
 
         public bool GotHit(int damage, Vector2 knockBack, float knockBackDelay = 0f)
@@ -328,9 +344,18 @@ namespace Elad.Scripts.Combat
         public void LoadPlayerStatus()
         {
             PlayerSaveData = SaveGameOnJson.CurrentSaveData.playerSaveData;
-            // Logger.Log(SaveGameOnJson.CurrentSaveData.playerSaveData.health);
             Health = PlayerSaveData.health;
             PlayerStatus.curHealth = Health;
+            SetMinLifeInRevive();
+
+        }
+
+        private void SetMinLifeInRevive()
+        {
+            if (Health < minLifeInRevived)
+            {
+                Health = minLifeInRevived;
+            }
         }
 
         public Transform GetTransform() => transform;
