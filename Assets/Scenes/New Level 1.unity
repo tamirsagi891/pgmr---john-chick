@@ -15766,6 +15766,14 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.633134
       objectReference: {fileID: 0}
+    - target: {fileID: 7101169771580611867, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: ShapeModule.m_MeshRenderer
+      value: 
+      objectReference: {fileID: 1593328103}
+    - target: {fileID: 7415459669309201696, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: ShapeModule.m_MeshRenderer
+      value: 
+      objectReference: {fileID: 1593328103}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -15818,6 +15826,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ShapeModule.m_MeshRenderer
+      value: 
+      objectReference: {fileID: 1593328103}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -184453,7 +184465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1003545112
 Transform:
   m_ObjectHideFlags: 0
@@ -222988,6 +223000,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2910887196380932531, guid: d151b222fab4f72498ca300776f08da9, type: 3}
   m_PrefabInstance: {fileID: 1658192653}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &1593328103 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7302662271022359726, guid: ccac1234fe6333a419eacd32cd8a588e, type: 3}
+  m_PrefabInstance: {fileID: 595372719}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1627681450
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -250412,6 +250429,18 @@ PrefabInstance:
     - target: {fileID: 426183261173623201, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_Size.y
       value: 35.758156
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Parameters.m_Length
+      value: 35.758156
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Parameters.m_EndRange
+      value: 9.776644
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Parameters.m_DirectionCurveY.scalar
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1232976937694561649, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: magnitude

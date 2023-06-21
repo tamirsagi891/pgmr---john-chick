@@ -61,13 +61,13 @@ namespace Mechanics.UI.Menus
 
         public void OnMasterChange(float value)
         {
-            Logger.LogWarning("OnMasterChange: Missing save to static file.", this);
+            // Logger.LogWarning("OnMasterChange: Missing save to static file.", this);
             soundEvents.onMasterChange.Invoke(value);
         }
 
         public void OnMusicChange(float value)
         {
-            Logger.LogWarning("OnMasterChange: Missing save to static file.", this);
+            // Logger.LogWarning("OnMasterChange: Missing save to static file.", this);
             soundEvents.onMusicChange.Invoke(value);
         }
 
