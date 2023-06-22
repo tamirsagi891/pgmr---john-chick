@@ -340,6 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isInvisibleCheckPoint: 0
   chickenPrefab: {fileID: 5756155108654364438, guid: 534f14b29eae71e4bbcf775cc382c2d7, type: 3}
+  hideInstructionsTime: 10
 --- !u!95 &7269841365816801645
 Animator:
   serializedVersion: 5

@@ -1,7 +1,10 @@
+using System;
+using System.Threading;
 using Elad.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
+using Random = UnityEngine.Random;
 
 namespace Elad.Scripts.Save_Load_System
 {
@@ -14,6 +17,13 @@ namespace Elad.Scripts.Save_Load_System
         private GameObject[] chickens;
         private Animator animator;
         private FadeText _fadeText;
+
+
+        [SerializeField] [Tooltip("The amount of time to vanish the instructions after using the check point")]
+        private float hideInstructionsTime;
+
+        private float _hideInstructionsTimer;
+        private bool _hideInstructions;
 
         public Vector3 Position
         {
@@ -47,6 +57,20 @@ namespace Elad.Scripts.Save_Load_System
             }
         }
 
+        private void Update()
+        {
+            if (_hideInstructions)
+            {
+                _hideInstructionsTimer -= Time.deltaTime;
+                if (_hideInstructionsTimer <= 0)
+                {
+                    Logger.Log("Now you can see the instructions");
+                    _hideInstructions = false;
+                    _fadeText.gameObject.SetActive(true);
+                }
+            }
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag(TagStrings.playerTag))
@@ -69,7 +93,11 @@ namespace Elad.Scripts.Save_Load_System
             if (PlayerStatus.LastCheckPoint == this)
             {
                 if (_fadeText)
+                {
                     _fadeText.gameObject.SetActive(false);
+                    _hideInstructions = true;
+                    _hideInstructionsTimer = hideInstructionsTime;
+                }
 
                 SpawnChickens();
                 isOn = true;
@@ -94,7 +122,7 @@ namespace Elad.Scripts.Save_Load_System
 
         private void SpawnChickens()
         {
-            if (_isInvisibleCheckPoint || isOn) return;
+            if (_isInvisibleCheckPoint ) return;
             int numChickens = Random.Range(4, 7);
             chickens = new GameObject[numChickens];
             for (int i = 0; i < numChickens; i++)

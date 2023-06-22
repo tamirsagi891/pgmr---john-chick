@@ -34068,14 +34068,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1764487088559489507, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074672776177471146, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2161271046664357137, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_Name
       value: John Chick
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237970281901624813, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4738796390982335946, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 1524031220}
+    - target: {fileID: 6624490115759062318, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -99164,7 +99180,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 14.96875
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -99990,7 +100006,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: ff3eca9b8d24055000000000
+  m_ApplyToSortingLayers: ff3eca9b8d2405500000000099685381
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
