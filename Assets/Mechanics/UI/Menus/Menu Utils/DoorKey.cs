@@ -21,6 +21,9 @@ namespace Mechanics.UI.Menus.Menu_Utils
         private Transform _playerTransform;
         private SpriteRenderer _mySprite;
 
+        private float currentAlpha = -1;
+        private bool _isOpen;
+
         #region Public Methods
 
         public void CloseDoorImmediate()
@@ -40,6 +43,8 @@ namespace Mechanics.UI.Menus.Menu_Utils
 
         private void Update()
         {
+            if (_isOpen) return;
+
             float distance = Vector3.Distance(_playerTransform.position, transform.position);
 
             if (distance <= minVisibleDistance)
@@ -95,11 +100,21 @@ namespace Mechanics.UI.Menus.Menu_Utils
             }
 
             Logger.Log($"Opening End Door {percent}", Color.magenta, myDoor);
+
+            if (percent > openPercentage)
+            {
+                // SetAlpha(0);
+                _isOpen = true;
+            }
+
             myDoor.OpenDoor();
         }
 
         private void SetAlpha(float alpha)
         {
+            if (Math.Abs(currentAlpha - alpha) < 0.01f) return;
+            currentAlpha = alpha;
+            Logger.Log("Set alpha function " + alpha);
             var color = _mySprite.color;
             color.a = alpha;
             _mySprite.color = color;

@@ -99025,6 +99025,18 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 32.788902
       objectReference: {fileID: 0}
+    - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Parameters.m_Length
+      value: 32.788902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Parameters.m_EndRange
+      value: 7.931904
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Parameters.m_DirectionCurveY.scalar
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1232976937694561649, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: magnitude
       value: 100
