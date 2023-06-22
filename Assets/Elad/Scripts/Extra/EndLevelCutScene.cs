@@ -47,6 +47,7 @@ public class EndLevelCutScene : MonoBehaviour
             {
                 _openMenu = false;
                 MenuManager.Menu.OpenEndLevelMenu();
+                PlayerStatus.Player.gameObject.SetActive(false);
 
             }
         }
