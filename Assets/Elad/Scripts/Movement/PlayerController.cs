@@ -75,7 +75,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        GeneralGameManager.IsGamePause = false;
         PlayerStatus.Player = this.gameObject;
         PlayerStatus.PlayerController = this;
         _rB = GetComponent<Rigidbody2D>();

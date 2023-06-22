@@ -13,16 +13,27 @@ namespace Managers
     public class LoadSceneManager : MonoBehaviour
     {
 
+        private static SceneReference CurrentScene
+        {
+            get
+            {
+                var current = SceneManager.GetActiveScene();
+                SceneReference currentScene = SceneReference.FromScenePath(current.path);
+                return currentScene;
+            }
+        }
+
         #region Inspector
 
         #region For PGMR
 
         [SerializeField]
         private bool loadByLevel = true;
-        
+
         [SerializeField]
         [Min(0)]
         private int levelToLoad;
+
         [Space]
 
         #endregion
@@ -68,7 +79,7 @@ Notice you must enter the scene! Once loading started, changing this value is un
         [SerializeField]
         [Tooltip("Progress for scene load")]
         public UnityEvent<float> onProgressBarUpdate;
-        
+
         [SerializeField]
         [Tooltip("Progress for scene load normalized (full when ready to load)")]
         private UnityEvent<float> onProgressBarUpdateNormalized;
@@ -88,7 +99,6 @@ Notice you must enter the scene! Once loading started, changing this value is un
         [SerializeField]
         [ReadOnly]
         private bool loadStarted;
-
 
         #endregion
 
@@ -125,6 +135,7 @@ Notice you must enter the scene! Once loading started, changing this value is un
                     Logger.LogAssertion("Error: Invalid level number.");
                 }
             }
+
             if (!loadStarted || sceneToLoad.IsSafeToUse)
             {
                 StartCoroutine(LoadScene(sceneToLoad));
@@ -137,8 +148,7 @@ Notice you must enter the scene! Once loading started, changing this value is un
 
         public void ReloadScene()
         {
-            var current = SceneManager.GetActiveScene();
-            SceneReference currentScene = SceneReference.FromScenePath(current.path);
+            var currentScene = CurrentScene;
             GoToScene(currentScene);
         }
 
@@ -154,10 +164,11 @@ Notice you must enter the scene! Once loading started, changing this value is un
                 sceneToLoad = sceneReference;
                 StartLoadScene();
             }
+
             loadNext = true;
         }
 
-        
+
         [Button]
         public void GoToNext()
         {

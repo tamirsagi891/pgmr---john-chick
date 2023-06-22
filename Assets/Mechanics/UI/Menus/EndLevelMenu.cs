@@ -2,6 +2,8 @@
 using BitStrap;
 using Elad.Scripts;
 using Elad.Scripts.Arrows;
+using Elad.Scripts.Save_Load_System;
+using Managers;
 using Mechanics.UI.Menus.Menu_Utils;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -22,14 +24,27 @@ namespace Mechanics.UI.Menus
         [SerializeField]
         private MenuCounter timeCounter;
 
+        private int Total => PlayerStatus.FeathersToCollectManager.StartFeatherAmount;
+
         public override void OpenMenu()
         {
             base.OpenMenu();
             featherSlider.StartFeatherAnimation();
             deathCounter.Count = $"{PlayerStatus.PlayerDamageable.DeathAmounts}";
-            Logger.Log("ASK ELAD TO ADD DEATH HERE", Color.red, this);
-            TimeSpan time = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
+            var time = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
             timeCounter.Count = $"{time:m\\:ss\\.ff}";
+            var score = new LevelScore
+            {
+                deathCount = PlayerStatus.PlayerDamageable.DeathAmounts,
+                completionTime = Time.timeSinceLevelLoad,
+                completionDate = DateTime.Now.ToBinary(),
+                totalFeathers = PlayerStatus.FeathersToCollectManager.StartFeatherAmount,
+                feathersCollected = PlayerStatus.FeathersToCollectManager.CollectedFeatherAmount,
+                level = GeneralGameManager.CurrentSceneIndex,
+                player = GeneralGameManager.PlayerName
+            };
+            Logger.Log($"Level Score: {score}");
+            featherSlider.ScoreManager.SaveLevelScoreIfHighScore(score);
         }
     }
 }

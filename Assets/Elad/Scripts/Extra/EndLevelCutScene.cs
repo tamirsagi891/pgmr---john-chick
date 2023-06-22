@@ -19,11 +19,7 @@ public class EndLevelCutScene : MonoBehaviour
     private bool _startMovement;
     [SerializeField] private float startMovementTime = 1f;
     [SerializeField] [Range(0, 1)] private float timeScale = 0.5f;
-    private void Awake()
-    {
-        GeneralGameManager.IsGamePause = false;
-    }
-
+    
     public bool StartCutScene
     {
         get => _startCutScene;

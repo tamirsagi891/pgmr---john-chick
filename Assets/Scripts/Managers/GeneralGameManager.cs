@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Eflatun.SceneReference;
+using Nemesh.ScriptableObjects;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Logger = Nemesh.Logger;
 
 namespace Managers
@@ -17,7 +20,21 @@ namespace Managers
                 // TODO: Save the last and resume it, if we want slowmotion effect
             }
         }
-        
+
+        public static SceneReference CurrentScene
+        {
+            get
+            {
+                var current = SceneManager.GetActiveScene();
+                SceneReference currentScene = SceneReference.FromScenePath(current.path);
+                return currentScene;
+            }
+        }
+
+        public static int CurrentSceneIndex => ScenesHolder.Levels.FindIndex(reference => CurrentScene.Guid == reference.Guid);
+
+        public static string PlayerName { get; set; } = "Elad";
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void OnBeforeSceneLoadRuntimeMethod()
         {

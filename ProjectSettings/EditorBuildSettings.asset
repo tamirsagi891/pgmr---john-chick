@@ -12,27 +12,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Intro.unity
     guid: b63c3482dc1e3c8419d232d5ea625d08
   - enabled: 1
-    path: 
-    guid: fb2d239fbaa9a9147b610eb5ff9b4cde
+    path: Assets/Scenes/New Tutorial.unity
+    guid: 025ab2189abe0c24daa9d987ca4e56a3
   - enabled: 1
-    path: Assets/Scenes/Old Levels 2/OLD Level 1.unity
-    guid: d1c03953802369d47bf641c8df4b9931
+    path: Assets/Scenes/New Level 1.unity
+    guid: 2e15a77498435364e90042e9edb1936b
   - enabled: 1
     path: Assets/Scenes/New Level 2.unity
     guid: 11d9a9bee6a0c8f4280a2837159cdd56
-  - enabled: 1
-    path: Assets/Mechanics/New Wind/Timer Wind.unity
-    guid: e0c24c80ec8cce24d9387d63ae7090c0
   - enabled: 1
     path: Assets/Scenes/Old Levels 2/Level 5.unity
     guid: a0020ac74859de147ad49d5f68cf0a13
   - enabled: 1
     path: Assets/Mechanics/New Wind/Misc Wind.unity
     guid: cf478821c8a2c1545aeaf1bbe97d1b90
-  - enabled: 1
-    path: Assets/Scenes/New Level 1.unity
-    guid: 2e15a77498435364e90042e9edb1936b
-  - enabled: 1
-    path: Assets/Scenes/New Tutorial.unity
-    guid: 025ab2189abe0c24daa9d987ca4e56a3
   m_configObjects: {}
