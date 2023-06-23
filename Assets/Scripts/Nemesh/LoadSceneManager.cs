@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Avrahamy.EditorGadgets;
 using BitStrap;
 using Eflatun.SceneReference;
 using Nemesh.ScriptableObjects;
@@ -30,6 +31,10 @@ namespace Managers
         [SerializeField]
         private bool loadByLevel = true;
 
+        [ConditionalHide("loadByLevel")]
+        [SerializeField]
+        private bool loadToNextIfExists = true;
+        
         [SerializeField]
         [Min(0)]
         private int levelToLoad;
@@ -60,16 +65,16 @@ Notice you must enter the scene! Once loading started, changing this value is un
         private bool loadOnStart = true;
 
         [Header("Progress Logs")]
-        [ReadOnly]
+        [BitStrap.ReadOnly]
         [SerializeField]
         [InspectorName("Received load next massage")]
         private bool loadNext;
 
-        [ReadOnly]
+        [BitStrap.ReadOnly]
         [SerializeField]
         private float currentLoadingProgress;
 
-        [ReadOnly]
+        [BitStrap.ReadOnly]
         [SerializeField]
         [InspectorName("Scene ready to load")]
         private bool sentReadyMassage;
@@ -97,7 +102,7 @@ Notice you must enter the scene! Once loading started, changing this value is un
         public UnityEvent onLoadComplete;
 
         [SerializeField]
-        [ReadOnly]
+        [BitStrap.ReadOnly]
         private bool loadStarted;
 
         #endregion
@@ -126,6 +131,14 @@ Notice you must enter the scene! Once loading started, changing this value is un
         {
             if (loadByLevel)
             {
+                if (loadToNextIfExists)
+                {
+                    var ind = ScenesHolder.Levels.FindIndex(reference => CurrentScene.Guid == reference.Guid);
+                    if (ind >= 0)
+                    {
+                        levelToLoad = (ind + 1) % ScenesHolder.Levels.Count;
+                    }
+                }
                 if (levelToLoad < ScenesHolder.Levels.Count)
                 {
                     sceneToLoad = ScenesHolder.Levels[levelToLoad];

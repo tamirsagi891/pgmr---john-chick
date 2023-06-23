@@ -108,7 +108,10 @@ namespace Elad.Scripts.Save_Load_System
                 if (!isOn)
                 {
                     SpawnChickens();
-                    checkPointTextBox.text = CHECKPOINT_TEXT_ON;
+                    if (checkPointTextBox != null)
+                    {
+                        checkPointTextBox.text = CHECKPOINT_TEXT_ON;
+                    }
                 }
                 
                 isOn = true;

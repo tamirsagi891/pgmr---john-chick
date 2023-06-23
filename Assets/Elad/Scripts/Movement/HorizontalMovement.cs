@@ -236,7 +236,7 @@ public class HorizontalMovement : MonoBehaviour
         {
             if (!_crouchIsPush && !_touchingDirection.IsOnCeiling)
             {
-                Logger.Log("kaka");
+                // Logger.Log("kaka");
                 IsCrouching = false;
             }
         }

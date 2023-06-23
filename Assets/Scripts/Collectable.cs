@@ -1,11 +1,15 @@
+using Managers;
 using UnityEngine;
+using Logger = Nemesh.Logger;
 
 public class Collectable : MonoBehaviour
 {
+    public static bool DebugCollectables = false;
+    
     [SerializeField] private string playerTag = "Player";
     [SerializeField] private float floatSpeed = 4.0f;
     [SerializeField] private float floatAmount = 0.25f;
-
+    
     private Vector3 originalPosition;
     private float offset;
 
@@ -22,9 +26,14 @@ public class Collectable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(playerTag))
+        if (!collision.CompareTag(playerTag))
         {
-            Debug.Log("Collectable collected!");
+            return;
+        }
+
+        if (DebugCollectables)
+        {
+            Logger.Log("Collectable collected!");
         }
     }
 
