@@ -45,7 +45,7 @@ namespace Mechanics.UI.Menus.Menu_Utils
 
         private string _dir;
 
-        public string HighScoreSavePath => Path.Combine(_dir, $"Level_{GeneralGameManager.CurrentSceneIndex}");
+        public string HighScoreSavePath => Path.Combine(_dir, $"Level_{GeneralGameManager.CurrentSceneIndex}.json");
 
         private void Awake()
         {

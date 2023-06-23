@@ -11,7 +11,7 @@ namespace Mechanics.UI.Menus.Menu_Utils
     public static class SettingsSaver
     {
 
-        public static readonly string SettingsSaveFileName = "Settings";
+        public static readonly string SettingsSaveFileName = "Settings.json";
 
         public static void SaveSettings(SettingsState settings)
         {
