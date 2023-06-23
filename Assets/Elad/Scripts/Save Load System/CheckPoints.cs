@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Elad.Events;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
@@ -10,8 +11,13 @@ namespace Elad.Scripts.Save_Load_System
 {
     public class CheckPoints : MonoBehaviour
     {
+
+        private const string CHECKPOINT_TEXT_OFF = "Activate Chickpoint \n<sprite tint=1 name=upArrow>";
+        private const string CHECKPOINT_TEXT_ON = "Update Chickpoint \n<sprite tint=1 name=upArrow>";
+        
         [SerializeField] private bool _isInvisibleCheckPoint = false;
         [SerializeField] private GameObject chickenPrefab;
+        [SerializeField] private TextMeshPro checkPointTextBox; 
         private Vector3 _position;
         private bool isOn = false;
         private GameObject[] chickens;
@@ -99,7 +105,12 @@ namespace Elad.Scripts.Save_Load_System
                     _hideInstructionsTimer = hideInstructionsTime;
                 }
 
-                SpawnChickens();
+                if (!isOn)
+                {
+                    SpawnChickens();
+                    checkPointTextBox.text = CHECKPOINT_TEXT_ON;
+                }
+                
                 isOn = true;
                 if (animator)
                 {
@@ -111,8 +122,12 @@ namespace Elad.Scripts.Save_Load_System
                 // Open checkpoint
                 if (_fadeText)
                     _fadeText.gameObject.SetActive(true);
+                if (isOn)
+                {
+                    DestroyChickens();
+                    checkPointTextBox.text = CHECKPOINT_TEXT_OFF;
+                }
                 isOn = false;
-                DestroyChickens();
                 if (animator)
                 {
                     animator.SetBool("isOn", false);
@@ -123,7 +138,7 @@ namespace Elad.Scripts.Save_Load_System
         private void SpawnChickens()
         {
             if (_isInvisibleCheckPoint ) return;
-            int numChickens = Random.Range(4, 7);
+            int numChickens = Random.Range(5, 9);
             chickens = new GameObject[numChickens];
             for (int i = 0; i < numChickens; i++)
             {
