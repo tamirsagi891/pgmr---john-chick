@@ -17,15 +17,15 @@ namespace Mechanics.UI.Menus.Menu_Utils
 
         [SerializeField]
         private GameObject container;
-        
+
         [Space]
         [SerializeField]
         private Button buttonPrefab;
 
         public LinkedPool<Button> Pool { get; set; }
-        
+
         private List<Button> _buttons = new();
-        
+
         protected void Awake()
         {
             Pool = new LinkedPool<Button>(
@@ -33,7 +33,7 @@ namespace Mechanics.UI.Menus.Menu_Utils
                 GetButton,
                 ReleaseButton,
                 DestroyButton);
-            
+
             AddSceneButton(ScenesHolder.MainMenu);
             AddSceneButton(ScenesHolder.Instance.intro);
             foreach (var level in ScenesHolder.Levels)
@@ -45,12 +45,16 @@ namespace Mechanics.UI.Menus.Menu_Utils
         private void AddSceneButton(SceneReference sceneToAdd)
         {
             var button = Pool.Get();
-            button.onClick.AddListener(() => loadSceneManager.GoToScene(sceneToAdd));
+            button.onClick.AddListener(delegate
+            {
+                loadSceneManager.GoToScene(sceneToAdd);
+                GeneralGameManager.IsGamePause = false;
+            });
             var sceneName = Regex.Split(sceneToAdd.Name, @" [-] ")[0];
             button.GetComponentInChildren<TMP_Text>().text = sceneName;
             _buttons.Add(button);
         }
-        
+
         protected void DestroyButton(Button button)
         {
             Destroy(button.gameObject);
@@ -65,7 +69,7 @@ namespace Mechanics.UI.Menus.Menu_Utils
         {
             return Instantiate(buttonPrefab, container.transform);
         }
-        
+
         protected void GetButton(Button button)
         {
             button.gameObject.SetActive(true);

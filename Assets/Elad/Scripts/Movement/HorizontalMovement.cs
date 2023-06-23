@@ -1,15 +1,11 @@
-using System;
-using BitStrap;
 using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
 using Elad.Scripts.Events;
 using Managers;
 using Mechanics.Enemies;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
 using Logger = Nemesh.Logger;
 using FMOD.Studio;
 
