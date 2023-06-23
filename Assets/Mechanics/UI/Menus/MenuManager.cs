@@ -18,7 +18,10 @@ namespace Mechanics.UI.Menus
     public class MenuManager : MonoBehaviour
     {
         public static MenuManager Menu { get; private set; } = null;
-
+        
+        public static event EventHandler<float> OnMasterChangeEvent;
+        public static event EventHandler<float> OnMusicChangeEvent;
+        
         #region Inspector
 
         [Header("Events")]
@@ -63,12 +66,14 @@ namespace Mechanics.UI.Menus
         {
             // Logger.LogWarning("OnMasterChange: Missing save to static file.", this);
             soundEvents.onMasterChange.Invoke(value);
+            OnMasterChangeEvent?.Invoke(this, value);
         }
 
         public void OnMusicChange(float value)
         {
             // Logger.LogWarning("OnMasterChange: Missing save to static file.", this);
             soundEvents.onMusicChange.Invoke(value);
+            OnMusicChangeEvent?.Invoke(this, value);
         }
 
         #endregion

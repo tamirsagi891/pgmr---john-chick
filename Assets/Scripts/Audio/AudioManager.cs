@@ -6,6 +6,7 @@ using Elad.Music;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using JetBrains.Annotations;
 using Mechanics.UI.Menus;
 using UnityEditor;
 using Logger = Nemesh.Logger;
@@ -15,10 +16,13 @@ public class AudioManager : MonoBehaviour
     [Header("Volume")]
     [Range(0, 1)]
     public float masterVolume = 1;
+
     [Range(0, 1)]
     public float musicVolume = 1;
+
     [Range(0, 1)]
     public float ambienceVolume = 1;
+
     [Range(0, 1)]
     public float SFXVolume = 1;
 
@@ -49,6 +53,7 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogError("Found more than one Audio Manager in the scene.");
         }
+
         instance = this;
 
         eventInstances = new List<EventInstance>();
@@ -67,22 +72,14 @@ public class AudioManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (MenuManager.Menu == null)
-        {
-            return;
-        }
-        MenuManager.Menu.soundEvents.onMasterChange.AddListener(SetMasterVolume);
-        MenuManager.Menu.soundEvents.onMasterChange.AddListener(SetMusicVolume);
+        MenuManager.OnMasterChangeEvent += SetMasterVolume;
+        MenuManager.OnMusicChangeEvent += SetMusicVolume;
     }
 
     private void OnDisable()
     {
-        if (MenuManager.Menu == null)
-        {
-            return;
-        }
-        MenuManager.Menu.soundEvents.onMasterChange.RemoveListener(SetMasterVolume);
-        MenuManager.Menu.soundEvents.onMusicChange.RemoveListener(SetMusicVolume);
+        MenuManager.OnMasterChangeEvent -= SetMasterVolume;
+        MenuManager.OnMusicChangeEvent -= SetMusicVolume;
     }
 
     private void Update()
@@ -92,13 +89,13 @@ public class AudioManager : MonoBehaviour
         // ambienceBus.setVolume(ambienceVolume);
         // sfxBus.setVolume(SFXVolume);
     }
-    
+
     private void InitializeMusic(EventReference musicEventReference)
     {
         musicEventInstance = CreatEventInstance(musicEventReference);
         // musicEventInstance.start();
     }
-    
+
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
@@ -129,6 +126,7 @@ public class AudioManager : MonoBehaviour
             eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             eventInstance.release();
         }
+
         // stop all of the event emitters, because if we don't they may hang around in other scenes
         foreach (StudioEventEmitter emitter in eventEmitters)
         {
@@ -143,13 +141,13 @@ public class AudioManager : MonoBehaviour
 
     #region Event Listeners
 
-    public void SetMasterVolume(float volume)
+    public void SetMasterVolume([CanBeNull] object caller, float volume)
     {
         masterVolume = volume;
         masterBus.setVolume(masterVolume);
     }
-    
-    public void SetMusicVolume(float volume)
+
+    public void SetMusicVolume([CanBeNull] object caller, float volume)
     {
         musicVolume = volume;
         musicBus.setVolume(volume);

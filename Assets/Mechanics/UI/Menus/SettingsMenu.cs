@@ -70,6 +70,10 @@ namespace Mechanics.UI.Menus
 
             presetLabel.text = QualitySettings.names[QualitySettings.GetQualityLevel()];
             resolutionLabel.text = Screen.currentResolution.ToString();
+            AudioManager audioManager = FindObjectOfType<AudioManager>();
+            audioMasterSlider.SetValueWithoutNotify(audioManager.masterVolume);
+            // audioEffectsSlider.SetValueWithoutNotify(audioManager.SFXVolume);
+            audioMusicSlider.SetValueWithoutNotify(audioManager.musicVolume);
             // TODO: Save On Close.
         }
 
