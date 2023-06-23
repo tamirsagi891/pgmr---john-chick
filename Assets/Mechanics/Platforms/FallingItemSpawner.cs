@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FallingItemSpawner : MonoBehaviour
 {
+    [SerializeField]
+    private float initialWait;
     [SerializeField] private float t; // interval between each spawn
     [SerializeField] private GameObject projectilePrefab; // the prefab to spawn
     [SerializeField] private int poolSize = 10; // size of the object pool
@@ -53,6 +55,7 @@ public class FallingItemSpawner : MonoBehaviour
 
     private IEnumerator SpawnProjectile()
     {
+        yield return new WaitForSeconds(initialWait);
         while (true)
         {
             yield return new WaitForSeconds(t);
