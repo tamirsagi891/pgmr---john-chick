@@ -114,7 +114,6 @@ namespace Mechanics.UI.Menus.Menu_Utils
         {
             if (Math.Abs(currentAlpha - alpha) < 0.01f) return;
             currentAlpha = alpha;
-            Logger.Log("Set alpha function " + alpha);
             var color = _mySprite.color;
             color.a = alpha;
             _mySprite.color = color;

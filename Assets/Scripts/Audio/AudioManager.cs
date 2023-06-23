@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BitStrap;
+using Elad.Music;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 using Mechanics.UI.Menus;
 using UnityEditor;
+using Logger = Nemesh.Logger;
 
 public class AudioManager : MonoBehaviour
 {
@@ -31,6 +34,14 @@ public class AudioManager : MonoBehaviour
     private EventInstance musicEventInstance;
 
     public static AudioManager instance { get; private set; }
+
+    public SoundsData Data
+    {
+        get => soundsData;
+        set => soundsData = value;
+    }
+
+    [SerializeField] private SoundsData soundsData;
 
     private void Awake()
     {
@@ -84,8 +95,8 @@ public class AudioManager : MonoBehaviour
     
     private void InitializeMusic(EventReference musicEventReference)
     {
-        musicEventInstance = CreateInstance(musicEventReference);
-        musicEventInstance.start();
+        musicEventInstance = CreatEventInstance(musicEventReference);
+        // musicEventInstance.start();
     }
     
 
@@ -94,11 +105,19 @@ public class AudioManager : MonoBehaviour
         RuntimeManager.PlayOneShot(sound, worldPos);
     }
 
-    public EventInstance CreateInstance(EventReference eventReference)
+    public EventInstance CreatEventInstance(EventReference eventReference)
     {
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
         eventInstances.Add(eventInstance);
         return eventInstance;
+    }
+
+    public StudioEventEmitter InitializeEventEmitter(EventReference eventReference, GameObject emitterGameObject)
+    {
+        StudioEventEmitter emitter = emitterGameObject.GetComponent<StudioEventEmitter>();
+        emitter.EventReference = eventReference;
+        eventEmitters.Add(emitter);
+        return emitter;
     }
 
     
@@ -137,4 +156,11 @@ public class AudioManager : MonoBehaviour
     }
 
     #endregion
+
+
+    [Button]
+    public void MakeSound()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.collectFeatherSound, this.transform.position);
+    }
 }

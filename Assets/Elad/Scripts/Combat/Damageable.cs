@@ -70,13 +70,13 @@ namespace Elad.Scripts.Combat
             get => isInvincible;
             set
             {
-                Logger.Log("player Died -1");
+                // Logger.Log("player Died -1");
                 PlayerStatus.PlayerIsInvincible = value;
                 isInvincible = value;
                 _blinkTimer = blinkTime;
                 if (!value)
                 {
-                    Logger.Log("player Died 0");
+                    // Logger.Log("player Died 0");
                     // Logger.Log("stop being IsInvincible");
                     _spriteRenderer.color = _originalColor;
                 }
@@ -281,7 +281,6 @@ namespace Elad.Scripts.Combat
             if (GeneralGameManager.IsGamePause) return false;
             if (IsAlive && !IsInvincible)
             {
-                Logger.Log("In got hit");
                 Health -= damage;
                 IsInvincible = true;
                 LockVelocity = true;

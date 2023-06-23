@@ -4,5 +4,61 @@
 		<property name="name">
 			<value>Master</value>
 		</property>
+		<relationship name="items">
+			<destination>{ddedbde1-a9a7-4f70-b604-82ee55bb56a3}</destination>
+			<destination>{70b2451b-5613-4441-b983-33320bde3cc8}</destination>
+			<destination>{de08c9a9-ef8c-4c7e-86a4-feea2b426c4d}</destination>
+			<destination>{07ed3434-93cb-433f-aaf8-83bc3c43c5ec}</destination>
+			<destination>{99ab5f49-63d7-4297-9538-2b1ef35c8778}</destination>
+			<destination>{484431d7-0df9-40bf-bea8-f2f5901ab2bf}</destination>
+			<destination>{d7140f18-dd63-4e44-9802-78fea16b41cf}</destination>
+			<destination>{a891f789-e214-478f-a397-0693ed310af2}</destination>
+			<destination>{3b7b8d03-44e6-4573-b5ff-73d83315df18}</destination>
+		</relationship>
+	</object>
+	<object class="Tag" id="{ddedbde1-a9a7-4f70-b604-82ee55bb56a3}">
+		<property name="name">
+			<value>async</value>
+		</property>
+	</object>
+	<object class="Tag" id="{70b2451b-5613-4441-b983-33320bde3cc8}">
+		<property name="name">
+			<value>hold-value</value>
+		</property>
+	</object>
+	<object class="Tag" id="{de08c9a9-ef8c-4c7e-86a4-feea2b426c4d}">
+		<property name="name">
+			<value>labeled-parameter</value>
+		</property>
+	</object>
+	<object class="Tag" id="{07ed3434-93cb-433f-aaf8-83bc3c43c5ec}">
+		<property name="name">
+			<value>multi-instrument</value>
+		</property>
+	</object>
+	<object class="Tag" id="{99ab5f49-63d7-4297-9538-2b1ef35c8778}">
+		<property name="name">
+			<value>one-shot</value>
+		</property>
+	</object>
+	<object class="Tag" id="{484431d7-0df9-40bf-bea8-f2f5901ab2bf}">
+		<property name="name">
+			<value>parameter</value>
+		</property>
+	</object>
+	<object class="Tag" id="{d7140f18-dd63-4e44-9802-78fea16b41cf}">
+		<property name="name">
+			<value>random-modulator</value>
+		</property>
+	</object>
+	<object class="Tag" id="{a891f789-e214-478f-a397-0693ed310af2}">
+		<property name="name">
+			<value>send</value>
+		</property>
+	</object>
+	<object class="Tag" id="{3b7b8d03-44e6-4573-b5ff-73d83315df18}">
+		<property name="name">
+			<value>spatializer</value>
+		</property>
 	</object>
 </objects>

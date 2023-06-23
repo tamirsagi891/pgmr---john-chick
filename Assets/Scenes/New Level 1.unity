@@ -11430,7 +11430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attenuationObject: {fileID: 0}
+  attenuationObject: {fileID: 1500840436}
 --- !u!114 &303507504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190083,6 +190083,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 582149726}
     m_Modifications:
+    - target: {fileID: 2702025367303513085, guid: ffd53a52d8a0aeb40af05c3dae2d1e29, type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 23.529518
+      objectReference: {fileID: 0}
+    - target: {fileID: 2702025367303513085, guid: ffd53a52d8a0aeb40af05c3dae2d1e29, type: 3}
+      propertyPath: OverrideMinDistance
+      value: 7.024971
+      objectReference: {fileID: 0}
     - target: {fileID: 3918647210175974456, guid: ffd53a52d8a0aeb40af05c3dae2d1e29, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -222026,6 +222034,7 @@ MonoBehaviour:
   musicVolume: 0.036
   ambienceVolume: 1
   SFXVolume: 1
+  soundsData: {fileID: 11400000, guid: fab0989a153eb18448bab4c2c90eafac, type: 2}
 --- !u!4 &1428366743
 Transform:
   m_ObjectHideFlags: 0
@@ -222060,6 +222069,34 @@ MonoBehaviour:
       Data3: -145671494
       Data4: 268779897
     Path: event:/Music/Dusk Forest
+  <playerFootsteps>k__BackingField:
+    Guid:
+      Data1: 230277948
+      Data2: 1194290362
+      Data3: 1223959943
+      Data4: 577523659
+    Path: event:/Player/Player Footsteps
+  <collectFeatherSound>k__BackingField:
+    Guid:
+      Data1: 1129043294
+      Data2: 1309008047
+      Data3: -16534119
+      Data4: 143759551
+    Path: event:/Fether/Collect Fether
+  <idleFeatherSound>k__BackingField:
+    Guid:
+      Data1: 1318307774
+      Data2: 1318102002
+      Data3: -232533086
+      Data4: 324017446
+    Path: event:/Fether/Fether Idle
+  <windSound>k__BackingField:
+    Guid:
+      Data1: 1041756123
+      Data2: 1184712076
+      Data3: -1410032200
+      Data4: 461773596
+    Path: event:/Ambiance/Wind
 --- !u!1001 &1436043550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -222499,6 +222536,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2910887196380932531, guid: d151b222fab4f72498ca300776f08da9, type: 3}
   m_PrefabInstance: {fileID: 1488582556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1500840436 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2161271046664357137, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+  m_PrefabInstance: {fileID: 483104265}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1505062849
 PrefabInstance:

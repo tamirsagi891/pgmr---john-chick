@@ -54,7 +54,7 @@ public class HealthBar : MonoBehaviour
         }
         if ((CurrentHealth % 2) != 0)
         {
-            print("Index: " + (int)Math.Ceiling(CurrentHealth/2f) + "  current health: " + CurrentHealth);
+            // print("Index: " + (int)Math.Ceiling(CurrentHealth/2f) + "  current health: " + CurrentHealth);
             hearts[(int)math.ceil(CurrentHealth/2f) - 1].SetHeartImage(HeartStatus.Half);
         }
     }

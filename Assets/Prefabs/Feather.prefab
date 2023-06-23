@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7653461884709788930}
   - component: {fileID: 6122451877766201047}
   - component: {fileID: 4808178637605151249}
+  - component: {fileID: 2702025367303513085}
   m_Layer: 0
   m_Name: Feather
   m_TagString: Untagged
@@ -169,3 +170,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myFeatherKind: 0
+--- !u!114 &2702025367303513085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5255392168532563605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1318307774
+      Data2: 1318102002
+      Data3: -232533086
+      Data4: 324017446
+    Path: event:/Fether/Fether Idle
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 3

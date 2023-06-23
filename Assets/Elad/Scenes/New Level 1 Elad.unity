@@ -222126,6 +222126,7 @@ MonoBehaviour:
   musicVolume: 0.036
   ambienceVolume: 1
   SFXVolume: 1
+  soundsData: {fileID: 0}
 --- !u!4 &1428366743
 Transform:
   m_ObjectHideFlags: 0
@@ -222160,6 +222161,20 @@ MonoBehaviour:
       Data3: -145671494
       Data4: 268779897
     Path: event:/Music/Dusk Forest
+  <playerFootsteps>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <collectFeatherSound>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1001 &1436043550
 PrefabInstance:
   m_ObjectHideFlags: 0

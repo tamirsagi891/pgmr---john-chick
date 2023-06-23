@@ -36474,6 +36474,20 @@ MonoBehaviour:
       Data3: -145671494
       Data4: 268779897
     Path: event:/Music/Dusk Forest
+  <playerFootsteps>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <collectFeatherSound>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!114 &1654788535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36490,6 +36504,7 @@ MonoBehaviour:
   musicVolume: 0.036
   ambienceVolume: 1
   SFXVolume: 1
+  soundsData: {fileID: 0}
 --- !u!4 &1654788536
 Transform:
   m_ObjectHideFlags: 0
@@ -99003,6 +99018,18 @@ PrefabInstance:
     - target: {fileID: 426183261173623201, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_Size.y
       value: 32.788902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Parameters.m_Length
+      value: 32.788902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Parameters.m_EndRange
+      value: 7.931904
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Parameters.m_DirectionCurveY.scalar
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1232976937694561649, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: magnitude

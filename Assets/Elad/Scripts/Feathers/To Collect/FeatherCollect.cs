@@ -1,9 +1,11 @@
 using Elad.Events;
 using UnityEngine;
+using Logger = Nemesh.Logger;
+using FMODUnity;
 
 namespace Elad.Scripts.Arrows
 {
-    [RequireComponent(typeof(Collectable))]
+    [RequireComponent(typeof(Collectable), typeof(StudioEventEmitter))]
     public class FeatherToCollect : MonoBehaviour
     {
         [SerializeField] private FeathersManager.FeatherKind myFeatherKind;
@@ -29,6 +31,7 @@ namespace Elad.Scripts.Arrows
             set => _id = value;
         }
 
+        [Header("Sounds")] private StudioEventEmitter _emitter;
 
         private void Start()
         {
@@ -41,12 +44,17 @@ namespace Elad.Scripts.Arrows
                 PlayerStatus.FeathersToCollectManager.AddFeather(this);
             }
 
+            _emitter = AudioManager.instance.InitializeEventEmitter(FMODEvents.instance.idleFeatherSound, gameObject);
+            _emitter.Play();
+
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag(TagStrings.playerTag))
             {
+                _emitter.Stop();
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.collectFeatherSound, transform.position);
                 characterEvents.AddFeatherToPlayer.Invoke(MyFeatherKind);
                 PlayerStatus.FeathersToCollectManager.RemoveFeather(this);
                 this.gameObject.SetActive(false);

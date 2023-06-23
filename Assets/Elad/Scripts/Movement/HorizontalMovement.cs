@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 using Logger = Nemesh.Logger;
+using FMOD.Studio;
 
 public class HorizontalMovement : MonoBehaviour
 {
@@ -113,6 +114,8 @@ public class HorizontalMovement : MonoBehaviour
 
     [SerializeField] [Range(5, 20)] private float knockBackMultiplayer = 1;
 
+    [Header("Sounds")] private EventInstance _playerFootsteps;
+
     private void OnEnable()
     {
         characterEvents.FunctionsLoad.AddListener(ResetMovement);
@@ -136,6 +139,11 @@ public class HorizontalMovement : MonoBehaviour
         _playerJump = GetComponent<CharacterJump>();
     }
 
+    private void Start()
+    {
+        _playerFootsteps = AudioManager.instance.CreatEventInstance(FMODEvents.instance.playerFootsteps);
+    }
+
     public void OnCrouch(InputAction.CallbackContext context)
     {
         if (_playerController.CantGetInput()) return;
@@ -151,7 +159,6 @@ public class HorizontalMovement : MonoBehaviour
         {
             if (!_touchingDirection.IsOnCeiling)
             {
-                Logger.Log("pipi");
                 IsCrouching = false;
             }
 
@@ -210,7 +217,7 @@ public class HorizontalMovement : MonoBehaviour
     {
         if (GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive) return;
 
-            PlayerStatus.playerVelocity = _rB.velocity;
+        PlayerStatus.playerVelocity = _rB.velocity;
         var currentDirX = CanMove ? DirectionX : 0;
 
 
@@ -294,6 +301,8 @@ public class HorizontalMovement : MonoBehaviour
                 RunWithAcceleration();
             }
         }
+        
+        UpdateSound();
     }
 
     private void RunWithAcceleration()
@@ -374,9 +383,7 @@ public class HorizontalMovement : MonoBehaviour
             );
             return;
         }
-
-        Logger.Log("in on hit, knock back is: " + knockBack);
-
+        
         knockBack *= knockBackMultiplayer;
         _rB.AddForce(knockBack, ForceMode2D.Impulse);
     }
@@ -390,5 +397,22 @@ public class HorizontalMovement : MonoBehaviour
         SetFacingDirection(DirectionX);
     }
 
-    
+    private void UpdateSound()
+    {
+        if (DirectionX != 0 && _touchingDirection.IsGrounded)
+        {
+            PLAYBACK_STATE playbackState;
+            _playerFootsteps.getPlaybackState(out playbackState);
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                _playerFootsteps.start();
+            }
+        }
+
+        else
+        {
+            _playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+        }
+    }
+
 }
