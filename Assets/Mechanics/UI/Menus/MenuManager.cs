@@ -319,6 +319,10 @@ namespace Mechanics.UI.Menus
             {
                 Pause();
             }
+            else
+            {
+                BackToPreviousMenu();
+            }
         }
 
         #endregion
