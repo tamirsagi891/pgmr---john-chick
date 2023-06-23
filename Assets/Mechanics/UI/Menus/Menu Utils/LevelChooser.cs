@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Eflatun.SceneReference;
 using Managers;
 using Nemesh.ScriptableObjects;
@@ -45,7 +46,8 @@ namespace Mechanics.UI.Menus.Menu_Utils
         {
             var button = Pool.Get();
             button.onClick.AddListener(() => loadSceneManager.GoToScene(sceneToAdd));
-            button.GetComponentInChildren<TMP_Text>().text = sceneToAdd.Name;
+            var sceneName = Regex.Split(sceneToAdd.Name, @" [-] ")[0];
+            button.GetComponentInChildren<TMP_Text>().text = sceneName;
             _buttons.Add(button);
         }
         
