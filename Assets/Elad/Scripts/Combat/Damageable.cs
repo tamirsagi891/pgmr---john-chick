@@ -21,7 +21,7 @@ namespace Elad.Scripts.Combat
 
         private bool _dieButInGlide;
 
-        [Header("Times")] private float timeToOpenGameOverMenu = 2f;
+        [Header("Times")]
         [Header("Components")] private Animator _animator;
         private SpriteRenderer _spriteRenderer;
 
@@ -326,7 +326,6 @@ namespace Elad.Scripts.Combat
                     Logger.Log("TODO: Stop Movement, Set Follow Target to attackParameters.FollowTransform",
                         Color.red, this);
                     return false;
-                    break;
                 case AttackType.Shot:
                 case AttackType.Regular:
                 default:

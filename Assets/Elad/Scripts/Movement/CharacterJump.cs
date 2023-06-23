@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Elad.Events;
 using Elad.Scripts;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
-using System;
 using BitStrap;
 using Elad.Scripts.Events;
-using Managers;
-using UnityEngine;
 
 //This script handles moving the character on the Y axis, for jumping and gravity
 
@@ -60,12 +54,12 @@ public class CharacterJump : MonoBehaviour
     private float _defaultGravityScale;
     private float _gravMultiplier;
 
-    [Header("Current State")] public bool canJumpAgain = false;
+    [Header("Current State")] public bool canJumpAgain;
     private bool _desiredJump;
     private float _jumpBufferCounter;
     [SerializeField]
     [ReadOnly]
-    private float _coyoteTimeCounter = 0;
+    private float _coyoteTimeCounter;
     private bool _pressingJump;
     private bool _onGround;
     private bool _currentlyJumping;
@@ -89,7 +83,6 @@ public class CharacterJump : MonoBehaviour
     private float linearDragRegular;
 
     private int counterTest = 0;
-    private bool _canGlide = true;
     private bool _isGliding;
 
     private bool CanGlide
@@ -119,9 +112,7 @@ public class CharacterJump : MonoBehaviour
 
     [Space(10)] [Header("Crouch Affect jump")] [Tooltip("Let the player to jump from crouching")] [SerializeField]
     private bool canJumpWhileCrouch;
-
-    private bool _canJump = true;
-
+    
     public bool CanJump
     {
         get

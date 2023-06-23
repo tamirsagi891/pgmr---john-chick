@@ -70,11 +70,6 @@ namespace Mechanics.UI.Menus
 
             presetLabel.text = QualitySettings.names[QualitySettings.GetQualityLevel()];
             resolutionLabel.text = Screen.currentResolution.ToString();
-            AudioManager audioManager = FindObjectOfType<AudioManager>();
-            audioMasterSlider.SetValueWithoutNotify(audioManager.masterVolume);
-            // audioEffectsSlider.SetValueWithoutNotify(audioManager.SFXVolume);
-            audioMusicSlider.SetValueWithoutNotify(audioManager.musicVolume);
-            // TODO: Save On Close.
         }
 
         public override void CloseMenu()
@@ -83,6 +78,7 @@ namespace Mechanics.UI.Menus
             {
                 SaveSettings();
             }
+
             base.CloseMenu();
         }
 
@@ -173,7 +169,6 @@ namespace Mechanics.UI.Menus
                               resolution.height == Screen.currentResolution.height
             );
         }
-        
 
         #endregion
 
@@ -201,7 +196,7 @@ namespace Mechanics.UI.Menus
                 _ => QualitySettings.anisotropicFiltering
             };
 
-            QualitySettings.antiAliasing = QualitySettings.antiAliasing switch
+            QualitySettings.antiAliasing = settings.antiAliasing switch
             {
                 0 => 0,
                 1 => 2,
@@ -209,14 +204,25 @@ namespace Mechanics.UI.Menus
                 3 => 8,
                 _ => QualitySettings.antiAliasing
             };
-            _currentResolutionIndex = settings.resolutionIndex;
+
+            bool Match(Resolution resolution) => resolution.width == settings.resolutionWidth && resolution.height == settings.resolutionHeight;
+            _currentResolutionIndex = _supportedResolutions.FindIndex(Match);
             ApplyResolution();
+            
             audioMasterSlider.value = settings.masterVolume;
             audioMusicSlider.value = settings.musicVolume;
         }
 
         private void ApplyResolution()
         {
+            if (_currentResolutionIndex < 0 || _currentResolutionIndex > _supportedResolutions.Count)
+            {
+                _currentResolutionIndex = _supportedResolutions.FindIndex(
+                    resolution => resolution.width == Screen.currentResolution.width &&
+                                  resolution.height == Screen.currentResolution.height
+                );
+            }
+
             var resolution = _supportedResolutions[_currentResolutionIndex];
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
             resolutionLabel.text = resolution.ToString();

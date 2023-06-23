@@ -53,7 +53,6 @@ namespace Elad.Scripts
         [SerializeField] private GameObject arrowInstantiatePosition;
         [SerializeField] private GameObject arrowPrefab;
         private LinkedPool<Arrow> _arrowPool;
-        private int _startPoolSize = 50;
         [SerializeField] private int _maxPoolSize = 100;
         [SerializeField] private bool usePoolArrow = true;
 

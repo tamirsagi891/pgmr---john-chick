@@ -12,7 +12,6 @@ namespace Elad.Scripts.Arrows
     
     public class FeathersToCollectManager : MonoBehaviour
     {
-        static int howManyTimesCalled = 0;
         [SerializeField] [ReadOnly] private int startFeatherAmount;
         [SerializeField] [ReadOnly] private int collectedFeatherAmount;
         [SerializeField] [ReadOnly] private int currentFeathersAmount;

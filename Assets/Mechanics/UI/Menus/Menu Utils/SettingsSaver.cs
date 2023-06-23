@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Android;
 using Logger = Nemesh.Logger;
 
 namespace Mechanics.UI.Menus.Menu_Utils
@@ -39,17 +40,13 @@ namespace Mechanics.UI.Menus.Menu_Utils
 
         public static SettingsState GetSettingsState()
         {
-            var supportedResolutions = new List<Resolution>(Screen.resolutions);
-            var currentResolutionIndex = supportedResolutions.FindIndex(
-                resolution => resolution.width == Screen.currentResolution.width &&
-                              resolution.height == Screen.currentResolution.height
-            );
             var newSettings = new SettingsState
             {
                 vSyncCount = QualitySettings.vSyncCount,
                 fullscreen = Screen.fullScreen,
                 qualityLevelIndex = QualitySettings.GetQualityLevel(),
-                resolutionIndex = currentResolutionIndex,
+                resolutionHeight = Screen.currentResolution.height,
+                resolutionWidth = Screen.currentResolution.width,
                 anisotropicFiltering = QualitySettings.anisotropicFiltering switch
                 {
                     AnisotropicFiltering.Disable => 0,
@@ -82,6 +79,8 @@ namespace Mechanics.UI.Menus.Menu_Utils
         public int qualityLevelIndex;
         public float masterVolume;
         public float musicVolume;
-        public int resolutionIndex;
+        public int resolutionWidth;
+        public int resolutionHeight;
+        // public int resolutionRefreshRate;  // TODO: Save also this
     }
 }

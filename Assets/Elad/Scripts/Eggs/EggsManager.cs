@@ -52,7 +52,6 @@ namespace Elad.Scripts
         [SerializeField] private GameObject EggInstantiatePosition;
         [SerializeField] private GameObject EggPrefab;
         private LinkedPool<Egg> _EggPool;
-        private int _startPoolSize = 50;
         [SerializeField] private int _maxPoolSize = 100;
         [SerializeField] private bool usePoolEgg = true;
 
