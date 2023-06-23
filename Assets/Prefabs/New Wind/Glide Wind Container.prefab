@@ -276,10 +276,6 @@ PrefabInstance:
       propertyPath: magnitude
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 6288711501106238515, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
-      propertyPath: particleForceFactor
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6294074780216098104, guid: 7e243b96a3f5c5d41aa02ec81c01d7b2, type: 3}
       propertyPath: m_Parameters.m_Length
       value: 12.658745

@@ -53,7 +53,7 @@ MonoBehaviour:
   wantedDrag: 0
   explosiveTime:
     duration: 2
-  particleForceFactor: 25
+  particleForceFactor: 10
   windEffectorController: {fileID: 1510235350894021610}
   debug: 0
 --- !u!1 &467286100121838158
@@ -5201,7 +5201,7 @@ ParticleSystemForceField:
     m_DirectionCurveY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 10
       minScalar: 2
       maxCurve:
         serializedVersion: 2

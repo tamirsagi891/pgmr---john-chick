@@ -118545,6 +118545,7 @@ MonoBehaviour:
   musicVolume: 0.036
   ambienceVolume: 1
   SFXVolume: 1
+  soundsData: {fileID: 0}
 --- !u!4 &1428366743
 Transform:
   m_ObjectHideFlags: 0
@@ -118579,6 +118580,34 @@ MonoBehaviour:
       Data3: -145671494
       Data4: 268779897
     Path: event:/Music/Dusk Forest
+  <playerFootsteps>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <collectFeatherSound>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <idleFeatherSound>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <windSound>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &1432186159
 GameObject:
   m_ObjectHideFlags: 0
@@ -118804,16 +118833,20 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Parameters.m_Length
+      value: 77.73919
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
+      propertyPath: m_Parameters.m_EndRange
+      value: 72.21858
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225154602909248634, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveY.scalar
-      value: 0.3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1232976937694561649, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: magnitude
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1232976937694561649, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: particleForceFactor
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1647114167816128794, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_SortingLayer
@@ -118822,42 +118855,6 @@ PrefabInstance:
     - target: {fileID: 2013411036219095210, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_SortingLayer
       value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3854379583618160852, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3854379583618160852, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3854379583618160852, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3860162213358760548, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3860162213358760548, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3860162213358760548, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4032174144022163662, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4032174144022163662, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4032174144022163662, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4154111415562176560, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: m_SortingLayer
@@ -119010,30 +119007,6 @@ PrefabInstance:
     - target: {fileID: 7558866328765405104, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
       propertyPath: EmissionModule.rateOverTime.minScalar
       value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7699761510812682862, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7699761510812682862, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7699761510812682862, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8649307641097801130, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8649307641097801130, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8649307641097801130, guid: f6cce9ee30da62b478ad222320b79cbe, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
