@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mechanics.UI.Menus.Menu_Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,8 +49,7 @@ namespace Mechanics.UI.Menus
         public override void OpenMenu()
         {
             base.OpenMenu();
-
-            vSyncToggle.isOn = QualitySettings.vSyncCount == 1;
+            vSyncToggle.isOn = QualitySettings.vSyncCount >= 1;
             fullscreenToggle.isOn = Screen.fullScreen;
             anisDropdown.value = QualitySettings.anisotropicFiltering switch
             {
@@ -75,6 +75,15 @@ namespace Mechanics.UI.Menus
             // audioEffectsSlider.SetValueWithoutNotify(audioManager.SFXVolume);
             audioMusicSlider.SetValueWithoutNotify(audioManager.musicVolume);
             // TODO: Save On Close.
+        }
+
+        public override void CloseMenu()
+        {
+            if (menuUiObject.activeSelf)
+            {
+                SaveSettings();
+            }
+            base.CloseMenu();
         }
 
         #endregion
@@ -158,18 +167,53 @@ namespace Mechanics.UI.Menus
         private void Start()
         {
             _supportedResolutions = new List<Resolution>(Screen.resolutions);
+            LoadSettings();
             _currentResolutionIndex = _supportedResolutions.FindIndex(
                 resolution => resolution.width == Screen.currentResolution.width &&
                               resolution.height == Screen.currentResolution.height
             );
-
-            // TODO: Save And load from json
         }
         
 
         #endregion
 
         #region Private Methods
+
+        private void SaveSettings()
+        {
+            var settings = SettingsSaver.GetSettingsState();
+            settings.musicVolume = audioMusicSlider.value;
+            settings.masterVolume = audioMasterSlider.value;
+            SettingsSaver.SaveSettings(settings);
+        }
+
+        private void LoadSettings()
+        {
+            var settings = SettingsSaver.LoadSettings();
+            QualitySettings.SetQualityLevel(settings.qualityLevelIndex);
+            QualitySettings.vSyncCount = settings.vSyncCount;
+            Screen.fullScreen = settings.fullscreen;
+            QualitySettings.anisotropicFiltering = settings.anisotropicFiltering switch
+            {
+                0 => AnisotropicFiltering.Disable,
+                1 => AnisotropicFiltering.Enable,
+                2 => AnisotropicFiltering.ForceEnable,
+                _ => QualitySettings.anisotropicFiltering
+            };
+
+            QualitySettings.antiAliasing = QualitySettings.antiAliasing switch
+            {
+                0 => 0,
+                1 => 2,
+                2 => 4,
+                3 => 8,
+                _ => QualitySettings.antiAliasing
+            };
+            _currentResolutionIndex = settings.resolutionIndex;
+            ApplyResolution();
+            audioMasterSlider.value = settings.masterVolume;
+            audioMusicSlider.value = settings.musicVolume;
+        }
 
         private void ApplyResolution()
         {
