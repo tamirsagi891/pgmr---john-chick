@@ -50,6 +50,9 @@ namespace Mechanics.New_Wind
         [SerializeField]
         private PassiveTimer explosiveTime = new(2f);
 
+        [SerializeField]
+        private bool keepParticleForceAlways = true;
+
         [Space]
         [SerializeField]
         [Tooltip("Slowdown the particles by this factor")]
@@ -83,7 +86,7 @@ namespace Mechanics.New_Wind
         {
             get
             {
-                if (IsExplodingType && NotExplodingCondition)
+                if (IsExplodingType && NotExplodingCondition && !keepParticleForceAlways)
                 {
                     return Vector2.zero;
                 }
@@ -251,12 +254,13 @@ namespace Mechanics.New_Wind
 
             MyForceField.directionX = force.x / particleForceFactor;
             MyForceField.directionY = force.y / particleForceFactor;
-
-            if (IsGlidingType && NotGlidingCondition)
+            
+            if (IsGlidingType && NotGlidingCondition ||
+                IsExplodingType && NotExplodingCondition)
             {
                 force = Vector2.zero;
             }
-
+            
             WindEffector.forceAngle = Angle;
             WindEffector.forceMagnitude = force.magnitude;
             WindEffector.drag = WantedDrag;

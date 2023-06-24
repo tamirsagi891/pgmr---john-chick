@@ -53,6 +53,7 @@ MonoBehaviour:
   wantedDrag: 0
   explosiveTime:
     duration: 2
+  keepParticleForceAlways: 1
   particleForceFactor: 10
   windEffectorController: {fileID: 1510235350894021610}
   debug: 0
@@ -106,7 +107,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -5093,7 +5094,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killImmediate: 0
+  killAtPause: 0
+  lifetimeAtPause: 0.5
   lifeAtExit: 0.15
+  burstCountAtResume: 1
 --- !u!1 &1056747810991743420
 GameObject:
   m_ObjectHideFlags: 0
@@ -10924,7 +10928,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killImmediate: 0
+  killAtPause: 0
+  lifetimeAtPause: 0.5
   lifeAtExit: 0.15
+  burstCountAtResume: 1
 --- !u!1 &2904587461992271432
 GameObject:
   m_ObjectHideFlags: 0
@@ -15998,7 +16005,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killImmediate: 0
+  killAtPause: 0
+  lifetimeAtPause: 0.5
   lifeAtExit: 0.15
+  burstCountAtResume: 1
 --- !u!1 &5033086864568913384
 GameObject:
   m_ObjectHideFlags: 0
@@ -21081,7 +21091,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killImmediate: 0
+  killAtPause: 0
+  lifetimeAtPause: 0.5
   lifeAtExit: 0.15
+  burstCountAtResume: 1
 --- !u!1 &7675385472465924281
 GameObject:
   m_ObjectHideFlags: 0
@@ -26216,4 +26229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killImmediate: 0
+  killAtPause: 0
+  lifetimeAtPause: 0.5
   lifeAtExit: 0.15
+  burstCountAtResume: 1
