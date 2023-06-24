@@ -146,9 +146,8 @@ namespace Mechanics.Enemies
                 {
                     MovementBehaviour.EnabledBehaviour = false;
                 }
-
-                events.onAttack.Invoke();
             }
+            events.onAttack.Invoke();
         }
 
         public void DropPickup()
