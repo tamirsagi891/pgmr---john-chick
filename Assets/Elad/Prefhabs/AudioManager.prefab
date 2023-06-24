@@ -71,29 +71,29 @@ MonoBehaviour:
     Path: event:/Music/Dusk Forest
   <playerFootsteps>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 230277948
+      Data2: 1194290362
+      Data3: 1223959943
+      Data4: 577523659
+    Path: event:/Player/Player Footsteps
   <collectFeatherSound>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1129043294
+      Data2: 1309008047
+      Data3: -16534119
+      Data4: 143759551
+    Path: event:/Fether/Collect Fether
   <idleFeatherSound>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1318307774
+      Data2: 1318102002
+      Data3: -232533086
+      Data4: 324017446
+    Path: event:/Fether/Fether Idle
   <windSound>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1041756123
+      Data2: 1184712076
+      Data3: -1410032200
+      Data4: 461773596
+    Path: event:/Ambiance/Wind

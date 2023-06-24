@@ -10,7 +10,7 @@ namespace Elad.Scripts.Arrows
     {
         [SerializeField] private FeathersManager.FeatherKind myFeatherKind;
         private int _id = 0;
-        
+
         private Vector3 _position;
 
         public Vector3 Position
@@ -44,23 +44,28 @@ namespace Elad.Scripts.Arrows
                 PlayerStatus.FeathersToCollectManager.AddFeather(this);
             }
 
-            _emitter = AudioManager.instance.InitializeEventEmitter(FMODEvents.instance.idleFeatherSound, gameObject);
-            _emitter.Play();
-
+            if (AudioManager.instance)
+            {
+                _emitter = AudioManager.instance.InitializeEventEmitter(FMODEvents.instance.idleFeatherSound,
+                    gameObject);
+                _emitter.Play();
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag(TagStrings.playerTag))
             {
-                _emitter.Stop();
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.collectFeatherSound, transform.position);
+                if (AudioManager.instance)
+                {
+                    _emitter.Stop();
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.collectFeatherSound, transform.position);
+                }
+
                 characterEvents.AddFeatherToPlayer.Invoke(MyFeatherKind);
                 PlayerStatus.FeathersToCollectManager.RemoveFeather(this);
                 this.gameObject.SetActive(false);
             }
         }
-
-
     }
 }
