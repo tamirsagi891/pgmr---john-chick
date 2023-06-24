@@ -149,8 +149,6 @@ public class HorizontalMovement : MonoBehaviour
             IsCrouching = true;
             _crouchIsPush = true;
         }
-
-
         else if (context.canceled)
         {
             if (!_touchingDirection.IsOnCeiling)
@@ -160,6 +158,15 @@ public class HorizontalMovement : MonoBehaviour
 
             _crouchIsPush = false;
         }
+        if (context.started && _onGround)
+        {
+            CameraManager.CrouchCameraController.SetOffset();
+        }
+        else if (context.canceled)
+        {
+            CameraManager.CrouchCameraController.ClearOffset();
+        }
+        
     }
 
     public void OnCrouch(bool state)

@@ -1,5 +1,6 @@
 using Cinemachine;
 using Elad.Scripts;
+using Managers;
 using UnityEngine;
 
 public class RoomTransition : MonoBehaviour
@@ -38,7 +39,7 @@ public class RoomTransition : MonoBehaviour
         if (other.CompareTag("Player") && !other.isTrigger)
         {
             virtualCam.SetActive(true);
-            PlayerStatus.CurrentVirtualCamara = virtualCam.GetComponent<CinemachineVirtualCamera>();
+            CameraManager.CrouchCameraController = virtualCam.GetComponent<CrouchCamera>();
         }
     }
     

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using BitStrap;
-using Elad.Music;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
@@ -12,17 +11,14 @@ using Logger = Nemesh.Logger;
 public class AudioManager : MonoBehaviour
 {
     [Header("Volume")]
-    [Range(0, 1)]
-    public float masterVolume = 1;
+    [SerializeField][Range(0, 1)] private float masterVolume = 1;
+    
+    [SerializeField][Range(0f, 1f)] private float musicVolume = 1f;
+    
+    [SerializeField][Range(0, 1)] private float ambienceVolume = 1;
 
-    [Range(0, 1)]
-    public float musicVolume = 1;
+    [SerializeField][Range(0, 1)] private float SFXVolume = 1;
 
-    [Range(0, 1)]
-    public float ambienceVolume = 1;
-
-    [Range(0, 1)]
-    public float SFXVolume = 1;
 
     private Bus masterBus;
     private Bus musicBus;
@@ -35,16 +31,51 @@ public class AudioManager : MonoBehaviour
     private EventInstance ambienceEventInstance;
     private EventInstance musicEventInstance;
 
+
     public static AudioManager instance { get; private set; }
 
-    public SoundsData Data
+    public float MasterVolume
     {
-        get => soundsData;
-        set => soundsData = value;
+        get => masterVolume;
+        set
+        {
+            masterVolume = value;
+            masterBus.setVolume(MasterVolume);
+
+        }
     }
 
-    [SerializeField]
-    private SoundsData soundsData;
+    public float MusicVolume
+    {
+        get => musicVolume;
+        set
+        {
+            musicVolume = value;
+            musicBus.setVolume(MusicVolume);
+
+        }
+    }
+
+    public float AmbienceVolume
+    {
+        get => ambienceVolume;
+        set
+        {
+            ambienceVolume = value;
+            ambienceBus.setVolume(AmbienceVolume);
+
+        }
+    }
+
+    public float SfxVolume
+    {
+        get => SFXVolume;
+        set
+        {
+            SFXVolume = value;
+            sfxBus.setVolume(SfxVolume);
+        }
+    }
 
     private void Awake()
     {
@@ -60,21 +91,22 @@ public class AudioManager : MonoBehaviour
 
         masterBus = RuntimeManager.GetBus("bus:/");
         musicBus = RuntimeManager.GetBus("bus:/Music");
-        // ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
-        // sfxBus = RuntimeManager.GetBus("bus:/SFX");
+        ambienceBus = RuntimeManager.GetBus("bus:/Ambiance");
+        sfxBus = RuntimeManager.GetBus("bus:/SFX");
     }
 
     private void OnValidate()
     {
-        masterBus.setVolume(masterVolume);
-        musicBus.setVolume(musicVolume);
-        // ambienceBus.setVolume(ambienceVolume);
-        // sfxBus.setVolume(SFXVolume);
+        masterBus.setVolume(MasterVolume);
+        musicBus.setVolume(MusicVolume);
+        ambienceBus.setVolume(AmbienceVolume);
+        sfxBus.setVolume(SfxVolume);
     }
 
     private void Start()
     {
         InitializeMusic(FMODEvents.instance.Music);
+        InitializeAmbience(FMODEvents.instance.windSound);
     }
 
     private void OnEnable()
@@ -92,19 +124,12 @@ public class AudioManager : MonoBehaviour
         MenuManager.OnSfxChangeEvent -= SetSfxVolume;
         MenuManager.OnAmbientChangeEvent -= SetAmbientVolume;
     }
-
-    // private void Update()
-    // {
-    //     masterBus.setVolume(masterVolume);
-    //     musicBus.setVolume(musicVolume);
-    //     // ambienceBus.setVolume(ambienceVolume);
-    //     sfxBus.setVolume(SFXVolume);
-    // }
+    
 
     private void InitializeMusic(EventReference musicEventReference)
     {
         musicEventInstance = CreatEventInstance(musicEventReference);
-        // musicEventInstance.start();
+        musicEventInstance.start();
     }
 
 
@@ -154,33 +179,83 @@ public class AudioManager : MonoBehaviour
 
     public void SetMasterVolume([CanBeNull] object caller, float volume)
     {
-        masterVolume = volume;
-        masterBus.setVolume(masterVolume);
+        MasterVolume = volume;
+        masterBus.setVolume(MasterVolume);
     }
 
     public void SetMusicVolume([CanBeNull] object caller, float volume)
     {
-        musicVolume = volume;
+        MusicVolume = volume;
         musicBus.setVolume(volume);
     }
 
     public void SetSfxVolume([CanBeNull] object sender, float volume)
     {
-        SFXVolume = volume;
+        SfxVolume = volume;
         sfxBus.setVolume(volume);
     }
 
     public void SetAmbientVolume([CanBeNull] object sender, float volume)
     {
-        ambienceVolume = volume;
+        AmbienceVolume = volume;
         ambienceBus.setVolume(volume);
     }
 
     #endregion
 
+    private void InitializeAmbience(EventReference ambienceEventReference)
+    {
+        ambienceEventInstance = CreatEventInstance(ambienceEventReference);
+        ambienceEventInstance.start();
+    }
+
+    public void SetAmbienceParameter(string parameterName, float parameterValue)
+    {
+        ambienceEventInstance.setParameterByName(parameterName, parameterValue);
+    }
+
+    public void SetMusicParameter(string parameterName, float parameterValue)
+    {
+        musicEventInstance.setParameterByName(parameterName, parameterValue);
+    }
+
+
+    public void SetMusicArea(MusicStrings.AreaSound areaSound)
+    {
+        musicEventInstance.setParameterByName(MusicStrings.areaParam, (float) areaSound);
+    }
+
+    private MusicStrings.AreaSound _currAreaSound = MusicStrings.AreaSound.OpenField;
 
     [Button]
-    public void MakeSound()
+    public void ChangeArea()
+    {
+        if (_currAreaSound == MusicStrings.AreaSound.OpenField)
+        {
+            _currAreaSound = MusicStrings.AreaSound.Cave;
+        }
+
+        else
+        {
+            _currAreaSound = MusicStrings.AreaSound.OpenField;
+        }
+
+        SetMusicArea(_currAreaSound);
+    }
+
+
+    [Button]
+    public void ChangeMusicVolume()
+    {
+        Logger.Log(MusicVolume);
+        Logger.Log(MusicStrings.musicVol);
+        SetMusicParameter(MusicStrings.musicVol, MusicVolume);
+    }
+
+
+    
+    [Button]
+    public void CloseMainMusic()
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.collectFeatherSound, this.transform.position);
     }

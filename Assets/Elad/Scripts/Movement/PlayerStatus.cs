@@ -2,6 +2,7 @@ using Cinemachine;
 using Elad.Scripts.Arrows;
 using Elad.Scripts.Combat;
 using Elad.Scripts.Save_Load_System;
+using Managers;
 using UnityEngine;
 
 namespace Elad.Scripts
@@ -51,7 +52,7 @@ namespace Elad.Scripts
         public static bool canSave = true;
         public static PlayerSaveData PlayerSaveData = new PlayerSaveData();
 
-        public static CinemachineVirtualCamera CurrentVirtualCamara;
+        public static CinemachineVirtualCamera CurrentVirtualCamara => CameraManager.CurrentVirtualCamara;
         public static ZoomCamera ZoomCamera;
 
         public static bool isGamePause;

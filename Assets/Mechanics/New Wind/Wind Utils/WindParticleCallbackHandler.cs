@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Avrahamy.EditorGadgets;
 using BitStrap;
 using UnityEngine;
 using Logger = Nemesh.Logger;
@@ -12,9 +13,19 @@ namespace Mechanics.New_Wind
     {
         [SerializeField]
         private bool killImmediate;
+
+        [SerializeField]
+        private bool killAtPause;
+
+        [ConditionalHide("killAtPause")]
+        [SerializeField]
+        private float lifetimeAtPause = 0.5f;
         
         [SerializeField]
         private float lifeAtExit = 0.5f;
+
+        [SerializeField]
+        private int burstCountAtResume = 1;
 
         public bool KillImmediate
         {
@@ -25,26 +36,27 @@ namespace Mechanics.New_Wind
         private ParticleSystem _myParticleSystem;
         private readonly List<ParticleSystem.Particle> _exit = new();
         private bool _hasSystem;
+        private ParticleSystem.Particle[] _pauseParticles;
 
         #region MonoBehaviour
 
         private void OnValidate()
         {
             _hasSystem = TryGetComponent(out _myParticleSystem);
-            // if (_hasSystem)
-            // {
-            //     _pauseParticles = new ParticleSystem.Particle[_myParticleSystem.main.maxParticles];
-            // }
+            if (_hasSystem && killAtPause)
+            {
+                _pauseParticles = new ParticleSystem.Particle[_myParticleSystem.main.maxParticles];
+            }
         }
 
         // Start is called before the first frame update
         void OnEnable()
         {
             _hasSystem = TryGetComponent(out _myParticleSystem);
-            // if (_hasSystem)
-            // {
-            //     _pauseParticles = new ParticleSystem.Particle[_myParticleSystem.main.maxParticles];
-            // }
+            if (_hasSystem && killAtPause)
+            {
+                _pauseParticles = new ParticleSystem.Particle[_myParticleSystem.main.maxParticles];
+            }
         }
 
         #endregion
@@ -59,17 +71,17 @@ namespace Mechanics.New_Wind
                 var em = _myParticleSystem.emission;
                 em.enabled = false;
                 // _myParticleSystem.Stop(true, behaviourOnPause);
-                // if (behaviourOnPause == ParticleSystemStopBehavior.StopEmitting)
-                // {
-                //     var numExit = _myParticleSystem.GetParticles(_pauseParticles);
-                //     for (var i = 0; i < numExit; i++)
-                //     {
-                //         var p = _pauseParticles[i];
-                //         p.remainingLifetime = lifeAtExit;
-                //         _pauseParticles[i] = p;
-                //     }
-                //     _myParticleSystem.SetParticles(_pauseParticles, numExit);
-                // }
+                if (killAtPause)
+                {
+                    var numExit = _myParticleSystem.GetParticles(_pauseParticles);
+                    for (var i = 0; i < numExit; i++)
+                    {
+                        var p = _pauseParticles[i];
+                        p.remainingLifetime = Mathf.Min(p.remainingLifetime, lifetimeAtPause);
+                        _pauseParticles[i] = p;
+                    }
+                    _myParticleSystem.SetParticles(_pauseParticles, numExit);
+                }
                 // else
                 // {
                 //     _myParticleSystem.Clear(true);
@@ -94,7 +106,7 @@ namespace Mechanics.New_Wind
                 //     var count = em.GetBurst(0).count;
                 //     _myParticleSystem.Emit((int) count.constant);
                 // }
-                _myParticleSystem.Emit(1);
+                _myParticleSystem.Emit(burstCountAtResume);
                 // _myParticleSystem.Clear(true);
                 // _myParticleSystem.Stop(true, ParticleSystemStopBehavior.StopEmitting);
                 // _myParticleSystem.Play(true);
@@ -117,7 +129,7 @@ namespace Mechanics.New_Wind
             for (var i = 0; i < numExit; i++)
             {
                 var p = _exit[i];
-                p.remainingLifetime = KillImmediate ? Time.fixedDeltaTime : lifeAtExit;
+                p.remainingLifetime = Mathf.Min(p.remainingLifetime, KillImmediate ? Time.fixedDeltaTime : lifeAtExit);
                 _exit[i] = p;
             }
             

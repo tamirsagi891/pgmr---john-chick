@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1396ee9d89b0b7a4db9fd53703191abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDistanceThreshold: 8
+  fadeDistanceThreshold: 15
   fadeDuration: 0.4
   maxAlpha: 1
   minAlpha: 0
