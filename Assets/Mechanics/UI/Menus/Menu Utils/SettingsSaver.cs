@@ -63,7 +63,9 @@ namespace Mechanics.UI.Menus.Menu_Utils
                     _ => 0
                 },
                 masterVolume = 0.5f,
-                musicVolume = 0.5f
+                musicVolume = 0.5f,
+                // sfxVolume = 0.5f,
+                // ambientVolume = 0.5f,
             };
             return newSettings;
         }
@@ -79,6 +81,8 @@ namespace Mechanics.UI.Menus.Menu_Utils
         public int qualityLevelIndex;
         public float masterVolume;
         public float musicVolume;
+        // public float sfxVolume;
+        // public float ambientVolume;
         public int resolutionWidth;
         public int resolutionHeight;
         // public int resolutionRefreshRate;  // TODO: Save also this

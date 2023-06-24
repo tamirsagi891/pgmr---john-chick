@@ -21,12 +21,10 @@ namespace Mechanics.UI.Menus
         
         public static event EventHandler<float> OnMasterChangeEvent;
         public static event EventHandler<float> OnMusicChangeEvent;
+        public static event EventHandler<float> OnSfxChangeEvent;
+        public static event EventHandler<float> OnAmbientChangeEvent;
         
         #region Inspector
-
-        [Header("Events")]
-        [SerializeField]
-        public SoundEvents soundEvents;
 
         [Header("Menus")]
         [SerializeField]
@@ -64,16 +62,22 @@ namespace Mechanics.UI.Menus
 
         public void OnMasterChange(float value)
         {
-            // Logger.LogWarning("OnMasterChange: Missing save to static file.", this);
-            soundEvents.onMasterChange.Invoke(value);
             OnMasterChangeEvent?.Invoke(this, value);
         }
 
         public void OnMusicChange(float value)
         {
-            // Logger.LogWarning("OnMasterChange: Missing save to static file.", this);
-            soundEvents.onMusicChange.Invoke(value);
             OnMusicChangeEvent?.Invoke(this, value);
+        }
+        
+        public void OnSfxChange(float value)
+        {
+            OnSfxChangeEvent?.Invoke(this, value);
+        }
+        
+        public void OnAmbientChange(float value)
+        {
+            OnAmbientChangeEvent?.Invoke(this, value);
         }
 
         #endregion
@@ -326,12 +330,5 @@ namespace Mechanics.UI.Menus
         }
 
         #endregion
-    }
-
-    [Serializable]
-    public class SoundEvents
-    {
-        public UnityEvent<float> onMasterChange = new();
-        public UnityEvent<float> onMusicChange = new();
     }
 }

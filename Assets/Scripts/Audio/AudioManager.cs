@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using BitStrap;
 using Elad.Music;
@@ -8,7 +7,6 @@ using FMODUnity;
 using FMOD.Studio;
 using JetBrains.Annotations;
 using Mechanics.UI.Menus;
-using UnityEditor;
 using Logger = Nemesh.Logger;
 
 public class AudioManager : MonoBehaviour
@@ -45,7 +43,8 @@ public class AudioManager : MonoBehaviour
         set => soundsData = value;
     }
 
-    [SerializeField] private SoundsData soundsData;
+    [SerializeField]
+    private SoundsData soundsData;
 
     private void Awake()
     {
@@ -65,6 +64,14 @@ public class AudioManager : MonoBehaviour
         // sfxBus = RuntimeManager.GetBus("bus:/SFX");
     }
 
+    private void OnValidate()
+    {
+        masterBus.setVolume(masterVolume);
+        musicBus.setVolume(musicVolume);
+        // ambienceBus.setVolume(ambienceVolume);
+        // sfxBus.setVolume(SFXVolume);
+    }
+
     private void Start()
     {
         InitializeMusic(FMODEvents.instance.Music);
@@ -74,21 +81,25 @@ public class AudioManager : MonoBehaviour
     {
         MenuManager.OnMasterChangeEvent += SetMasterVolume;
         MenuManager.OnMusicChangeEvent += SetMusicVolume;
+        MenuManager.OnSfxChangeEvent += SetSfxVolume;
+        MenuManager.OnAmbientChangeEvent += SetAmbientVolume;
     }
 
     private void OnDisable()
     {
         MenuManager.OnMasterChangeEvent -= SetMasterVolume;
         MenuManager.OnMusicChangeEvent -= SetMusicVolume;
+        MenuManager.OnSfxChangeEvent -= SetSfxVolume;
+        MenuManager.OnAmbientChangeEvent -= SetAmbientVolume;
     }
 
-    private void Update()
-    {
-        masterBus.setVolume(masterVolume);
-        musicBus.setVolume(musicVolume);
-        // ambienceBus.setVolume(ambienceVolume);
-        // sfxBus.setVolume(SFXVolume);
-    }
+    // private void Update()
+    // {
+    //     masterBus.setVolume(masterVolume);
+    //     musicBus.setVolume(musicVolume);
+    //     // ambienceBus.setVolume(ambienceVolume);
+    //     sfxBus.setVolume(SFXVolume);
+    // }
 
     private void InitializeMusic(EventReference musicEventReference)
     {
@@ -117,7 +128,7 @@ public class AudioManager : MonoBehaviour
         return emitter;
     }
 
-    
+
     private void CleanUp()
     {
         // stop and release any created instances
@@ -151,6 +162,18 @@ public class AudioManager : MonoBehaviour
     {
         musicVolume = volume;
         musicBus.setVolume(volume);
+    }
+
+    public void SetSfxVolume([CanBeNull] object sender, float volume)
+    {
+        SFXVolume = volume;
+        sfxBus.setVolume(volume);
+    }
+
+    public void SetAmbientVolume([CanBeNull] object sender, float volume)
+    {
+        ambienceVolume = volume;
+        ambienceBus.setVolume(volume);
     }
 
     #endregion

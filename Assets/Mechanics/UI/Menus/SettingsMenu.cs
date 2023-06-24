@@ -23,6 +23,9 @@ namespace Mechanics.UI.Menus
 
         [SerializeField]
         private Slider audioEffectsSlider;
+        
+        [SerializeField]
+        private Slider audioAmbientSlider;
 
         [SerializeField]
         private Toggle vSyncToggle;
@@ -179,6 +182,8 @@ namespace Mechanics.UI.Menus
             var settings = SettingsSaver.GetSettingsState();
             settings.musicVolume = audioMusicSlider.value;
             settings.masterVolume = audioMasterSlider.value;
+            // settings.sfxVolume = audioEffectsSlider.value;
+            // settings.ambientVolume = audioAmbientSlider.value;
             SettingsSaver.SaveSettings(settings);
         }
 
@@ -211,6 +216,8 @@ namespace Mechanics.UI.Menus
             
             audioMasterSlider.value = settings.masterVolume;
             audioMusicSlider.value = settings.musicVolume;
+            // audioEffectsSlider.value = settings.sfxVolume;
+            // audioAmbientSlider.value = settings.ambientVolume;
         }
 
         private void ApplyResolution()
