@@ -100,13 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9e6644ee0945bf94cf8d8556937aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEvents:
-    onMasterChange:
-      m_PersistentCalls:
-        m_Calls: []
-    onMusicChange:
-      m_PersistentCalls:
-        m_Calls: []
   settingsMenu: {fileID: 6236053638251080906}
   gameOverMenu: {fileID: 2826136377049587506}
   pauseMenu: {fileID: 7300530423317082995}
@@ -202,7 +195,8 @@ MonoBehaviour:
   firstSelected: {fileID: 2369687164980298685}
   audioMasterSlider: {fileID: 747171938455610664}
   audioMusicSlider: {fileID: 7126809596433568677}
-  audioEffectsSlider: {fileID: 0}
+  audioEffectsSlider: {fileID: 6959345518389718261}
+  audioAmbientSlider: {fileID: 5706437436272180628}
   vSyncToggle: {fileID: 4000565274600367517}
   fullscreenToggle: {fileID: 5482276917629887815}
   anisDropdown: {fileID: 3499192811611510261}
@@ -1923,6 +1917,18 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnMusicChange
       objectReference: {fileID: 0}
+    - target: {fileID: 2301584839118800329, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5482870583449423469}
+    - target: {fileID: 2301584839118800329, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSfxChange
+      objectReference: {fileID: 0}
+    - target: {fileID: 2301584839118800329, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Mechanics.UI.Menus.MenuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2829327333282561990, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1958,6 +1964,18 @@ PrefabInstance:
     - target: {fileID: 2959532128975222035, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482696804711322792, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5482870583449423469}
+    - target: {fileID: 3482696804711322792, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnAmbientChange
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482696804711322792, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Mechanics.UI.Menus.MenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3610869025936206616, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2325,6 +2343,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5706437436272180628 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3482696804711322792, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+  m_PrefabInstance: {fileID: 9179550828875917628}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5859732751667427701 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3329746942255255625, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
@@ -2334,6 +2363,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6959345518389718261 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2301584839118800329, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+  m_PrefabInstance: {fileID: 9179550828875917628}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7126809596433568677 stripped
