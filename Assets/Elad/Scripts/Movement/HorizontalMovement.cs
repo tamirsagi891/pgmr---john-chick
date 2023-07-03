@@ -1,3 +1,4 @@
+using BitStrap;
 using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
@@ -100,7 +101,6 @@ public class HorizontalMovement : MonoBehaviour
             {
                 transform.localScale *= new Vector2(-1, 1);
                 ParticleEvents.PlayerChangeDirection.Invoke();
-
             }
 
             _isFacingRight = value;
@@ -110,7 +110,14 @@ public class HorizontalMovement : MonoBehaviour
 
     [SerializeField] [Range(5, 20)] private float knockBackMultiplayer = 1;
 
-    [Header("Sounds")] private EventInstance _playerFootsteps;
+    [Header("Sounds")] [SerializeField] [Range(0, 0.1f)]
+    private float stepsVolume = 0.05f;
+
+    [SerializeField] [Range(0, 1)] private float stepsSoundGapTime = 0.1f;
+    private float _stepsSoundGapTimer;
+    private bool _stopStepSound;
+
+    private EventInstance _playerFootsteps;
 
     private void OnEnable()
     {
@@ -138,6 +145,7 @@ public class HorizontalMovement : MonoBehaviour
     private void Start()
     {
         _playerFootsteps = AudioManager.instance.CreatEventInstance(FMODEvents.instance.playerFootsteps);
+        SetGrassSurface();
     }
 
     public void OnCrouch(InputAction.CallbackContext context)
@@ -158,6 +166,7 @@ public class HorizontalMovement : MonoBehaviour
 
             _crouchIsPush = false;
         }
+
         if (context.started && _onGround)
         {
             CameraManager.CrouchCameraController.SetOffset();
@@ -166,7 +175,6 @@ public class HorizontalMovement : MonoBehaviour
         {
             CameraManager.CrouchCameraController.ClearOffset();
         }
-        
     }
 
     public void OnCrouch(bool state)
@@ -231,6 +239,8 @@ public class HorizontalMovement : MonoBehaviour
         _desiredVelocity = new Vector2(currentDirX, 0f) * Mathf.Max(CurrentMoveSpeed - friction, 0f);
 
         CrouchHandler();
+        UpdateSound();
+
     }
 
     private void CrouchHandler()
@@ -304,8 +314,7 @@ public class HorizontalMovement : MonoBehaviour
                 RunWithAcceleration();
             }
         }
-        
-        UpdateSound();
+
     }
 
     private void RunWithAcceleration()
@@ -386,7 +395,7 @@ public class HorizontalMovement : MonoBehaviour
             );
             return;
         }
-        
+
         knockBack *= knockBackMultiplayer;
         _rB.AddForce(knockBack, ForceMode2D.Impulse);
     }
@@ -402,8 +411,10 @@ public class HorizontalMovement : MonoBehaviour
 
     private void UpdateSound()
     {
+        _playerFootsteps.setParameterByName(MusicStrings.FootStepsVolume, stepsVolume);
         if (DirectionX != 0 && _touchingDirection.IsGrounded)
         {
+            _stopStepSound = false;
             PLAYBACK_STATE playbackState;
             _playerFootsteps.getPlaybackState(out playbackState);
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
@@ -414,8 +425,49 @@ public class HorizontalMovement : MonoBehaviour
 
         else
         {
-            _playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+            if (_stopStepSound)
+            {
+                _stepsSoundGapTimer -= Time.deltaTime;
+                if (_stepsSoundGapTimer <= 0)
+                {
+                    _playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+                    _stopStepSound = false;
+                }
+            }
+
+            else
+            {
+                _stepsSoundGapTimer = stepsSoundGapTime;
+                _stopStepSound = true;
+            }
         }
     }
 
+    [SerializeField] private MusicStrings.SurfaceSound surfaceSound = MusicStrings.SurfaceSound.Grass;
+
+    private void SetGrassSurface()
+    {
+        _playerFootsteps.setParameterByName(MusicStrings.FootStepsSurfaceParam, (float) surfaceSound);
+        _playerFootsteps.setParameterByName(MusicStrings.FootStepsVolume, stepsVolume);
+    }
+
+    [Button]
+    public void ChangeSurface()
+    {
+        switch (surfaceSound)
+        {
+            case MusicStrings.SurfaceSound.Grass:
+                surfaceSound = MusicStrings.SurfaceSound.WoodPlatform;
+                break;
+            case MusicStrings.SurfaceSound.WoodPlatform:
+                surfaceSound = MusicStrings.SurfaceSound.Cave;
+                break;
+            case MusicStrings.SurfaceSound.Cave:
+                surfaceSound = MusicStrings.SurfaceSound.Grass;
+                break;
+        }
+
+        _playerFootsteps.setParameterByName(MusicStrings.FootStepsSurfaceParam, (float) surfaceSound);
+        _playerFootsteps.setParameterByName(MusicStrings.FootStepsVolume, stepsVolume);
+    }
 }

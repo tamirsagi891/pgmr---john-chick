@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{dad04afd-3fde-46e3-a8be-e85ad3e47164}">
+		<property name="assetPath">
+			<value>Character/Footsteps/Turn.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.7356916099773243</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{423e3eea-3ef9-4730-805b-bb05f135121e}</destination>
+		</relationship>
+	</object>
+</objects>

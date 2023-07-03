@@ -40,8 +40,8 @@ namespace Managers
         {
             Logger.Log("Initializing Game State", Color.black);
             IsGamePause = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            // Cursor.lockState = CursorLockMode.Locked;
+            // Cursor.visible = false;
         }
     }
 }

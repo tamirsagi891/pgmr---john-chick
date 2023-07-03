@@ -10085,7 +10085,7 @@ Transform:
   - {fileID: 4063019981398509014}
   - {fileID: 6716017979488353903}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8728776469950805241
 Rigidbody2D:
@@ -10390,6 +10390,9 @@ MonoBehaviour:
   maxSpeedCrouching: 7
   crouchingWalkSpeed: 7
   knockBackMultiplayer: 5
+  stepsVolume: 0.1
+  stepsSoundGapTime: 0
+  surfaceSound: 0
 --- !u!114 &2069969123638755554
 MonoBehaviour:
   m_ObjectHideFlags: 0

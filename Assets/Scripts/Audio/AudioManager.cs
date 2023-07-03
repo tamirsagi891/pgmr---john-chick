@@ -31,7 +31,7 @@ public class AudioManager : MonoBehaviour
     private EventInstance ambienceEventInstance;
     private EventInstance musicEventInstance;
 
-
+    
     public static AudioManager instance { get; private set; }
 
     public float MasterVolume
@@ -76,6 +76,9 @@ public class AudioManager : MonoBehaviour
             sfxBus.setVolume(SfxVolume);
         }
     }
+    
+    
+    
 
     private void Awake()
     {
@@ -129,7 +132,7 @@ public class AudioManager : MonoBehaviour
     private void InitializeMusic(EventReference musicEventReference)
     {
         musicEventInstance = CreatEventInstance(musicEventReference);
-        musicEventInstance.start();
+        // musicEventInstance.start();
     }
 
 
@@ -180,25 +183,21 @@ public class AudioManager : MonoBehaviour
     public void SetMasterVolume([CanBeNull] object caller, float volume)
     {
         MasterVolume = volume;
-        masterBus.setVolume(MasterVolume);
     }
 
     public void SetMusicVolume([CanBeNull] object caller, float volume)
     {
         MusicVolume = volume;
-        musicBus.setVolume(volume);
     }
 
     public void SetSfxVolume([CanBeNull] object sender, float volume)
     {
         SfxVolume = volume;
-        sfxBus.setVolume(volume);
     }
 
     public void SetAmbientVolume([CanBeNull] object sender, float volume)
     {
         AmbienceVolume = volume;
-        ambienceBus.setVolume(volume);
     }
 
     #endregion

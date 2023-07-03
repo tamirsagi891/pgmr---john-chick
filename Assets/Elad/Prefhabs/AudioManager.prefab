@@ -45,11 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889b889823770cf4a9f7699fe720e357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 1
-  musicVolume: 0.036
-  ambienceVolume: 1
-  SFXVolume: 1
-  soundsData: {fileID: 0}
+  masterVolume: 0
+  musicVolume: 0.243
+  ambienceVolume: 0
+  SFXVolume: 0
 --- !u!114 &7585313106572696500
 MonoBehaviour:
   m_ObjectHideFlags: 0

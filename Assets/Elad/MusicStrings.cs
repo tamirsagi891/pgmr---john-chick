@@ -14,4 +14,16 @@ public static class MusicStrings
         OpenField,
         Cave
     }
+    
+    
+    internal static string FootStepsVolume = "StepsVolume";
+    internal static string FootStepsSurfaceParam = "FootStepsSurface";
+
+    public enum SurfaceSound
+    {
+        Grass,
+        WoodPlatform,
+        Cave,
+        FallingPlatform
+    }
 }
