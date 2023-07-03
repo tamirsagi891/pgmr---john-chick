@@ -94,7 +94,8 @@ namespace Mechanics.Tutorial_Keys
         private void OnMove(InputAction.CallbackContext context)
         {
             var direction = context.ReadValue<Vector2>();
-            MarkDirections(direction);
+            MarkDirections(direction, context.control.name);
+            // Logger.Log(context.control);
         }
         
         private void OnCrouch(InputAction.CallbackContext context)
@@ -111,14 +112,16 @@ namespace Mechanics.Tutorial_Keys
         
         #region Markers
 
-        private void MarkDirections(Vector2 direction)
+        private void MarkDirections(Vector2 direction, string spriteName)
         {
             MarkSprite(direction.x > 0, "rightArrow");
             MarkSprite(direction.x < 0, "leftArrow");
+            //Logger.Log(spriteName);
         }
 
         private void MarkSprite(bool state, string spriteName)
         {
+            // Logger.Log(spriteName);
             var format = GetSpriteFormatWithName(spriteName);
             var coloredFormat = GetFormatWithColor(format, pressedColor);
             if (state)

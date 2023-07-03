@@ -293,7 +293,7 @@ namespace Mechanics.New_Wind
 
     }
 #if UNITY_EDITOR
-    [CustomEditor(typeof(WindController))]
+    [CustomEditor(typeof(WindController)), CanEditMultipleObjects]
     public class WindControllerEditor: Editor
     {
         private readonly BoxBoundsHandle _myBoxBoundsHandle = new();

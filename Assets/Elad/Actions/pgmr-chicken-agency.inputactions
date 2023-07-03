@@ -120,7 +120,7 @@
                     "id": "978bfe49-cc26-4a3d-ab7b-7d7a29327403",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "StickDeadzone",
                     "groups": ";Gamepad",
                     "action": "Move",
                     "isComposite": false,
@@ -326,6 +326,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ab2a4087-d790-4dbb-8f37-ad87da99f78d",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "38fed2aa-3016-4859-a359-29279673048c",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -353,6 +364,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec72efaa-b435-4199-940e-f86d09bc0217",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "AxisDeadzone",
+                    "groups": "Gamepad",
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -404,7 +426,7 @@
                 {
                     "name": "",
                     "id": "13a977a4-1fa8-4ada-8130-8d6d85d9e4fb",
-                    "path": "<Keyboard>/upArrow",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -415,10 +437,21 @@
                 {
                     "name": "",
                     "id": "4cc6c05a-6cc5-443b-9e7a-9cc58290ceb4",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Save",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "204b0a27-626d-4062-b911-d4a4f6163344",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Save",
                     "isComposite": false,
                     "isPartOfComposite": false
