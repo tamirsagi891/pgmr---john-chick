@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889b889823770cf4a9f7699fe720e357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 0
-  musicVolume: 0.243
+  masterVolume: 1
+  musicVolume: 0
   ambienceVolume: 0
-  SFXVolume: 0
+  SFXVolume: 1
 --- !u!114 &7585313106572696500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,25 +63,88 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Music>k__BackingField:
     Guid:
-      Data1: 879876853
-      Data2: 1272158077
-      Data3: -145671494
-      Data4: 268779897
-    Path: event:/Music/Dusk Forest
+      Data1: -371144329
+      Data2: 1097612771
+      Data3: 1874900871
+      Data4: 2040178500
+    Path: event:/Music/Jon Whick/think
   <playerFootsteps>k__BackingField:
     Guid:
-      Data1: 230277948
-      Data2: 1194290362
-      Data3: 1223959943
-      Data4: 577523659
-    Path: event:/Player/Player Footsteps
+      Data1: -2042504789
+      Data2: 1091499983
+      Data3: 1970694830
+      Data4: 197709696
+    Path: event:/Player/new Footsteps
+  <playerTurnSide>k__BackingField:
+    Guid:
+      Data1: -1202832403
+      Data2: 1174868010
+      Data3: -753191254
+      Data4: -1867613885
+    Path: event:/Player/Turn
+  <playerJump>k__BackingField:
+    Guid:
+      Data1: -1578729437
+      Data2: 1241779899
+      Data3: 1088881305
+      Data4: -1968473151
+    Path: event:/Player/Jump
+  <playerWallSlide>k__BackingField:
+    Guid:
+      Data1: 466163723
+      Data2: 1123067193
+      Data3: -1544997718
+      Data4: -1358905489
+    Path: event:/Player/Wall Slide
+  <playerGliding>k__BackingField:
+    Guid:
+      Data1: -1449113965
+      Data2: 1251913387
+      Data3: -1325042001
+      Data4: 814145336
+    Path: event:/Player/gliding
+  <playerHeartbeat>k__BackingField:
+    Guid:
+      Data1: -900684951
+      Data2: 1319194933
+      Data3: 1920642976
+      Data4: 290112656
+    Path: event:/Player/heartBeat
+  <playerGotHurt>k__BackingField:
+    Guid:
+      Data1: -1104003933
+      Data2: 1152782943
+      Data3: -1181867107
+      Data4: 2074211019
+    Path: event:/Player/gotHurt
+  <playerDie>k__BackingField:
+    Guid:
+      Data1: -2061799502
+      Data2: 1240362643
+      Data3: 1913830323
+      Data4: 1454059397
+    Path: event:/Player/Death
+  <playerWakeUp>k__BackingField:
+    Guid:
+      Data1: -1939118588
+      Data2: 1233054477
+      Data3: -725010247
+      Data4: -1712713854
+    Path: event:/Player/Waking Up
+  <playerLanding>k__BackingField:
+    Guid:
+      Data1: 1179326131
+      Data2: 1181727036
+      Data3: 1557709708
+      Data4: 1178097370
+    Path: event:/Player/Landing
   <collectFeatherSound>k__BackingField:
     Guid:
-      Data1: 1129043294
-      Data2: 1309008047
-      Data3: -16534119
-      Data4: 143759551
-    Path: event:/Fether/Collect Fether
+      Data1: 476848111
+      Data2: 1219749474
+      Data3: -1689017186
+      Data4: -468021550
+    Path: event:/Player/Chicken Fighther
   <idleFeatherSound>k__BackingField:
     Guid:
       Data1: 1318307774
@@ -96,3 +159,24 @@ MonoBehaviour:
       Data3: -1410032200
       Data4: 461773596
     Path: event:/Ambiance/Wind
+  <crumblingPlatform>k__BackingField:
+    Guid:
+      Data1: -645758561
+      Data2: 1317957327
+      Data3: 1830977667
+      Data4: -64555720
+    Path: event:/Platforms/Crumbelling Platform
+  <fallingPlatform>k__BackingField:
+    Guid:
+      Data1: 861339767
+      Data2: 1179270012
+      Data3: -1982331224
+      Data4: 455600017
+    Path: event:/Platforms/Falling Platformer
+  <woodPlatform>k__BackingField:
+    Guid:
+      Data1: -1678008699
+      Data2: 1255942613
+      Data3: -314317432
+      Data4: -381517284
+    Path: event:/Platforms/Wood Platform

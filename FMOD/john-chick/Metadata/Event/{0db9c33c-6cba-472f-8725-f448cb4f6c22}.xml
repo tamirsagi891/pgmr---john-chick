@@ -120,6 +120,12 @@
 	</object>
 	<object class="MixerBusPanner" id="{d473601b-6902-4970-b54d-9176b94c5541}" />
 	<object class="EventSound" id="{e60f7d3c-22b6-4f30-88bc-1ea9a1427973}">
+		<property name="startOffset">
+			<value>15</value>
+		</property>
+		<property name="volume">
+			<value>-10.5</value>
+		</property>
 		<property name="pitch">
 			<value>10</value>
 		</property>
@@ -133,6 +139,9 @@
 	<object class="EventSound" id="{285fbb20-67ee-4b68-9c03-353ead0dff8c}">
 		<property name="start">
 			<value>1</value>
+		</property>
+		<property name="volume">
+			<value>7.5</value>
 		</property>
 		<relationship name="event">
 			<destination>{a8dbdd28-2d2f-4eb7-af42-662ce7c3b4ab}</destination>
@@ -197,8 +206,17 @@
 		<property name="attackTime">
 			<value>0</value>
 		</property>
+		<property name="holdTime">
+			<value>60000</value>
+		</property>
+		<property name="decayTime">
+			<value>60000</value>
+		</property>
+		<property name="releaseTime">
+			<value>60000</value>
+		</property>
 		<property name="releaseShape">
-			<value>0.356008708</value>
+			<value>0.675192773</value>
 		</property>
 		<property name="finalValue">
 			<value>-80</value>

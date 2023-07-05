@@ -317,9 +317,13 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
+  - Cave
+  - Chicken
   - Collect
+  - Life
   - Movement
   - Music
+  - Platforms
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0

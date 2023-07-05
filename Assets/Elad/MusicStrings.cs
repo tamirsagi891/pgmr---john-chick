@@ -15,10 +15,11 @@ public static class MusicStrings
         Cave
     }
     
-    
+    [Header("FootSteps")]
     internal static string FootStepsVolume = "StepsVolume";
     internal static string FootStepsSurfaceParam = "FootStepsSurface";
-
+    internal static string FootStepsPitch = "FootStepsPitch";
+    
     public enum SurfaceSound
     {
         Grass,
@@ -26,4 +27,10 @@ public static class MusicStrings
         Cave,
         FallingPlatform
     }
+    
+    
+    [Header("HeartBeat")]
+    internal static string HeartBeatPitch = "heartBeatPitch";
+
+    
 }

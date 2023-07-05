@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using System.Collections;
+using FMOD.Studio;
 
 public class FallingPlatform : MonoBehaviour
 {
@@ -23,6 +25,8 @@ public class FallingPlatform : MonoBehaviour
     private bool isReadyToReset = false;
     private float respawnTimer = 0f;
 
+    [Header("Sounds")] private EventInstance crumblingPlatform;
+
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
@@ -32,12 +36,18 @@ public class FallingPlatform : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag(playerTag).transform;
     }
 
+    private void Start()
+    {
+        crumblingPlatform = AudioManager.instance.CreatEventInstance(FMODEvents.instance.crumblingPlatform);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag(playerTag) && !isFalling)
         {
             if (collision.contacts[0].normal.y < 0) // If the player is above the platform
             {
+                crumblingPlatform.start();
                 StartCoroutine(ShakeAndFall());
             }
         }
@@ -61,6 +71,8 @@ public class FallingPlatform : MonoBehaviour
             boxCollider.isTrigger = true;
         }
         // Fall
+        crumblingPlatform.stop(STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.fallingPlatform, transform.position);
         rb.bodyType = RigidbodyType2D.Dynamic;
     }
 

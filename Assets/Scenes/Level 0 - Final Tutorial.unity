@@ -34412,18 +34412,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7195016850750989981, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: SFXVolume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7195016850750989981, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: musicVolume
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7195016850750989981, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: masterVolume
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

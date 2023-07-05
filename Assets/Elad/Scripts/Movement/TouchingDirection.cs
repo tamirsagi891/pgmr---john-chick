@@ -19,6 +19,11 @@ public class TouchingDirection : MonoBehaviour
         set
         {
             _animator.SetBool(AnimationStrings.isGrounded, value);
+            if (value && !_isGrounded)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerLanding, transform.position);
+ 
+            }
             _isGrounded = value;
             PlayerStatus.IsGrounded = value;
         }

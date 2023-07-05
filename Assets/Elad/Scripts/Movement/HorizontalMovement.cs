@@ -80,6 +80,16 @@ public class HorizontalMovement : MonoBehaviour
         {
             if (_isCrouching != value)
             {
+                if (value)
+                {
+                    _playerFootsteps.setParameterByName(MusicStrings.FootStepsPitch, 1);
+
+                }
+
+                else
+                {
+                    _playerFootsteps.setParameterByName(MusicStrings.FootStepsPitch, 0);
+                }
                 _animator.SetBool(AnimationStrings.isCrouching, value);
 
                 _isCrouching = value;
@@ -239,8 +249,7 @@ public class HorizontalMovement : MonoBehaviour
         _desiredVelocity = new Vector2(currentDirX, 0f) * Mathf.Max(CurrentMoveSpeed - friction, 0f);
 
         CrouchHandler();
-        UpdateSound();
-
+        UpdateFootStepsSound();
     }
 
     private void CrouchHandler()
@@ -251,6 +260,7 @@ public class HorizontalMovement : MonoBehaviour
             {
                 IsCrouching = false;
             }
+
             if (!_crouchIsPush && !_touchingDirection.IsOnCeiling)
             {
                 // Logger.Log("kaka");
@@ -318,7 +328,6 @@ public class HorizontalMovement : MonoBehaviour
                 RunWithAcceleration();
             }
         }
-
     }
 
     private void RunWithAcceleration()
@@ -365,14 +374,23 @@ public class HorizontalMovement : MonoBehaviour
 
     public void SetFacingDirection(float movementInput)
     {
+        bool changedSides = false;
         if (movementInput > 0 && !IsFacingRight)
         {
+            changedSides = true;
             IsFacingRight = true;
         }
 
         else if (movementInput < 0 && IsFacingRight)
         {
+            changedSides = true;
             IsFacingRight = false;
+        }
+
+        if (changedSides)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerTurnSide, transform.position);
+
         }
 
         PlayerStatus.isFacingRight = IsFacingRight;
@@ -413,7 +431,7 @@ public class HorizontalMovement : MonoBehaviour
         SetFacingDirection(DirectionX);
     }
 
-    private void UpdateSound()
+    private void UpdateFootStepsSound()
     {
         _playerFootsteps.setParameterByName(MusicStrings.FootStepsVolume, stepsVolume);
         if (DirectionX != 0 && _touchingDirection.IsGrounded)

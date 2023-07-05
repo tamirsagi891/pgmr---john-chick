@@ -7,13 +7,16 @@ using FMOD.Studio;
 using JetBrains.Annotations;
 using Mechanics.UI.Menus;
 using Logger = Nemesh.Logger;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class AudioManager : MonoBehaviour
 {
+    
+    
     [Header("Volume")]
     [SerializeField][Range(0, 1)] private float masterVolume = 1;
     
-    [SerializeField][Range(0f, 1f)] private float musicVolume = 1f;
+    [SerializeField][Range(0f, 1f)] private float musicVolume = 0.2f;
     
     [SerializeField][Range(0, 1)] private float ambienceVolume = 1;
 
@@ -29,11 +32,12 @@ public class AudioManager : MonoBehaviour
     private List<StudioEventEmitter> eventEmitters;
 
     private EventInstance ambienceEventInstance;
-    private EventInstance musicEventInstance;
+    private EventInstance mainMusic;
 
     
     public static AudioManager instance { get; private set; }
 
+    
     public float MasterVolume
     {
         get => masterVolume;
@@ -47,9 +51,11 @@ public class AudioManager : MonoBehaviour
 
     public float MusicVolume
     {
+        
         get => musicVolume;
         set
         {
+            Logger.Log(value);
             musicVolume = value;
             musicBus.setVolume(MusicVolume);
 
@@ -131,15 +137,18 @@ public class AudioManager : MonoBehaviour
 
     private void InitializeMusic(EventReference musicEventReference)
     {
-        musicEventInstance = CreatEventInstance(musicEventReference);
-        // musicEventInstance.start();
+        mainMusic = CreatEventInstance(musicEventReference);
+        mainMusic.start();
     }
 
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
+        
         RuntimeManager.PlayOneShot(sound, worldPos);
     }
+
+    
 
     public EventInstance CreatEventInstance(EventReference eventReference)
     {
@@ -215,13 +224,13 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusicParameter(string parameterName, float parameterValue)
     {
-        musicEventInstance.setParameterByName(parameterName, parameterValue);
+        mainMusic.setParameterByName(parameterName, parameterValue);
     }
 
 
     public void SetMusicArea(MusicStrings.AreaSound areaSound)
     {
-        musicEventInstance.setParameterByName(MusicStrings.areaParam, (float) areaSound);
+        mainMusic.setParameterByName(MusicStrings.areaParam, (float) areaSound);
     }
 
     private MusicStrings.AreaSound _currAreaSound = MusicStrings.AreaSound.OpenField;
@@ -252,10 +261,15 @@ public class AudioManager : MonoBehaviour
     }
 
 
+    [Button]
+    public void OpenMainMusic()
+    {
+        mainMusic.start();
+    }
     
     [Button]
     public void CloseMainMusic()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.collectFeatherSound, this.transform.position);
+        mainMusic.stop(STOP_MODE.ALLOWFADEOUT);
     }
 }

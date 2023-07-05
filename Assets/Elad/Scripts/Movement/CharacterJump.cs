@@ -1,3 +1,4 @@
+using System;
 using Elad.Events;
 using Elad.Scripts;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
 using BitStrap;
 using Elad.Scripts.Events;
+using FMOD.Studio;
 
 //This script handles moving the character on the Y axis, for jumping and gravity
 
@@ -96,6 +98,9 @@ public class CharacterJump : MonoBehaviour
         }
     }
 
+    [Header("Sounds")]
+    private EventInstance _playerGlidingSound;
+
     public bool IsGliding
     {
         get => _isGliding;
@@ -105,7 +110,19 @@ public class CharacterJump : MonoBehaviour
             {
                 ParticleEvents.PlayerGlide.Invoke(value);        
             }
-            
+
+            if (_isGliding != value)
+            {
+                if (value)
+                {
+                    _playerGlidingSound.start();
+                }
+
+                else
+                {
+                    _playerGlidingSound.stop(STOP_MODE.ALLOWFADEOUT);
+                }
+            }
             _isGliding = value;
         }
     }
@@ -176,6 +193,12 @@ public class CharacterJump : MonoBehaviour
         _wallMovement = GetComponent<WallMovement>();
         _horizontalMovement = GetComponent<HorizontalMovement>();
         PlayerStatus.JumpController = this;
+    }
+
+    private void Start()
+    {
+        _playerGlidingSound = AudioManager.instance.CreatEventInstance(FMODEvents.instance.playerGliding);
+
     }
 
     private void OnDestroy()
@@ -392,8 +415,13 @@ public class CharacterJump : MonoBehaviour
             }
             else
             {
-                ParticleEvents.PlayerJump.Invoke();
+                if (!_touchingDirection.IsOnCeiling)
+                {
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerJump, transform.position);
+                    ParticleEvents.PlayerJump.Invoke();
+                }
                 _animator.SetTrigger(AnimationStrings.jumpTrigger);
+
             }
 
 
@@ -421,6 +449,7 @@ public class CharacterJump : MonoBehaviour
             
             _velocity.y += _jumpSpeed;
             _velocity.x += xAddVelocity;
+
             _currentlyJumping = true;
         }
 
