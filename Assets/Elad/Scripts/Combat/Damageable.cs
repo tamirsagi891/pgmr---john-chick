@@ -2,6 +2,7 @@ using System;
 using BitStrap;
 using Elad.Events;
 using Elad.Save_Load_System;
+using FMOD.Studio;
 using Managers;
 using Mechanics.Enemies;
 using UnityEngine;
@@ -21,16 +22,18 @@ namespace Elad.Scripts.Combat
 
         private bool _dieButInGlide;
 
-        [Header("Times")]
-        [Header("Components")] private Animator _animator;
+        [Header("Times")] [Header("Components")]
+        private Animator _animator;
+
         private SpriteRenderer _spriteRenderer;
 
         [Header("Amounts")] [SerializeField] private int initialHealth = 100;
         [SerializeField] private int maxHealth = 100;
 
-        [SerializeField] [Tooltip("Do we want the option of minimum life after revive")] private bool useMinLifeInRevived = true;
-        [SerializeField]
-        [Tooltip("The minimum amount of live the player can have when revive")]
+        [SerializeField] [Tooltip("Do we want the option of minimum life after revive")]
+        private bool useMinLifeInRevived = true;
+
+        [SerializeField] [Tooltip("The minimum amount of live the player can have when revive")]
         private int minLifeInRevived = 2;
 
         public UnityEvent<int, Vector2, float> damageableHit;
@@ -102,6 +105,7 @@ namespace Elad.Scripts.Combat
 
                     else
                     {
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDie, transform.position);
                         Logger.Log("in IsAlive");
                         characterEvents.PlayerDied.Invoke();
                         _dieButInGlide = false;
@@ -110,9 +114,17 @@ namespace Elad.Scripts.Combat
             }
         }
 
+        [Header("Sounds")] [SerializeField] [Range(0f, 1f)]
+        private float heartBeatPitch;
+
+        private bool heatBeatIsOn;
+        private EventInstance _playerHeartBeat;
+        private EventInstance _playerGotHurt;
+
 
         public void RevivePlayer()
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWakeUp, transform.position);
             IsAlive = true;
         }
 
@@ -184,27 +196,76 @@ namespace Elad.Scripts.Combat
         private void Start()
         {
             SavePlayerStatus();
+            _playerHeartBeat = AudioManager.instance.CreatEventInstance(FMODEvents.instance.playerHeartbeat);
+        }
+
+        [Button]
+        public void TakeOneLifeDown()
+        {
+            Health -= 1;
+        }
+
+        [Button]
+        public void playHeartBeat()
+        {
+            _playerHeartBeat.start();
+        }
+
+        [Button]
+        public void StopHeartBeat()
+        {
+            _playerHeartBeat.stop(STOP_MODE.ALLOWFADEOUT);
+        }
+
+        private void HeartBeatHandler()
+        {
+            if (!IsAlive && heatBeatIsOn)
+            {
+                _playerHeartBeat.stop(STOP_MODE.ALLOWFADEOUT);
+                heartBeatPitch = 0;
+                heatBeatIsOn = false;
+                return;
+            }
+            
+            if (Health == 2)
+            {
+                if (!heatBeatIsOn)
+                {
+                    heatBeatIsOn = true;
+                    _playerHeartBeat.start();
+                }
+                
+                heartBeatPitch = Mathf.Lerp(heartBeatPitch, 0.5f, Time.deltaTime);
+            }
+
+            if (Health == 1)
+            {
+                heartBeatPitch = Mathf.Lerp(heartBeatPitch, 1, Time.deltaTime);
+            }
+            
+            _playerHeartBeat.setParameterByName(MusicStrings.HeartBeatPitch, (float) heartBeatPitch);
         }
 
         private void Update()
         {
-            
+            HeartBeatHandler();
+
             if (_dieButInGlide)
             {
                 if (!_touchingDirection)
                 {
                     _touchingDirection = PlayerStatus.Player.GetComponent<TouchingDirection>();
                 }
-                
+
                 if (_touchingDirection.IsGrounded)
                 {
                     characterEvents.PlayerDied.Invoke();
                     _dieButInGlide = false;
                 }
-                 
-                return;    
+
+                return;
             }
-            
+
             if (IsInvincible)
             {
                 if (timeSinceHit > invincibilityTimer)
@@ -223,8 +284,6 @@ namespace Elad.Scripts.Combat
                 isInvincibleTest = false;
                 IsInvincible = true;
             }
-
-            
         }
 
         [Button]
@@ -242,7 +301,7 @@ namespace Elad.Scripts.Combat
                 isInvincible = false;
                 FinishBlink();
             }
-            
+
             if (isInvincible)
             {
                 _blinkTimer -= Time.deltaTime;
@@ -273,7 +332,6 @@ namespace Elad.Scripts.Combat
             _spriteRenderer.color = _originalColor;
             _inOriginalColor = true;
         }
-        
 
 
         public bool GotHit(int damage, Vector2 knockBack, float knockBackDelay = 0f)
@@ -281,6 +339,7 @@ namespace Elad.Scripts.Combat
             if (GeneralGameManager.IsGamePause) return false;
             if (IsAlive && !IsInvincible)
             {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerGotHurt, transform.position);
                 Health -= damage;
                 IsInvincible = true;
                 LockVelocity = true;
@@ -345,7 +404,6 @@ namespace Elad.Scripts.Combat
             Health = PlayerSaveData.health;
             PlayerStatus.curHealth = Health;
             SetMinLifeInRevive();
-
         }
 
         private void SetMinLifeInRevive()

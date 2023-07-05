@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,18 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Player SFX")]
     [field: SerializeField]
     public EventReference playerFootsteps { get; private set; }
+    [field: SerializeField]public EventReference playerTurnSide { get; private set; }
+    [field: SerializeField]public EventReference playerJump { get; private set; }
+    [field: SerializeField]public EventReference playerWallSlide { get; private set; }
+    [field: SerializeField]public EventReference playerGliding { get; private set; }
+    [field: SerializeField]public EventReference playerHeartbeat { get; private set; }
+    [field: SerializeField]public EventReference playerGotHurt { get; private set; }
 
+    [field: SerializeField]public EventReference playerDie { get; private set; }
+    [field: SerializeField]public EventReference playerWakeUp { get; private set; }
+    [field: SerializeField]public EventReference playerLanding { get; private set; }
+
+    
     [field: Header("Feathers SFX")]
     [field: SerializeField]
     public EventReference collectFeatherSound { get; private set; }
@@ -27,6 +39,13 @@ public class FMODEvents : MonoBehaviour
     
     [field: SerializeField] public EventReference windSound { get; private set; }
 
+    [field: Header("Platforms")][field: SerializeField] public EventReference crumblingPlatform { get; private set; }
+    [field: SerializeField] public EventReference fallingPlatform { get; private set; }
+    [field: SerializeField] public EventReference woodPlatform { get; private set; }
+    
+    [field: Header("Cave SFX")]
+    [field: SerializeField] public EventReference caveAppear { get; private set; }
+    
     private void Awake()
     {
         if (instance != null)
@@ -36,5 +55,9 @@ public class FMODEvents : MonoBehaviour
 
         instance = this;
     }
+
+    
+
+    
     
 }

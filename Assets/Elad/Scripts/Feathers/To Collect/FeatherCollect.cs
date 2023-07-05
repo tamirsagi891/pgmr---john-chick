@@ -59,6 +59,7 @@ namespace Elad.Scripts.Arrows
                 if (AudioManager.instance)
                 {
                     _emitter.Stop();
+
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.collectFeatherSound, transform.position);
                 }
 

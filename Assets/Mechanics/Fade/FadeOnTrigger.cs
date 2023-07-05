@@ -87,6 +87,7 @@ namespace Mechanics.Fade
                 return;
             }
 
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.caveAppear, transform.position);
             _direction = 1;
             _notActive = false;
         }
@@ -97,7 +98,8 @@ namespace Mechanics.Fade
             {
                 return;
             }
-
+    
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.caveAppear, transform.position);
             _direction = -1;
             _notActive = false;
         }

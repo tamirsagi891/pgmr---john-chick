@@ -11,7 +11,6 @@ public class Platform : MonoBehaviour
 
     // [SerializeField] private float noSurfaceTime = 0.5f;
     // private float noSurfaceTimer;
-
     private bool _noSurface;
     private PlatformEffector2D _platformEffector2D;
     private bool _isMovingThrowPlatform;
@@ -47,6 +46,15 @@ public class Platform : MonoBehaviour
         IsMovingThrowPlatform = true;
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.CompareTag(TagStrings.playerTag))
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.woodPlatform, transform.position);
+        }
+    }
+
+    
     private void OnCollisionExit2D(Collision2D other)
     {
         if (other.collider.CompareTag(TagStrings.playerTag))

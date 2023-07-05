@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BitStrap;
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.Android;
 using Logger = Nemesh.Logger;
@@ -15,7 +17,10 @@ public class WallMovement : MonoBehaviour
 
     private bool _wantToWallSlide;
     private bool _isWallSliding;
+    private bool _oldIsWallSliding;
 
+    [Header("Sounds")]
+    private EventInstance playerWallSlideSound;
     
     public bool IsWallSliding
     {
@@ -31,12 +36,28 @@ public class WallMovement : MonoBehaviour
                 // TODO: This conflicts with glide
                 _rB.drag = value ? linearDragWallSliding : _linearDragRegular;
             }
+            
+            
             _isWallSliding = value;
             _animator.SetBool(AnimationStrings.isWallSliding, value);
+
+            if (_oldIsWallSliding != value)
+            {
+                _oldIsWallSliding = value;
+                if (value)
+                {
+                    playerWallSlideSound.start();
+                }
+
+                else
+                {
+                    playerWallSlideSound.stop(STOP_MODE.IMMEDIATE);
+
+                }
+            }
+            
         }
     }
-
-    
     
 
     [SerializeField, Range(0f, 1f)] [Tooltip("linear Drag to apply when sliding")]
@@ -75,11 +96,17 @@ public class WallMovement : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        playerWallSlideSound = AudioManager.instance.CreatEventInstance(FMODEvents.instance.playerWallSlide);
+    }
+
 
     private void Update()
     {
         WallCheck();
         IsWallSliding = _wantToWallSlide;
+
     }
 
     void WallCheck()

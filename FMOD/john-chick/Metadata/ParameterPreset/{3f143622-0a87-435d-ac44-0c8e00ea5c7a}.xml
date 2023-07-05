@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{3f143622-0a87-435d-ac44-0c8e00ea5c7a}">
+		<property name="name">
+			<value>FootStepsPitch</value>
+		</property>
+		<relationship name="folder">
+			<destination>{c3351dbb-c13d-41c4-9374-5dd8198b8298}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{12aebdbd-73a8-4215-9ef7-c3ff4892e96e}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{12aebdbd-73a8-4215-9ef7-c3ff4892e96e}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.2199999988079071</value>
+		</property>
+	</object>
+</objects>
