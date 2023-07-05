@@ -43,6 +43,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference fallingPlatform { get; private set; }
     [field: SerializeField] public EventReference woodPlatform { get; private set; }
     [field: SerializeField] public EventReference movingThrowPlatform { get; private set; }
+    [field: SerializeField] public EventReference returnPlatform { get; private set; }
     
     [field: Header("Cave SFX")]
     [field: SerializeField] public EventReference caveAppear { get; private set; }
@@ -52,7 +53,11 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference camMovement { get; private set; }
     [field: SerializeField] public EventReference camZoom { get; private set; }
 
+    [field: Header("End Level")]
+    [field: SerializeField] public EventReference gateOpen { get; private set; }
     
+    [field: Header("Feathers SFX")]
+    [field: SerializeField] public EventReference buttonsMove { get; private set; }
     private void Awake()
     {
         if (instance != null)

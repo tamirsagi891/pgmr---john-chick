@@ -276,4 +276,9 @@ public class AudioManager : MonoBehaviour
     {
         mainMusic.stop(STOP_MODE.ALLOWFADEOUT);
     }
+    
+    public void ButtonSound()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.buttonsMove, transform.position);
+    }
 }

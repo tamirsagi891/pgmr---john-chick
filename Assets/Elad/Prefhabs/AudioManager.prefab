@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889b889823770cf4a9f7699fe720e357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  master: 0.5
+  master: 1
   music: 0
   ambience: 1
   sfx: 1
@@ -187,6 +187,20 @@ MonoBehaviour:
       Data3: -314317432
       Data4: -381517284
     Path: event:/Platforms/Wood Platform
+  <movingThrowPlatform>k__BackingField:
+    Guid:
+      Data1: -607819986
+      Data2: 1099165003
+      Data3: -796658011
+      Data4: 859277386
+    Path: event:/Platforms/MovingThrowPlatform
+  <returnPlatform>k__BackingField:
+    Guid:
+      Data1: -895286108
+      Data2: 1113367456
+      Data3: 1287066752
+      Data4: -1467575791
+    Path: event:/Platforms/platformReturn
   <caveAppear>k__BackingField:
     Guid:
       Data1: -471058135
@@ -215,3 +229,17 @@ MonoBehaviour:
       Data3: -979744128
       Data4: -1492381850
     Path: event:/Camara/Cam Zoom
+  <gateOpen>k__BackingField:
+    Guid:
+      Data1: -1882988686
+      Data2: 1330918979
+      Data3: -2123251567
+      Data4: 939592070
+    Path: event:/Gate/OpenGate
+  <buttonsMove>k__BackingField:
+    Guid:
+      Data1: -127292843
+      Data2: 1335948268
+      Data3: 1036885397
+      Data4: 1348848936
+    Path: event:/Buttons/Move Buttons

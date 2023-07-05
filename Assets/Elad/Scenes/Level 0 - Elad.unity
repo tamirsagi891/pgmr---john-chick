@@ -19043,6 +19043,18 @@ PrefabInstance:
       propertyPath: m_CullTransparentMesh
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2143440031219096840, guid: daf633e23d934944d97286f538bc8e50, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1648356212}
+    - target: {fileID: 2143440031219096840, guid: daf633e23d934944d97286f538bc8e50, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ButtonSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 2143440031219096840, guid: daf633e23d934944d97286f538bc8e50, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AudioManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3141745363125370732, guid: daf633e23d934944d97286f538bc8e50, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -19138,6 +19150,22 @@ PrefabInstance:
     - target: {fileID: 4950669921076069914, guid: daf633e23d934944d97286f538bc8e50, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -132.004
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570367514612072392, guid: daf633e23d934944d97286f538bc8e50, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570367514612072392, guid: daf633e23d934944d97286f538bc8e50, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570367514612072392, guid: daf633e23d934944d97286f538bc8e50, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1648356212}
+    - target: {fileID: 6570367514612072392, guid: daf633e23d934944d97286f538bc8e50, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7449273206162241548, guid: daf633e23d934944d97286f538bc8e50, type: 3}
       propertyPath: m_IsActive
@@ -34412,54 +34440,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7195016850750989981, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: sfx
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7195016850750989981, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: master
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <caveAppear>k__BackingField.Path
-      value: event:/Cave/Cave Show
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <caveAppear>k__BackingField.Guid.Data1
-      value: -471058135
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <caveAppear>k__BackingField.Guid.Data2
-      value: 1192618165
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <caveAppear>k__BackingField.Guid.Data3
-      value: -1835071589
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <caveAppear>k__BackingField.Guid.Data4
-      value: 1635365721
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <movingThrowPlatform>k__BackingField.Path
-      value: event:/Platforms/MovingThrowPlatform
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <movingThrowPlatform>k__BackingField.Guid.Data1
-      value: -607819986
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <movingThrowPlatform>k__BackingField.Guid.Data2
-      value: 1099165003
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <movingThrowPlatform>k__BackingField.Guid.Data3
-      value: -796658011
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <movingThrowPlatform>k__BackingField.Guid.Data4
-      value: 859277386
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36555,6 +36535,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffd53a52d8a0aeb40af05c3dae2d1e29, type: 3}
+--- !u!114 &1648356212 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7195016850750989981, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+  m_PrefabInstance: {fileID: 879581234}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889b889823770cf4a9f7699fe720e357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1655354507
 PrefabInstance:
   m_ObjectHideFlags: 0
