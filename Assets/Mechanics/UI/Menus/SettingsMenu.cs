@@ -40,6 +40,9 @@ namespace Mechanics.UI.Menus
         private TMP_Dropdown aaDropdown;
 
         [SerializeField]
+        private TMP_Dropdown mipmapDropdown;
+        
+        [SerializeField]
         private TMP_Text presetLabel;
 
         [SerializeField]
@@ -51,8 +54,7 @@ namespace Mechanics.UI.Menus
 
         public override void OpenMenu()
         {
-            base.OpenMenu(); // TODO: Add MipMap to settings!
-            // QualitySettings.globalTextureMipmapLimit
+            base.OpenMenu();
             UIFromQuality();
         }
 
@@ -78,6 +80,7 @@ namespace Mechanics.UI.Menus
             };
 
             presetLabel.text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+            mipmapDropdown.value = QualitySettings.globalTextureMipmapLimit;
             resolutionLabel.text = Screen.currentResolution.ToString();
         }
 
@@ -238,7 +241,7 @@ namespace Mechanics.UI.Menus
             audioMusicSlider.value = settings.musicVolume;
             audioEffectsSlider.value = settings.sfxVolume;
             audioAmbientSlider.value = settings.ambientVolume;
-            // TODO: add globalMipmap slider
+            QualitySettings.globalTextureMipmapLimit = settings.globalMipmapLimit;
         }
 
         private void ApplyResolution()

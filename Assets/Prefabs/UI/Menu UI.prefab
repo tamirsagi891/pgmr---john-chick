@@ -201,6 +201,7 @@ MonoBehaviour:
   fullscreenToggle: {fileID: 5482276917629887815}
   anisDropdown: {fileID: 3499192811611510261}
   aaDropdown: {fileID: 8820565550084720143}
+  mipmapDropdown: {fileID: 6559808249552150997}
   presetLabel: {fileID: 5859732751667427701}
   resolutionLabel: {fileID: 3451411894865051011}
 --- !u!114 &4736823005300554261
@@ -2289,6 +2290,14 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2624839984392243433, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6236053638251080906}
+    - target: {fileID: 2624839984392243433, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateMipmapLimit
+      objectReference: {fileID: 0}
     - target: {fileID: 2959532128975222035, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2647,6 +2656,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6559808249552150997 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2624839984392243433, guid: 060e010c6c6f7874fbd6a82decda1994, type: 3}
+  m_PrefabInstance: {fileID: 9179550828875917628}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6959345518389718261 stripped
