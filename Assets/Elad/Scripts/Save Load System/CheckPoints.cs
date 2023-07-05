@@ -128,7 +128,10 @@ namespace Elad.Scripts.Save_Load_System
                 if (isOn)
                 {
                     DestroyChickens();
-                    checkPointTextBox.text = CHECKPOINT_TEXT_OFF;
+                    if (checkPointTextBox != null)
+                    {
+                        checkPointTextBox.text = CHECKPOINT_TEXT_OFF;
+                    }
                 }
                 isOn = false;
                 if (animator)

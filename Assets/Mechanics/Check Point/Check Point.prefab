@@ -103,7 +103,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Activate Chickpoint
 
-    <sprite tint=1 name=upArrow>'
+    <sprite tint=1 name=downArrow>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a6f19a14ba0b034dbf4ebb30da6c8fe, type: 2}
   m_sharedMaterial: {fileID: -6913191224751762343, guid: 3a6f19a14ba0b034dbf4ebb30da6c8fe, type: 2}
