@@ -372,9 +372,17 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks: []
+  MasterBanks:
+  - Master
   Banks:
   - Camara
+  - Cave
+  - Chicken
+  - Collect
+  - Life
+  - Movement
+  - Music
+  - Platforms
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0

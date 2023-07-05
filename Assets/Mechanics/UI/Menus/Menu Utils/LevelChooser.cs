@@ -34,8 +34,8 @@ namespace Mechanics.UI.Menus.Menu_Utils
                 ReleaseButton,
                 DestroyButton);
 
-            AddSceneButton(ScenesHolder.MainMenu);
-            AddSceneButton(ScenesHolder.Instance.intro);
+            // AddSceneButton(ScenesHolder.MainMenu);
+            // AddSceneButton(ScenesHolder.Instance.intro);
             foreach (var level in ScenesHolder.Levels)
             {
                 AddSceneButton(level);

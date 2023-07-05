@@ -50,6 +50,9 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         protected float hurtTime = 1f;
+        
+        [SerializeField]
+        private PassiveTimer hurtInvTime = new(1);
 
         [SerializeField]
         protected PassiveTimer dashTime = new(0.2f);
@@ -91,6 +94,9 @@ namespace Mechanics.Enemies
         [Space]
         [SerializeField]
         public NpcEvents events;
+        
+        [SerializeField]
+        protected Transform offsetPosition;
 
         [Space]
         [Header("Debug")]
@@ -229,8 +235,14 @@ namespace Mechanics.Enemies
 
         public bool CanAttack { get; protected set; } = true;
 
+        public bool OnCd => AttackCdTimer.IsSet && AttackCdTimer.IsActive;
+
         // public NpcStats Stats => MyStatsHandler.CurrentStats; 
-        public float Cooldown => MyStatsHandler.Cooldown; 
+        public float Cooldown => myStatsHandler.Cooldown;
+
+        public StatsHandler MyStatsHandler => myStatsHandler;
+
+        public Transform OffsetPosition => offsetPosition;
 
         #endregion
 
@@ -238,7 +250,7 @@ namespace Mechanics.Enemies
 
         private ICanBeAttacked _playerContact; // TODO: change to any target?
 
-        protected StatsHandler MyStatsHandler;
+        protected StatsHandler myStatsHandler;
         private INpcMovementBehaviour _movementBehaviour;
         private Transform _walkTarget; // TODO: create type of WalkTarget?
         protected bool HasDestination;
@@ -247,7 +259,7 @@ namespace Mechanics.Enemies
         protected Vector2 DesiredVelocity;
         protected Vector2 Velocity;
 
-        protected float DashAlertDistance = 7f;
+        protected float DashAlertDistance => HasDashControl ? DashAlertControl.Radius * transform.lossyScale.x : 7f;
         protected DashAndAlertControl DashAlertControl;
         protected bool HasDashControl;
 
@@ -261,6 +273,7 @@ namespace Mechanics.Enemies
         protected bool HasDefaultDirection;
 
         protected bool edgeInFront;
+
         // protected bool checkEdge;
 
         #endregion
@@ -269,19 +282,11 @@ namespace Mechanics.Enemies
 
         protected virtual void Awake()
         {
-            MyStatsHandler = GetComponent<StatsHandler>();
+            myStatsHandler = GetComponent<StatsHandler>();
             MyRigidbody = GetComponent<Rigidbody2D>();
             notMovingTimer.Clear();
             DashAlertControl = GetComponentInChildren<DashAndAlertControl>();
             HasDashControl = DashAlertControl != null;
-        }
-
-        protected virtual void OnEnable()
-        {
-            if (HasDashControl)
-            {
-                DashAlertDistance = DashAlertControl.Radius;
-            }
         }
 
         protected void OnDisable()
@@ -338,7 +343,7 @@ namespace Mechanics.Enemies
             }
 
             dashTime.Clear();
-            MyStatsHandler.CurrentStats.movementSpeed -= MyStatsHandler.CurrentStats.extraDashSpeed;
+            myStatsHandler.CurrentStats.movementSpeed -= myStatsHandler.CurrentStats.extraDashSpeed;
             animationControls.StopDirectionSwitch = false;
             animationControls.IsDashing = false;
             events.onDashEnd.Invoke();
@@ -385,7 +390,7 @@ namespace Mechanics.Enemies
                     var targetLeft = WalkTarget.position.x < transform.position.x;
                     animationControls.Direction = targetLeft ? Direction.Left : Direction.Right;
 
-                    var speed = MyStatsHandler.CurrentStats.movementSpeed;
+                    var speed = myStatsHandler.CurrentStats.movementSpeed;
                     speed = animationControls.Direction == Direction.Left ? -speed : speed;
                     DesiredVelocity.x = speed;
 
@@ -461,7 +466,7 @@ namespace Mechanics.Enemies
                 Dash();
             }
 
-            MyRigidbody.AddForce(new Vector2(0f, MyStatsHandler.CurrentStats.jumpForce), ForceMode2D.Impulse);
+            MyRigidbody.AddForce(new Vector2(0f, myStatsHandler.CurrentStats.jumpForce), ForceMode2D.Impulse);
             animationControls.Jump = true;
             events.onJump.Invoke();
         }
@@ -481,8 +486,8 @@ namespace Mechanics.Enemies
 
             dashTime.Start();
             animationControls.StopDirectionSwitch = true;
-            MyStatsHandler.CurrentStats.movementSpeed += MyStatsHandler.CurrentStats.extraDashSpeed;
-            DesiredVelocity.x = Mathf.Sign(DesiredVelocity.x) * MyStatsHandler.CurrentStats.movementSpeed;
+            myStatsHandler.CurrentStats.movementSpeed += myStatsHandler.CurrentStats.extraDashSpeed;
+            DesiredVelocity.x = Mathf.Sign(DesiredVelocity.x) * myStatsHandler.CurrentStats.movementSpeed;
             // TODO: Copy elad's implementation
             animationControls.IsDashing = true;
             events.onDash.Invoke();
@@ -490,14 +495,18 @@ namespace Mechanics.Enemies
 
         public bool Attack(ICanBeAttacked attackTarget)
         {
+            return Attack(attackTarget, true);
+        }
+        public bool Attack(ICanBeAttacked attackTarget, bool stopMovement)
+        {
             // TODO: if can attack, valid start, etc...
             if (AttackCdTimer.IsSet && AttackCdTimer.IsActive)
             {
                 return false;
             }
 
-            HandleAttackStart(true);
-            AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
+            HandleAttackStart(stopMovement);
+            AttackCdTimer.Start(myStatsHandler.CurrentStats.cooldown);
 
             var attackParameters = GetAttackParameters();
 
@@ -519,7 +528,7 @@ namespace Mechanics.Enemies
 
         public virtual AttackParameters GetAttackParameters()
         {
-            var knockBack = MyStatsHandler.CurrentStats.knockBack;
+            var knockBack = myStatsHandler.CurrentStats.knockBack;
             if (CurrentDirection != Direction.Right)
             {
                 knockBack = new Vector2(-knockBack.x, knockBack.y);
@@ -529,11 +538,11 @@ namespace Mechanics.Enemies
                 attacker: this,
                 damage: GetDamage(),
                 knockBack: knockBack,
-                type: MyStatsHandler.CurrentStats.type,
+                type: myStatsHandler.CurrentStats.type,
                 followTransform: transform,
-                shotSpeed: MyStatsHandler.CurrentStats.shotSpeed,
+                shotSpeed: myStatsHandler.CurrentStats.shotSpeed,
                 direction: CurrentDirection,
-                knockBackDelay: MyStatsHandler.CurrentStats.knockBackDelay);
+                knockBackDelay: myStatsHandler.CurrentStats.knockBackDelay);
         }
 
         [Button]
@@ -541,7 +550,7 @@ namespace Mechanics.Enemies
         {
             HandleAttackStart(true);
 
-            AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
+            AttackCdTimer.Start(myStatsHandler.CurrentStats.cooldown);
 
             StartCoroutine(DelayExecution(attackStartAfterTime, AttackAllTarget));
         }
@@ -571,13 +580,19 @@ namespace Mechanics.Enemies
 
             var dmgTaken = attackParameters.Damage;
             var knockBack = attackParameters.KnockBack;
-
+            
             if (dmgTaken <= 0)
             {
                 return false;
             }
 
-            return TakeDamage(dmgTaken);
+            var ret = TakeDamage(dmgTaken);
+            if (debug && ret)
+            {
+                Logger.Log($"Attacked by {attackParameters.Attacker} for {dmgTaken}");
+            }
+
+            return ret;
         }
 
         [Button]
@@ -607,7 +622,7 @@ namespace Mechanics.Enemies
 
         public float GetDamage()
         {
-            return MyStatsHandler.CurrentStats.damage;
+            return myStatsHandler.CurrentStats.damage;
         }
 
         public void StopMovement(float time)
@@ -710,10 +725,16 @@ namespace Mechanics.Enemies
 
         protected bool TakeDamage(float dmgTaken)
         {
+            if (hurtInvTime.IsSet && hurtInvTime.IsActive)
+            {
+                return false;
+            }
+            hurtInvTime.Start();
             events.onHurt.Invoke();
-            var newHp = MyStatsHandler.TakeDamage(dmgTaken);
+            var newHp = myStatsHandler.TakeDamage(dmgTaken);
             if (newHp > 0)
             {
+                StopDash();
                 StopMovement(hurtTime);
 
                 animationControls.Hurt = true;

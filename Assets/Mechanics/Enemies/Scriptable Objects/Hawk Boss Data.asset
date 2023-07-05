@@ -15,14 +15,14 @@ MonoBehaviour:
   npcName: Hawk
   type: 1
   stats:
-    hp: 8
+    hp: 3
     detectionRadius: 100
     damage: 3
     knockBack: {x: 10, y: 5}
     cooldown: 2.5
     movementSpeed: 15
     jumpForce: 0
-    extraDashSpeed: 14
+    extraDashSpeed: 25
     defense: 0
     deBuff: 0
     type: 1

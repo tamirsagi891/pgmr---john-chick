@@ -66,6 +66,7 @@ namespace Mechanics.UI.Menus.Menu_Utils
                 musicVolume = 0.5f,
                 sfxVolume = 0.5f,
                 ambientVolume = 0.5f,
+                globalMipmapLimit = QualitySettings.globalTextureMipmapLimit
             };
             return newSettings;
         }
@@ -86,5 +87,6 @@ namespace Mechanics.UI.Menus.Menu_Utils
         public int resolutionWidth;
         public int resolutionHeight;
         // public int resolutionRefreshRate;  // TODO: Save also this
+        public int globalMipmapLimit;
     }
 }

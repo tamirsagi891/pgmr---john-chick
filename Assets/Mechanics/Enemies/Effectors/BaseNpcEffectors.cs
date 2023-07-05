@@ -13,13 +13,19 @@ namespace Mechanics.Enemies
         [SerializeField]
         private bool effectActive = true;
 
+        public bool EffectActive
+        {
+            get => effectActive;
+            set => effectActive = value;
+        }
+
         #endregion
 
         #region MonoBehaviour
 
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            if (!effectActive)
+            if (!EffectActive)
             {
                 return;
             }
@@ -35,7 +41,7 @@ namespace Mechanics.Enemies
 
         protected virtual void OnTriggerExit2D(Collider2D other)
         {
-            if (!effectActive)
+            if (!EffectActive)
             {
                 return;
             }

@@ -305,7 +305,6 @@ namespace Mechanics.New_Wind
             {
                 return;
             }
-
             var c = linkedObject.EffectorController;
             _myBoxBoundsHandle.center = c.transform.position;
             _myBoxBoundsHandle.size = c.MyBounds.size;

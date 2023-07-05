@@ -51,7 +51,13 @@ namespace Mechanics.UI.Menus
 
         public override void OpenMenu()
         {
-            base.OpenMenu();
+            base.OpenMenu(); // TODO: Add MipMap to settings!
+            // QualitySettings.globalTextureMipmapLimit
+            UIFromQuality();
+        }
+
+        private void UIFromQuality()
+        {
             vSyncToggle.isOn = QualitySettings.vSyncCount >= 1;
             fullscreenToggle.isOn = Screen.fullScreen;
             anisDropdown.value = QualitySettings.anisotropicFiltering switch
@@ -114,6 +120,11 @@ namespace Mechanics.UI.Menus
                 _ => QualitySettings.anisotropicFiltering
             };
         }
+        
+        public void UpdateMipmapLimit(int mapRes)
+        {
+            QualitySettings.globalTextureMipmapLimit = mapRes;
+        }
 
         public void UpdateMSAA(int msaaAmount)
         {
@@ -127,8 +138,17 @@ namespace Mechanics.UI.Menus
             };
         }
 
-        public void IncreaseQualityPreset() => QualitySettings.IncreaseLevel();
-        public void DecreaseQualityPreset() => QualitySettings.IncreaseLevel();
+        public void IncreaseQualityPreset()
+        {
+            QualitySettings.IncreaseLevel(true);
+            UIFromQuality();
+        }
+
+        public void DecreaseQualityPreset()
+        {
+            QualitySettings.DecreaseLevel(true);
+            UIFromQuality();
+        }
 
         public void IncreaseResolution()
         {
@@ -218,6 +238,7 @@ namespace Mechanics.UI.Menus
             audioMusicSlider.value = settings.musicVolume;
             audioEffectsSlider.value = settings.sfxVolume;
             audioAmbientSlider.value = settings.ambientVolume;
+            // TODO: add globalMipmap slider
         }
 
         private void ApplyResolution()

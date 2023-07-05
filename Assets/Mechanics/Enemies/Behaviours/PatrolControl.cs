@@ -156,6 +156,19 @@ namespace Mechanics.Enemies
         }
 
         [Button]
+        public void GoToCurrentPoint()
+        {
+            if (Target == null)
+            {
+                GoToNextPoint();
+            }
+            else
+            {
+                Target = target;
+            }
+        }
+
+        [Button]
         public void GoToNextPoint()
         {
             GoToNextPoint(false);
@@ -198,7 +211,9 @@ namespace Mechanics.Enemies
         {
             if (checkBothAxis)
             {
-                return Vector2.Distance(npcToReportTo.transform.position, Target.transform.position) <
+                var position = npcToReportTo.OffsetPosition.position;
+                var positionTarget = Target.transform.position;
+                return Vector2.Distance(position, positionTarget) <
                        minDistanceToTarget;
             }
 
