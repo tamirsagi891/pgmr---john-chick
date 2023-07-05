@@ -12,8 +12,8 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Ambience")]
     [field: Header("Music")]
-    [field: SerializeField]
-    public EventReference Music { get; private set; }
+    [field: SerializeField] public EventReference Music { get; private set; }
+    [field: SerializeField] public EventReference chicks { get; private set; }
 
 
     [field: Header("Player SFX")]
@@ -45,6 +45,7 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Cave SFX")]
     [field: SerializeField] public EventReference caveAppear { get; private set; }
+    [field: SerializeField] public EventReference rocksFall { get; private set; }
     
     [field: Header("Camara SFX")]
     [field: SerializeField] public EventReference camMovement { get; private set; }

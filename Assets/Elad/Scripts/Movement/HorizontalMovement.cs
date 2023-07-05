@@ -386,7 +386,7 @@ public class HorizontalMovement : MonoBehaviour
             IsFacingRight = false;
         }
 
-        if (changedSides)
+        if (changedSides && _touchingDirection.IsGrounded)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerTurnSide, transform.position);
 

@@ -11,16 +11,29 @@ using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class AudioManager : MonoBehaviour
 {
-    
-    
-    [Header("Volume")]
-    [SerializeField][Range(0, 1)] private float masterVolume = 1;
-    
-    [SerializeField][Range(0f, 1f)] private float musicVolume = 0.2f;
-    
-    [SerializeField][Range(0, 1)] private float ambienceVolume = 1;
+    [Header("Volume")] [SerializeField] [Range(0, 1)]
+    private float master;
 
-    [SerializeField][Range(0, 1)] private float SFXVolume = 1;
+    [SerializeField] [Range(0, 1)] private float music;
+    [SerializeField] [Range(0, 1)] private float ambience;
+    [SerializeField] [Range(0, 1)] private float sfx;
+
+    private void Update()
+    {
+        MasterVolume = master;
+        MusicVolume = music;
+        AmbienceVolume = ambience;
+        SfxVolume = sfx;
+    }
+
+
+    [Range(0, 1)] private float masterVolume = 1;
+
+    [Range(0f, 1f)] private float musicVolume = 0.2f;
+
+    [Range(0, 1)] private float ambienceVolume = 1;
+
+    [Range(0, 1)] private float SFXVolume = 1;
 
 
     private Bus masterBus;
@@ -34,10 +47,10 @@ public class AudioManager : MonoBehaviour
     private EventInstance ambienceEventInstance;
     private EventInstance mainMusic;
 
-    
+
     public static AudioManager instance { get; private set; }
 
-    
+
     public float MasterVolume
     {
         get => masterVolume;
@@ -45,20 +58,16 @@ public class AudioManager : MonoBehaviour
         {
             masterVolume = value;
             masterBus.setVolume(MasterVolume);
-
         }
     }
 
     public float MusicVolume
     {
-        
         get => musicVolume;
         set
         {
-            Logger.Log(value);
             musicVolume = value;
             musicBus.setVolume(MusicVolume);
-
         }
     }
 
@@ -69,7 +78,6 @@ public class AudioManager : MonoBehaviour
         {
             ambienceVolume = value;
             ambienceBus.setVolume(AmbienceVolume);
-
         }
     }
 
@@ -82,9 +90,7 @@ public class AudioManager : MonoBehaviour
             sfxBus.setVolume(SfxVolume);
         }
     }
-    
-    
-    
+
 
     private void Awake()
     {
@@ -133,7 +139,7 @@ public class AudioManager : MonoBehaviour
         MenuManager.OnSfxChangeEvent -= SetSfxVolume;
         MenuManager.OnAmbientChangeEvent -= SetAmbientVolume;
     }
-    
+
 
     private void InitializeMusic(EventReference musicEventReference)
     {
@@ -144,11 +150,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
-        
         RuntimeManager.PlayOneShot(sound, worldPos);
     }
 
-    
 
     public EventInstance CreatEventInstance(EventReference eventReference)
     {
@@ -266,7 +270,7 @@ public class AudioManager : MonoBehaviour
     {
         mainMusic.start();
     }
-    
+
     [Button]
     public void CloseMainMusic()
     {

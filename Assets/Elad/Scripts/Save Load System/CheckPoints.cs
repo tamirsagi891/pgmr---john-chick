@@ -1,23 +1,28 @@
 using System;
 using System.Threading;
+using BitStrap;
 using Elad.Events;
+using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Logger = Nemesh.Logger;
 using Random = UnityEngine.Random;
+using FMODUnity;
 
 namespace Elad.Scripts.Save_Load_System
 {
+    [RequireComponent(typeof(StudioEventEmitter))]
     public class CheckPoints : MonoBehaviour
     {
+        private StudioEventEmitter _emitter;
 
         private const string CHECKPOINT_TEXT_OFF = "Activate Chickpoint \n<sprite tint=1 name=downArrow>";
         private const string CHECKPOINT_TEXT_ON = "Update Chickpoint \n<sprite tint=1 name=downArrow>";
-        
+
         [SerializeField] private bool _isInvisibleCheckPoint = false;
         [SerializeField] private GameObject chickenPrefab;
-        [SerializeField] private TextMeshPro checkPointTextBox; 
+        [SerializeField] private TextMeshPro checkPointTextBox;
         private Vector3 _position;
         private bool isOn = false;
         private GameObject[] chickens;
@@ -61,6 +66,11 @@ namespace Elad.Scripts.Save_Load_System
             {
                 PlayerStatus.LastCheckPoint = this;
             }
+        }
+
+        private void Start()
+        {
+            _emitter = AudioManager.instance.InitializeEventEmitter(FMODEvents.instance.chicks, this.gameObject);
         }
 
         private void Update()
@@ -113,7 +123,7 @@ namespace Elad.Scripts.Save_Load_System
                         checkPointTextBox.text = CHECKPOINT_TEXT_ON;
                     }
                 }
-                
+
                 isOn = true;
                 if (animator)
                 {
@@ -133,6 +143,7 @@ namespace Elad.Scripts.Save_Load_System
                         checkPointTextBox.text = CHECKPOINT_TEXT_OFF;
                     }
                 }
+
                 isOn = false;
                 if (animator)
                 {
@@ -141,11 +152,24 @@ namespace Elad.Scripts.Save_Load_System
             }
         }
 
+        [Button]
+        public void StartChicksMusic()
+        {
+            _emitter.Play();
+        }
+
+        [Button]
+        public void StopChicksMusic()
+        {
+            _emitter.Stop();
+        }
+
         private void SpawnChickens()
         {
-            if (_isInvisibleCheckPoint ) return;
+            if (_isInvisibleCheckPoint) return;
             int numChickens = Random.Range(5, 9);
             chickens = new GameObject[numChickens];
+            _emitter.Play();
             for (int i = 0; i < numChickens; i++)
             {
                 chickens[i] = Instantiate(chickenPrefab, transform.position, Quaternion.identity, transform);
@@ -155,6 +179,11 @@ namespace Elad.Scripts.Save_Load_System
         private void DestroyChickens()
         {
             if (_isInvisibleCheckPoint) return;
+            if (_emitter)
+            {
+                _emitter.Stop();
+            }
+
             if (chickens != null)
             {
                 foreach (GameObject chicken in chickens)

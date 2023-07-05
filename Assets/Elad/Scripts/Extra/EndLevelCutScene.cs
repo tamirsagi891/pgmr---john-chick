@@ -10,10 +10,12 @@ using Logger = Nemesh.Logger;
 
 public class EndLevelCutScene : MonoBehaviour
 {
-
+    
     [SerializeField] private CinemachineVirtualCamera cutSceneCamara;
     private bool _startCutScene;
     private bool _openMenu;
+    
+    
     [SerializeField] private float openMenuTime = 1f;
 
     private bool _startMovement;
@@ -42,6 +44,9 @@ public class EndLevelCutScene : MonoBehaviour
     {
         if (_openMenu)
         {
+            cutSceneCamara.Follow = null;
+            cutSceneCamara.m_Follow = null;
+            cutSceneCamara.LookAt = null;
             openMenuTime -= Time.deltaTime;
             if (openMenuTime <= 0)
             {
