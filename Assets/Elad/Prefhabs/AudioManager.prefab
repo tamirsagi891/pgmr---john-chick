@@ -180,3 +180,24 @@ MonoBehaviour:
       Data3: -314317432
       Data4: -381517284
     Path: event:/Platforms/Wood Platform
+  <caveAppear>k__BackingField:
+    Guid:
+      Data1: -471058135
+      Data2: 1192618165
+      Data3: -1835071589
+      Data4: 1635365721
+    Path: event:/Cave/Cave Show
+  <camMovement>k__BackingField:
+    Guid:
+      Data1: -1650640092
+      Data2: 1278574390
+      Data3: 1120342945
+      Data4: 647612563
+    Path: event:/Camara/Cam Movement
+  <camZoom>k__BackingField:
+    Guid:
+      Data1: 169013191
+      Data2: 1198279143
+      Data3: -979744128
+      Data4: -1492381850
+    Path: event:/Camara/Cam Zoom

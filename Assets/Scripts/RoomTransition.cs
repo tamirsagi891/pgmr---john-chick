@@ -12,14 +12,14 @@ public class RoomTransition : MonoBehaviour
 
     private void Start()
     {
-        _player = PlayerStatus.Player;    
+        _player = PlayerStatus.Player;
         SetCamera();
     }
 
     private void SetCamera()
     {
         virtualCam = Instantiate(virtualCamPrefab, transform);
-        
+
         CinemachineVirtualCamera cam = virtualCam.GetComponent<CinemachineVirtualCamera>();
         CinemachineConfiner confiner = virtualCam.GetComponent<CinemachineConfiner>();
         if (cam != null && confiner != null)
@@ -31,9 +31,10 @@ public class RoomTransition : MonoBehaviour
         {
             Debug.Log("Room Couldn't link player or collider to camera!");
         }
+
         virtualCam.SetActive(false);
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !other.isTrigger)
@@ -42,12 +43,14 @@ public class RoomTransition : MonoBehaviour
             CameraManager.CrouchCameraController = virtualCam.GetComponent<CrouchCamera>();
         }
     }
-    
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !other.isTrigger)
         {
             virtualCam.SetActive(false);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.camMovement, transform.position);
+
         }
     }
 }

@@ -10085,7 +10085,7 @@ Transform:
   - {fileID: 4063019981398509014}
   - {fileID: 6716017979488353903}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8728776469950805241
 Rigidbody2D:
@@ -10540,6 +10540,7 @@ MonoBehaviour:
   isInvincible: 0
   isInvincibleTest: 0
   isAlive: 1
+  heartBeatPitch: 0
   invincibilityTimer: 1
   blinkColor: {r: 0, g: 0, b: 0, a: 0}
   blinkTime: 0.01
@@ -10687,8 +10688,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -2125240167
-  m_SortingLayer: 2
+  m_SortingLayerID: 1342514317
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 590496464, guid: 5be4720de963e8d48a4a7933f5f65e46, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

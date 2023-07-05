@@ -46,6 +46,11 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Cave SFX")]
     [field: SerializeField] public EventReference caveAppear { get; private set; }
     
+    [field: Header("Camara SFX")]
+    [field: SerializeField] public EventReference camMovement { get; private set; }
+    [field: SerializeField] public EventReference camZoom { get; private set; }
+
+    
     private void Awake()
     {
         if (instance != null)
