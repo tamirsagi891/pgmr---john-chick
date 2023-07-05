@@ -12,8 +12,8 @@ namespace Elad.Scripts.Save_Load_System
     public class CheckPoints : MonoBehaviour
     {
 
-        private const string CHECKPOINT_TEXT_OFF = "Activate Chickpoint \n<sprite tint=1 name=upArrow>";
-        private const string CHECKPOINT_TEXT_ON = "Update Chickpoint \n<sprite tint=1 name=upArrow>";
+        private const string CHECKPOINT_TEXT_OFF = "Activate Chickpoint \n<sprite tint=1 name=downArrow>";
+        private const string CHECKPOINT_TEXT_ON = "Update Chickpoint \n<sprite tint=1 name=downArrow>";
         
         [SerializeField] private bool _isInvisibleCheckPoint = false;
         [SerializeField] private GameObject chickenPrefab;
