@@ -34081,14 +34081,10 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 397181783}
-    - target: {fileID: 4756532907892497648, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
-      propertyPath: stepsVolume
-      value: 0.059
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756532907892497648, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
-      propertyPath: stepsSoundGapTime
-      value: 0.05
-      objectReference: {fileID: 0}
+    - target: {fileID: 8005064636444060558, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: m_BoundingShape2D
+      value: 
+      objectReference: {fileID: 397181783}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 2

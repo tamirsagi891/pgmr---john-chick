@@ -215350,6 +215350,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: John Chick
       objectReference: {fileID: 0}
+    - target: {fileID: 4738796390982335946, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: m_BoundingShape2D
+      value: 
+      objectReference: {fileID: 1498859939}
     - target: {fileID: 7101169771580611867, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: ShapeModule.m_MeshRenderer
       value: 
@@ -426105,6 +426109,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2910887196380932531, guid: d151b222fab4f72498ca300776f08da9, type: 3}
   m_PrefabInstance: {fileID: 1488582556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!60 &1498859939 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1971271272535482658, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
+  m_PrefabInstance: {fileID: 427485898}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1505062849
 PrefabInstance:

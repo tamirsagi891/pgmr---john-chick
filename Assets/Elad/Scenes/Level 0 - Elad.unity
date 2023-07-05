@@ -34075,7 +34075,7 @@ PrefabInstance:
     - target: {fileID: 4738796390982335946, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 843386146}
     - target: {fileID: 4756532907892497648, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: stepsVolume
       value: 0.059
@@ -34090,11 +34090,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 56.36
+      value: 60.9
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 49.93
+      value: 50.4
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.z
@@ -34290,6 +34290,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3228273032489155436, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
   m_PrefabInstance: {fileID: 397181782}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &843386146 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1971271272535482658, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
+  m_PrefabInstance: {fileID: 397181782}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &878227451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34407,6 +34412,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7195016850750989981, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: sfx
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195016850750989981, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: master
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
       propertyPath: <caveAppear>k__BackingField.Path
       value: event:/Cave/Cave Show
@@ -34426,6 +34439,26 @@ PrefabInstance:
     - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
       propertyPath: <caveAppear>k__BackingField.Guid.Data4
       value: 1635365721
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <movingThrowPlatform>k__BackingField.Path
+      value: event:/Platforms/MovingThrowPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <movingThrowPlatform>k__BackingField.Guid.Data1
+      value: -607819986
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <movingThrowPlatform>k__BackingField.Guid.Data2
+      value: 1099165003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <movingThrowPlatform>k__BackingField.Guid.Data3
+      value: -796658011
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <movingThrowPlatform>k__BackingField.Guid.Data4
+      value: 859277386
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

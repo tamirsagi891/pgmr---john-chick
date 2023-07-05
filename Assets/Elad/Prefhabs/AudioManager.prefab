@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889b889823770cf4a9f7699fe720e357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 1
-  musicVolume: 0
-  ambienceVolume: 0
-  SFXVolume: 1
+  master: 0.5
+  music: 0
+  ambience: 1
+  sfx: 1
 --- !u!114 &7585313106572696500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +68,13 @@ MonoBehaviour:
       Data3: 1874900871
       Data4: 2040178500
     Path: event:/Music/Jon Whick/think
+  <chicks>k__BackingField:
+    Guid:
+      Data1: -372432539
+      Data2: 1239854408
+      Data3: -1597683280
+      Data4: 2123610028
+    Path: event:/Chicks
   <playerFootsteps>k__BackingField:
     Guid:
       Data1: -2042504789
@@ -187,6 +194,13 @@ MonoBehaviour:
       Data3: -1835071589
       Data4: 1635365721
     Path: event:/Cave/Cave Show
+  <rocksFall>k__BackingField:
+    Guid:
+      Data1: -250419377
+      Data2: 1267080918
+      Data3: 915127454
+      Data4: 80686753
+    Path: event:/Cave/Rocks/Rocks Fall
   <camMovement>k__BackingField:
     Guid:
       Data1: -1650640092

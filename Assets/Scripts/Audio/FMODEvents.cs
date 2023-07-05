@@ -42,6 +42,7 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Platforms")][field: SerializeField] public EventReference crumblingPlatform { get; private set; }
     [field: SerializeField] public EventReference fallingPlatform { get; private set; }
     [field: SerializeField] public EventReference woodPlatform { get; private set; }
+    [field: SerializeField] public EventReference movingThrowPlatform { get; private set; }
     
     [field: Header("Cave SFX")]
     [field: SerializeField] public EventReference caveAppear { get; private set; }

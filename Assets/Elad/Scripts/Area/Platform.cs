@@ -43,6 +43,8 @@ public class Platform : MonoBehaviour
         _platformEffector2D.surfaceArc = 0;
         // noSurfaceTimer = noSurfaceTime;
         _noSurface = true;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.movingThrowPlatform, transform.position);
+
         IsMovingThrowPlatform = true;
     }
 
