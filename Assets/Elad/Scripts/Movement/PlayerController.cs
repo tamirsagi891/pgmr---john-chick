@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using BitStrap;
 using Elad.Events;
 using Elad.Scripts;
+using FMODUnity;
 using Managers;
 using Mechanics.UI.Menus;
 using Unity.VisualScripting;
@@ -89,6 +90,7 @@ public class PlayerController : MonoBehaviour
         _sP = GetComponent<SpriteRenderer>();
     }
 
+    
 
     public bool CanMove
     {

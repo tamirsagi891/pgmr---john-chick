@@ -355,6 +355,11 @@ public class CharacterJump : MonoBehaviour
         //But clamp the Y variable within the bounds of the speed limit, for the terminal _velocity assist option
 
         _rB.velocity = new Vector3(_velocity.x, Mathf.Clamp(_velocity.y, -maxFallSpeed, 100));
+        if (_rB.velocity.y < 0 && _touchingDirection.IsGrounded)
+        {
+            _rB.velocity = new Vector2(_rB.velocity.x, 0);
+        }
+        // Logger.Log(_rB.velocity.y);
     }
 
     private void calculateGravityUp()

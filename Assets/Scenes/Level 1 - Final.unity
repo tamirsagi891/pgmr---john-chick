@@ -12322,7 +12322,6 @@ GameObject:
   - component: {fileID: 303507500}
   - component: {fileID: 303507499}
   - component: {fileID: 303507501}
-  - component: {fileID: 303507502}
   - component: {fileID: 303507505}
   - component: {fileID: 303507504}
   - component: {fileID: 303507507}
@@ -12435,19 +12434,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &303507502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303507497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attenuationObject: {fileID: 0}
 --- !u!114 &303507504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13937,6 +13923,14 @@ PrefabInstance:
       propertyPath: m_Parameters.m_EndRange
       value: 17.568054
       objectReference: {fileID: 0}
+    - target: {fileID: 2669908578125357830, guid: b83d4be153831c948b46772d441fd448, type: 3}
+      propertyPath: m_Parameters.m_DirectionCurveX.scalar
+      value: -10.17597
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669908578125357830, guid: b83d4be153831c948b46772d441fd448, type: 3}
+      propertyPath: m_Parameters.m_DirectionCurveY.scalar
+      value: 6.360001
+      objectReference: {fileID: 0}
     - target: {fileID: 2671089589932886541, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: magnitude
       value: 120
@@ -13956,6 +13950,10 @@ PrefabInstance:
     - target: {fileID: 3596105892006831837, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: m_Size.y
       value: 51.258457
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307098283956634004, guid: b83d4be153831c948b46772d441fd448, type: 3}
+      propertyPath: m_ForceAngle
+      value: 147.99455
       objectReference: {fileID: 0}
     - target: {fileID: 7395208633709942228, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: myBounds.m_Center.x
@@ -47105,6 +47103,14 @@ PrefabInstance:
       propertyPath: m_Parameters.m_EndRange
       value: 17.568054
       objectReference: {fileID: 0}
+    - target: {fileID: 2669908578125357830, guid: b83d4be153831c948b46772d441fd448, type: 3}
+      propertyPath: m_Parameters.m_DirectionCurveX.scalar
+      value: 10.17597
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669908578125357830, guid: b83d4be153831c948b46772d441fd448, type: 3}
+      propertyPath: m_Parameters.m_DirectionCurveY.scalar
+      value: 6.360001
+      objectReference: {fileID: 0}
     - target: {fileID: 2671089589932886541, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: magnitude
       value: 120
@@ -47124,6 +47130,10 @@ PrefabInstance:
     - target: {fileID: 3596105892006831837, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: m_Size.y
       value: 51.258457
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307098283956634004, guid: b83d4be153831c948b46772d441fd448, type: 3}
+      propertyPath: m_ForceAngle
+      value: 32.00546
       objectReference: {fileID: 0}
     - target: {fileID: 7395208633709942228, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: myBounds.m_Center.x
@@ -340906,11 +340916,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889b889823770cf4a9f7699fe720e357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 1
-  musicVolume: 0.036
-  ambienceVolume: 1
-  SFXVolume: 1
-  soundsData: {fileID: 0}
+  master: 0
+  music: 0
+  ambience: 0
+  sfx: 0
 --- !u!4 &1428366743
 Transform:
   m_ObjectHideFlags: 0
@@ -340945,7 +340954,77 @@ MonoBehaviour:
       Data3: -145671494
       Data4: 268779897
     Path: event:/Music/Dusk Forest
+  <chicks>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <playerFootsteps>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <playerTurnSide>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <playerJump>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <playerWallSlide>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <playerGliding>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <playerHeartbeat>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <playerGotHurt>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <playerDie>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <playerWakeUp>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <playerLanding>k__BackingField:
     Guid:
       Data1: 0
       Data2: 0
@@ -340967,6 +341046,55 @@ MonoBehaviour:
       Data4: 0
     Path: 
   <windSound>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <crumblingPlatform>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <fallingPlatform>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <woodPlatform>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <caveAppear>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <rocksFall>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <camMovement>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <camZoom>k__BackingField:
     Guid:
       Data1: 0
       Data2: 0

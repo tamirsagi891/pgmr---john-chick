@@ -32,5 +32,6 @@ public static class MusicStrings
     [Header("HeartBeat")]
     internal static string HeartBeatPitch = "heartBeatPitch";
 
-    
+    [Header("Wind")]
+    internal static string shortWindVol = "ShortWindVol";
 }

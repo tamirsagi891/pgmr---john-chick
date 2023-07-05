@@ -10053,6 +10053,7 @@ GameObject:
   - component: {fileID: 9158948154426488129}
   - component: {fileID: 3903247210767020687}
   - component: {fileID: 8531267320556421348}
+  - component: {fileID: 2059622499209723326}
   m_Layer: 9
   m_Name: Chick Boy
   m_TagString: Player
@@ -10882,6 +10883,19 @@ MonoBehaviour:
   jumpParticleSystem: {fileID: 3397216837860501088}
   glideBackParticleSystem: {fileID: 9157496397966620633}
   glideFrontParticleSystem: {fileID: 6073746251580584501}
+--- !u!114 &2059622499209723326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2161271046664357137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 2161271046664357137}
 --- !u!1 &3205071587994779596
 GameObject:
   m_ObjectHideFlags: 0
