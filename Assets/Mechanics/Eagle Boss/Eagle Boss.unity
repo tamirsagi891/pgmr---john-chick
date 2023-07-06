@@ -12315,12 +12315,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   regularSpeed: 3
   attackingSpeed: 8
-  circleSpeed: 15
+  circleSpeedOne: 15
+  circleSpeedTwo: 50
   startAttackDistance: 10
   knockBack: {x: 5, y: 0}
   attackTime: 3
   knockBackDelay: 0.1
-  afterAttackOffset: {x: 15, y: 15, z: 0}
+  afterAttackOffset: {x: 15, y: 30, z: 0}
+  thirdPositionYOffset: 4
+  secondPositionXOffset: 8
   rotationSpeed: 200
 --- !u!96 &1363499678
 TrailRenderer:

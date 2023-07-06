@@ -18,7 +18,8 @@ public class Crow : MonoBehaviour
     private Vector3 sideTarget;
     [Header("Speed")] [SerializeField] private float regularSpeed;
     [SerializeField] private float attackingSpeed;
-    [SerializeField] private float circleSpeed;
+    [SerializeField] private float circleSpeedOne;
+    [SerializeField] private float circleSpeedTwo;
 
     [Header("Distance")] [SerializeField] private float startAttackDistance = 5f;
 
@@ -30,13 +31,18 @@ public class Crow : MonoBehaviour
     [Header("Circle Movement")] [SerializeField]
     private Vector3 afterAttackOffset = Vector3.right;
 
+    [SerializeField] private float thirdPositionYOffset = 4f;
+    [SerializeField] private float secondPositionXOffset = 4f;
     private Vector3 afterAttackPositionOne;
     private Vector3 afterAttackPositionSecond;
+    private Vector3 afterAttackPositionThird;
+    
 
     enum CircleMovementStatus
     {
         First,
-        Second
+        Second,
+        Three
     }
 
     private CircleMovementStatus _circleMovementStatus = CircleMovementStatus.First;
@@ -82,14 +88,14 @@ public class Crow : MonoBehaviour
                 sideTarget = target.position;
                 MoveTowardPlayerAttacking();
                 AttackTimingHandler();
-                
+
                 break;
 
             case CrowModeEnum.AfterAttack:
                 CircleMovement();
                 break;
         }
-        
+
         SideHandler();
         RotateTowardsTarget();
     }
@@ -119,7 +125,7 @@ public class Crow : MonoBehaviour
     }
 
     private void SideHandler()
-    { 
+    {
         // Determine direction to the target
         Vector2 direction = sideTarget - transform.position;
 
@@ -177,7 +183,7 @@ public class Crow : MonoBehaviour
     private void SetCircleParameters()
     {
         afterAttackPositionOne = target.position + afterAttackOffset;
-        afterAttackPositionSecond = target.position - new Vector3(afterAttackOffset.x, -afterAttackOffset.y, 0f);
+        afterAttackPositionSecond = target.position - new Vector3(afterAttackOffset.x + secondPositionXOffset, -afterAttackOffset.y, 0f);
     }
 
     private void StopAttack()
@@ -197,14 +203,18 @@ public class Crow : MonoBehaviour
             case CircleMovementStatus.Second:
                 currentTarget = afterAttackPositionSecond;
                 break;
+
+            case CircleMovementStatus.Three:
+                currentTarget = afterAttackPositionThird;
+                break;
         }
 
+        var circleSpeed = _circleMovementStatus == CircleMovementStatus.First ? circleSpeedOne : circleSpeedTwo;
         // Move our position a step closer to the target.
         float step = circleSpeed * Time.deltaTime; // calculate distance to move
         transform.position = Vector2.MoveTowards(transform.position, currentTarget, step);
-        
+
         SwitchCircleTarget(currentTarget);
-        
     }
 
     private void SwitchCircleTarget(Vector2 currentTarget)
@@ -215,37 +225,55 @@ public class Crow : MonoBehaviour
             switch (_circleMovementStatus)
             {
                 case CircleMovementStatus.First:
+                    _trailRenderer.emitting = false;
                     _circleMovementStatus = CircleMovementStatus.Second;
                     break;
 
                 case CircleMovementStatus.Second:
+                    _circleMovementStatus = CircleMovementStatus.Three;
+                    afterAttackPositionThird = new Vector3(afterAttackPositionSecond.x,
+                        target.position.y + thirdPositionYOffset, 0);
+                    break;
+
+                case CircleMovementStatus.Three:
                     _circleMovementStatus = CircleMovementStatus.First;
                     _crowMode = CrowModeEnum.MovingTowardPlayer;
                     break;
             }
         }
-        
+
         sideTarget = currentTarget;
     }
-    
+
     void RotateTowardsTarget()
     {
         // Determine direction to the target
         int mult = _sideFacingRight ? 1 : -1;
         Vector2 directionToTarget = (sideTarget - transform.position).normalized;
         directionToTarget *= mult;
+
         // Calculate the angle to the target
-        
         float targetAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
 
-        // Limit the rotation angle for a smoother rotation
-        if (targetAngle > 180)
-            targetAngle -= 360;
+        // Define maximum rotation angle
+        float maxAngle = 40; // Replace with desired maximum angle
 
-        // Rotate towards the target
-        float rotationStep = rotationSpeed * Time.deltaTime;
-        float newAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, targetAngle, rotationStep);
-        transform.eulerAngles = new Vector3(0, 0, newAngle);
+        // Check if the targetAngle is bigger than maxAngle
+        if (Mathf.Abs(targetAngle) > maxAngle)
+        {
+            // Set newAngle directly to maxAngle (preserving the sign of targetAngle)
+            transform.eulerAngles = new Vector3(0, 0, maxAngle * Mathf.Sign(targetAngle));
+        }
+        else
+        {
+            // Limit the rotation angle for a smoother rotation
+            if (targetAngle > 180)
+                targetAngle -= 360;
+
+            // Rotate towards the target
+            float rotationStep = rotationSpeed * Time.deltaTime;
+            float newAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, targetAngle, rotationStep);
+            transform.eulerAngles = new Vector3(0, 0, newAngle);
+        }
     }
-
 }
