@@ -44,16 +44,16 @@ public class EndLevelCutScene : MonoBehaviour
     {
         if (_openMenu)
         {
-            cutSceneCamara.Follow = null;
-            cutSceneCamara.m_Follow = null;
-            cutSceneCamara.LookAt = null;
+            // cutSceneCamara.Follow = null;
+            // cutSceneCamara.m_Follow = null;
+            // cutSceneCamara.LookAt = null;
             openMenuTime -= Time.deltaTime;
             if (openMenuTime <= 0)
             {
                 _openMenu = false;
                 MenuManager.Menu.OpenEndLevelMenu();
-                PlayerStatus.Player.gameObject.SetActive(false);
-
+                // PlayerStatus.Player.gameObject.SetActive(false);
+                // PlayerStatus.Player.GetComponent<HorizontalMovement>()
             }
         }
 

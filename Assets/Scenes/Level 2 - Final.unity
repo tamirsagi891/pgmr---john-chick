@@ -500581,40 +500581,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: End Level Door Container
       objectReference: {fileID: 0}
+    - target: {fileID: 7726423150550905655, guid: f7b82d72a8aaa7d4993810d4a2255dd9, type: 3}
+      propertyPath: openMenuTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7726423150550905655, guid: f7b82d72a8aaa7d4993810d4a2255dd9, type: 3}
+      propertyPath: cutSceneCamara
+      value: 
+      objectReference: {fileID: 91262710}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 699954125567043968, guid: f7b82d72a8aaa7d4993810d4a2255dd9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2062815655}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7b82d72a8aaa7d4993810d4a2255dd9, type: 3}
 --- !u!4 &2062815651 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 513029861649134262, guid: f7b82d72a8aaa7d4993810d4a2255dd9, type: 3}
   m_PrefabInstance: {fileID: 2062815650}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2062815652 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 699954125567043968, guid: f7b82d72a8aaa7d4993810d4a2255dd9, type: 3}
-  m_PrefabInstance: {fileID: 2062815650}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2062815655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062815652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e91333e7cad964d4586f83f271ff9859, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cutSceneCamara: {fileID: 91262710}
-  openMenuTime: 3
-  startMovementTime: 1
-  timeScale: 0.5
 --- !u!1001 &2071014294
 PrefabInstance:
   m_ObjectHideFlags: 0

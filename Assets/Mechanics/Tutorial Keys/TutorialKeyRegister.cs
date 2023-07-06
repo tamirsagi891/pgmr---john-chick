@@ -148,7 +148,7 @@ namespace Mechanics.Tutorial_Keys
         {
             MarkSprite(context.started, context.control.name);
             // MarkSprite(context.started, _currentSprites.jump);
-            Logger.Log(context.control);
+            // Logger.Log(context.control);
         }
 
         #endregion
