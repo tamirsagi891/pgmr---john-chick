@@ -12,7 +12,18 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Ambience")]
     [field: Header("Music")]
-    [field: SerializeField] public EventReference Music { get; private set; }
+    public enum MainMusic
+    {
+        TheChicken,
+        StoryOfWhick,
+        Think
+    }
+    
+    
+    [field: SerializeField] public EventReference ThinkMusic { get; private set; }
+    [field: SerializeField] public EventReference ChickenMusic { get; private set; }
+    [field: SerializeField] public EventReference JonWhickStoryMusic { get; private set; }
+    
     [field: SerializeField] public EventReference chicks { get; private set; }
 
 

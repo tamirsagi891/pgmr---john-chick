@@ -124,7 +124,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        InitializeMusic(FMODEvents.instance.Music);
+        InitializeMusic(FMODEvents.instance.ThinkMusic);
         InitializeAmbience(FMODEvents.instance.windSound);
     }
 
