@@ -61,13 +61,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640d6fe4c47ce8349a94aa134bfb8114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Music>k__BackingField:
+  <ThinkMusic>k__BackingField:
     Guid:
       Data1: -371144329
       Data2: 1097612771
       Data3: 1874900871
       Data4: 2040178500
     Path: event:/Music/Jon Whick/think
+  <ChickenMusic>k__BackingField:
+    Guid:
+      Data1: 512238702
+      Data2: 1248028483
+      Data3: 2011509695
+      Data4: -2015962126
+    Path: event:/Music/The Chicken
+  <JonWhickStoryMusic>k__BackingField:
+    Guid:
+      Data1: -1436784786
+      Data2: 1332432533
+      Data3: -1920189282
+      Data4: -2137789862
+    Path: event:/Music/Menues/Story Of Whick
   <chicks>k__BackingField:
     Guid:
       Data1: -372432539
