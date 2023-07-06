@@ -215400,11 +215400,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.6
+      value: 11.3
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.3
+      value: 40.4
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.z
@@ -236399,6 +236399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   knockBackForce: 3
+  enemyTag: Enemy
 --- !u!66 &689118158
 CompositeCollider2D:
   m_ObjectHideFlags: 0
