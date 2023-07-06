@@ -296,8 +296,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.data[0].text
-      value: In the charming, small community of Rootsville, a spirited teenager
-        named John Chick made his humble abode.
+      value: John searched high and low, but <color=yellow> Goldie </color> was nowhere
+        to be found, sparking a chilling suspicion in his heart, an unsettling feeling
+        that a fowl play at hand.
       objectReference: {fileID: 0}
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.data[0].time
@@ -305,9 +306,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.data[1].text
-      value: John was noted for his unique affection for chickens, most particularly
-        for <color=yellow> Goldie </color>, a chicken that shimmered with an exquisite
-        coat of golden feathers.
+      value: It was then that he spotted the unexpected - a trail of radiant golden
+        feathers, sparsely scattered and disappearing into the outskirts of Rootsville.
       objectReference: {fileID: 0}
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.data[1].time
@@ -315,9 +315,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.data[2].text
-      value: As in every morning, John left his humble abode, eyes bright with anticipation,
-        keen on spending another delightful day in the company of his treasured chicken,
-        <color=yellow> Goldie </color>.
+      value: Bracing himself with a resolve as sturdy as an oak, he made the decision
+        to trace the path of the feathers, the trail that ominously led towards the
+        dark, <color=#005500>enigmatic forest </color>.
       objectReference: {fileID: 0}
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.data[2].time
@@ -371,15 +371,15 @@ PrefabInstance:
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.data[0].image
       value: 
-      objectReference: {fileID: 21300000, guid: 5420e75d3eb1f0e4a9d99e58aeacd8ff, type: 3}
+      objectReference: {fileID: 21300000, guid: 55c272599891f7744af66c5b078b9791, type: 3}
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.data[1].image
       value: 
-      objectReference: {fileID: 21300000, guid: cc52b54d8e5878e4c98a5bf826eb9bda, type: 3}
+      objectReference: {fileID: 21300000, guid: 8118a7af3ea98904aa8848dc6895d5b0, type: 3}
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.data[2].image
       value: 
-      objectReference: {fileID: 21300000, guid: 48555c005c8dbef488eaac7da0e5e130, type: 3}
+      objectReference: {fileID: 21300000, guid: 41b5a40d46c63804d886c29025b9e8ab, type: 3}
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.data[3].image
       value: 
@@ -514,12 +514,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8820270657335134478, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: sceneToLoad.guid
-      value: 025ab2189abe0c24daa9d987ca4e56a3
+      value: ae60eededbc8bad4aa94a760df14ede8
       objectReference: {fileID: 0}
     - target: {fileID: 8820270657335134478, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: sceneToLoad.asset
       value: 
-      objectReference: {fileID: 102900000, guid: 025ab2189abe0c24daa9d987ca4e56a3, type: 3}
+      objectReference: {fileID: 102900000, guid: ae60eededbc8bad4aa94a760df14ede8, type: 3}
     m_RemovedComponents:
     - {fileID: 31305901063638540, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
     m_RemovedGameObjects: []
