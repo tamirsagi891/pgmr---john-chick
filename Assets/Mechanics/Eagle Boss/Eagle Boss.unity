@@ -17986,7 +17986,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4363964868985979059, guid: d78c84bc8e540e94ea9268af3246f4d0, type: 3}
       propertyPath: m_Mass
-      value: 52.274334
+      value: 13.0685835
       objectReference: {fileID: 0}
     - target: {fileID: 4668869874055340286, guid: d78c84bc8e540e94ea9268af3246f4d0, type: 3}
       propertyPath: m_IsActive
@@ -18284,7 +18284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1971271272535482658, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
-      value: 280
+      value: 275
       objectReference: {fileID: 0}
     - target: {fileID: 1971271272535482658, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
@@ -18292,7 +18292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1971271272535482658, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
-      value: 280
+      value: 275
       objectReference: {fileID: 0}
     - target: {fileID: 1971271272535482658, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
