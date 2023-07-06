@@ -175,10 +175,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuUiObject: {fileID: 3817327443516167499}
   firstSelected: {fileID: 8655914300904889163}
-  openScreenTime: 3
+  openScreenTime: 2.5
   startZoomTime: 3
   openWithTimer: 0
-  lightDeath: 0
+  lightDeath: 1
 --- !u!114 &6236053638251080906
 MonoBehaviour:
   m_ObjectHideFlags: 0
