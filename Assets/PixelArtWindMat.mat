@@ -85,9 +85,9 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _BlendValue: -0.01
+    - _BlendValue: 0.0075
     - _BumpScale: 1
-    - _CellDensity: 10
+    - _CellDensity: 20
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
