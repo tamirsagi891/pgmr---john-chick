@@ -13601,66 +13601,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <ThinkMusic>k__BackingField.Path
-      value: event:/Music/Jon Whick/think
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <ChickenMusic>k__BackingField.Path
-      value: event:/Music/The Chicken
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <ThinkMusic>k__BackingField.Guid.Data1
-      value: -371144329
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <ThinkMusic>k__BackingField.Guid.Data2
-      value: 1097612771
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <ThinkMusic>k__BackingField.Guid.Data3
-      value: 1874900871
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <ThinkMusic>k__BackingField.Guid.Data4
-      value: 2040178500
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <ChickenMusic>k__BackingField.Guid.Data1
-      value: 512238702
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <ChickenMusic>k__BackingField.Guid.Data2
-      value: 1248028483
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <ChickenMusic>k__BackingField.Guid.Data3
-      value: 2011509695
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <ChickenMusic>k__BackingField.Guid.Data4
-      value: -2015962126
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <JonWhickStoryMusic>k__BackingField.Path
-      value: event:/Music/Menues/Story Of Whick
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <JonWhickStoryMusic>k__BackingField.Guid.Data1
-      value: -1436784786
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <JonWhickStoryMusic>k__BackingField.Guid.Data2
-      value: 1332432533
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <JonWhickStoryMusic>k__BackingField.Guid.Data3
-      value: -1920189282
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
-      propertyPath: <JonWhickStoryMusic>k__BackingField.Guid.Data4
-      value: -2137789862
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
