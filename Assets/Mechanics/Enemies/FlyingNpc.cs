@@ -4,6 +4,7 @@ using BitStrap;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Logger = Nemesh.Logger;
+using Random = UnityEngine.Random;
 
 namespace Mechanics.Enemies
 {
@@ -16,25 +17,28 @@ namespace Mechanics.Enemies
         private float velocitySmoothTime = 0.5f;
 
         [SerializeField]
-        [RequiredReference]
-        private Transform nestLocation;
-        
-        public ICanBeAttacked PickupTarget { get; set; }
-        public Vector3 DesiredPosition { get; set; }
+        private float minDistanceForMovement = 0.01f;
 
+        [SerializeField]
+        private bool addToDashLength;
+
+        public ICanBeAttacked PickupTarget { get; set; }
+
+        public Vector3 DesiredPosition { get; set; }
+        
         protected override Transform WalkTargetHelper(Transform value)
         {
             value = base.WalkTargetHelper(value);
-            if (HasPlayerContact && CanDetectPlayer && value != PlayerContact.GetTransform())
+            if (!OnCd && HasPlayerContact && value != PlayerContact.GetTransform())  // $$ CanDetectPlayer
             {
                 if (MovementBehaviour != null) // TODO: remove this on build
                 {
                     MovementBehaviour.EnabledBehaviour = false;
                 }
-
+                Logger.Log("Why am I here?");
                 value = PlayerContact.GetTransform();
             }
-        
+
             return value;
         }
 
@@ -54,8 +58,18 @@ namespace Mechanics.Enemies
         {
             base.Dash();
             DesiredPosition = WalkTarget.position;
+            
             Vector2 directionToMove = DesiredPosition - transform.position;
-            animationControls.Direction = directionToMove.x < 0 ? Direction.Left : Direction.Right;
+            if (addToDashLength)
+            {
+                var v = directionToMove.normalized;
+                DesiredPosition += new Vector3(v.x, v.y, 0f);
+            }
+            animationControls.SwitchDirection(directionToMove.x < 0 ? Direction.Left : Direction.Right);
+            if (debug)
+            {
+                Debug.DrawLine(offsetPosition.position, DesiredPosition, Color.blue, 3);
+            }
         }
 
 
@@ -65,13 +79,13 @@ namespace Mechanics.Enemies
             {
                 var shouldSwitch = ShouldSwitchDirectionWhenNotMoving();
                 var targetPosition = IsDashing ? DesiredPosition : WalkTarget.position;
-                Vector2 directionToMove = targetPosition - transform.position;
+                Vector2 directionToMove = targetPosition - OffsetPosition.position;
                 if (!IsDashing)
                 {
                     animationControls.Direction = directionToMove.x < 0 ? Direction.Left : Direction.Right;
                 }
 
-                var minDistance = 0.01f; // TODO: move both to fields
+                var minDistance = IsDashing ? minDistanceForMovementWhenHavePlayer : minDistanceForMovement;
                 // Logger.Log(WalkTarget);
                 if (HasPlayerContact)
                 {
@@ -79,20 +93,21 @@ namespace Mechanics.Enemies
                     {
                         if (directionToMove.sqrMagnitude < DashAlertDistance * DashAlertDistance)
                         {
+
                             if (HasDashControl && !IsDashing)
                             {
                                 DashAlertControl.StartDashAlertSequence();
                             }
                         }
                     }
-                    else
-                    {
-                        var distanceToPlayer = (PlayerContact.GetTransform().position - transform.position);
-                        if (distanceToPlayer.sqrMagnitude > DashAlertDistance * DashAlertDistance)
-                        {
-                            CanDetectPlayer = true;
-                        }
-                    }
+                    // else
+                    // {
+                    //     var distanceToPlayer = (PlayerContact.GetTransform().position - OffsetPosition.position);
+                    //     if (distanceToPlayer.sqrMagnitude > DashAlertDistance * DashAlertDistance)
+                    //     {
+                    //         CanDetectPlayer = true;
+                    //     }
+                    // }
 
                     minDistance = minDistanceForMovementWhenHavePlayer;
                     // animationControls.StopDirectionSwitch = directionToMove.sqrMagnitude > minDistance;
@@ -131,18 +146,18 @@ namespace Mechanics.Enemies
         protected override void AttackTargetUsingParams(ICanBeAttacked attackTarget, AttackParameters attackParameters)
         {
             var succeeded = attackTarget.Hurt(attackParameters);
-            if (attackParameters.Type == AttackType.Pickup)
+            if (attackParameters.Type is AttackType.Pickup or AttackType.DashAndAway)
             {
                 CanAttack = false;
+                // CanDetectPlayer = false;
                 PickupTarget = attackTarget;
-                WalkTarget = nestLocation;
                 if (!succeeded)
                 {
                     DropPickup();
                     return;
                 }
 
-                if (MovementBehaviour != null) // TODO: remove this on build
+                if (MovementBehaviour != null && attackParameters.Type is AttackType.Pickup) // TODO: remove this on build
                 {
                     MovementBehaviour.EnabledBehaviour = false;
                 }
@@ -157,24 +172,29 @@ namespace Mechanics.Enemies
             // {
             //     return;
             // }
-
+            if (MyStatsHandler.CurrentStats.type is not (AttackType.Pickup or AttackType.DashAndAway))
+            {
+                return;
+            }
             PickupTarget = null;
             CanAttack = true;
             AttackCdTimer.Start(MyStatsHandler.CurrentStats.cooldown);
-            CanDetectPlayer = false;
+            // CanDetectPlayer = false;
 
             if (MovementBehaviour != null)
             {
                 MovementBehaviour.EnabledBehaviour = true;
-                MovementBehaviour.GoToNextPoint();
-                return;
+                MovementBehaviour.GoToCurrentPoint();
             }
 
-            WalkTarget = nestLocation;
         }
 
         public override void StopDash()
         {
+            if (!IsDashing)
+            {
+                return;
+            }
             base.StopDash();
             if (AttackTargets.Count == 0)
             {

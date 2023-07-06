@@ -387,6 +387,7 @@ namespace Elad.Scripts.Combat
                     return false;
                 case AttackType.Shot:
                 case AttackType.Regular:
+                case AttackType.DashAndAway:
                 default:
                     return GotHit(1, attackParameters.KnockBack, attackParameters.KnockBackDelay);
                 // return GotHit((int) attackParameters.Damage, attackParameters.KnockBack);

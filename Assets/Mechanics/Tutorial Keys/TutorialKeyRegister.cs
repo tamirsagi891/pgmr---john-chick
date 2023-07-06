@@ -95,17 +95,19 @@ namespace Mechanics.Tutorial_Keys
         {
             var direction = context.ReadValue<Vector2>();
             MarkDirections(direction, context.control.name);
-            // Logger.Log(context.control);
+            Logger.Log(context.control);
         }
         
         private void OnCrouch(InputAction.CallbackContext context)
         {
             MarkSprite(context.started, context.control.name);
+            Logger.Log(context.control);
         }
         
         private void OnJump(InputAction.CallbackContext context)
         {
             MarkSprite(context.started, context.control.name);
+            Logger.Log(context.control);
         }
 
         #endregion

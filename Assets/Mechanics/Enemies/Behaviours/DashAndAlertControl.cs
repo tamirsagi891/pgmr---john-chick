@@ -3,6 +3,8 @@ using System.Collections;
 using Avrahamy;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
+using Logger = Nemesh.Logger;
 
 namespace Mechanics.Enemies
 {
@@ -23,6 +25,9 @@ namespace Mechanics.Enemies
 
         [SerializeField]
         private UnityEvent<BaseNpc> onDash;
+        
+        [SerializeField]
+        private bool effectActive = true;
 
         [Space]
         [SerializeField]
@@ -48,6 +53,12 @@ namespace Mechanics.Enemies
             }
         }
 
+        public bool EffectActive
+        {
+            get => effectActive;
+            set => effectActive = value;
+        }
+
         #endregion
         
         #region Private Fields
@@ -55,7 +66,7 @@ namespace Mechanics.Enemies
         private ICanBeAttacked _attackTarget;
         private Collider2D _myCollider;
         private float _radius;  // TODO: SerializeField
-
+        
         #endregion
 
         #region Private Method
@@ -119,6 +130,10 @@ namespace Mechanics.Enemies
 
         public void StartDashAlertSequence()
         {
+            if (!EffectActive)
+            {
+                return;
+            }
             waitForDashTimer.Start();
             npcToReportTo.StopMovement(waitForDashTimer.Duration);
             onAlert.Invoke(npcToReportTo);

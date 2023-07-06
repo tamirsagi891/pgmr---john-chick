@@ -71,6 +71,7 @@ namespace Mechanics.Enemies
     {
         Shot,
         Regular,
-        Pickup
+        Pickup,
+        DashAndAway
     }
 }

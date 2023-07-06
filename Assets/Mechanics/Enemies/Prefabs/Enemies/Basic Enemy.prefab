@@ -897,7 +897,7 @@ Transform:
   - {fileID: 8636770352842698530}
   - {fileID: 8512780028415018659}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1549835583372036680
 MonoBehaviour:
@@ -973,6 +973,7 @@ MonoBehaviour:
     onDisable:
       m_PersistentCalls:
         m_Calls: []
+  offsetPosition: {fileID: 5724991842647839431}
   debug: 0
 --- !u!114 &20633744771093190
 MonoBehaviour:

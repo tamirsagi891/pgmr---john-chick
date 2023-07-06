@@ -40,6 +40,9 @@ namespace Mechanics.UI.Menus
         private TMP_Dropdown aaDropdown;
 
         [SerializeField]
+        private TMP_Dropdown mipmapDropdown;
+        
+        [SerializeField]
         private TMP_Text presetLabel;
 
         [SerializeField]
@@ -52,6 +55,11 @@ namespace Mechanics.UI.Menus
         public override void OpenMenu()
         {
             base.OpenMenu();
+            UIFromQuality();
+        }
+
+        private void UIFromQuality()
+        {
             vSyncToggle.isOn = QualitySettings.vSyncCount >= 1;
             fullscreenToggle.isOn = Screen.fullScreen;
             anisDropdown.value = QualitySettings.anisotropicFiltering switch
@@ -72,6 +80,7 @@ namespace Mechanics.UI.Menus
             };
 
             presetLabel.text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+            mipmapDropdown.value = QualitySettings.globalTextureMipmapLimit;
             resolutionLabel.text = Screen.currentResolution.ToString();
         }
 
@@ -114,6 +123,11 @@ namespace Mechanics.UI.Menus
                 _ => QualitySettings.anisotropicFiltering
             };
         }
+        
+        public void UpdateMipmapLimit(int mapRes)
+        {
+            QualitySettings.globalTextureMipmapLimit = mapRes;
+        }
 
         public void UpdateMSAA(int msaaAmount)
         {
@@ -127,8 +141,17 @@ namespace Mechanics.UI.Menus
             };
         }
 
-        public void IncreaseQualityPreset() => QualitySettings.IncreaseLevel();
-        public void DecreaseQualityPreset() => QualitySettings.IncreaseLevel();
+        public void IncreaseQualityPreset()
+        {
+            QualitySettings.IncreaseLevel(true);
+            UIFromQuality();
+        }
+
+        public void DecreaseQualityPreset()
+        {
+            QualitySettings.DecreaseLevel(true);
+            UIFromQuality();
+        }
 
         public void IncreaseResolution()
         {
@@ -218,6 +241,7 @@ namespace Mechanics.UI.Menus
             audioMusicSlider.value = settings.musicVolume;
             audioEffectsSlider.value = settings.sfxVolume;
             audioAmbientSlider.value = settings.ambientVolume;
+            QualitySettings.globalTextureMipmapLimit = settings.globalMipmapLimit;
         }
 
         private void ApplyResolution()
