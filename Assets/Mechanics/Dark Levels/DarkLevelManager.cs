@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BitStrap;
 using Managers;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Mechanics.Dark_Levels
@@ -12,11 +13,19 @@ namespace Mechanics.Dark_Levels
         [SerializeField]
         private InputAction secretDarkSwitch;
         
+        [Space]
         [SerializeField]
         private List<GameObject> objectToEnable;
-
+        
         [SerializeField]
         private List<GameObject> objectToDisable;
+
+        [Space]
+        [SerializeField]
+        private UnityEvent onSetDark;
+        
+        [SerializeField]
+        private UnityEvent onUnsetDark;
 
         public static bool isCurrentLevelDark;
         
@@ -70,6 +79,8 @@ namespace Mechanics.Dark_Levels
             {
                 obj.SetActive(true);
             }
+            
+            onSetDark.Invoke();
         }
         
         [Button("Unset Dark")]
@@ -86,6 +97,7 @@ namespace Mechanics.Dark_Levels
             {
                 obj.SetActive(false);
             }
+            onUnsetDark.Invoke();
         }
         
     }
