@@ -34103,7 +34103,7 @@ PrefabInstance:
     - target: {fileID: 4738796390982335946, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
-      objectReference: {fileID: 843386146}
+      objectReference: {fileID: 0}
     - target: {fileID: 4756532907892497648, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: stepsVolume
       value: 0.059
@@ -34316,11 +34316,6 @@ CanvasRenderer:
 --- !u!4 &843386144 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3228273032489155436, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
-  m_PrefabInstance: {fileID: 397181782}
-  m_PrefabAsset: {fileID: 0}
---- !u!60 &843386146 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 1971271272535482658, guid: 23da5a5b9c3ba5f4792c6cd5f0289054, type: 3}
   m_PrefabInstance: {fileID: 397181782}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &878227451

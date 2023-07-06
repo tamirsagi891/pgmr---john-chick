@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToHold:
-    duration: 0.15
+    duration: 0.25
   additionalOffset: {x: 0, y: -10, z: 0}
 --- !u!1 &8259941828291171472
 GameObject:
