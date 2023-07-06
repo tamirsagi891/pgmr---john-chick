@@ -47,6 +47,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Shown In Dark
+    uniqueID: 80175069
+    locked: 0
   - name: TileMap
     uniqueID: 1342514317
     locked: 0

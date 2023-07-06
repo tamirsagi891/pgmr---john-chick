@@ -223,6 +223,14 @@ namespace Mechanics.UI.Menus
             Logger.Log("Reload Level", this);
             LoadSceneManager.ReloadScene();
         }
+        
+        public void ReloadLevelDark()
+        {
+            GeneralGameManager.LoadAsDark = true;
+            GeneralGameManager.IsGamePause = false;
+            Logger.Log("Reload Level Dark", Color.black, this);
+            LoadSceneManager.ReloadScene();
+        }
 
         public void ReturnToLastCheckPoint()
         {
@@ -326,7 +334,7 @@ namespace Mechanics.UI.Menus
                 Pause();
                 characterEvents.PauseGame.Invoke();
             }
-            else
+            else if (_currentOpen != endLevelMenu && _currentOpen != gameOverMenu)
             {
                 BackToPreviousMenu();
             }
