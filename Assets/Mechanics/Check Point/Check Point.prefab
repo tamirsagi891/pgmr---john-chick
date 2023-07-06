@@ -193,6 +193,8 @@ MonoBehaviour:
   minAlpha: 0
   bobbingSpeed: 3
   bobbingAmount: 0.25
+  kbAsset: {fileID: 11400000, guid: b33e24d2053e67146b74bc35fb717bf9, type: 2}
+  padAsset: {fileID: 11400000, guid: e481bdbb406f5f34489b085143ce3826, type: 2}
 --- !u!1 &2304423496963896602
 GameObject:
   m_ObjectHideFlags: 0

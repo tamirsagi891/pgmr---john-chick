@@ -1,8 +1,12 @@
 ﻿using System;
 using Avrahamy.Utils;
+using BitStrap;
+using Mechanics.Enemies;
+using Nemesh.ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 using Logger = Nemesh.Logger;
 
 namespace Mechanics.Tutorial_Keys
@@ -16,6 +20,23 @@ namespace Mechanics.Tutorial_Keys
         
         [SerializeField]
         private Color pressedColor = Color.yellow;
+
+        [SerializeField]
+        private TMP_SpriteAsset kbAsset;
+
+        [SerializeField]
+        private TMP_SpriteAsset padAsset;
+        
+        // [SerializeField]
+        // [InlineScriptableObject]
+        // private ControllerSprites kbmSprites;
+        //
+        // [SerializeField]
+        // [InlineScriptableObject]
+        // private ControllerSprites padSprites;
+        //
+        //
+        // private ControllerSprites _currentSprites;
 
         #endregion
 
@@ -52,6 +73,7 @@ namespace Mechanics.Tutorial_Keys
         private void Awake()
         {
             _myTexts = GetComponentsInChildren<TMP_Text>();
+            // _currentSprites = kbmSprites;
         }
 
         private void OnEnable()
@@ -68,6 +90,8 @@ namespace Mechanics.Tutorial_Keys
             var jumpAction = map.FindAction("Jump");
             jumpAction.started += OnJump;
             jumpAction.canceled += OnJump;
+            
+            InputUser.onChange += InputUserOnChange;
         }
 
         private void OnDisable()
@@ -85,28 +109,45 @@ namespace Mechanics.Tutorial_Keys
             var jumpAction = map.FindAction("Jump");
             jumpAction.started -= OnJump;
             jumpAction.canceled -= OnJump;
+            
+            InputUser.onChange -= InputUserOnChange;
         }
 
         #endregion
 
         #region Input Callbacks
+        
+        private void InputUserOnChange(InputUser user, InputUserChange change, InputDevice device)
+        {
+            if (device == null)
+            {
+                return;
+            }
+            foreach (var tmpText in _myTexts)
+            {
+                tmpText.spriteAsset =  device.name.Contains("Keyboard") ? kbAsset : padAsset;
+            }
+            Logger.Log($"Device: {device}  || {user}");
+        }
 
         private void OnMove(InputAction.CallbackContext context)
         {
             var direction = context.ReadValue<Vector2>();
             MarkDirections(direction, context.control.name);
-            Logger.Log(context.control);
+            // Logger.Log(context.control);
         }
         
         private void OnCrouch(InputAction.CallbackContext context)
         {
             MarkSprite(context.started, context.control.name);
+            // MarkSprite(context.started, _currentSprites.crouch);
             Logger.Log(context.control);
         }
         
         private void OnJump(InputAction.CallbackContext context)
         {
             MarkSprite(context.started, context.control.name);
+            // MarkSprite(context.started, _currentSprites.jump);
             Logger.Log(context.control);
         }
 

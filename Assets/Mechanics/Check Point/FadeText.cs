@@ -1,6 +1,9 @@
+using System;
 using Elad.Scripts;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 public class FadeText : MonoBehaviour
 {
@@ -10,6 +13,12 @@ public class FadeText : MonoBehaviour
     [SerializeField] private float minAlpha = 0f;
     [SerializeField] private float bobbingSpeed = 1f;
     [SerializeField] private float bobbingAmount = 0.1f;
+    
+    [SerializeField]
+    private TMP_SpriteAsset kbAsset;
+
+    [SerializeField]
+    private TMP_SpriteAsset padAsset;
 
     private TextMeshPro textMeshPro;
     private float initialAlpha;
@@ -26,6 +35,16 @@ public class FadeText : MonoBehaviour
         currentAlpha = initialAlpha;
         fadeSpeed = 1f / fadeDuration;
         initialPosition = transform.position;
+    }
+
+    private void OnEnable()
+    {
+        InputUser.onChange += InputUserOnChange;
+    }
+
+    private void OnDisable()
+    {
+        InputUser.onChange -= InputUserOnChange;
     }
 
     private void Update()
@@ -54,5 +73,15 @@ public class FadeText : MonoBehaviour
         Vector3 newPosition = initialPosition;
         newPosition.y += Mathf.Sin(Time.time * bobbingSpeed) * bobbingAmount;
         transform.position = newPosition;
+    }
+    
+    private void InputUserOnChange(InputUser user, InputUserChange change, InputDevice device)
+    {
+        if (device == null)
+        {
+            return;
+        }
+        
+        textMeshPro.spriteAsset =  device.name.Contains("Keyboard") ? kbAsset : padAsset;
     }
 }

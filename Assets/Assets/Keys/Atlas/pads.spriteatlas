@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: pads
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 0
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: ffd6e24a7c8ed1642a45d2950f186537, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 73cdd8117eeaa184285fa496ca1851f1: 21300000
+    - 607814c1a1dcd7044a83ca3fb6533f12: 21300000
+    - 0d82c36253b9bcf498dab860207a9fe9: 21300000
+    - 066e8d62dfe43534d82936b156b738fd: 21300000
+    - 6561ba03c3942cb428fdc6f2fdbc344a: 21300000
+    - fca20763d0e498049b531e30b2dbc06e: 21300000
+    - d2d8ed74e1f340d4893895c0c900f324: 21300000
+    - 5d2b0df42bd20144aa8f374c4b27c75f: 21300000
+    - 1d9211c593420394eac688c1dde0fd36: 21300000
+    - 8f5cddd53c787eb42abe1aa0c93df20e: 21300000
+    - ddb694e5f1559934ca179a15a648563e: 21300000
+    - a86aea67d7eee574482f968265e58bb2: 21300000
+    - 642a29b7586a0c24fb5981b8768604e9: 21300000
+    - 51f6f3d8ba530db4f84b2bd5e0307c01: 21300000
+    - ed3aefe8c83280a449302270d0406e9e: 21300000
+    - ef68c049f2cadb44e86c43cf884e6faf: 21300000
+    - 794f217b46e3f234a8075a17c65b4575: 21300000
+    - fd28afab37ea36e4cb3e7dd37488b053: 21300000
+    - e9d5026f5a76264469bc11ab0f6b761a: 21300000
+    - 139e40bfea101da469e6e495a78afd9f: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 73cdd8117eeaa184285fa496ca1851f1, type: 3}
+  - {fileID: 21300000, guid: 607814c1a1dcd7044a83ca3fb6533f12, type: 3}
+  - {fileID: 21300000, guid: 0d82c36253b9bcf498dab860207a9fe9, type: 3}
+  - {fileID: 21300000, guid: 066e8d62dfe43534d82936b156b738fd, type: 3}
+  - {fileID: 21300000, guid: 6561ba03c3942cb428fdc6f2fdbc344a, type: 3}
+  - {fileID: 21300000, guid: fca20763d0e498049b531e30b2dbc06e, type: 3}
+  - {fileID: 21300000, guid: d2d8ed74e1f340d4893895c0c900f324, type: 3}
+  - {fileID: 21300000, guid: 5d2b0df42bd20144aa8f374c4b27c75f, type: 3}
+  - {fileID: 21300000, guid: 1d9211c593420394eac688c1dde0fd36, type: 3}
+  - {fileID: 21300000, guid: 8f5cddd53c787eb42abe1aa0c93df20e, type: 3}
+  - {fileID: 21300000, guid: ddb694e5f1559934ca179a15a648563e, type: 3}
+  - {fileID: 21300000, guid: a86aea67d7eee574482f968265e58bb2, type: 3}
+  - {fileID: 21300000, guid: 642a29b7586a0c24fb5981b8768604e9, type: 3}
+  - {fileID: 21300000, guid: 51f6f3d8ba530db4f84b2bd5e0307c01, type: 3}
+  - {fileID: 21300000, guid: ed3aefe8c83280a449302270d0406e9e, type: 3}
+  - {fileID: 21300000, guid: ef68c049f2cadb44e86c43cf884e6faf, type: 3}
+  - {fileID: 21300000, guid: 794f217b46e3f234a8075a17c65b4575, type: 3}
+  - {fileID: 21300000, guid: fd28afab37ea36e4cb3e7dd37488b053, type: 3}
+  - {fileID: 21300000, guid: e9d5026f5a76264469bc11ab0f6b761a, type: 3}
+  - {fileID: 21300000, guid: 139e40bfea101da469e6e495a78afd9f, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - XboxSeriesX_Dpad
+  - XboxSeriesX_Left_Stick_Click
+  - XboxSeriesX_Y
+  - XboxSeriesX_A
+  - XboxSeriesX_Dpad_Right
+  - XboxSeriesX_RB
+  - XboxSeriesX_X
+  - XboxSeriesX_LT
+  - XboxSeriesX_View
+  - XboxSeriesX_Menu
+  - XboxSeriesX_Right_Stick
+  - XboxSeriesX_B
+  - XboxSeriesX_RT
+  - XboxSeriesX_Dpad_Up
+  - XboxSeriesX_Left_Stick
+  - XboxSeriesX_LB
+  - XboxSeriesX_Right_Stick_Click
+  - XboxSeriesX_Share
+  - XboxSeriesX_Dpad_Left
+  - XboxSeriesX_Dpad_Down
+  m_RenderDataMap: {}
+  m_Tag: pads
+  m_IsVariant: 0
