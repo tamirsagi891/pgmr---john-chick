@@ -1,8 +1,10 @@
 ﻿using System;
 using Avrahamy;
+using Mechanics.Dark_Levels;
 using Nemesh;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering.Universal;
 using static Mechanics.Enemies.CorotuineUtils;
 using static Mechanics.Enemies.Porcupine.ProjectileUtils;
 using Logger = Nemesh.Logger;
@@ -64,10 +66,18 @@ namespace Mechanics.Enemies.Porcupine
             endLifeAfterTime.Clear();
             onRelease.Invoke(this);
             MyProjectilePool.Pool.Release(this);
+            if(TryGetComponent(out Light2D light2D))
+            {
+                light2D.enabled = false;
+            }
         }
 
         public virtual void InitObject()
         {
+            if (DarkLevelManager.isCurrentLevelDark && TryGetComponent(out Light2D light2D))
+            {
+                light2D.enabled = true;
+            }
         }
 
         #endregion

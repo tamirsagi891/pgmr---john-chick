@@ -1,5 +1,7 @@
 using Elad.Scripts.Combat;
+using Mechanics.Dark_Levels;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using Logger = Nemesh.Logger;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
@@ -17,6 +19,10 @@ public class FallingItem : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         spawner = GetComponentInParent<FallingItemSpawner>();
         GetComponent<Rigidbody2D>().gravityScale = 1; // Make sure the rigidbody falls down
+        if (DarkLevelManager.isCurrentLevelDark && TryGetComponent(out Light2D light2D))
+        {
+            light2D.enabled = true;
+        }
     }
 
     private void Update()
@@ -24,7 +30,7 @@ public class FallingItem : MonoBehaviour
         // If the spawner is deactivated or the projectile is too far from the player, deactivate the projectile
         if (!spawner.gameObject.activeInHierarchy || Vector2.Distance(transform.position, playerTransform.position) > maxDistanceFromPlayer)
         {
-            gameObject.SetActive(false);
+            ResetProjectile();
         }
     }
 
@@ -50,6 +56,11 @@ public class FallingItem : MonoBehaviour
 
     public void ResetProjectile()
     {
+        if (TryGetComponent(out Light2D light2D))
+        {
+            light2D.enabled = false;
+        }
+        
         // Resets the rigidbody velocity to 0
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         

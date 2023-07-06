@@ -101,6 +101,10 @@ PrefabInstance:
       propertyPath: m_IncludeLayers.m_Bits
       value: 192
       objectReference: {fileID: 0}
+    - target: {fileID: 5015053272711562113, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5724991842647839431, guid: 1ec10a13157781d448fd4a23912faff8, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -286,6 +290,8 @@ MonoBehaviour:
   stopMovementDuringAttackTime: 2
   attackStartAfterTime: 0.25
   hurtTime: 1
+  hurtInvTime:
+    duration: 1
   dashTime:
     duration: 0.2
   stopAtDashEndTimer:
@@ -341,6 +347,7 @@ MonoBehaviour:
     onDisable:
       m_PersistentCalls:
         m_Calls: []
+  offsetPosition: {fileID: 0}
   debug: 0
   needleController: {fileID: 2200341667447732592}
   burstCount: 2
