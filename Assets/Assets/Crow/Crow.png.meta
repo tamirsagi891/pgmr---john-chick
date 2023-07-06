@@ -530,7 +530,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_19
+      name: Crow_Death_Boulder_0
       rect:
         serializedVersion: 2
         x: 0
@@ -551,7 +551,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_20
+      name: Crow_Death_Boulder_1
       rect:
         serializedVersion: 2
         x: 128
@@ -572,7 +572,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_21
+      name: Crow_Death_Boulder_2
       rect:
         serializedVersion: 2
         x: 256
@@ -593,7 +593,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_22
+      name: Crow_Death_Boulder_3
       rect:
         serializedVersion: 2
         x: 384
@@ -614,7 +614,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_23
+      name: Crow_Move_Boulder_0
       rect:
         serializedVersion: 2
         x: 0
@@ -635,7 +635,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_24
+      name: Crow_Move_Boulder_1
       rect:
         serializedVersion: 2
         x: 128
@@ -656,7 +656,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_25
+      name: Crow_Move_Boulder_2
       rect:
         serializedVersion: 2
         x: 256
@@ -677,7 +677,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_26
+      name: Crow_Move_Boulder_3
       rect:
         serializedVersion: 2
         x: 384
@@ -698,7 +698,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_27
+      name: Crow_Move_Boulder_4
       rect:
         serializedVersion: 2
         x: 512
@@ -719,7 +719,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_28
+      name: Crow_Move_Boulder_5
       rect:
         serializedVersion: 2
         x: 640
@@ -740,7 +740,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_29
+      name: Crow_Hurt_Boulder_0
       rect:
         serializedVersion: 2
         x: 0
@@ -761,7 +761,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_30
+      name: Crow_Hurt_Boulder_1
       rect:
         serializedVersion: 2
         x: 128
@@ -782,7 +782,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_31
+      name: Crow_Hurt_Boulder_2
       rect:
         serializedVersion: 2
         x: 256
@@ -803,7 +803,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crow_32
+      name: Crow_Boulder
       rect:
         serializedVersion: 2
         x: 0
@@ -834,39 +834,39 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Crow_19: 1517155135
-      Crow_20: 698324606
-      Crow_21: 1110471609
-      Crow_22: 919859952
-      Crow_23: 1378601679
-      Crow_24: 140361364
-      Crow_25: -1948475260
-      Crow_26: -993847811
-      Crow_27: -1009653605
-      Crow_28: -1122090404
-      Crow_29: -1252351867
-      Crow_30: 1173325585
-      Crow_31: -1051076078
-      Crow_32: 650289386
       Crow_Attack_0: 1940489110
       Crow_Attack_1: -248072501
       Crow_Attack_2: 278107761
       Crow_Attack_Boulder_0: -1556140404
       Crow_Attack_Boulder_1: 1387167927
       Crow_Attack_Boulder_2: -1726523040
+      Crow_Boulder: 650289386
       Crow_Death_0: 1699753185
       Crow_Death_1: -986913476
       Crow_Death_2: 1033508740
       Crow_Death_3: -357578316
+      Crow_Death_Boulder_0: 1517155135
+      Crow_Death_Boulder_1: 698324606
+      Crow_Death_Boulder_2: 1110471609
+      Crow_Death_Boulder_3: 919859952
       Crow_Hurt_0: -1360127290
       Crow_Hurt_1: 929089769
       Crow_Hurt_2: -527156273
+      Crow_Hurt_Boulder_0: -1252351867
+      Crow_Hurt_Boulder_1: 1173325585
+      Crow_Hurt_Boulder_2: -1051076078
       Crow_Move_0: -1343664633
       Crow_Move_1: -1671738253
       Crow_Move_2: -1040525006
       Crow_Move_3: -389406695
       Crow_Move_4: 1235080844
       Crow_Move_5: 545937069
+      Crow_Move_Boulder_0: 1378601679
+      Crow_Move_Boulder_1: 140361364
+      Crow_Move_Boulder_2: -1948475260
+      Crow_Move_Boulder_3: -993847811
+      Crow_Move_Boulder_4: -1009653605
+      Crow_Move_Boulder_5: -1122090404
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
