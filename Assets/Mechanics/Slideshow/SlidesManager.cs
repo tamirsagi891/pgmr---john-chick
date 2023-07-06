@@ -22,9 +22,6 @@ namespace Mechanics.Slideshow
         [SerializeField]
         private bool startShowOnStart;
 
-        [SerializeField]
-        private PassiveTimer timeBetweenSlides = new(0.75f);
-
         [Space]
         [Header("References")]
         [RequiredReference]
@@ -34,10 +31,6 @@ namespace Mechanics.Slideshow
         [RequiredReference]
         [SerializeField]
         private TMP_Text text;
-
-        [RequiredReference]
-        [SerializeField]
-        private Button continueButton;
 
         [Space]
         [SerializeField]
@@ -86,18 +79,6 @@ namespace Mechanics.Slideshow
             SlideshowRolling = true;
             NextSlide();
         }
-        
-        
-        public void EndSlideAndGoToNextImmediate()
-        {
-            if (SlideshowRolling && CurrentSlide != -1)
-            {
-                var slide = slides[CurrentSlide % slides.Count];
-                EndSlide(slide);
-            }
-
-            NextSlide(true);
-        }
 
 
         [Button("Go To Next Slide")]
@@ -114,57 +95,11 @@ namespace Mechanics.Slideshow
                 var slide = slides[CurrentSlide % slides.Count];
                 EndSlide(slide);
             }
-
-            NextSlide();
-        }
-
-        [Button]
-        public void PauseSlide() // TODO: move both pause and continue to SlideshowRolling getter.
-        {
-#if UNITY_EDITOR
-            if (!Application.isPlaying)
+            else
             {
-                return;
-            }
-#endif
-            if (SlideshowRolling)
-            {
-                if (timeBetweenSlides.IsSet && timeBetweenSlides.IsActive)
-                {
-                    // TODO: pause this instead
-                    Logger.Log("Cant pause while transition for now, WIP", Color.yellow);
-                    return;
-                }
-
-                var slide = slides[CurrentSlide % slides.Count];
-                SlideshowRolling = false;
-                slide.PauseTimer();
-                Logger.Log($"Pause slide {slide.name}");
-            }
-        }
-
-        [Button]
-        public void ContinueSlide()
-        {
-#if UNITY_EDITOR
-            if (!Application.isPlaying)
-            {
-                return;
-            }
-#endif
-            if (SlideshowRolling)
-            {
-                return;
+                NextSlide();
             }
 
-            // TODO: Continue when transition is paused
-            // if (timeBetweenSlides.IsSet && timeBetweenSlides.IsActive)
-            // {
-            // }
-            var slide = slides[CurrentSlide % slides.Count];
-            slide.ResumeTimer();
-            SlideshowRolling = true;
-            Logger.Log($"Continue slide {CurrentSlide} : {slide.name}");
         }
 
         #endregion
@@ -179,49 +114,13 @@ namespace Mechanics.Slideshow
             }
         }
 
-        private void Update()
-        {
-            if (!SlideshowRolling)
-            {
-                return;
-            }
-
-            if (timeBetweenSlides.IsSet)
-            {
-                if (!timeBetweenSlides.IsActive)
-                {
-                    timeBetweenSlides.Clear();
-                    StartSlideHelper(_slideToSwitchTo);
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            var slide = slides[CurrentSlide];
-            if (slide.TimeUp)
-            {
-                Logger.Log($"Slide {CurrentSlide} : {slide.name} TimeUp");
-                EndSlideAndGoToNext(slide);
-            }
-        }
-
         #endregion
 
         #region Private Methods
 
         private void StartSlide(int slideNumber)
         {
-            SlideshowRolling = true;
-            _slideToSwitchTo = slideNumber;
-            if (timeBetweenSlides.IsSet && timeBetweenSlides.IsActive)
-            {
-                Logger.Log($"Switching next slide to slide {slideNumber} : {slides[slideNumber].name}");
-                return;
-            }
-            Logger.Log($"Starting time to go to slide {slideNumber} : {slides[slideNumber].name}");
-            timeBetweenSlides.Start();
+            StartSlideHelper(slideNumber);
         }
 
         private void StartSlideHelper(int slideNumber)
@@ -240,17 +139,12 @@ namespace Mechanics.Slideshow
 
             // TODO: combine into a function of slide called StartSlide or smthg
             slide.events.onSlideStart.Invoke();
-            slide.StartTimer();
             events.onSlideStart.Invoke();
         }
         
-        private bool NextSlide(bool immediate = false)
+        public bool NextSlide()
         {
             var slideNumber = CurrentSlide + 1;
-            if (timeBetweenSlides.IsSet && timeBetweenSlides.IsActive)
-            {
-                slideNumber = _slideToSwitchTo + 1;
-            }
 
             if (slideNumber >= slides.Count)
             {
@@ -264,31 +158,17 @@ namespace Mechanics.Slideshow
             if (slideNumber == 0)
             {
                 Logger.Log($"Slideshow Started");
-                immediate = true;
                 events.onSlideshowStart.Invoke();
             }
-
-            if (immediate)
-            {
-                StartSlideHelper(slideNumber);
-            }
-            else
-            {
-                StartSlide(slideNumber);
-            }
+            
+            StartSlide(slideNumber);
+            
             return true;
         }
-
-        private void EndSlideAndGoToNext(Slide slide)
-        {
-            EndSlide(slide);
-            NextSlide();
-        }
-
+        
         private void EndSlide(Slide slide)
         {
             slide.events.onSlideEnd.Invoke();
-            slide.ClearTimer();
             events.onSlideEnd.Invoke();
         }
 
