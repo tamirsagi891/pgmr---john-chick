@@ -20,6 +20,7 @@ public class Crow : MonoBehaviour
     [SerializeField] private float attackingSpeed;
     [SerializeField] private float circleSpeedOne;
     [SerializeField] private float circleSpeedTwo;
+    [SerializeField] private float attackingFromRoamingSpeed;
 
     [Header("Distance")] [SerializeField] private float startAttackDistance = 5f;
 
@@ -29,14 +30,17 @@ public class Crow : MonoBehaviour
     [SerializeField] private float knockBackDelay = 0.1f;
 
     [Header("Circle Movement")] [SerializeField]
-    private Vector3 afterAttackOffset = Vector3.right;
+    private float afterAttackTime = 0.2f;
+
+    private float _afterAttackTimer;
+    [SerializeField] private Vector3 afterAttackOffset = Vector3.right;
 
     [SerializeField] private float thirdPositionYOffset = 4f;
     [SerializeField] private float secondPositionXOffset = 4f;
     private Vector3 afterAttackPositionOne;
     private Vector3 afterAttackPositionSecond;
     private Vector3 afterAttackPositionThird;
-    
+
 
     enum CircleMovementStatus
     {
@@ -51,13 +55,29 @@ public class Crow : MonoBehaviour
     {
         MovingTowardPlayer,
         Attacking,
-        AfterAttack
+        AfterAttack,
+        Roaming,
+        AttackingFromRoaming
     }
 
-    private CrowModeEnum _crowMode = CrowModeEnum.MovingTowardPlayer;
+    [SerializeField] private CrowModeEnum _crowMode = CrowModeEnum.MovingTowardPlayer;
 
     [Header("Rotation")] [SerializeField] private float rotationSpeed = 200f;
     private bool _sideFacingRight;
+
+    [Header("Roaming Movement")] [SerializeField]
+    private float roamingSpeed = 15f;
+
+    private bool _roamingFirst;
+    [SerializeField] private Transform roamingPositionFirst;
+    [SerializeField] private Transform roamingPositionSecond;
+
+    [Header("Boulder Throwing")] [SerializeField]
+    private GameObject boulder;
+
+    [SerializeField] private float xDistanceToThrow = 3f;
+    [SerializeField] private Vector3 boulderInstantiateOffset = Vector3.down;
+    private bool _canThrow = true;
 
     private void Awake()
     {
@@ -88,17 +108,36 @@ public class Crow : MonoBehaviour
                 sideTarget = target.position;
                 MoveTowardPlayerAttacking();
                 AttackTimingHandler();
-
                 break;
 
             case CrowModeEnum.AfterAttack:
                 CircleMovement();
+                break;
+
+            case CrowModeEnum.Roaming:
+                MoveRoaming();
+                BoulderThrow();
                 break;
         }
 
         SideHandler();
         RotateTowardsTarget();
     }
+
+    private void BoulderThrow()
+    {
+        if (!_canThrow) return;
+        
+        float xDistance = Mathf.Abs(transform.position.x - target.position.x);
+        if (xDistance < xDistanceToThrow)
+        {
+            Vector3 boulderInstantiatePosition = transform.position + boulderInstantiateOffset;
+            Instantiate(boulder, boulderInstantiatePosition, Quaternion.identity);
+            _animator.SetBool(AnimationStrings.withBoulder, false);
+            _canThrow = false;
+        }
+    }
+
 
     private void AttackTimingHandler()
     {
@@ -110,6 +149,34 @@ public class Crow : MonoBehaviour
         }
     }
 
+
+    private void MoveRoaming()
+    {
+        
+        var roamingPosition = _roamingFirst ? roamingPositionFirst : roamingPositionSecond;
+        // Move our position a step closer to the target.
+        float step = roamingSpeed * Time.deltaTime; // calculate distance to move
+        transform.position = Vector2.MoveTowards(transform.position, roamingPosition.position, step);
+
+        float distance = Vector3.Distance(transform.position, roamingPosition.position);
+        if (distance < 0.2f)
+        {
+            _roamingFirst = !_roamingFirst;
+            sideTarget = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
+            _animator.SetBool(AnimationStrings.withBoulder, true);
+            _canThrow = true;
+        }
+    }
+    
+    
+
+    private void MoveTowardPlayerAttackingFromRoaming()
+    {
+        // Move our position a step closer to the target.
+        float step = attackingFromRoamingSpeed * Time.deltaTime; // calculate distance to move
+        transform.position = Vector2.MoveTowards(transform.position, target.position, step);
+    }
+    
     private void MoveTowardPlayerRegular()
     {
         // Move our position a step closer to the target.
@@ -177,13 +244,15 @@ public class Crow : MonoBehaviour
         _crowMode = CrowModeEnum.AfterAttack;
         _animator.SetTrigger(AnimationStrings.crowAttack);
         _damageablePlayer.GotHit(1, knockBack, knockBackDelay);
+        _afterAttackTimer = afterAttackTime;
         SetCircleParameters();
     }
 
     private void SetCircleParameters()
     {
         afterAttackPositionOne = target.position + afterAttackOffset;
-        afterAttackPositionSecond = target.position - new Vector3(afterAttackOffset.x + secondPositionXOffset, -afterAttackOffset.y, 0f);
+        afterAttackPositionSecond = target.position -
+                                    new Vector3(afterAttackOffset.x + secondPositionXOffset, -afterAttackOffset.y, 0f);
     }
 
     private void StopAttack()
@@ -193,6 +262,12 @@ public class Crow : MonoBehaviour
 
     private void CircleMovement()
     {
+        if (_afterAttackTimer > 0)
+        {
+            _afterAttackTimer -= Time.deltaTime;
+            return;
+        }
+
         Vector2 currentTarget = afterAttackPositionOne;
         switch (_circleMovementStatus)
         {
