@@ -926,12 +926,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6361d660d66d61645a5e3bc8d3f99aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadByLevel: 0
-  loadToNextIfExists: 1
+  loadByLevel: 1
+  loadToNextIfExists: 0
   levelToLoad: 0
   sceneToLoad:
-    asset: {fileID: 102900000, guid: b63c3482dc1e3c8419d232d5ea625d08, type: 3}
-    guid: b63c3482dc1e3c8419d232d5ea625d08
+    asset: {fileID: 102900000, guid: e17cb16c4cf109f4a98ea22adc45616e, type: 3}
+    guid: e17cb16c4cf109f4a98ea22adc45616e
   loadMode: 0
   setAsActiveAfterLoad: 1
   unloadIfAdditive: 1
