@@ -59,15 +59,17 @@ public class CharacterJump : MonoBehaviour
     [Header("Current State")] public bool canJumpAgain;
     private bool _desiredJump;
     private float _jumpBufferCounter;
-    [SerializeField]
-    [ReadOnly]
-    private float _coyoteTimeCounter;
+    [SerializeField] [ReadOnly] private float _coyoteTimeCounter;
     private bool _pressingJump;
     private bool _onGround;
     private bool _currentlyJumping;
 
-    [Header("Gliding")] [SerializeField][Tooltip("Horizontal speed without holding the key")] private float glideHorizontallyMovementStaticStatic = 5f;
-    [SerializeField][Tooltip("Horizontal speed with holding the key")] private float glideHorizontallyMovement = 5f;
+    [Header("Gliding")] [SerializeField] [Tooltip("Horizontal speed without holding the key")]
+    private float glideHorizontallyMovementStaticStatic = 5f;
+
+    [SerializeField] [Tooltip("Horizontal speed with holding the key")]
+    private float glideHorizontallyMovement = 5f;
+
     [SerializeField] private bool regularGlide = true;
     [SerializeField] private Vector2 glideJump = Vector2.zero;
 
@@ -93,13 +95,12 @@ public class CharacterJump : MonoBehaviour
         {
             var returnValue = (!(_touchingDirection.IsGrounded) && (!PlayerStatus.IsMovingThrowPlatform));
             returnValue = returnValue && !((_wallMovement.IsWallSliding || _inHit));
-            
+
             return returnValue;
         }
     }
 
-    [Header("Sounds")]
-    private EventInstance _playerGlidingSound;
+    [Header("Sounds")] private EventInstance _playerGlidingSound;
 
     public bool IsGliding
     {
@@ -108,7 +109,7 @@ public class CharacterJump : MonoBehaviour
         {
             if (value != _isGliding)
             {
-                ParticleEvents.PlayerGlide.Invoke(value);        
+                ParticleEvents.PlayerGlide.Invoke(value);
             }
 
             if (_isGliding != value)
@@ -123,13 +124,14 @@ public class CharacterJump : MonoBehaviour
                     _playerGlidingSound.stop(STOP_MODE.ALLOWFADEOUT);
                 }
             }
+
             _isGliding = value;
         }
     }
 
     [Space(10)] [Header("Crouch Affect jump")] [Tooltip("Let the player to jump from crouching")] [SerializeField]
     private bool canJumpWhileCrouch;
-    
+
     public bool CanJump
     {
         get
@@ -174,11 +176,13 @@ public class CharacterJump : MonoBehaviour
     private void OnEnable()
     {
         characterEvents.CharacterDamaged.AddListener(StopGlideFromHit);
+        characterEvents.PauseGame.AddListener(ResetMovement);
     }
 
     private void OnDisable()
     {
         characterEvents.CharacterDamaged.RemoveListener(StopGlideFromHit);
+        characterEvents.PauseGame.RemoveListener(ResetMovement);
     }
 
     void Awake()
@@ -198,7 +202,6 @@ public class CharacterJump : MonoBehaviour
     private void Start()
     {
         _playerGlidingSound = AudioManager.instance.CreatEventInstance(FMODEvents.instance.playerGliding);
-
     }
 
     private void OnDestroy()
@@ -216,6 +219,7 @@ public class CharacterJump : MonoBehaviour
         {
             _pressingJump = false;
         }
+
         //This function is called when one of the jump buttons (like space or the A button) is pressed.
         if (_playerController.CanMove)
         {
@@ -238,7 +242,6 @@ public class CharacterJump : MonoBehaviour
                 {
                     _desiredJump = true;
                 }
-                
             }
         }
     }
@@ -257,7 +260,7 @@ public class CharacterJump : MonoBehaviour
                 _inHit = false;
             }
         }
-        
+
         //Jump buffer allows us to queue up a jump, which will play when we next hitTrigger the ground
         if (jumpBuffer > 0)
         {
@@ -278,7 +281,7 @@ public class CharacterJump : MonoBehaviour
 
         //If we're not on the ground and we're not currently jumping, that means we've stepped off the edge of a platform.
         //So, start the coyote time counter...
-        
+
         if (!_currentlyJumping && !OnGround && !_wallMovement.IsWallSliding)
         {
             _coyoteTimeCounter += Time.deltaTime;
@@ -297,7 +300,6 @@ public class CharacterJump : MonoBehaviour
 
     private float GetGravityScale(float mult)
     {
-
         //Determine the character's gravity scale, using the stats provided. Multiply it by a _gravMultiplier, used later
         Vector2 newGravity = new Vector2(0, (-2 * maxJumpHeight) / (timeToReachPeakHeight * timeToReachPeakHeight));
         var a = (newGravity.y / Physics2D.gravity.y) * mult;
@@ -333,7 +335,7 @@ public class CharacterJump : MonoBehaviour
         {
             _gravMultiplier = gravityMultiplierGliding;
         }
-        else if (_wallMovement.IsWallSliding)        //If Kit is going up...
+        else if (_wallMovement.IsWallSliding) //If Kit is going up...
         {
             _gravMultiplier = _wallMovement.GravityMultiplierWallSliding;
         }
@@ -341,11 +343,11 @@ public class CharacterJump : MonoBehaviour
         {
             calculateGravityUp();
         }
-        else if (_rB.velocity.y < -0.01f && !OnGround)        //Else if going down...
+        else if (_rB.velocity.y < -0.01f && !OnGround) //Else if going down...
         {
             calculateGravityDown();
         }
-        else  //Else not moving vertically at all
+        else //Else not moving vertically at all
         {
             _currentlyJumping = false;
             _gravMultiplier = _defaultGravityScale;
@@ -400,9 +402,11 @@ public class CharacterJump : MonoBehaviour
             _coyoteTimeCounter = coyoteTime + 1f;
 
             // Determine the power of the jump, based on our gravity and stats
-            var gScale = GetGravityScale(_wallMovement.IsWallSliding ? _wallMovement.GravityMultiplierWallSliding : _defaultGravityScale);
+            var gScale = GetGravityScale(_wallMovement.IsWallSliding
+                ? _wallMovement.GravityMultiplierWallSliding
+                : _defaultGravityScale);
             _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * gScale * maxJumpHeight);
-            
+
             // If we have double jump on, allow us to jump again (but only once)
             if (canDoubleJump)
             {
@@ -425,8 +429,8 @@ public class CharacterJump : MonoBehaviour
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.playerJump, transform.position);
                     ParticleEvents.PlayerJump.Invoke();
                 }
-                _animator.SetTrigger(AnimationStrings.jumpTrigger);
 
+                _animator.SetTrigger(AnimationStrings.jumpTrigger);
             }
 
 
@@ -451,7 +455,7 @@ public class CharacterJump : MonoBehaviour
                 _wallMovement.IsWallSliding = false;
                 // _horizontalMovement.SetFacingDirection(-xAddVelocity);
             }
-            
+
             _velocity.y += _jumpSpeed;
             _velocity.x += xAddVelocity;
 
@@ -499,10 +503,15 @@ public class CharacterJump : MonoBehaviour
 
         else
         {
-            SpecialGlide(); 
+            SpecialGlide();
         }
     }
 
+    private void ResetMovement()
+    {
+        _pressingJump = false;
+    }
+    
     private void CancelGlide()
     {
         if (IsGliding && (!_pressingJump || !CanGlide))
@@ -521,13 +530,9 @@ public class CharacterJump : MonoBehaviour
             {
                 _horizontalMovement.OnHit(0, glideJump);
                 _rB.drag = linearDragGliding;
-                Logger.Log("kakakakak");
                 // _animator.SetBool(AnimationStrings.isGliding, true);
                 IsGliding = true;
-                Logger.Log("CCCC");
             }
-
-            Logger.Log("BBBB");
         }
 
         if (IsGliding && !_pressingJump)
@@ -535,7 +540,6 @@ public class CharacterJump : MonoBehaviour
             _rB.drag = linearDragRegular;
             // _animator.SetBool(AnimationStrings.isGliding, false);
             IsGliding = false;
-            Logger.Log("AAAAA");
         }
     }
 
@@ -553,20 +557,7 @@ public class CharacterJump : MonoBehaviour
             _hitGlideDelayTimer = hitGlideDelayTime;
         }
     }
-/*
-
-timeToApexStat = scale(1, 10, 0.2f, 2.5f, numberFromPlatformerToolkit)
-
-
-  public float scale(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue)
-    {
-
-        float OldRange = (OldMax - OldMin);
-        float NewRange = (NewMax - NewMin);
-        float NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin;
-
-        return (NewValue);
-    }
-
-*/
 }
+
+
+

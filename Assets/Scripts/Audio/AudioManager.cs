@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BitStrap;
+using Elad.Events;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
@@ -44,6 +45,8 @@ public class AudioManager : MonoBehaviour
     private List<EventInstance> eventInstances;
     private List<StudioEventEmitter> eventEmitters;
 
+    
+    
     private EventInstance ambienceEventInstance;
     private EventInstance mainMusic;
 
@@ -92,6 +95,7 @@ public class AudioManager : MonoBehaviour
     }
 
 
+    private List<EventInstance> oneShotSounds;
     private void Awake()
     {
         if (instance != null)
@@ -100,7 +104,7 @@ public class AudioManager : MonoBehaviour
         }
 
         instance = this;
-
+        oneShotSounds = new List<EventInstance>();
         eventInstances = new List<EventInstance>();
         eventEmitters = new List<StudioEventEmitter>();
 
@@ -130,6 +134,11 @@ public class AudioManager : MonoBehaviour
         MenuManager.OnMusicChangeEvent += SetMusicVolume;
         MenuManager.OnSfxChangeEvent += SetSfxVolume;
         MenuManager.OnAmbientChangeEvent += SetAmbientVolume;
+        
+        characterEvents.PauseGame.AddListener(PauseSounds);
+        characterEvents.ContinueGame.AddListener(ContinueSounds);
+
+
     }
 
     private void OnDisable()
@@ -138,8 +147,12 @@ public class AudioManager : MonoBehaviour
         MenuManager.OnMusicChangeEvent -= SetMusicVolume;
         MenuManager.OnSfxChangeEvent -= SetSfxVolume;
         MenuManager.OnAmbientChangeEvent -= SetAmbientVolume;
+        
+        characterEvents.PauseGame.RemoveListener(PauseSounds);
+        characterEvents.ContinueGame.RemoveListener(ContinueSounds);
     }
 
+    
 
     private void InitializeMusic(EventReference musicEventReference)
     {
@@ -147,10 +160,64 @@ public class AudioManager : MonoBehaviour
         mainMusic.start();
     }
 
-
+    public void AddEmitter(StudioEventEmitter newEmitter)
+    {
+        eventEmitters.Add(newEmitter);
+    }
+    
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
-        RuntimeManager.PlayOneShot(sound, worldPos);
+        // RuntimeManager.PlayOneShot(sound, worldPos);
+        var currentSoundInstance = CreatEventInstance(sound);
+        oneShotSounds.Add(currentSoundInstance);
+        currentSoundInstance.start();
+    }
+
+    private void ContinueSounds()
+    {
+        foreach (var eventEmitter in eventEmitters)
+        {
+            eventEmitter.EventInstance.setPaused(false);
+        }
+        
+        foreach (var eventInstance in eventInstances)
+        {
+            eventInstance.setPaused(false);
+        }
+
+        foreach (var currentSoundInstance in oneShotSounds)
+        {
+            if (currentSoundInstance.isValid())
+            {
+                currentSoundInstance.setPaused(false);
+            }
+        }
+    }
+    
+    private void PauseSounds()
+    {
+        foreach (var eventEmitter in eventEmitters)
+        {
+            eventEmitter.EventInstance.setPaused(true);
+        }
+        
+        foreach (var eventInstance in eventInstances)
+        {
+            eventInstance.setPaused(true);
+        }
+        
+        foreach (var currentSoundInstance in oneShotSounds)
+        {
+            if (currentSoundInstance.isValid())
+            {
+                currentSoundInstance.setPaused(true);
+            }
+
+            else
+            {
+                oneShotSounds.Remove(currentSoundInstance);
+            }
+        }
     }
 
 
@@ -281,4 +348,6 @@ public class AudioManager : MonoBehaviour
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.buttonsMove, transform.position);
     }
+    
+    
 }

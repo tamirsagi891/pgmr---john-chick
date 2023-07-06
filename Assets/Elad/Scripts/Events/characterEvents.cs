@@ -30,6 +30,7 @@ namespace Elad.Events
         public static UnityEvent FunctionsLoad  = new();
         
         
-
+        public static UnityEvent PauseGame  = new();
+        public static UnityEvent ContinueGame  = new();
     }
 }

@@ -191,6 +191,16 @@ namespace Mechanics.New_Wind
             }
         }
 
+        private void Start()
+        {
+            var eventEmitter = GetComponent<StudioEventEmitter>();
+            if (eventEmitter)
+            {
+                AudioManager.instance.AddEmitter(eventEmitter);
+            }
+            
+        }
+
 
         private void FixedUpdate()
         {
