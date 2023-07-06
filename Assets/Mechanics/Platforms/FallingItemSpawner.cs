@@ -71,6 +71,7 @@ public class FallingItemSpawner : MonoBehaviour
                 {
                     if (!projectile.activeInHierarchy)
                     {
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.rocksFall, transform.position);
                         projectile.transform.position = transform.position;
                         projectile.GetComponent<FallingItem>().ResetProjectile();
                         projectile.SetActive(true);

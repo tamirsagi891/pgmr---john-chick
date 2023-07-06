@@ -3,6 +3,7 @@ using Avrahamy;
 using Avrahamy.Math;
 using BitStrap;
 using Elad.Scripts;
+using FMODUnity;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
@@ -81,7 +82,7 @@ namespace Mechanics.New_Wind
         }
 
         public float Angle => Vector2.SignedAngle(Vector2.right, Force);
-
+        
         public Vector2 Force
         {
             get
@@ -98,7 +99,6 @@ namespace Mechanics.New_Wind
                 }
                 
                 var ret = UseKnobForMagnitude ? force : force.GetWithMagnitude(Magnitude);
-
                 return ret;
             }
             set
@@ -191,6 +191,16 @@ namespace Mechanics.New_Wind
             }
         }
 
+        private void Start()
+        {
+            var eventEmitter = GetComponent<StudioEventEmitter>();
+            if (eventEmitter)
+            {
+                AudioManager.instance.AddEmitter(eventEmitter);
+            }
+            
+        }
+
 
         private void FixedUpdate()
         {
@@ -260,6 +270,7 @@ namespace Mechanics.New_Wind
             {
                 force = Vector2.zero;
             }
+
             
             WindEffector.forceAngle = Angle;
             WindEffector.forceMagnitude = force.magnitude;

@@ -101,6 +101,7 @@ public class FallingPlatform : MonoBehaviour
             yield return null;
         }
 
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.returnPlatform, transform.position);
         transform.localScale = originalScale;
     }
 

@@ -33969,14 +33969,10 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 397181783}
-    - target: {fileID: 4756532907892497648, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
-      propertyPath: stepsVolume
-      value: 0.059
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756532907892497648, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
-      propertyPath: stepsSoundGapTime
-      value: 0.05
-      objectReference: {fileID: 0}
+    - target: {fileID: 8005064636444060558, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: m_BoundingShape2D
+      value: 
+      objectReference: {fileID: 397181783}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -98463,7 +98459,6 @@ GameObject:
   - component: {fileID: 1955480046}
   - component: {fileID: 1955480042}
   - component: {fileID: 1955480045}
-  - component: {fileID: 1955480044}
   - component: {fileID: 1955480048}
   - component: {fileID: 1955480047}
   - component: {fileID: 1955480049}
@@ -98526,19 +98521,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1955480044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1955480041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attenuationObject: {fileID: 0}
 --- !u!114 &1955480045
 MonoBehaviour:
   m_ObjectHideFlags: 0

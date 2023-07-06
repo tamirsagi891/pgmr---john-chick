@@ -42,7 +42,6 @@ public class Door : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             OpenDoor();
-            print("Door open");
         }
     }
 
@@ -52,6 +51,7 @@ public class Door : MonoBehaviour
         // Only open the door if it's not currently moving
         if (!isDoorMoving)
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.gateOpen, transform.position);
             StartCoroutine(DoorMovement());
             return true;
         }

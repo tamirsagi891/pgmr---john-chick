@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Logger = Nemesh.Logger;
 
 
 namespace Mechanics.UI.Menus.Menu_Utils
@@ -47,5 +48,7 @@ namespace Mechanics.UI.Menus.Menu_Utils
             // keep the last slider value if the slider was dragged by mouse
             _previousSliderValue = _slider.value;
         }
+
+        
     }
 }

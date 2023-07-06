@@ -77,6 +77,8 @@ public class ZoomCamera : MonoBehaviour
     {
         
         // var currentVirtualCam = PlayerStatus.CurrentVirtualCamara;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.camZoom, transform.position);
+
         _cam.enabled = true;
         characterEvents.OpenGameOverMenu.Invoke();
         SlowTime();
@@ -106,4 +108,5 @@ public class ZoomCamera : MonoBehaviour
         _cam.enabled = false;
         // currentVirtualCam.enabled = true;
     }
+    
 }

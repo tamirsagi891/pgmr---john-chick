@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{4c79106d-c597-47d6-90d6-4e056f04a3b1}">
+		<property name="assetPath">
+			<value>Buttons/ga-con-62453 (mp3cut.net) (5).mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.23999999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{423e3eea-3ef9-4730-805b-bb05f135121e}</destination>
+		</relationship>
+	</object>
+</objects>

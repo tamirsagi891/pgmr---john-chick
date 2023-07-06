@@ -1,5 +1,6 @@
 ﻿using System;
 using BitStrap;
+using Elad.Events;
 using Elad.Scripts;
 using Managers;
 using Mechanics.UI.Menus.Menu_Utils;
@@ -206,6 +207,7 @@ namespace Mechanics.UI.Menus
         public void Resume()
         {
             MenuManager.Menu.CloseAllMenus();
+            characterEvents.ContinueGame.Invoke();
         }
 
         private void Pause()
@@ -322,6 +324,7 @@ namespace Mechanics.UI.Menus
             if (_currentOpen == null)
             {
                 Pause();
+                characterEvents.PauseGame.Invoke();
             }
             else
             {

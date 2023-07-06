@@ -132,11 +132,13 @@ public class HorizontalMovement : MonoBehaviour
     private void OnEnable()
     {
         characterEvents.FunctionsLoad.AddListener(ResetMovement);
+        characterEvents.PauseGame.AddListener(ResetMovement);
     }
 
     private void OnDisable()
     {
         characterEvents.FunctionsLoad.RemoveListener(ResetMovement);
+        characterEvents.PauseGame.RemoveListener(ResetMovement);
     }
 
 
@@ -386,7 +388,7 @@ public class HorizontalMovement : MonoBehaviour
             IsFacingRight = false;
         }
 
-        if (changedSides)
+        if (changedSides && _touchingDirection.IsGrounded)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerTurnSide, transform.position);
 

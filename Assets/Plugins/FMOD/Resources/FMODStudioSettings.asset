@@ -375,14 +375,18 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
+  - Bank A
+  - Buttons
   - Camara
   - Cave
   - Chicken
   - Collect
+  - End Level
   - Life
   - Movement
   - Music
   - Platforms
+  - Wind
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0

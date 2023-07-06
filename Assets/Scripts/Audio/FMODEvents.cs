@@ -12,8 +12,19 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Ambience")]
     [field: Header("Music")]
-    [field: SerializeField]
-    public EventReference Music { get; private set; }
+    public enum MainMusic
+    {
+        TheChicken,
+        StoryOfWhick,
+        Think
+    }
+    
+    
+    [field: SerializeField] public EventReference ThinkMusic { get; private set; }
+    [field: SerializeField] public EventReference ChickenMusic { get; private set; }
+    [field: SerializeField] public EventReference JonWhickStoryMusic { get; private set; }
+    
+    [field: SerializeField] public EventReference chicks { get; private set; }
 
 
     [field: Header("Player SFX")]
@@ -42,10 +53,22 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Platforms")][field: SerializeField] public EventReference crumblingPlatform { get; private set; }
     [field: SerializeField] public EventReference fallingPlatform { get; private set; }
     [field: SerializeField] public EventReference woodPlatform { get; private set; }
+    [field: SerializeField] public EventReference movingThrowPlatform { get; private set; }
+    [field: SerializeField] public EventReference returnPlatform { get; private set; }
     
     [field: Header("Cave SFX")]
     [field: SerializeField] public EventReference caveAppear { get; private set; }
+    [field: SerializeField] public EventReference rocksFall { get; private set; }
     
+    [field: Header("Camara SFX")]
+    [field: SerializeField] public EventReference camMovement { get; private set; }
+    [field: SerializeField] public EventReference camZoom { get; private set; }
+
+    [field: Header("End Level")]
+    [field: SerializeField] public EventReference gateOpen { get; private set; }
+    
+    [field: Header("Feathers SFX")]
+    [field: SerializeField] public EventReference buttonsMove { get; private set; }
     private void Awake()
     {
         if (instance != null)

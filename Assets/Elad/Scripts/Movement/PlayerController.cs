@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using BitStrap;
 using Elad.Events;
 using Elad.Scripts;
+using FMODUnity;
 using Managers;
 using Mechanics.UI.Menus;
 using Unity.VisualScripting;
@@ -17,6 +18,7 @@ using Logger = Nemesh.Logger;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private bool isGamePaused;
+
     [Space(10)] [Header("Movement")] [SerializeField]
     private float airWalkSpeed = 3f;
 
@@ -37,13 +39,14 @@ public class PlayerController : MonoBehaviour
     [Space(10)] [Header("Touching")] private TouchingDirection _touchingDirection;
 
 
-    [Space(10)] [Header("Components")] private Rigidbody2D _rB;
+    [Space(10)] [Header("Components")] private SpriteRenderer _sP;
+    private Rigidbody2D _rB;
     private Animator _animator;
 
     [Space(10)] [Header("Collider")] private CapsuleCollider2D _capsuleCollider2D;
     private CircleCollider2D _circleCollider2D;
 
-    private HorizontalMovement _horizontalMovementPlayer; 
+    private HorizontalMovement _horizontalMovementPlayer;
 
     public enum ColliderKind
     {
@@ -84,16 +87,14 @@ public class PlayerController : MonoBehaviour
         _circleCollider2D = GetComponent<CircleCollider2D>();
         ChangeCollider(ColliderKind.Capsule);
         _horizontalMovementPlayer = GetComponent<HorizontalMovement>();
+        _sP = GetComponent<SpriteRenderer>();
     }
 
+    
 
     public bool CanMove
     {
-        get
-        {
-            return _animator.GetBool(AnimationStrings.canMove);
-        }
-       
+        get { return _animator.GetBool(AnimationStrings.canMove); }
     }
 
     public bool IsAlive
@@ -110,6 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         MenuManager.Menu.OpenEndLevelMenu();
     }
+
     public void ChangeCollider(ColliderKind colliderKind)
     {
         switch (colliderKind)
@@ -131,11 +133,10 @@ public class PlayerController : MonoBehaviour
 
     public bool CantGetInput()
     {
-        
         var retVal = GeneralGameManager.IsGamePause || !PlayerStatus.IsAlive || PlayerStatus.InCutScene;
         return retVal;
     }
-    
+
     [Button]
     public void CloseMovement()
     {
@@ -145,12 +146,27 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerDied()
     {
+        ChangeSortingLayerToPlayer();
         _rB.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     private void OnPlayerRevive()
     {
+        ChangeSortingLayerToTileMap();
         _rB.constraints = RigidbodyConstraints2D.None;
         _rB.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+    
+
+    [Button]
+    public void ChangeSortingLayerToPlayer()
+    {
+        _sP.sortingLayerName  = SortingOrderStrings.playerSortingLayer;
+    }
+    
+    [Button]
+    public void ChangeSortingLayerToTileMap()
+    {
+        _sP.sortingLayerName  = SortingOrderStrings.tileMapSortingLayer;
     }
 }

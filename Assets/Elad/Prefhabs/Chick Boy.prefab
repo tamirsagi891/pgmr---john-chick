@@ -10053,6 +10053,7 @@ GameObject:
   - component: {fileID: 9158948154426488129}
   - component: {fileID: 3903247210767020687}
   - component: {fileID: 8531267320556421348}
+  - component: {fileID: 2059622499209723326}
   m_Layer: 9
   m_Name: Chick Boy
   m_TagString: Player
@@ -10390,8 +10391,8 @@ MonoBehaviour:
   maxSpeedCrouching: 7
   crouchingWalkSpeed: 7
   knockBackMultiplayer: 5
-  stepsVolume: 0.1
-  stepsSoundGapTime: 0
+  stepsVolume: 0.059
+  stepsSoundGapTime: 0.05
   surfaceSound: 0
 --- !u!114 &2069969123638755554
 MonoBehaviour:
@@ -10540,6 +10541,7 @@ MonoBehaviour:
   isInvincible: 0
   isInvincibleTest: 0
   isAlive: 1
+  heartBeatPitch: 0
   invincibilityTimer: 1
   blinkColor: {r: 0, g: 0, b: 0, a: 0}
   blinkTime: 0.01
@@ -10687,8 +10689,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -2125240167
-  m_SortingLayer: 2
+  m_SortingLayerID: 1342514317
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 590496464, guid: 5be4720de963e8d48a4a7933f5f65e46, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10881,6 +10883,19 @@ MonoBehaviour:
   jumpParticleSystem: {fileID: 3397216837860501088}
   glideBackParticleSystem: {fileID: 9157496397966620633}
   glideFrontParticleSystem: {fileID: 6073746251580584501}
+--- !u!114 &2059622499209723326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2161271046664357137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 2161271046664357137}
 --- !u!1 &3205071587994779596
 GameObject:
   m_ObjectHideFlags: 0
