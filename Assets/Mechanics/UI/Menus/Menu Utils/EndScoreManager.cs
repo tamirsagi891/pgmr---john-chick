@@ -21,7 +21,7 @@ namespace Mechanics.UI.Menus.Menu_Utils
 
         [SerializeField]
         private List<LetterGrade> grades;
-
+        
         private int _currentDisplayed;
         private LevelScoresContainer _levelHighScore;
 
@@ -43,9 +43,25 @@ namespace Mechanics.UI.Menus.Menu_Utils
             }
         }
 
-        private string _dir;
+        public event EventHandler OnPass;
 
         public string HighScoreSavePath => Path.Combine(_dir, $"Level_{GeneralGameManager.CurrentSceneIndex}.json");
+
+        public int CurInd
+        {
+            get => _curInd;
+            set
+            {
+                _curInd = value;
+                if (_curInd > 0)
+                {
+                    OnPass?.Invoke(this, null);
+                }
+            }
+        }
+
+        private string _dir;
+        private int _curInd;
 
         private void Awake()
         {
@@ -98,6 +114,7 @@ namespace Mechanics.UI.Menus.Menu_Utils
                 var grade = grades[i];
                 if (grade.percent <= percent)
                 {
+                    CurInd = i;
                     scoreText.text = grade.text;
                     break;
                 }
@@ -110,11 +127,13 @@ namespace Mechanics.UI.Menus.Menu_Utils
         {
             var oldPercent = _currentDisplayed / (float) Total;
             var percent = value / (float) Total;
-            foreach (var grade in grades)
+            for (var i = 0; i < grades.Count; i++)
             {
+                var grade = grades[i];
                 if (grade.percent >= oldPercent && percent >= grade.percent)
                 {
                     scoreText.text = grade.text;
+                    CurInd = i;
                 }
             }
 
@@ -132,6 +151,7 @@ namespace Mechanics.UI.Menus.Menu_Utils
     [Serializable]
     public struct LevelScore
     {
+        public bool isDark;
         public int deathCount;
         public float completionTime;
         public long completionDate;
@@ -142,7 +162,8 @@ namespace Mechanics.UI.Menus.Menu_Utils
         
         public override string ToString()
         {
-            return $"By: {player} || Level {level}| " +
+            var d = isDark ? "D" : "";
+            return $"By: {player} || Level {level}{d}| " +
                    $"Time: {TimeSpan.FromSeconds(completionTime):m\\:ss\\.ff}| " +
                    $"Feathers: {feathersCollected}/{totalFeathers}| " +
                    $"Deaths: {deathCount}| Date: {DateTime.FromBinary(completionDate)}";
@@ -150,6 +171,11 @@ namespace Mechanics.UI.Menus.Menu_Utils
 
         public static int LevelScoreComparator(LevelScore a, LevelScore b)
         {
+            var compareDark = b.isDark.CompareTo(a.isDark);
+            if (compareDark != 0)
+            {
+                return compareDark;
+            }
             // First, compare by completion time (ascending order)
             var compareTime = a.completionTime.CompareTo(b.completionTime);
             if (compareTime != 0)

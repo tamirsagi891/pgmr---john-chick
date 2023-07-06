@@ -416,6 +416,8 @@ MonoBehaviour:
   stopMovementDuringAttackTime: 0
   attackStartAfterTime: 0
   hurtTime: 1
+  hurtInvTime:
+    duration: 5
   dashTime:
     duration: 6
   stopAtDashEndTimer:
@@ -495,6 +497,7 @@ MonoBehaviour:
     onDisable:
       m_PersistentCalls:
         m_Calls: []
+  offsetPosition: {fileID: 0}
   debug: 0
   resetCooldownOnDashEnd: 1
 --- !u!1001 &8469657413554360296
@@ -676,6 +679,10 @@ PrefabInstance:
     - target: {fileID: 4869167414346554836, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveX.scalar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4869167414346554836, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
+      propertyPath: m_Parameters.m_DirectionCurveY.scalar
+      value: 39.583332
       objectReference: {fileID: 0}
     - target: {fileID: 6302863557191473167, guid: d1ef2fc66a817c1459d27c67df612b23, type: 3}
       propertyPath: m_Size.x

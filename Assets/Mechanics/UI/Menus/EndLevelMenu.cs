@@ -4,9 +4,11 @@ using Elad.Scripts;
 using Elad.Scripts.Arrows;
 using Elad.Scripts.Save_Load_System;
 using Managers;
+using Mechanics.Dark_Levels;
 using Mechanics.UI.Menus.Menu_Utils;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Logger = Nemesh.Logger;
 
 namespace Mechanics.UI.Menus
@@ -23,6 +25,9 @@ namespace Mechanics.UI.Menus
 
         [SerializeField]
         private MenuCounter timeCounter;
+
+        [SerializeField]
+        private Button darkLevelButton; 
 
         private int Total => PlayerStatus.FeathersToCollectManager.StartFeatherAmount;
 
@@ -41,10 +46,28 @@ namespace Mechanics.UI.Menus
                 totalFeathers = PlayerStatus.FeathersToCollectManager.StartFeatherAmount,
                 feathersCollected = PlayerStatus.FeathersToCollectManager.CollectedFeatherAmount,
                 level = GeneralGameManager.CurrentSceneIndex,
-                player = GeneralGameManager.PlayerName
+                player = GeneralGameManager.PlayerName,
+                isDark = DarkLevelManager.isCurrentLevelDark
             };
             Logger.Log($"Level Score: {score}");
             featherSlider.ScoreManager.SaveLevelScoreIfHighScore(score);
+            darkLevelButton.interactable = DarkLevelManager.isCurrentLevelDark;
+            featherSlider.ScoreManager.OnPass += EnableDarkButton;
+        }
+
+        public override void CloseMenu()
+        {
+            base.CloseMenu();
+            featherSlider.ScoreManager.OnPass -= EnableDarkButton;
+        }
+
+        private void EnableDarkButton(object sender, EventArgs e)
+        {
+            if (!darkLevelButton.IsInteractable())
+            {
+                Logger.Log("Here");
+                darkLevelButton.interactable = true;
+            }
         }
     }
 }

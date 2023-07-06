@@ -141,7 +141,7 @@ namespace Mechanics.Tutorial_Keys
         {
             MarkSprite(context.started, context.control.name);
             // MarkSprite(context.started, _currentSprites.crouch);
-            Logger.Log(context.control);
+            // Logger.Log(context.control);
         }
         
         private void OnJump(InputAction.CallbackContext context)

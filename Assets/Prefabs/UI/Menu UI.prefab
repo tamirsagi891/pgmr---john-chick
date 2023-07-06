@@ -221,6 +221,7 @@ MonoBehaviour:
   featherSlider: {fileID: 2964350199643125359}
   deathCounter: {fileID: 7961246883863572526}
   timeCounter: {fileID: 2647549057049308750}
+  darkLevelButton: {fileID: 1545370630257976009}
 --- !u!114 &7856026068654605270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,6 +526,18 @@ PrefabInstance:
     - target: {fileID: 1821662574018080252, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1844601556537925153, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5482870583449423469}
+    - target: {fileID: 1844601556537925153, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReloadLevelDark
+      objectReference: {fileID: 0}
+    - target: {fileID: 1844601556537925153, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Mechanics.UI.Menus.MenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1923694615086556211, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
       propertyPath: m_AnchorMin.y
@@ -936,6 +949,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
+--- !u!114 &1545370630257976009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1844601556537925153, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}
+  m_PrefabInstance: {fileID: 930861049107348712}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2647549057049308750 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2906773282090013350, guid: 0e15aa2e0435cd841963cc30ece9d618, type: 3}

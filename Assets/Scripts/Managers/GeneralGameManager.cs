@@ -33,6 +33,7 @@ namespace Managers
 
         public static int CurrentSceneIndex => ScenesHolder.Levels.FindIndex(reference => CurrentScene.Guid == reference.Guid);
 
+        public static bool LoadAsDark { get; set; }
         public static string PlayerName { get; set; } = "Elad";
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
