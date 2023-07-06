@@ -4,6 +4,7 @@ using UnityEngine;
 
 internal static class SortingOrderStrings
 {
+    internal static string defaultSortingLayer = "Default";
     internal static string playerSortingLayer = "Player";
     internal static string tileMapSortingLayer = "TileMap";
 

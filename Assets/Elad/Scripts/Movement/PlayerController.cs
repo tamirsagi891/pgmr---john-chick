@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerDied()
     {
-        ChangeSortingLayerToPlayer();
+        ChangeSortingLayerToDefault();
         _rB.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
@@ -159,9 +159,9 @@ public class PlayerController : MonoBehaviour
     
 
     [Button]
-    public void ChangeSortingLayerToPlayer()
+    public void ChangeSortingLayerToDefault()
     {
-        _sP.sortingLayerName  = SortingOrderStrings.playerSortingLayer;
+        _sP.sortingLayerName  = SortingOrderStrings.defaultSortingLayer;
     }
     
     [Button]

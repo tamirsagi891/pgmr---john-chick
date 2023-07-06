@@ -183,7 +183,7 @@ public class HorizontalMovement : MonoBehaviour
         {
             CameraManager.CrouchCameraController.SetOffset();
         }
-        else if (context.canceled)
+        else if (context.canceled || !_onGround)
         {
             CameraManager.CrouchCameraController.ClearOffset();
         }
@@ -311,6 +311,10 @@ public class HorizontalMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _onGround = _touchingDirection.IsGrounded;
+        if (!_onGround)
+        {
+            CameraManager.CrouchCameraController.ClearOffset();
+        }
 
         _velocity = _rB.velocity;
 

@@ -10087,7 +10087,7 @@ Transform:
   - {fileID: 6716017979488353903}
   - {fileID: 7883052585062789460}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8728776469950805241
 Rigidbody2D:
@@ -10128,7 +10128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: e0aa96020dd5b544e9c5ee4904cc438d, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: e0aa96020dd5b544e9c5ee4904cc438d,
+    type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -10690,7 +10691,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1342514317
+  m_SortingLayerID: 0
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 590496464, guid: 5be4720de963e8d48a4a7933f5f65e46, type: 3}
@@ -10842,7 +10843,8 @@ MonoBehaviour:
   curFeatherKind: 0
   arrowList: {fileID: 11400000, guid: 84626dfd3334ffd45bcb578603d411c3, type: 2}
   arrowInstantiatePosition: {fileID: 1335649751592553536}
-  arrowPrefab: {fileID: 4775548294322568153, guid: 5d1c6ddbcc7f9b74a82aa49ba3f67395, type: 3}
+  arrowPrefab: {fileID: 4775548294322568153, guid: 5d1c6ddbcc7f9b74a82aa49ba3f67395,
+    type: 3}
   _maxPoolSize: 100
   usePoolArrow: 1
   knockBackArrow: {x: 8, y: 0}
@@ -10862,7 +10864,8 @@ MonoBehaviour:
   curEggKind: 0
   EggList: {fileID: 11400000, guid: 580d5a556ad4d744e9b28297bd781371, type: 2}
   EggInstantiatePosition: {fileID: 4503471700426631689}
-  EggPrefab: {fileID: 8637222460761419607, guid: 6739b77fe2e06c64fa220cab27b5acee, type: 3}
+  EggPrefab: {fileID: 8637222460761419607, guid: 6739b77fe2e06c64fa220cab27b5acee,
+    type: 3}
   _maxPoolSize: 100
   usePoolEgg: 1
   knockBackEgg: {x: 0, y: 10}

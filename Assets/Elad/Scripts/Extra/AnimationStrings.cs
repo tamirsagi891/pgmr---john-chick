@@ -38,7 +38,10 @@ internal static class AnimationStrings
     
     public static string eggAttack = "egg_attack";
 
-
+    
+    public static string crowMove = "move";
+    public static string crowAttack = "attack";
+    
 
 }
  
