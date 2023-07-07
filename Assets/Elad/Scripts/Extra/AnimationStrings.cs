@@ -38,11 +38,12 @@ internal static class AnimationStrings
     
     public static string eggAttack = "egg_attack";
 
-    
+    [Header("Crow Boss")]
     public static string crowMove = "move";
     public static string crowAttack = "attack";
     public static string withBoulder = "boulder";
     public static string hurt = "hurt";
+    public static string die = "die";
     
 
 }

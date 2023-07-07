@@ -126,14 +126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5487c96d23b9444aa01f2ea1b2a1a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 5
-  playerVelocityMult: 0.3
-  maxSpeed: 10
+  startSpeed: 12
+  playerVelocityMult: 0.5
+  maxSpeed: 20
   accelerationTime: 0.1
   destroyTime: 5
   knockBack: {x: 5, y: 0}
   knockBackDelay: 0.1
-  startRotationSpeed: 90
+  startRotationSpeed: 120
 --- !u!58 &4196796019501248068
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BitStrap;
+using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
 using UnityEngine;
@@ -124,11 +125,24 @@ public class Crow : MonoBehaviour
     [SerializeField] private float hitFleshTimeAdd = 0.1f;
     private float _hitAttackFleshTimer;
     private bool _gotHit;
+    private bool _canGetHit = true;
     
     [Header("Animation")] [SerializeField] [Range(0,1)]private float animationSpeedMult = 0.5f;
-    
+
+    [Header("Death")] private bool _isDead;
     [Header("Tests")] [SerializeField] private bool justSprintAttack;
     [SerializeField] private float animationSpeed = 1;
+   
+    private void OnEnable()
+    {
+        BossEvents.StartRoamingFromRunning.AddListener(SwitchToRoaming);
+    }
+
+    private void OnDisable()
+    {
+        BossEvents.StartRoamingFromRunning.RemoveListener(SwitchToRoaming);
+    }
+    
     private void Awake()
     {
         _random = new Random();
@@ -197,12 +211,14 @@ public class Crow : MonoBehaviour
                 break;
         }
 
+        
         SideHandler();
         RotateTowardsTarget();
         AnimationSpeedHandler();
         
     }
 
+    
     private void ResetSpeed()
     {
         mainSpeed = 0;
@@ -242,6 +258,7 @@ public class Crow : MonoBehaviour
         if (xDistance < xDistanceToSprint)
         {
             _crowMode = CrowModeEnum.AttackingFromRoaming;
+            _trailRenderer.emitting = true;
             _towardPlayerTimer = towardPlayerTime;
             DoFlashBeforeAttack();
         }
@@ -295,7 +312,7 @@ public class Crow : MonoBehaviour
         var roamPos = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
         // Move our position a step closer to the target.
         
-        float step = roamingSpeed * Time.deltaTime; // calculate distance to move
+        float step = roamingDownSpeed * Time.deltaTime; // calculate distance to move
         roamPos = new Vector3(roamPos.x, transform.position.y,0);
         transform.position = Vector2.MoveTowards(transform.position, roamPos, step);
 
@@ -318,6 +335,13 @@ public class Crow : MonoBehaviour
             mainSpeed = goalSpeed;
         }
     }
+
+    private void SwitchToRoaming()
+    {
+        _trailRenderer.emitting = false;
+        _crowMode = CrowModeEnum.Roaming;
+    }
+    
     
     private void MoveUpFromDown()
     {
@@ -347,6 +371,11 @@ public class Crow : MonoBehaviour
         float distance = Vector3.Distance(transform.position, roamingPosition.position);
         if (distance < 0.2f)
         {
+            if (_isDead)
+            {
+                Destroy(gameObject);
+                BossEvents.BossDead.Invoke();
+            }
             _roamingFirst = !_roamingFirst;
             sideTarget = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
 
@@ -354,6 +383,7 @@ public class Crow : MonoBehaviour
             _canThrow = true;
             _canSprint = true;
             _canSprintAttack = true;
+            _canGetHit = true;
         }
     }
 
@@ -391,6 +421,7 @@ public class Crow : MonoBehaviour
             
             _crowMode = CrowModeEnum.RoamingDown;
             _canSprint = false;
+            _trailRenderer.emitting = false;
             sideTarget = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
         }
     }
@@ -459,12 +490,15 @@ public class Crow : MonoBehaviour
     {
         if (other.CompareTag(TagStrings.playerTag))
         {
+            _trailRenderer.emitting = false;
             DoAttack();
         }
 
-        else if (other.CompareTag(TagStrings.spikesTag))
+        else if (other.CompareTag(TagStrings.spikesTag) && _canGetHit)
         {
+            _canGetHit = false;
             GotHitStart();
+            _trailRenderer.emitting = false;
         }
     }
 
@@ -473,6 +507,7 @@ public class Crow : MonoBehaviour
         
         
         health -= 1;
+        
         if (health == 0)
         {
             DieStart();    
@@ -498,7 +533,7 @@ public class Crow : MonoBehaviour
     
     private void DieStart()
     {
-        _crowMode = CrowModeEnum.Die;
+        _isDead = true;
     }
 
     private void DoAttack()
