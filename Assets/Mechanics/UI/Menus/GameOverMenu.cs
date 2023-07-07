@@ -65,6 +65,7 @@ namespace Mechanics.UI.Menus
         {
             if (_startOpenScreen && lightDeath)
             {
+                Logger.Log("KAKA");
                 MakeScreenDark();
             }
 
