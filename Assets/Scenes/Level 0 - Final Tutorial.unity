@@ -11690,6 +11690,12 @@ MonoBehaviour:
   objectToDisable:
   - {fileID: 8154181287004651024}
   - {fileID: 1110541916}
+  onSetDark:
+    m_PersistentCalls:
+      m_Calls: []
+  onUnsetDark:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &294552092
 Transform:
   m_ObjectHideFlags: 0
@@ -38363,6 +38369,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 715271245307817112, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2161271046664357137, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_Name
       value: John Chick
@@ -39916,11 +39926,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8.2
-  m_fontSizeBase: 36
+  m_fontSize: 0.8
+  m_fontSizeBase: 0.8
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 1
+  m_fontSizeMin: 0.5
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -39942,7 +39952,7 @@ MonoBehaviour:
   checkPaddingRequired: 0
   m_isRichText: 1
   m_parseCtrlCharacters: 1
-  m_isOrthographic: 0
+  m_isOrthographic: 1
   m_isCullingEnabled: 0
   m_horizontalMapping: 0
   m_verticalMapping: 0

@@ -311,7 +311,7 @@ public class HorizontalMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _onGround = _touchingDirection.IsGrounded;
-        if (!_onGround)
+        if (!_onGround && CameraManager.CrouchCameraController != null)
         {
             CameraManager.CrouchCameraController.ClearOffset();
         }
