@@ -15,6 +15,7 @@ public class Crow : MonoBehaviour
     [Header("Player Components")] private Damageable _damageablePlayer;
     [Header("Components")] private Animator _animator;
     private TrailRenderer _trailRenderer;
+    private ParticleSystem _pS;
 
     private Transform target;
     private Vector3 sideTarget;
@@ -148,7 +149,8 @@ public class Crow : MonoBehaviour
         _random = new Random();
         _animator = GetComponentInChildren<Animator>();
         _trailRenderer = GetComponent<TrailRenderer>();
-        
+        _pS = GetComponentInChildren<ParticleSystem>();
+
     }
 
     private void Start()
@@ -233,6 +235,7 @@ public class Crow : MonoBehaviour
         _afterAttackingFromRoamingDelayTimer -= Time.deltaTime;
         if (_afterAttackingFromRoamingDelayTimer < 0)
         {
+            _pS.Play();
             _crowMode = CrowModeEnum.Roaming;
             sideTarget = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
         }
@@ -286,6 +289,7 @@ public class Crow : MonoBehaviour
         attackTimer -= Time.deltaTime;
         if (attackTimer <= 0)
         {
+            _pS.Play();
             _crowMode = CrowModeEnum.MovingTowardPlayer;
             StopAttack();
         }
@@ -491,12 +495,14 @@ public class Crow : MonoBehaviour
         if (other.CompareTag(TagStrings.playerTag))
         {
             _trailRenderer.emitting = false;
+            _pS.Stop();
             DoAttack();
         }
 
         else if (other.CompareTag(TagStrings.spikesTag) && _canGetHit)
         {
             _canGetHit = false;
+            _pS.Stop();
             GotHitStart();
             _trailRenderer.emitting = false;
         }
@@ -578,6 +584,8 @@ public class Crow : MonoBehaviour
             return;
         }
 
+        
+        _pS.Play();
         Vector2 currentTarget = afterAttackPositionOne;
         switch (_circleMovementStatus)
         {
