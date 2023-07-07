@@ -827,6 +827,10 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3062606904806514415, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 3a6f19a14ba0b034dbf4ebb30da6c8fe, type: 2}
+    - target: {fileID: 3062606904806514415, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: m_fontStyle
       value: 1
       objectReference: {fileID: 0}
@@ -840,7 +844,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f501bd20e3b1e6d45bee753a1d9e65ed, type: 2}
     - target: {fileID: 3062606904806514415, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: m_characterSpacing
-      value: -10
+      value: -11.23
       objectReference: {fileID: 0}
     - target: {fileID: 3062606904806514415, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: m_enableAutoSizing
