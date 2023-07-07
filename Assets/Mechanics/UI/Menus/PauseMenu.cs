@@ -19,13 +19,19 @@ namespace Mechanics.UI.Menus
         public override void OpenMenu()
         {
             base.OpenMenu();
-            featherPopup.DoPopup(false);
+            if (featherPopup != null)
+            {
+                featherPopup.DoPopup(false);
+            }
         }
 
         public override void CloseMenu()
         {
             base.CloseMenu();
-            featherPopup.ClearPopup();
+            if (featherPopup != null)
+            {
+                featherPopup.ClearPopup();
+            }
         }
     }
 }
