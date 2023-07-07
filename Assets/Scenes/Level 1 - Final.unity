@@ -422756,11 +422756,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 309407733945987906, guid: f2eed2dfe675b394795d1e69f803410e, type: 3}
       propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 309407733945987906, guid: f2eed2dfe675b394795d1e69f803410e, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3565182230859843209, guid: f2eed2dfe675b394795d1e69f803410e, type: 3}
       propertyPath: m_Name
