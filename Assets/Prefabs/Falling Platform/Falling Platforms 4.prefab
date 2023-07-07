@@ -172,7 +172,7 @@ MonoBehaviour:
   respawnDelay: 2
   popInTime: 0.5
   distanceFromPlayerToDeactivate: 20
-  shakeIntensity: 0.01
+  shakeIntensity: 0.025
   changeToTriggerOnFall: 1
 --- !u!50 &3529554243210785491
 Rigidbody2D:
@@ -190,7 +190,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 7.5
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3e276357ed37fe644ae915a6a56d48b7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

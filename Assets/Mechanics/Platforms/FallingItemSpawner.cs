@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
 public class FallingItemSpawner : MonoBehaviour
@@ -41,9 +42,12 @@ public class FallingItemSpawner : MonoBehaviour
         while (elapsed < shakeDuration)
         {
             float x = Random.Range(-1f, 1f) * shakeMagnitude;
-            float y = Random.Range(-1f, 1f) * shakeMagnitude;
+            float y = Random.Range(-1f, 1f) * shakeMagnitude;  // TODO: mult by Time.deltaTime instead of boolean
 
-            transform.position = new Vector2(originalPosition.x + x, originalPosition.y + y);
+            if (!GeneralGameManager.IsGamePause)
+            {
+                transform.position = new Vector2(originalPosition.x + x, originalPosition.y + y);
+            }
 
             elapsed += Time.deltaTime;
 

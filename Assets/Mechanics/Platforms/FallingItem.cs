@@ -1,3 +1,4 @@
+using System;
 using Elad.Scripts.Combat;
 using Mechanics.Dark_Levels;
 using UnityEngine;
@@ -19,6 +20,10 @@ public class FallingItem : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         spawner = GetComponentInParent<FallingItemSpawner>();
         GetComponent<Rigidbody2D>().gravityScale = 1; // Make sure the rigidbody falls down
+    }
+
+    private void OnEnable()
+    {
         if (DarkLevelManager.isCurrentLevelDark && TryGetComponent(out Light2D light2D))
         {
             light2D.enabled = true;

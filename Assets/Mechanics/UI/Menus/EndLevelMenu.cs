@@ -34,6 +34,7 @@ namespace Mechanics.UI.Menus
         public override void OpenMenu()
         {
             base.OpenMenu();
+            featherSlider.ScoreManager.OnPass += EnableDarkButton;
             featherSlider.StartFeatherAnimation();
             deathCounter.Count = $"{PlayerStatus.PlayerDamageable.DeathAmounts}";
             var time = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
@@ -52,7 +53,6 @@ namespace Mechanics.UI.Menus
             Logger.Log($"Level Score: {score}");
             featherSlider.ScoreManager.SaveLevelScoreIfHighScore(score);
             darkLevelButton.interactable = DarkLevelManager.isCurrentLevelDark;
-            featherSlider.ScoreManager.OnPass += EnableDarkButton;
         }
 
         public override void CloseMenu()

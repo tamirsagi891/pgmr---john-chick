@@ -12,29 +12,22 @@ using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class AudioManager : MonoBehaviour
 {
-    [Header("Volume")] [SerializeField] [Range(0, 1)]
-    private float master;
+    [Header("Volume")]
+    [SerializeField]
+    [Range(0, 1)]
+    private float masterVolume = 1;
 
-    [SerializeField] [Range(0, 1)] private float music;
-    [SerializeField] [Range(0, 1)] private float ambience;
-    [SerializeField] [Range(0, 1)] private float sfx;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float musicVolume = 0.2f;
 
-    private void Update()
-    {
-        MasterVolume = master;
-        MusicVolume = music;
-        AmbienceVolume = ambience;
-        SfxVolume = sfx;
-    }
+    [SerializeField]
+    [Range(0, 1)]
+    private float ambienceVolume = 1;
 
-
-    [Range(0, 1)] private float masterVolume = 1;
-
-    [Range(0f, 1f)] private float musicVolume = 0.2f;
-
-    [Range(0, 1)] private float ambienceVolume = 1;
-
-    [Range(0, 1)] private float SFXVolume = 1;
+    [Range(0, 1)]
+    [SerializeField]
+    private float SFXVolume = 1;
 
 
     private Bus masterBus;
@@ -45,8 +38,7 @@ public class AudioManager : MonoBehaviour
     private List<EventInstance> eventInstances;
     private List<StudioEventEmitter> eventEmitters;
 
-    
-    
+
     private EventInstance ambienceEventInstance;
     private EventInstance mainMusic;
 
@@ -96,6 +88,15 @@ public class AudioManager : MonoBehaviour
 
 
     private List<EventInstance> oneShotSounds;
+
+    private void OnValidate()
+    {
+        MasterVolume = masterVolume;
+        MusicVolume = musicVolume;
+        AmbienceVolume = ambienceVolume;
+        SfxVolume = SFXVolume;
+    }
+
     private void Awake()
     {
         if (instance != null)
@@ -112,14 +113,13 @@ public class AudioManager : MonoBehaviour
         musicBus = RuntimeManager.GetBus("bus:/Music");
         ambienceBus = RuntimeManager.GetBus("bus:/Ambiance");
         sfxBus = RuntimeManager.GetBus("bus:/SFX");
-    }
 
-    private void OnValidate()
-    {
-        masterBus.setVolume(MasterVolume);
-        musicBus.setVolume(MusicVolume);
-        ambienceBus.setVolume(AmbienceVolume);
-        sfxBus.setVolume(SfxVolume);
+#if UNITY_EDITOR
+        MasterVolume = masterVolume;
+        MusicVolume = musicVolume;
+        AmbienceVolume = ambienceVolume;
+        SfxVolume = SFXVolume;
+#endif
     }
 
     private void Start()
@@ -134,11 +134,9 @@ public class AudioManager : MonoBehaviour
         MenuManager.OnMusicChangeEvent += SetMusicVolume;
         MenuManager.OnSfxChangeEvent += SetSfxVolume;
         MenuManager.OnAmbientChangeEvent += SetAmbientVolume;
-        
+
         characterEvents.PauseGame.AddListener(PauseSounds);
         characterEvents.ContinueGame.AddListener(ContinueSounds);
-
-
     }
 
     private void OnDisable()
@@ -147,12 +145,11 @@ public class AudioManager : MonoBehaviour
         MenuManager.OnMusicChangeEvent -= SetMusicVolume;
         MenuManager.OnSfxChangeEvent -= SetSfxVolume;
         MenuManager.OnAmbientChangeEvent -= SetAmbientVolume;
-        
+
         characterEvents.PauseGame.RemoveListener(PauseSounds);
         characterEvents.ContinueGame.RemoveListener(ContinueSounds);
     }
 
-    
 
     private void InitializeMusic(EventReference musicEventReference)
     {
@@ -164,7 +161,7 @@ public class AudioManager : MonoBehaviour
     {
         eventEmitters.Add(newEmitter);
     }
-    
+
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         // RuntimeManager.PlayOneShot(sound, worldPos);
@@ -179,7 +176,7 @@ public class AudioManager : MonoBehaviour
         {
             eventEmitter.EventInstance.setPaused(false);
         }
-        
+
         foreach (var eventInstance in eventInstances)
         {
             eventInstance.setPaused(false);
@@ -193,19 +190,19 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
-    
+
     private void PauseSounds()
     {
         foreach (var eventEmitter in eventEmitters)
         {
             eventEmitter.EventInstance.setPaused(true);
         }
-        
+
         foreach (var eventInstance in eventInstances)
         {
             eventInstance.setPaused(true);
         }
-        
+
         foreach (var currentSoundInstance in oneShotSounds)
         {
             if (currentSoundInstance.isValid())
@@ -301,7 +298,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusicArea(MusicStrings.AreaSound areaSound)
     {
-        mainMusic.setParameterByName(MusicStrings.areaParam, (float) areaSound);
+        mainMusic.setParameterByName(MusicStrings.areaParam, (float)areaSound);
     }
 
     private MusicStrings.AreaSound _currAreaSound = MusicStrings.AreaSound.OpenField;
@@ -343,11 +340,9 @@ public class AudioManager : MonoBehaviour
     {
         mainMusic.stop(STOP_MODE.ALLOWFADEOUT);
     }
-    
+
     public void ButtonSound()
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.buttonsMove, transform.position);
     }
-    
-    
 }

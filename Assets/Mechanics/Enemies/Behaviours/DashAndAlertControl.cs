@@ -37,7 +37,7 @@ namespace Mechanics.Enemies
 
         #region Public Properties
         
-        public bool WaitingForDash => waitForDashTimer.IsSet && waitForDashTimer.IsActive;
+        public bool WaitingForDash => waitForDashTimer.IsSet;// && waitForDashTimer.IsActive;
 
         public float Radius
         {

@@ -1,4 +1,5 @@
 ﻿using Eflatun.SceneReference;
+using Elad.Events;
 using Nemesh.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,6 +19,15 @@ namespace Managers
                 _isGamePause = value;
                 Time.timeScale = _isGamePause ? 0f : 1f;
                 // TODO: Save the last and resume it, if we want slowmotion effect
+                if (_isGamePause)
+                {
+                    characterEvents.PauseGame.Invoke();
+                }
+                else
+                {
+                    characterEvents.ContinueGame.Invoke();
+                }
+
             }
         }
 

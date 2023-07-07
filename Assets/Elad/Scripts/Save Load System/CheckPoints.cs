@@ -80,7 +80,7 @@ namespace Elad.Scripts.Save_Load_System
                 _hideInstructionsTimer -= Time.deltaTime;
                 if (_hideInstructionsTimer <= 0)
                 {
-                    Logger.Log("Now you can see the instructions");
+                    // Logger.Log("Now you can see the instructions");
                     _hideInstructions = false;
                     _fadeText.gameObject.SetActive(true);
                 }

@@ -41,8 +41,7 @@ namespace Mechanics.UI.FeatherUI
         {
             if (popupTime.IsSet && !popupTime.IsActive)
             {
-                showPopup.Set(myAnimator, false);
-                popupTime.Clear();
+                ClearPopup();
             }
         }
 
@@ -51,9 +50,23 @@ namespace Mechanics.UI.FeatherUI
             DoPopup();
         }
 
-        private void DoPopup()
+        public void ClearPopup()
         {
-            popupTime.Start();
+            showPopup.Set(myAnimator, false);
+            popupTime.Clear();
+        }
+
+        public void DoPopup(bool setTime = true)
+        {
+            if (setTime)
+            {
+                popupTime.Start();
+            }
+            else
+            {
+                popupTime.Clear();
+            }
+
             myText.text = $@"{CollectedFeatherCount}
 <indent=10>/{TotalFeatherCount}";
             showPopup.Set(myAnimator, true);

@@ -640,6 +640,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7300530423317082995, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
+      propertyPath: featherPopup
+      value: 
+      objectReference: {fileID: 1230987112002241770}
     - target: {fileID: 7466703351909341142, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -924,6 +928,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af54eb4f564965f439d0910f85914fda, type: 3}
+--- !u!114 &1230987112002241770 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9163281395975892453, guid: af54eb4f564965f439d0910f85914fda, type: 3}
+  m_PrefabInstance: {fileID: 7944309752072038671}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6afeaa8ec91410ebb925f574e450a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8052540821940283532 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 143979494673858947, guid: af54eb4f564965f439d0910f85914fda, type: 3}

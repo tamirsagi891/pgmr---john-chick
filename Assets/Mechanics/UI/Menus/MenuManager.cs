@@ -52,6 +52,9 @@ namespace Mechanics.UI.Menus
         [Header("Input Management")]
         [SerializeField]
         private InputActionAsset uiInputs;
+        
+        [SerializeField]
+        private bool allowResume = true;
 
         public LoadSceneManager LoadSceneManager { get; private set; }
 
@@ -207,7 +210,6 @@ namespace Mechanics.UI.Menus
         public void Resume()
         {
             MenuManager.Menu.CloseAllMenus();
-            characterEvents.ContinueGame.Invoke();
         }
 
         private void Pause()
@@ -323,16 +325,22 @@ namespace Mechanics.UI.Menus
                 return;
             }
 
+            if (!allowResume && _currentOpen == pauseMenu)
+            {
+                return;
+            }
             if (GeneralGameManager.IsGamePause && _currentOpen == pauseMenu)
             {
-                Resume();
+                if (allowResume)
+                {
+                    Resume();
+                }
                 return;
             }
 
             if (_currentOpen == null)
             {
                 Pause();
-                characterEvents.PauseGame.Invoke();
             }
             else if (_currentOpen != endLevelMenu && _currentOpen != gameOverMenu)
             {

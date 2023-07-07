@@ -236,11 +236,12 @@ namespace Mechanics.UI.Menus
             bool Match(Resolution resolution) => resolution.width == settings.resolutionWidth && resolution.height == settings.resolutionHeight;
             _currentResolutionIndex = _supportedResolutions.FindIndex(Match);
             ApplyResolution();
-            
+#if !UNITY_EDITOR || NEMESH_EDITOR
             audioMasterSlider.value = settings.masterVolume;
             audioMusicSlider.value = settings.musicVolume;
             audioEffectsSlider.value = settings.sfxVolume;
             audioAmbientSlider.value = settings.ambientVolume;
+#endif
             QualitySettings.globalTextureMipmapLimit = settings.globalMipmapLimit;
         }
 
