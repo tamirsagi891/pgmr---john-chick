@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4532221086952095022}
   - component: {fileID: 3006290218529965500}
   - component: {fileID: -2609064715451895792}
+  - component: {fileID: -6632069478371837226}
   m_Layer: 0
   m_Name: Player Cam
   m_TagString: Untagged
@@ -119,6 +120,22 @@ MonoBehaviour:
   timeToHold:
     duration: 0.35
   additionalOffset: {x: 0, y: -10, z: 0}
+--- !u!114 &-6632069478371837226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7453711788149520822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18283b3b25b05b74b95f2019496af068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intensityMax: 4
+  intensityMin: 1
+  shackTimeMin: 0.3
+  shackTimeMax: 1
 --- !u!1 &8259941828291171472
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +147,7 @@ GameObject:
   - component: {fileID: 9056211133767812625}
   - component: {fileID: 6958089994806912383}
   - component: {fileID: 9217691233051883254}
+  - component: {fileID: -2623356787689426437}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -207,3 +225,20 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
+--- !u!114 &-2623356787689426437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8259941828291171472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 5
+  mNoiseOffsets: {x: 0, y: 0, z: 0}

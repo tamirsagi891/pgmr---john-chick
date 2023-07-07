@@ -12507,7 +12507,7 @@ MonoBehaviour:
   regularSpeed: 8
   attackingSpeed: 10
   circleSpeedOne: 15
-  circleSpeedTwo: 50
+  circleSpeedTwo: 70
   attackingFromRoamingSpeed: 30
   roamingDownSpeed: 60
   roamingWithBoulderSpeed: 10
@@ -12518,9 +12518,9 @@ MonoBehaviour:
   attackTime: 3
   knockBackDelay: 0.1
   afterAttackTime: 0.2
-  afterAttackOffset: {x: 15, y: 30, z: 0}
+  afterAttackOffset: {x: 10, y: 20, z: 0}
   thirdPositionYOffset: 4
-  secondPositionXOffset: 8
+  secondPositionXOffset: 6
   _crowMode: 0
   rotationSpeed: 200
   roamingPositionFirst: {fileID: 646135192}
