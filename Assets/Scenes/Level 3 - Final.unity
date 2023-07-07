@@ -215215,7 +215215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6858651682735462950, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7101169771580611867, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: ShapeModule.m_MeshRenderer
