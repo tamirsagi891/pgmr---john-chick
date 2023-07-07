@@ -1240,7 +1240,7 @@ PrefabInstance:
       objectReference: {fileID: 67846770, guid: 0f01dcbe39df2d54d8148f6495ac05fa, type: 3}
     - target: {fileID: 7285916575818387985, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: loadOnStart
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7285916575818387985, guid: 4249e8392dc76f7468cab1a5593750cc, type: 3}
       propertyPath: sceneToLoad.guid
