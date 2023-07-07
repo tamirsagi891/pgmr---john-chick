@@ -42,6 +42,7 @@ internal static class AnimationStrings
     public static string crowMove = "move";
     public static string crowAttack = "attack";
     public static string withBoulder = "boulder";
+    public static string hurt = "hurt";
     
 
 }

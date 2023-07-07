@@ -4,5 +4,6 @@ using UnityEngine;
 
 internal static class TagStrings
 {
-    internal static string playerTag = "Player";     
+    internal static string playerTag = "Player"; 
+    internal static string spikesTag = "Spikes"; 
 }

@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSpeed: 5
+  playerVelocityMult: 0.3
   maxSpeed: 10
   accelerationTime: 0.1
   destroyTime: 5

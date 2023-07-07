@@ -17,7 +17,6 @@ public class Boulder : MonoBehaviour
     [SerializeField] private Vector2 knockBack = Vector2.right;
     [SerializeField] private float knockBackDelay = 0.1f;
     [SerializeField] private float startRotationSpeed = 90f; // Degrees per second
-    [SerializeField] [Range(0f,1f)]private float VelocityPlayerMult = 0.5f; // Degrees per second
     private float accelerationRate;
     private Rigidbody2D rb;
     private float currentSpeed;

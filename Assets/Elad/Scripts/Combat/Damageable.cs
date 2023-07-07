@@ -378,12 +378,11 @@ namespace Elad.Scripts.Combat
 
         public bool Hurt(AttackParameters attackParameters)
         {
-            Logger.Log($"Attacked by {attackParameters}", this);
+            // Logger.Log($"Attacked by {attackParameters}", this);
             switch (attackParameters.Type)
             {
                 case AttackType.Pickup:
-                    Logger.Log("TODO: Stop Movement, Set Follow Target to attackParameters.FollowTransform",
-                        Color.red, this);
+                    // Logger.Log("TODO: Stop Movement, Set Follow Target to attackParameters.FollowTransform", Color.red, this);
                     return false;
                 case AttackType.Shot:
                 case AttackType.Regular:

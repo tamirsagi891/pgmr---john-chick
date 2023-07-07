@@ -1322,6 +1322,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: John Chick
       objectReference: {fileID: 0}
+    - target: {fileID: 2161271046664357137, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1941,7 +1945,7 @@ GameObject:
   - component: {fileID: 689118157}
   m_Layer: 0
   m_Name: Spikes (C)
-  m_TagString: Untagged
+  m_TagString: Spikes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12373,7 +12377,9 @@ GameObject:
   - component: {fileID: 1363499677}
   - component: {fileID: 1363499678}
   - component: {fileID: 1363499679}
-  m_Layer: 0
+  - component: {fileID: 1363499680}
+  - component: {fileID: 1363499681}
+  m_Layer: 16
   m_Name: Crow Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12412,7 +12418,11 @@ MonoBehaviour:
   attackingSpeed: 8
   circleSpeedOne: 15
   circleSpeedTwo: 50
-  attackingFromRoamingSpeed: 0
+  attackingFromRoamingSpeed: 30
+  roamingDownSpeed: 60
+  roamingWithBoulderSpeed: 10
+  roamingSpeed: 15
+  speedAddAmount: 0.5
   startAttackDistance: 10
   knockBack: {x: 5, y: 0}
   attackTime: 3
@@ -12423,12 +12433,24 @@ MonoBehaviour:
   secondPositionXOffset: 8
   _crowMode: 3
   rotationSpeed: 200
-  roamingSpeed: 15
   roamingPositionFirst: {fileID: 646135192}
   roamingPositionSecond: {fileID: 438379072}
   boulder: {fileID: 8379051478962877008, guid: debaa9b56627044438f487a7dac80933, type: 3}
   xDistanceToThrow: 3
   boulderInstantiateOffset: {x: 0, y: -2, z: 0}
+  xDistanceToSprint: 6
+  towardPlayerTime: 0.1
+  xRandomMaxPosition: 2
+  yAddPosition: 20
+  afterAttackingFromRoamingDelayTime: 0.5
+  beforeAttackColor: {r: 1, g: 1, b: 1, a: 1}
+  hitColor: {r: 0.4811321, g: 0, b: 0, a: 0.39215687}
+  beforeAttackFleshTimeAdd: 0.1
+  health: 6
+  hitFleshTimeAdd: 0.5
+  animationSpeedMult: 0.075
+  justSprintAttack: 0
+  animationSpeed: 1
 --- !u!96 &1363499678
 TrailRenderer:
   serializedVersion: 3
@@ -12563,10 +12585,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 192
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -12586,6 +12608,47 @@ CircleCollider2D:
   m_Offset: {x: 0.8, y: 0.88}
   serializedVersion: 2
   m_Radius: 2.47
+--- !u!114 &1363499680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363499675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f9576e3a4febb48b982e7566765c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 945b798f81c714d4ba71d9bcc335a945, type: 2}
+  duration: 0.125
+--- !u!50 &1363499681
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363499675}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1516648428
 GameObject:
   m_ObjectHideFlags: 0
