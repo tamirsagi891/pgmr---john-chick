@@ -7,7 +7,8 @@ namespace Elad.Events
 {
     public static class BossEvents
     {
-        public static UnityEvent StartRoamingFromRunning = new();
+        public static UnityEvent StopBossMovement = new();
+        public static UnityEvent StartRoaming = new();
         public static UnityEvent BossDead = new();
         public static UnityEvent BossStart = new();
         

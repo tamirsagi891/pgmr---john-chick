@@ -76,7 +76,6 @@ namespace Elad.Scripts.Save_Load_System
 
         public void LoadGameFromCheckPoint()
         {
-            Logger.Log("load game after player die");
             SaveGameOnJson.LoadGame();
         }
     

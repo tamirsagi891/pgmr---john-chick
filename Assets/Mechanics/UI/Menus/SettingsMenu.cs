@@ -201,7 +201,7 @@ namespace Mechanics.UI.Menus
             Screen.GetDisplayLayout(infos);
             foreach (var info in infos)
             {
-                Debug.Log(info.refreshRate);
+                // Debug.Log(info.refreshRate);
             }
         }
 

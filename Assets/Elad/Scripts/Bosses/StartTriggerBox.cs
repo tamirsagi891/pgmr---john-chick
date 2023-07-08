@@ -8,17 +8,31 @@ public class StartTriggerBox : MonoBehaviour
 {
     enum TriggerBoxKind
     {
+        StopMovement,
         BossStart,
         BossStartRoaming
     }
 
     [SerializeField] private TriggerBoxKind triggerBoxKind;
+    private bool _canWork = true;
 
 
+    private void OnEnable()
+    {
+        characterEvents.PlayerDied.AddListener(PlayerDied);
+    }
+
+    private void OnDisable()
+    {
+        characterEvents.PlayerDied.RemoveListener(PlayerDied);
+    }
+    
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(TagStrings.playerTag))
+        if (other.CompareTag(TagStrings.playerTag) && _canWork)
         {
+            _canWork = false;
             switch (triggerBoxKind)
             {
                 case TriggerBoxKind.BossStart:
@@ -28,20 +42,35 @@ public class StartTriggerBox : MonoBehaviour
                 case TriggerBoxKind.BossStartRoaming:
                     StartRoaming();
                     break;
+                
+                case TriggerBoxKind.StopMovement:
+                    StopBossMovement();
+                    break;
+                
             }
             
-            Destroy(gameObject);
         }
     }
 
     private void StartRoaming()
     {
-        BossEvents.StartRoamingFromRunning.Invoke();
+        BossEvents.StartRoaming.Invoke();
+        
+    }
+    
+    private void StopBossMovement()
+    {
+        BossEvents.StopBossMovement.Invoke();
         
     }
 
     private void StartBoss()
     {
         BossEvents.BossStart.Invoke();
+    }
+
+    private void PlayerDied()
+    {
+        _canWork = true;
     }
 }

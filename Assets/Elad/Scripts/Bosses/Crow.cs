@@ -6,12 +6,13 @@ using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
 using FMOD.Studio;
+using Mechanics.Enemies;
 using Mechanics.UI.Menus;
 using UnityEngine;
 using Logger = Nemesh.Logger;
 using Random = System.Random;
 
-public class Crow : MonoBehaviour
+public class Crow : MonoBehaviour, ICanBeAttacked
 {
     private Random _random;
 
@@ -103,9 +104,9 @@ public class Crow : MonoBehaviour
     [Header("Roaming Movement")] [SerializeField]
     private float switchToRoamingTimer = 2f;
 
-    [SerializeField] private Transform roamingPositionFirst;
+    [SerializeField] private Transform roamingRight;
 
-    [SerializeField] private Transform roamingPositionSecond;
+    [SerializeField] private Transform roamingLeft;
     private bool _roamingFirst;
 
 
@@ -157,19 +158,28 @@ public class Crow : MonoBehaviour
     [Header("Death")] private bool _isDead;
     [Header("Tests")] [SerializeField] private bool justSprintAttack;
     [SerializeField] private float animationSpeed = 1;
+    [SerializeField] private bool _inTest;
 
     [Header("Sounds")] private EventInstance _flySound;
 
+    [Header("Return Positions")]
+    private Vector3 _initiationPosition;
+    private Vector3 _startRoamingPosition;
+    
     private void OnEnable()
     {
-        BossEvents.StartRoamingFromRunning.AddListener(StartToSwitchToRoaming);
+        BossEvents.StartRoaming.AddListener(StartToSwitchToRoaming);
+        BossEvents.StopBossMovement.AddListener(StopMovement);
         BossEvents.BossStart.AddListener(BossStart);
+        characterEvents.PlayerDied.AddListener(PlayerDied);
     }
 
     private void OnDisable()
     {
-        BossEvents.StartRoamingFromRunning.RemoveListener(StartToSwitchToRoaming);
+        BossEvents.StartRoaming.RemoveListener(StartToSwitchToRoaming);
+        BossEvents.StopBossMovement.RemoveListener(StopMovement);
         BossEvents.BossStart.RemoveListener(BossStart);
+        characterEvents.PlayerDied.RemoveListener(PlayerDied);
     }
 
 
@@ -181,6 +191,7 @@ public class Crow : MonoBehaviour
         _pS = GetComponentInChildren<ParticleSystem>();
         _sp = GetComponentInChildren<SpriteRenderer>();
         BossSleep();
+        _initiationPosition = transform.position;
     }
 
     private void Start()
@@ -191,10 +202,16 @@ public class Crow : MonoBehaviour
         _flySound = AudioManager.instance.CreatEventInstance(FMODEvents.instance.crowFly);
     }
 
-
+    private CrowModeEnum lastCrowMode = CrowModeEnum.None;
     // Update is called once per frame
     void Update()
     {
+        if (lastCrowMode != _crowMode)
+        {
+            Logger.Log(lastCrowMode);
+            lastCrowMode = _crowMode;
+            
+        }
         switch (_crowMode)
         {
             case CrowModeEnum.MovingTowardPlayer:
@@ -244,7 +261,6 @@ public class Crow : MonoBehaviour
                 break;
 
             case CrowModeEnum.None:
-                NoneAndWait();
                 return;
 
             case CrowModeEnum.NeedToStartRoaming:
@@ -259,16 +275,16 @@ public class Crow : MonoBehaviour
         UpdateFlySound();
     }
 
-    private void NoneAndWait()
-    {
-    }
-
     private void setAlf(int alf)
     {
-        _crowMode = CrowModeEnum.MovingTowardPlayer;
+        // _crowMode = CrowModeEnum.MovingTowardPlayer;
         Color col = _sp.color;
         col.a = alf;
         _sp.color = col;
+        if (alf == 1)
+            _pS.Play();
+        else
+            _pS.Stop();
     }
 
     private void BossSleep()
@@ -306,7 +322,7 @@ public class Crow : MonoBehaviour
         {
             _pS.Play();
             _crowMode = CrowModeEnum.Roaming;
-            sideTarget = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
+            sideTarget = _roamingFirst ? roamingRight.position : roamingLeft.position;
         }
     }
 
@@ -385,7 +401,7 @@ public class Crow : MonoBehaviour
 
     private void MoveRoamingDown()
     {
-        var roamPos = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
+        var roamPos = _roamingFirst ? roamingRight.position : roamingLeft.position;
         // Move our position a step closer to the target.
         mainSpeed = roamingDownSpeed;
         float step = roamingDownSpeed * Time.deltaTime; // calculate distance to move
@@ -417,12 +433,23 @@ public class Crow : MonoBehaviour
         switchToRoamingTimer -= Time.deltaTime;
         if (switchToRoamingTimer < 0)
         {
+            if (_inTest)
+            {
+                BossStart();
+            }
+
             bossLevelState = BossLevelState.Roaming;
             TrailRenderHandler(false);
             _crowMode = CrowModeEnum.Roaming;
+            _startRoamingPosition = transform.position;
         }
     }
 
+    private void StopMovement()
+    {
+        _crowMode = CrowModeEnum.None;
+    }
+    
     private void StartToSwitchToRoaming()
     {
         _crowMode = CrowModeEnum.NeedToStartRoaming;
@@ -431,7 +458,7 @@ public class Crow : MonoBehaviour
 
     private void MoveUpFromDown()
     {
-        var roamingPosition = _roamingFirst ? roamingPositionFirst : roamingPositionSecond;
+        var roamingPosition = _roamingFirst ? roamingRight : roamingLeft;
         // Move our position a step closer to the target.
         mainSpeed = roamingDownSpeed;
         float step = roamingDownSpeed * Time.deltaTime; // calculate distance to move
@@ -446,7 +473,7 @@ public class Crow : MonoBehaviour
 
     private void MoveRoaming()
     {
-        var roamingPosition = _roamingFirst ? roamingPositionFirst : roamingPositionSecond;
+        var roamingPosition = _roamingFirst ? roamingRight : roamingLeft;
         // Move our position a step closer to the target.
 
         float curSpeed = withBoulder ? roamingWithBoulderSpeed : roamingSpeed;
@@ -466,7 +493,7 @@ public class Crow : MonoBehaviour
             }
 
             _roamingFirst = !_roamingFirst;
-            sideTarget = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
+            sideTarget = _roamingFirst ? roamingRight.position : roamingLeft.position;
 
             ChoseRoamingAttack();
             _canThrow = true;
@@ -510,7 +537,7 @@ public class Crow : MonoBehaviour
             _crowMode = CrowModeEnum.RoamingDown;
             _canSprint = false;
             TrailRenderHandler(false);
-            sideTarget = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
+            sideTarget = _roamingFirst ? roamingRight.position : roamingLeft.position;
         }
     }
 
@@ -541,9 +568,14 @@ public class Crow : MonoBehaviour
         float distanceY = transform.position.y - target.position.y;
         if (Mathf.Abs(distanceY) > yMaxDistanceWhileFollow)
         {
-            float newY = distanceY > 0
+            float targetY = distanceY > 0
                 ? transform.position.y - (distanceY - yMaxDistanceWhileFollow)
                 : transform.position.y + (Mathf.Abs(distanceY) - yMaxDistanceWhileFollow);
+
+            // Modify the interpolation speed to your liking
+            float smoothSpeed = 0.05f;
+            float newY = Mathf.SmoothStep(transform.position.y, targetY, smoothSpeed);
+
             transform.position = new Vector3(transform.position.x, newY, 0);
         }
     }
@@ -601,7 +633,7 @@ public class Crow : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (_crowMode == CrowModeEnum.None) return;
-        if (other.CompareTag(TagStrings.playerTag))
+        if (_crowMode == CrowModeEnum.AttackingFromRoaming && other.CompareTag(TagStrings.playerTag))
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.crowYellShort, transform.position);
             TrailRenderHandler(false);
@@ -610,15 +642,28 @@ public class Crow : MonoBehaviour
             _canSprint = false;
             DoAttack();
         }
+    }
 
-        else if (other.CompareTag(TagStrings.spikesTag) && CanGetHit())
+    public bool Hurt(AttackParameters attackParameters)
+    {
+        if (!CanGetHit())
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.crowYellShort, transform.position);
-            _canGetHit = false;
-            _pS.Stop();
-            GotHitStart();
-            TrailRenderHandler(false);
+            return false;
         }
+
+        Logger.Log($"Hurt by: {attackParameters.Attacker}");
+
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.crowYellShort, transform.position);
+        _canGetHit = false;
+        _pS.Stop();
+        GotHitStart();
+        TrailRenderHandler(false);
+        return true;
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
     }
 
     private bool CanGetHit()
@@ -649,7 +694,7 @@ public class Crow : MonoBehaviour
         if (_hitAttackFleshTimer < 0)
         {
             _crowMode = CrowModeEnum.Roaming;
-            sideTarget = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
+            sideTarget = _roamingFirst ? roamingRight.position : roamingLeft.position;
         }
     }
 
@@ -809,5 +854,27 @@ public class Crow : MonoBehaviour
     {
         if (useTrailRenderer)
             _trailRenderer.emitting = value;
+    }
+
+    private void PlayerDied()
+    {
+        
+        _crowMode = CrowModeEnum.None;
+        StopMovement();
+        switch (bossLevelState)
+        {
+            case BossLevelState.Following:
+                transform.position = _initiationPosition;
+                Logger.Log("initial pos");
+                break;
+
+            case BossLevelState.Roaming:
+                Logger.Log("roaming pos");
+                _roamingFirst = false;
+                transform.position = _startRoamingPosition;
+                break;
+        }
+        
+        setAlf(0);
     }
 }
