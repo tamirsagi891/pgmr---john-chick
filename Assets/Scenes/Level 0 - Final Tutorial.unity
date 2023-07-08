@@ -11830,9 +11830,10 @@ MonoBehaviour:
   - {fileID: 1928539203}
   - {fileID: 1697382492}
   objectToDisable:
-  - {fileID: 8154181287004651024}
   - {fileID: 1110541916}
   - {fileID: 9028931161421770735}
+  - {fileID: 2016702204415225143}
+  - {fileID: 8130923362186216944}
   onSetDark:
     m_PersistentCalls:
       m_Calls: []

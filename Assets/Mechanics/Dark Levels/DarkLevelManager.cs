@@ -92,15 +92,17 @@ namespace Mechanics.Dark_Levels
         {
             isCurrentLevelDark = false;
             GeneralGameManager.LoadAsDark = false;
-            foreach (var obj in objectToDisable)
-            {
-                obj.SetActive(true);
-            }
-
+            
             foreach (var obj in objectToEnable)
             {
                 obj.SetActive(false);
             }
+            
+            foreach (var obj in objectToDisable)
+            {
+                obj.SetActive(true);
+            }
+            
             onUnsetDark.Invoke();
             OnUnsetDarkEvent?.Invoke(this, null);
         }
