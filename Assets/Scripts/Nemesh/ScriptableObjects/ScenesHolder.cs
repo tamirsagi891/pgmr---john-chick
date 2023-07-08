@@ -15,6 +15,7 @@ namespace Nemesh.ScriptableObjects
                 {
                     instance = Resources.Load<ScenesHolder>("Settings/SceneManager");
                 }
+
                 return instance;
             }
             private set => instance = value;
@@ -22,13 +23,16 @@ namespace Nemesh.ScriptableObjects
 
         public static SceneReference MainMenu => Instance.mainMenu;
         public static List<SceneReference> Levels => Instance.levels;
+        public static List<SceneReference> ExtraLevels => Instance.extraLevels;
 
         [SerializeField]
         public SceneReference mainMenu;
-        
+
 
         [SerializeField]
         public List<SceneReference> levels = new();
+
+        public List<SceneReference> extraLevels = new();
 
         private static ScenesHolder instance = null;
 

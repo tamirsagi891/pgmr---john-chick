@@ -12,7 +12,7 @@ namespace Mechanics.UI.Menus.Menu_Utils
     public class FeatherSlider : MonoBehaviour
     {
         [SerializeField]
-        private PassiveRealTimeTimer timeBetweenFeathers = new(0.5f);
+        private PassiveRealTimeTimer timeBetweenFeathers = new(0.35f);
 
         [SerializeField]
         private EndScoreManager scoreManager;

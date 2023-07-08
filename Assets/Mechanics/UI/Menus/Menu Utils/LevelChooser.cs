@@ -6,6 +6,7 @@ using Nemesh.ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace Mechanics.UI.Menus.Menu_Utils
@@ -40,9 +41,13 @@ namespace Mechanics.UI.Menus.Menu_Utils
             {
                 AddSceneButton(level);
             }
+            foreach (var level in ScenesHolder.ExtraLevels)
+            {
+                AddSceneButton(level, extra: true);
+            }
         }
 
-        private void AddSceneButton(SceneReference sceneToAdd)
+        private void AddSceneButton(SceneReference sceneToAdd, bool extra = false)
         {
             var button = Pool.Get();
             button.onClick.AddListener(delegate
@@ -50,7 +55,12 @@ namespace Mechanics.UI.Menus.Menu_Utils
                 loadSceneManager.GoToScene(sceneToAdd);
                 GeneralGameManager.IsGamePause = false;
             });
+            
             var sceneName = Regex.Split(sceneToAdd.Name, @" [-] ")[0];
+            if (extra)
+            {
+                sceneName = $"Extra: {sceneName}";
+            }
             button.GetComponentInChildren<TMP_Text>().text = sceneName;
             _buttons.Add(button);
         }
