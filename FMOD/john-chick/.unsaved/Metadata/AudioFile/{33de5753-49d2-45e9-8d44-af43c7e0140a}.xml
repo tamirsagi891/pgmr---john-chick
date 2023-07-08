@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{33de5753-49d2-45e9-8d44-af43c7e0140a}">
+		<property name="assetPath">
+			<value>Player Movement/Wall Slide/5.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.0187755102040816</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{423e3eea-3ef9-4730-805b-bb05f135121e}</destination>
+		</relationship>
+	</object>
+</objects>

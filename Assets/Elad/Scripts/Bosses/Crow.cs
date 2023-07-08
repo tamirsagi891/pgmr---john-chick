@@ -215,7 +215,6 @@ public class Crow : MonoBehaviour, ICanBeAttacked
         if (GeneralGameManager.IsGamePause) return;
         if (lastCrowMode != _crowMode)
         {
-            Logger.Log(lastCrowMode);
             lastCrowMode = _crowMode;
         }
 
@@ -508,9 +507,9 @@ public class Crow : MonoBehaviour, ICanBeAttacked
         {
             if (_isDead)
             {
-                Destroy(gameObject);
                 BossEvents.BossDead.Invoke();
                 StartCoroutine(DelayExecution(delayEndOpenMenu, MenuManager.Menu.OpenEndLevelMenu));
+                Destroy(gameObject);
             }
 
             _roamingFirst = !_roamingFirst;

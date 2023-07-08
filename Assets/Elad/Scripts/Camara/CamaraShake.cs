@@ -31,19 +31,24 @@ public class CamaraShake : MonoBehaviour
     {
         _cM = GetComponent<CinemachineVirtualCamera>();
         _channelPerlin = _cM.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        _channelPerlin.m_AmplitudeGain = 0;
     }
 
     private void OnEnable()
     {
+        
         characterEvents.CharacterDamaged.AddListener(StartShake);
+        BossEvents.CamaraShake.AddListener(DoShake);
     }
 
     private void OnDisable()
     {
+        _channelPerlin.m_AmplitudeGain = 0;
         characterEvents.CharacterDamaged.RemoveListener(StartShake);
     }
     
-
+    
+    
     private void StartShake(GameObject gameObject, int value)
     {
         _isShaking = true;
@@ -70,4 +75,8 @@ public class CamaraShake : MonoBehaviour
             }
         }
     }
+
+    
+
+    
 }

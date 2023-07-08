@@ -210,7 +210,7 @@ public class HorizontalMovement : MonoBehaviour
         SetFacingDirection(DirectionX);
     }
 
-    private void ResetMovement()
+    public void ResetMovement()
     {
         DirectionX = 0;
         _playerController.IsMoving = (DirectionX != 0);

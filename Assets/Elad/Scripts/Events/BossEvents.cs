@@ -12,5 +12,7 @@ namespace Elad.Events
         public static UnityEvent BossDead = new();
         public static UnityEvent BossStart = new();
         
+        public static UnityEvent< float, float> CamaraShake = new();
+
     }
 }

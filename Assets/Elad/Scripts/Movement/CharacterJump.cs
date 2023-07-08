@@ -507,9 +507,10 @@ public class CharacterJump : MonoBehaviour
         }
     }
 
-    private void ResetMovement()
+    public void ResetMovement()
     {
         _pressingJump = false;
+        IsGliding = false;
     }
     
     private void CancelGlide()
