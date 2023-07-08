@@ -68,7 +68,6 @@ namespace Mechanics.Enemies
             Logger.Log(other.gameObject == npcToReportToList[0].gameObject);
             foreach (var npc in npcToReportToList.Where(npc => npc.gameObject == other.gameObject))
             {
-                Logger.Log("here");
                 _outside.Add(npc);
                 break;
             }
