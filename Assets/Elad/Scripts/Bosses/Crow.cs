@@ -6,6 +6,7 @@ using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
 using FMOD.Studio;
+using Mechanics.UI.Menus;
 using UnityEngine;
 using Logger = Nemesh.Logger;
 using Random = System.Random;
@@ -392,6 +393,7 @@ public class Crow : MonoBehaviour
             {
                 Destroy(gameObject);
                 BossEvents.BossDead.Invoke();
+                MenuManager.Menu.OpenEndLevelMenu();
             }
 
             _roamingFirst = !_roamingFirst;
