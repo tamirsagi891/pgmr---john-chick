@@ -14,8 +14,15 @@ using Random = System.Random;
 public class Crow : MonoBehaviour
 {
     private Random _random;
+
+    [Header("Y Position While Following ")] [SerializeField]
+    private float yMaxDistanceWhileFollow = 1f;
+
+    [Header("Trail renderer")] private bool useTrailRenderer;
+
     [Header("Player Components")] private Damageable _damageablePlayer;
     [Header("Components")] private Animator _animator;
+
     private TrailRenderer _trailRenderer;
     private ParticleSystem _pS;
     private SpriteRenderer _sp;
@@ -63,6 +70,14 @@ public class Crow : MonoBehaviour
     }
 
     private CircleMovementStatus _circleMovementStatus = CircleMovementStatus.First;
+
+    private enum BossLevelState
+    {
+        Following,
+        Roaming
+    }
+
+    [SerializeField] private BossLevelState bossLevelState = BossLevelState.Following;
 
     private enum CrowModeEnum
     {
@@ -170,7 +185,6 @@ public class Crow : MonoBehaviour
         target = _damageablePlayer.gameObject.transform;
         _coloredFlash = GetComponent<ColoredFlash>();
         _flySound = AudioManager.instance.CreatEventInstance(FMODEvents.instance.crowFly);
-        
     }
 
 
@@ -244,14 +258,14 @@ public class Crow : MonoBehaviour
         col.a = alf;
         _sp.color = col;
     }
-    
+
     private void BossSleep()
     {
         setAlf(0);
         _pS.Stop();
         _crowMode = CrowModeEnum.None;
     }
-    
+
     private void BossStart()
     {
         setAlf(1);
@@ -305,7 +319,7 @@ public class Crow : MonoBehaviour
         if (xDistance < xDistanceToSprint)
         {
             _crowMode = CrowModeEnum.AttackingFromRoaming;
-            _trailRenderer.emitting = true;
+            TrailRenderHandler(true);
             _towardPlayerTimer = towardPlayerTime;
             DoFlashBeforeAttack();
         }
@@ -388,7 +402,8 @@ public class Crow : MonoBehaviour
 
     private void SwitchToRoaming()
     {
-        _trailRenderer.emitting = false;
+        bossLevelState = BossLevelState.Roaming;
+        TrailRenderHandler(false);
         _crowMode = CrowModeEnum.Roaming;
     }
 
@@ -473,7 +488,7 @@ public class Crow : MonoBehaviour
         {
             _crowMode = CrowModeEnum.RoamingDown;
             _canSprint = false;
-            _trailRenderer.emitting = false;
+            TrailRenderHandler(false);
             sideTarget = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
         }
     }
@@ -481,21 +496,34 @@ public class Crow : MonoBehaviour
 
     private void MoveTowardPlayerRegular()
     {
-        
         // Move our position a step closer to the target.
         animationSpeed = regularSpeed;
         SetSpeed(regularSpeed);
-        
-        float distance = Mathf.Abs(transform.position.x - target.position.x);
-        if (distance > maxXDistanceWhileFollowing)
-        {
-            transform.position = new Vector3(transform.position.x + distance - maxXDistanceWhileFollowing,
-                transform.position.y, 0);
-        }
-        
+
+        InRangeFollowing();
+
         float step = mainSpeed * Time.deltaTime; // calculate distance to move
         transform.position = Vector2.MoveTowards(transform.position, target.position, step);
     }
+
+    private void InRangeFollowing()
+    {
+        float distanceX = transform.position.x - target.position.x;
+        if (Mathf.Abs(distanceX) > maxXDistanceWhileFollowing)
+        {
+            float newX = distanceX > 0 ? transform.position.x - (distanceX - maxXDistanceWhileFollowing) : transform.position.x + (Mathf.Abs(distanceX) - maxXDistanceWhileFollowing);
+            transform.position = new Vector3(newX, transform.position.y, 0);
+        }
+
+        float distanceY = transform.position.y - target.position.y;
+        if (Mathf.Abs(distanceY) > yMaxDistanceWhileFollow)
+        {
+            float newY = distanceY > 0 ? transform.position.y - (distanceY - yMaxDistanceWhileFollow) : transform.position.y + (Mathf.Abs(distanceY) - yMaxDistanceWhileFollow);
+            transform.position = new Vector3(transform.position.x, newY, 0);
+        }
+    }
+
+
 
     private void MoveTowardPlayerAttacking()
     {
@@ -543,7 +571,7 @@ public class Crow : MonoBehaviour
     {
         attackTimer = attackTime;
         _crowMode = CrowModeEnum.AttackingRegular;
-        _trailRenderer.emitting = true;
+        TrailRenderHandler(true);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -552,7 +580,7 @@ public class Crow : MonoBehaviour
         if (other.CompareTag(TagStrings.playerTag))
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.crowYellShort, transform.position);
-            _trailRenderer.emitting = false;
+            TrailRenderHandler(false);
             _pS.Stop();
             _canGetHit = false;
             _canSprint = false;
@@ -565,7 +593,7 @@ public class Crow : MonoBehaviour
             _canGetHit = false;
             _pS.Stop();
             GotHitStart();
-            _trailRenderer.emitting = false;
+            TrailRenderHandler(false);
         }
     }
 
@@ -608,20 +636,22 @@ public class Crow : MonoBehaviour
 
     private void DoAttack()
     {
-        if (_crowMode == CrowModeEnum.AttackingRegular)
+        if (bossLevelState == BossLevelState.Following)
         {
             _crowMode = CrowModeEnum.AfterAttack;
             _afterAttackTimer = afterAttackTime;
             SetCircleParameters();
         }
-        else
+        else if (bossLevelState == BossLevelState.Roaming)
         {
-            if (!_canSprintAttack) return;
-            _crowMode = CrowModeEnum.AfterAttackingFromRoaming;
-            _canSprintAttack = false;
-            _canSprint = false;
-            _afterAttackingFromRoamingDelayTimer = afterAttackingFromRoamingDelayTime;
-            sideTarget = target.position;
+            {
+                if (!_canSprintAttack) return;
+                _crowMode = CrowModeEnum.AfterAttackingFromRoaming;
+                _canSprintAttack = false;
+                _canSprint = false;
+                _afterAttackingFromRoamingDelayTimer = afterAttackingFromRoamingDelayTime;
+                sideTarget = target.position;
+            }
         }
 
         _animator.SetTrigger(AnimationStrings.crowAttack);
@@ -637,7 +667,7 @@ public class Crow : MonoBehaviour
 
     private void StopAttack()
     {
-        _trailRenderer.emitting = false;
+        TrailRenderHandler(false);
     }
 
     private void CircleMovement()
@@ -666,7 +696,7 @@ public class Crow : MonoBehaviour
                 break;
         }
 
-        Logger.Log("kaka");
+
         var circleSpeed = _circleMovementStatus == CircleMovementStatus.First ? circleSpeedOne : circleSpeedTwo;
         animationSpeed = circleSpeed;
         // Move our position a step closer to the target.
@@ -684,7 +714,7 @@ public class Crow : MonoBehaviour
             switch (_circleMovementStatus)
             {
                 case CircleMovementStatus.First:
-                    _trailRenderer.emitting = false;
+                    TrailRenderHandler(false);
                     _circleMovementStatus = CircleMovementStatus.Second;
                     break;
 
@@ -706,6 +736,7 @@ public class Crow : MonoBehaviour
 
     void RotateTowardsTarget()
     {
+        if (bossLevelState == BossLevelState.Following) return;
         // Determine direction to the target
         int mult = _sideFacingRight ? 1 : -1;
         Vector2 directionToTarget = (sideTarget - transform.position).normalized;
@@ -748,5 +779,11 @@ public class Crow : MonoBehaviour
         {
             _flySound.start();
         }
+    }
+
+    private void TrailRenderHandler(bool value)
+    {
+        if (useTrailRenderer)
+            _trailRenderer.emitting = value;
     }
 }
