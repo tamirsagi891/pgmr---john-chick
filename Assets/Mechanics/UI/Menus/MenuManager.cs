@@ -299,6 +299,10 @@ namespace Mechanics.UI.Menus
             var pauseAction = map.FindAction("Pause");
             pauseAction.Enable();
             pauseAction.started += OnPause;
+            
+            var backAction = map.FindAction("Back");
+            backAction.Enable();
+            backAction.started += OnPause;
         }
 
         private void OnDisable()
@@ -307,6 +311,10 @@ namespace Mechanics.UI.Menus
             var pauseAction = map.FindAction("Pause");
             pauseAction.started -= OnPause;
             pauseAction.Disable();
+            
+            var backAction = map.FindAction("Back");
+            backAction.started -= OnPause;
+            backAction.Disable();
         }
 
         private void OnDestroy()
@@ -337,10 +345,12 @@ namespace Mechanics.UI.Menus
                 }
                 return;
             }
-
             if (_currentOpen == null)
             {
-                Pause();
+                if (context.action.name == "Pause")
+                {
+                    Pause();
+                }
             }
             else if (_currentOpen != endLevelMenu && _currentOpen != gameOverMenu)
             {
