@@ -44,7 +44,7 @@ public class StartTriggerBox : MonoBehaviour
                     break;
                 
                 case TriggerBoxKind.StopMovement:
-                    StopBossMovement();
+                    // StopBossMovement();
                     break;
                 
             }
@@ -71,6 +71,7 @@ public class StartTriggerBox : MonoBehaviour
 
     private void PlayerDied()
     {
+        StopBossMovement();
         _canWork = true;
     }
 }
