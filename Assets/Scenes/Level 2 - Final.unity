@@ -435144,6 +435144,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: God Rays
       objectReference: {fileID: 0}
+    - target: {fileID: 4524234778921961002, guid: f2eed2dfe675b394795d1e69f803410e, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 9173393858954761121, guid: f2eed2dfe675b394795d1e69f803410e, type: 3}
       propertyPath: m_RootOrder
       value: 0
