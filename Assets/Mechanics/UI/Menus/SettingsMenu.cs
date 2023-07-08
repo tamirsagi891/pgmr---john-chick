@@ -11,7 +11,6 @@ namespace Mechanics.UI.Menus
     [AddComponentMenu("Menus/Settings Menu")]
     public class SettingsMenu : BaseMenuController
     {
-
         #region Inspector
 
         [Header("Settings Menu UI")]
@@ -23,7 +22,7 @@ namespace Mechanics.UI.Menus
 
         [SerializeField]
         private Slider audioEffectsSlider;
-        
+
         [SerializeField]
         private Slider audioAmbientSlider;
 
@@ -41,7 +40,7 @@ namespace Mechanics.UI.Menus
 
         [SerializeField]
         private TMP_Dropdown mipmapDropdown;
-        
+
         [SerializeField]
         private TMP_Text presetLabel;
 
@@ -81,7 +80,9 @@ namespace Mechanics.UI.Menus
 
             presetLabel.text = QualitySettings.names[QualitySettings.GetQualityLevel()];
             mipmapDropdown.value = QualitySettings.globalTextureMipmapLimit;
-            resolutionLabel.text = Screen.currentResolution.ToString();
+            resolutionLabel.text = $"{Screen.currentResolution.width} x {Screen.currentResolution.height} " +
+                                   $"@ {Screen.currentResolution.refreshRateRatio.value:N0}Hz";
+            
         }
 
         public override void CloseMenu()
@@ -123,7 +124,7 @@ namespace Mechanics.UI.Menus
                 _ => QualitySettings.anisotropicFiltering
             };
         }
-        
+
         public void UpdateMipmapLimit(int mapRes)
         {
             QualitySettings.globalTextureMipmapLimit = mapRes;
@@ -180,7 +181,7 @@ namespace Mechanics.UI.Menus
         #region Private Fields
 
         private int _currentResolutionIndex;
-        private List<Resolution> _supportedResolutions;
+        private List<Vector2Int> _supportedResolutions;
 
         #endregion
 
@@ -188,17 +189,42 @@ namespace Mechanics.UI.Menus
 
         private void Start()
         {
-            _supportedResolutions = new List<Resolution>(Screen.resolutions);
+            SetAllResolutions();
+
             LoadSettings();
             _currentResolutionIndex = _supportedResolutions.FindIndex(
-                resolution => resolution.width == Screen.currentResolution.width &&
-                              resolution.height == Screen.currentResolution.height
+                resolution => resolution.x == Screen.currentResolution.width &&
+                              resolution.x == Screen.currentResolution.height
             );
+
+            var infos = new List<DisplayInfo>();
+            Screen.GetDisplayLayout(infos);
+            foreach (var info in infos)
+            {
+                Debug.Log(info.refreshRate);
+            }
         }
 
         #endregion
 
         #region Private Methods
+
+        private void SetAllResolutions()
+        {
+            var allResolutions = Screen.resolutions;
+            _supportedResolutions = new List<Vector2Int>();
+
+            foreach (Resolution resolution in allResolutions)
+            {
+                var resolutionSize = new Vector2Int(resolution.width, resolution.height);
+                if (_supportedResolutions.Contains(resolutionSize))
+                {
+                    continue;
+                }
+
+                _supportedResolutions.Add(resolutionSize);
+            }
+        }
 
         private void SaveSettings()
         {
@@ -233,7 +259,9 @@ namespace Mechanics.UI.Menus
                 _ => QualitySettings.antiAliasing
             };
 
-            bool Match(Resolution resolution) => resolution.width == settings.resolutionWidth && resolution.height == settings.resolutionHeight;
+            bool Match(Vector2Int resolution) => resolution.x == settings.resolutionWidth &&
+                                                 resolution.y == settings.resolutionHeight;
+
             _currentResolutionIndex = _supportedResolutions.FindIndex(Match);
             ApplyResolution();
 #if !UNITY_EDITOR || NEMESH_EDITOR
@@ -250,14 +278,15 @@ namespace Mechanics.UI.Menus
             if (_currentResolutionIndex < 0 || _currentResolutionIndex > _supportedResolutions.Count)
             {
                 _currentResolutionIndex = _supportedResolutions.FindIndex(
-                    resolution => resolution.width == Screen.currentResolution.width &&
-                                  resolution.height == Screen.currentResolution.height
+                    resolution => resolution.x == Screen.currentResolution.width &&
+                                  resolution.y == Screen.currentResolution.height
                 );
             }
 
             var resolution = _supportedResolutions[_currentResolutionIndex];
-            Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-            resolutionLabel.text = resolution.ToString();
+            Screen.SetResolution(resolution.x, resolution.y, Screen.fullScreen);
+            resolutionLabel.text = $"{resolution.x} x {resolution.y} " +
+                                   $"@ {Screen.currentResolution.refreshRateRatio.value:N2}Hz";
             // if (Screen.fullScreen)
             // {
             //     Screen.SetResolution(resolution.width, resolution.height, true);
@@ -281,6 +310,5 @@ namespace Mechanics.UI.Menus
         }
 
         #endregion
-
     }
 }

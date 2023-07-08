@@ -114,7 +114,7 @@ public class AudioManager : MonoBehaviour
         ambienceBus = RuntimeManager.GetBus("bus:/Ambiance");
         sfxBus = RuntimeManager.GetBus("bus:/SFX");
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR && !NEMESH_EDITOR
         MasterVolume = masterVolume;
         MusicVolume = musicVolume;
         AmbienceVolume = ambienceVolume;
