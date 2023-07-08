@@ -1273,11 +1273,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -68.1
+      value: 305.16
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.7
+      value: 7.84
       objectReference: {fileID: 0}
     - target: {fileID: 8806686910878253579, guid: 7bc03e83db024fc43952493684ac2172, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13296,6 +13296,146 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowFly>k__BackingField.Path
+      value: event:/Boss/Crow/Crow Fly
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <rockHit>k__BackingField.Path
+      value: event:/Boss/Rock/RockHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYell>k__BackingField.Path
+      value: event:/Boss/Crow/Crow Yelling
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <rockThrow>k__BackingField.Path
+      value: event:/Boss/Rock/RockThrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <startAttack>k__BackingField.Path
+      value: event:/Boss/Crow/Crow Yelling
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYellLong>k__BackingField.Path
+      value: event:/Boss/Crow/Crow Low Yell
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowFly>k__BackingField.Guid.Data1
+      value: -2019065026
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowFly>k__BackingField.Guid.Data2
+      value: 1185612364
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowFly>k__BackingField.Guid.Data3
+      value: 605325756
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowFly>k__BackingField.Guid.Data4
+      value: -294552335
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYellShort>k__BackingField.Path
+      value: event:/Boss/Crow/Crow Yelling
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <rockHit>k__BackingField.Guid.Data1
+      value: -1068206682
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <rockHit>k__BackingField.Guid.Data2
+      value: 1189861422
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <rockHit>k__BackingField.Guid.Data3
+      value: 2122659493
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <rockHit>k__BackingField.Guid.Data4
+      value: 522951591
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYell>k__BackingField.Guid.Data1
+      value: -1768350420
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYell>k__BackingField.Guid.Data2
+      value: 1219252794
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYell>k__BackingField.Guid.Data3
+      value: -306007882
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYell>k__BackingField.Guid.Data4
+      value: 743010267
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <rockThrow>k__BackingField.Guid.Data1
+      value: 682696234
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <rockThrow>k__BackingField.Guid.Data2
+      value: 1159816244
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <rockThrow>k__BackingField.Guid.Data3
+      value: -1664147567
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <rockThrow>k__BackingField.Guid.Data4
+      value: -1208478785
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <startAttack>k__BackingField.Guid.Data1
+      value: -1768350420
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <startAttack>k__BackingField.Guid.Data2
+      value: 1219252794
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <startAttack>k__BackingField.Guid.Data3
+      value: -306007882
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <startAttack>k__BackingField.Guid.Data4
+      value: 743010267
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYellLong>k__BackingField.Guid.Data1
+      value: 2130764161
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYellLong>k__BackingField.Guid.Data2
+      value: 1238189765
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYellLong>k__BackingField.Guid.Data3
+      value: -1003521144
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYellLong>k__BackingField.Guid.Data4
+      value: 337243113
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYellShort>k__BackingField.Guid.Data1
+      value: -1768350420
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYellShort>k__BackingField.Guid.Data2
+      value: 1219252794
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYellShort>k__BackingField.Guid.Data3
+      value: -306007882
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowYellShort>k__BackingField.Guid.Data4
+      value: 743010267
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19298,11 +19438,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1792924698838183256, guid: f684dbcb6c59d0641945cf8fd0fee064, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -84.2
+      value: 288.8
       objectReference: {fileID: 0}
     - target: {fileID: 1792924698838183256, guid: f684dbcb6c59d0641945cf8fd0fee064, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 31
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 1792924698838183256, guid: f684dbcb6c59d0641945cf8fd0fee064, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19335,6 +19475,10 @@ PrefabInstance:
     - target: {fileID: 1792924698838183256, guid: f684dbcb6c59d0641945cf8fd0fee064, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311252833008723950, guid: f684dbcb6c59d0641945cf8fd0fee064, type: 3}
+      propertyPath: _crowMode
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7311252833008723950, guid: f684dbcb6c59d0641945cf8fd0fee064, type: 3}
       propertyPath: roamingPositionFirst

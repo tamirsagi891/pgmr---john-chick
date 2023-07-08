@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{9687e214-9ce1-4fe9-87ed-7026c04ccf95}">
+		<property name="name">
+			<value>FlyPitch</value>
+		</property>
+		<relationship name="folder">
+			<destination>{c3351dbb-c13d-41c4-9374-5dd8198b8298}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{b25db610-d4d5-4de3-b27a-64a3b5786357}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{b25db610-d4d5-4de3-b27a-64a3b5786357}">
+		<property name="minimum">
+			<value>10</value>
+		</property>
+		<property name="maximum">
+			<value>50</value>
+		</property>
+		<property name="initialValue">
+			<value>50</value>
+		</property>
+	</object>
+</objects>
