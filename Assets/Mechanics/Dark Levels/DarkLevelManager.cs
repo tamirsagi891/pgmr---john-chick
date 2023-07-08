@@ -28,7 +28,10 @@ namespace Mechanics.Dark_Levels
         private UnityEvent onUnsetDark;
 
         public static bool isCurrentLevelDark;
-        
+
+        public static event EventHandler OnSetDarkEvent;
+        public static event EventHandler OnUnsetDarkEvent;
+
         private void Awake()
         {
             if (!GeneralGameManager.LoadAsDark)
@@ -81,6 +84,7 @@ namespace Mechanics.Dark_Levels
             }
             
             onSetDark.Invoke();
+            OnSetDarkEvent?.Invoke(this, null);
         }
         
         [Button("Unset Dark")]
@@ -98,6 +102,7 @@ namespace Mechanics.Dark_Levels
                 obj.SetActive(false);
             }
             onUnsetDark.Invoke();
+            OnUnsetDarkEvent?.Invoke(this, null);
         }
         
     }

@@ -135,8 +135,8 @@ public class AudioManager : MonoBehaviour
         MenuManager.OnSfxChangeEvent += SetSfxVolume;
         MenuManager.OnAmbientChangeEvent += SetAmbientVolume;
 
-        characterEvents.PauseGame.AddListener(PauseSounds);
-        characterEvents.ContinueGame.AddListener(ContinueSounds);
+        // characterEvents.PauseGame.AddListener(PauseSounds);
+        // characterEvents.ContinueGame.AddListener(ContinueSounds);
     }
 
     private void OnDisable()
@@ -146,8 +146,8 @@ public class AudioManager : MonoBehaviour
         MenuManager.OnSfxChangeEvent -= SetSfxVolume;
         MenuManager.OnAmbientChangeEvent -= SetAmbientVolume;
 
-        characterEvents.PauseGame.RemoveListener(PauseSounds);
-        characterEvents.ContinueGame.RemoveListener(ContinueSounds);
+        // characterEvents.PauseGame.RemoveListener(PauseSounds);
+        // characterEvents.ContinueGame.RemoveListener(ContinueSounds);
     }
 
 
