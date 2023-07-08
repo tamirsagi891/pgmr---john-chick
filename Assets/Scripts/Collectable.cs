@@ -1,4 +1,5 @@
 using System;
+using BitStrap;
 using Managers;
 using Mechanics.Dark_Levels;
 using UnityEngine;
@@ -9,7 +10,10 @@ public class Collectable : MonoBehaviour
 {
     public static bool DebugCollectables = false;
     
-    [SerializeField] private string playerTag = "Player";
+    [SerializeField] 
+    [TagSelector]
+    private string playerTag = "Player";
+    
     [SerializeField] private float floatSpeed = 4.0f;
     [SerializeField] private float floatAmount = 0.25f;
     
@@ -51,6 +55,12 @@ public class Collectable : MonoBehaviour
         {
             Logger.Log("Collectable collected!");
         }
+        CollectableFunction();
+    }
+
+    protected virtual void CollectableFunction()
+    {
+        return;
     }
 
     private void Float()

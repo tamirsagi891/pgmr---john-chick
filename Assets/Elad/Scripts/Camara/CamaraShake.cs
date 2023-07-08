@@ -51,6 +51,13 @@ public class CamaraShake : MonoBehaviour
         _channelPerlin.m_AmplitudeGain = Random.Range(intensityMin, intensityMax);
     }
 
+    public void DoShake(float shakeTime = -1, float shakeIntensity = -1)
+    {
+        _isShaking = true;
+        shackTimer = shakeTime < 0 ? Random.Range(shackTimeMin, shackTimeMax) : shakeTime;
+        _channelPerlin.m_AmplitudeGain = shakeIntensity < 0 ? Random.Range(intensityMin, intensityMax) : shakeIntensity;
+    }
+
     private void Update()
     {
         if (_isShaking && _cM)
