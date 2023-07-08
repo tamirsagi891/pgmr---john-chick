@@ -8,6 +8,9 @@ namespace Elad.Scripts.Arrows
     [RequireComponent(typeof(Collectable), typeof(StudioEventEmitter))]
     public class FeatherToCollect : MonoBehaviour
     {
+        [SerializeField]
+        private bool useCollectionSound;
+        
         [SerializeField] private FeathersManager.FeatherKind myFeatherKind;
         private int _id = 0;
 
@@ -59,8 +62,10 @@ namespace Elad.Scripts.Arrows
                 if (AudioManager.instance)
                 {
                     _emitter.Stop();
-
-                    AudioManager.instance.PlayOneShot(FMODEvents.instance.collectFeatherSound, transform.position);
+                    if (useCollectionSound)
+                    {
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.collectFeatherSound, transform.position);
+                    }
                 }
 
                 characterEvents.AddFeatherToPlayer.Invoke(MyFeatherKind);

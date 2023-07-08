@@ -292,7 +292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8716001850620981507, guid: 75413d6fbf7c1af4ca0443377e3cbd48, type: 3}
       propertyPath: slides.Array.data[0].text
