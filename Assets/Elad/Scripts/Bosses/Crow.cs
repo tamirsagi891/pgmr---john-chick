@@ -6,6 +6,7 @@ using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
 using FMOD.Studio;
+using Managers;
 using Mechanics.Enemies;
 using Mechanics.UI.Menus;
 using UnityEngine;
@@ -206,6 +207,7 @@ public class Crow : MonoBehaviour, ICanBeAttacked
     // Update is called once per frame
     void Update()
     {
+        if (GeneralGameManager.IsGamePause) return;
         if (lastCrowMode != _crowMode)
         {
             Logger.Log(lastCrowMode);
@@ -877,4 +879,6 @@ public class Crow : MonoBehaviour, ICanBeAttacked
         
         setAlf(0);
     }
+    
+    
 }
