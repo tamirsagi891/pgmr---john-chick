@@ -7,6 +7,7 @@ using Cinemachine;
 using Elad.Scripts;
 using Elad.Scripts.Save_Load_System;
 using Managers;
+using Mechanics.Dark_Levels;
 using TMPro;
 using UnityEngine;
 using Logger = Nemesh.Logger;
@@ -45,7 +46,9 @@ namespace Mechanics.UI.Menus.Menu_Utils
 
         public event EventHandler OnPass;
 
-        public string HighScoreSavePath => Path.Combine(_dir, $"Level_{GeneralGameManager.CurrentSceneIndex}.json");
+        public string HighScoreSavePath => Path.Combine(_dir,
+            $"{GeneralGameManager.CurrentScene.Name}" +
+            $"{(DarkLevelManager.isCurrentLevelDark?"_D":"")}.json");
 
         public int CurInd
         {
