@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889b889823770cf4a9f7699fe720e357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  master: 1
-  music: 0
-  ambience: 1
-  sfx: 1
+  masterVolume: 1
+  musicVolume: 0.2
+  ambienceVolume: 1
+  SFXVolume: 1
 --- !u!114 &7585313106572696500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,3 +257,45 @@ MonoBehaviour:
       Data3: 1036885397
       Data4: 1348848936
     Path: event:/Buttons/Move Buttons
+  <crowYellShort>k__BackingField:
+    Guid:
+      Data1: -1768350420
+      Data2: 1219252794
+      Data3: -306007882
+      Data4: 743010267
+    Path: event:/Boss/Crow/Crow Yelling
+  <crowYellLong>k__BackingField:
+    Guid:
+      Data1: 2130764161
+      Data2: 1238189765
+      Data3: -1003521144
+      Data4: 337243113
+    Path: event:/Boss/Crow/Crow Low Yell
+  <crowFly>k__BackingField:
+    Guid:
+      Data1: -2019065026
+      Data2: 1185612364
+      Data3: 605325756
+      Data4: -294552335
+    Path: event:/Boss/Crow/Crow Fly
+  <rockThrow>k__BackingField:
+    Guid:
+      Data1: 682696234
+      Data2: 1159816244
+      Data3: -1664147567
+      Data4: -1208478785
+    Path: event:/Boss/Rock/RockThrow
+  <rockHit>k__BackingField:
+    Guid:
+      Data1: -1068206682
+      Data2: 1189861422
+      Data3: 2122659493
+      Data4: 522951591
+    Path: event:/Boss/Rock/RockHit
+  <startAttack>k__BackingField:
+    Guid:
+      Data1: -1768350420
+      Data2: 1219252794
+      Data3: -306007882
+      Data4: 743010267
+    Path: event:/Boss/Crow/Crow Yelling

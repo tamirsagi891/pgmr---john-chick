@@ -36,7 +36,7 @@ Transform:
   - {fileID: 3940247171036093217}
   - {fileID: 5018918679580680834}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7311252833008723950
 MonoBehaviour:
@@ -67,7 +67,7 @@ MonoBehaviour:
   afterAttackOffset: {x: 10, y: 20, z: 0}
   thirdPositionYOffset: 4
   secondPositionXOffset: 6
-  _crowMode: 0
+  _crowMode: 3
   rotationSpeed: 200
   roamingPositionFirst: {fileID: 0}
   roamingPositionSecond: {fileID: 0}
