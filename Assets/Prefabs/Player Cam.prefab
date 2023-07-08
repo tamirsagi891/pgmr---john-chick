@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18283b3b25b05b74b95f2019496af068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intensityMax: 4
-  intensityMin: 1
+  intensityMax: 2
+  intensityMin: 0.8
   shackTimeMin: 0.3
   shackTimeMax: 1
 --- !u!1 &8259941828291171472

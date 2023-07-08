@@ -65,7 +65,6 @@ namespace Mechanics.UI.Menus
         {
             if (!darkLevelButton.IsInteractable())
             {
-                Logger.Log("Here");
                 darkLevelButton.interactable = true;
             }
         }

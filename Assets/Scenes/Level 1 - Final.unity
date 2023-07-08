@@ -15420,11 +15420,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2669908578125357830, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveX.scalar
-      value: -10.17597
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2669908578125357830, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveY.scalar
-      value: 6.360001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2671089589932886541, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: magnitude
@@ -48195,11 +48195,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2669908578125357830, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveX.scalar
-      value: 10.17597
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2669908578125357830, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: m_Parameters.m_DirectionCurveY.scalar
-      value: 6.360001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2671089589932886541, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: magnitude
@@ -421606,6 +421606,48 @@ MonoBehaviour:
       Data4: 0
     Path: 
   <buttonsMove>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <crowYellShort>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <crowYellLong>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <crowFly>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <rockThrow>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <rockHit>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <startAttack>k__BackingField:
     Guid:
       Data1: 0
       Data2: 0
