@@ -5,6 +5,7 @@ using BitStrap;
 using Elad.Events;
 using Elad.Scripts;
 using Elad.Scripts.Combat;
+using FMOD.Studio;
 using UnityEngine;
 using Logger = Nemesh.Logger;
 using Random = System.Random;
@@ -59,7 +60,7 @@ public class Crow : MonoBehaviour
     }
 
     private CircleMovementStatus _circleMovementStatus = CircleMovementStatus.First;
-    
+
     private enum CrowModeEnum
     {
         MovingTowardPlayer,
@@ -79,12 +80,12 @@ public class Crow : MonoBehaviour
     [Header("Rotation")] [SerializeField] private float rotationSpeed = 200f;
     private bool _sideFacingRight;
 
-    [Header("Roaming Movement")] 
+    [Header("Roaming Movement")] [SerializeField]
+    private Transform roamingPositionFirst;
 
-    [SerializeField] private Transform roamingPositionFirst;
     [SerializeField] private Transform roamingPositionSecond;
     private bool _roamingFirst;
-    
+
 
     enum RoamingAttack
     {
@@ -101,7 +102,7 @@ public class Crow : MonoBehaviour
     [SerializeField] private Vector3 boulderInstantiateOffset = Vector3.down;
     private bool _canThrow = true;
     private bool withBoulder;
-    
+
 
     [Header("Sprint Attack")] [SerializeField]
     private float xDistanceToSprint = 6f;
@@ -127,13 +128,16 @@ public class Crow : MonoBehaviour
     private float _hitAttackFleshTimer;
     private bool _gotHit;
     private bool _canGetHit = true;
-    
-    [Header("Animation")] [SerializeField] [Range(0,1)]private float animationSpeedMult = 0.5f;
+
+    [Header("Animation")] [SerializeField] [Range(0, 1)]
+    private float animationSpeedMult = 0.5f;
 
     [Header("Death")] private bool _isDead;
     [Header("Tests")] [SerializeField] private bool justSprintAttack;
     [SerializeField] private float animationSpeed = 1;
-   
+
+    [Header("Sounds")] private EventInstance _flySound;
+
     private void OnEnable()
     {
         BossEvents.StartRoamingFromRunning.AddListener(SwitchToRoaming);
@@ -143,14 +147,13 @@ public class Crow : MonoBehaviour
     {
         BossEvents.StartRoamingFromRunning.RemoveListener(SwitchToRoaming);
     }
-    
+
     private void Awake()
     {
         _random = new Random();
         _animator = GetComponentInChildren<Animator>();
         _trailRenderer = GetComponent<TrailRenderer>();
         _pS = GetComponentInChildren<ParticleSystem>();
-
     }
 
     private void Start()
@@ -158,6 +161,7 @@ public class Crow : MonoBehaviour
         _damageablePlayer = PlayerStatus.PlayerDamageable;
         target = _damageablePlayer.gameObject.transform;
         _coloredFlash = GetComponent<ColoredFlash>();
+        _flySound = AudioManager.instance.CreatEventInstance(FMODEvents.instance.crowFly);
     }
 
 
@@ -196,42 +200,46 @@ public class Crow : MonoBehaviour
             case CrowModeEnum.AfterAttackingFromRoaming:
                 AfterAttackingFromRoaming();
                 break;
-            
+
             case CrowModeEnum.GotHurt:
                 InHurt();
                 break;
-            
+
             case CrowModeEnum.Die:
                 break;
-            
+
             case CrowModeEnum.RoamingDown:
                 MoveRoamingDown();
                 break;
-            
+
             case CrowModeEnum.RoamingUpFromDown:
                 MoveUpFromDown();
                 break;
         }
 
-        
+
         SideHandler();
         RotateTowardsTarget();
         AnimationSpeedHandler();
-        
+        UpdateFlySound();
     }
 
-    
+
     private void ResetSpeed()
     {
         mainSpeed = 0;
     }
+
     private void AnimationSpeedHandler()
     {
         var s = mainSpeed * animationSpeedMult;
         _animator.speed = s;
     }
+
     private void AfterAttackingFromRoaming()
     {
+        mainSpeed = 0;
+
         _afterAttackingFromRoamingDelayTimer -= Time.deltaTime;
         if (_afterAttackingFromRoamingDelayTimer < 0)
         {
@@ -245,6 +253,8 @@ public class Crow : MonoBehaviour
     public void DoFlashBeforeAttack()
     {
         _beforeAttackFleshTimer = _coloredFlash.Flash(beforeAttackColor) + beforeAttackFleshTimeAdd;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.startAttack, transform.position);
+
     }
 
     [Button]
@@ -277,6 +287,8 @@ public class Crow : MonoBehaviour
         {
             Vector3 boulderInstantiatePosition = transform.position + boulderInstantiateOffset;
             Instantiate(boulder, boulderInstantiatePosition, Quaternion.identity);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.rockThrow, transform.position);
+
             withBoulder = false;
             _animator.SetBool(AnimationStrings.withBoulder, false);
             _canThrow = false;
@@ -302,7 +314,7 @@ public class Crow : MonoBehaviour
         _roamingAttack = (RoamingAttack) values.GetValue(_random.Next(values.Length));
 
         withBoulder = _roamingAttack == RoamingAttack.Boulder;
-        
+
         _animator.SetBool(AnimationStrings.withBoulder, withBoulder);
 
         if (justSprintAttack)
@@ -315,9 +327,9 @@ public class Crow : MonoBehaviour
     {
         var roamPos = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
         // Move our position a step closer to the target.
-        
+        mainSpeed = roamingDownSpeed;
         float step = roamingDownSpeed * Time.deltaTime; // calculate distance to move
-        roamPos = new Vector3(roamPos.x, transform.position.y,0);
+        roamPos = new Vector3(roamPos.x, transform.position.y, 0);
         transform.position = Vector2.MoveTowards(transform.position, roamPos, step);
 
         float distance = Vector3.Distance(transform.position, roamPos);
@@ -345,12 +357,13 @@ public class Crow : MonoBehaviour
         _trailRenderer.emitting = false;
         _crowMode = CrowModeEnum.Roaming;
     }
-    
-    
+
+
     private void MoveUpFromDown()
     {
         var roamingPosition = _roamingFirst ? roamingPositionFirst : roamingPositionSecond;
         // Move our position a step closer to the target.
+        mainSpeed = roamingDownSpeed;
         float step = roamingDownSpeed * Time.deltaTime; // calculate distance to move
         transform.position = Vector2.MoveTowards(transform.position, roamingPosition.position, step);
 
@@ -360,7 +373,7 @@ public class Crow : MonoBehaviour
             _crowMode = CrowModeEnum.Roaming;
         }
     }
-    
+
     private void MoveRoaming()
     {
         var roamingPosition = _roamingFirst ? roamingPositionFirst : roamingPositionSecond;
@@ -380,6 +393,7 @@ public class Crow : MonoBehaviour
                 Destroy(gameObject);
                 BossEvents.BossDead.Invoke();
             }
+
             _roamingFirst = !_roamingFirst;
             sideTarget = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
 
@@ -415,14 +429,13 @@ public class Crow : MonoBehaviour
         sideTarget = _sprintTarget;
         // Move our position a step closer to the target.
         animationSpeed = attackingFromRoamingSpeed;
-        
+        mainSpeed = attackingFromRoamingSpeed;
         float step = attackingFromRoamingSpeed * Time.deltaTime; // calculate distance to move
         transform.position = Vector2.MoveTowards(transform.position, _sprintTarget, step);
 
         float distance = Vector3.Distance(transform.position, _sprintTarget);
         if (distance < 0.2f)
         {
-            
             _crowMode = CrowModeEnum.RoamingDown;
             _canSprint = false;
             _trailRenderer.emitting = false;
@@ -430,8 +443,7 @@ public class Crow : MonoBehaviour
         }
     }
 
-    
-    
+
     private void MoveTowardPlayerRegular()
     {
         // Move our position a step closer to the target.
@@ -494,13 +506,17 @@ public class Crow : MonoBehaviour
     {
         if (other.CompareTag(TagStrings.playerTag))
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.crowYellShort, transform.position);
             _trailRenderer.emitting = false;
             _pS.Stop();
+            _canGetHit = false;
+            _canSprint = false;
             DoAttack();
         }
 
-        else if (other.CompareTag(TagStrings.spikesTag) && _canGetHit)
+        else if (other.CompareTag(TagStrings.spikesTag) && CanGetHit())
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.crowYellShort, transform.position);
             _canGetHit = false;
             _pS.Stop();
             GotHitStart();
@@ -508,15 +524,18 @@ public class Crow : MonoBehaviour
         }
     }
 
+    private bool CanGetHit()
+    {
+        return _crowMode == CrowModeEnum.AttackingFromRoaming && _canGetHit;
+    }
+
     private void GotHitStart()
     {
-        
-        
         health -= 1;
-        
+
         if (health == 0)
         {
-            DieStart();    
+            DieStart();
         }
 
         _animator.SetTrigger(AnimationStrings.hurt);
@@ -536,7 +555,7 @@ public class Crow : MonoBehaviour
             sideTarget = _roamingFirst ? roamingPositionFirst.position : roamingPositionSecond.position;
         }
     }
-    
+
     private void DieStart()
     {
         _isDead = true;
@@ -584,7 +603,7 @@ public class Crow : MonoBehaviour
             return;
         }
 
-        
+
         _pS.Play();
         Vector2 currentTarget = afterAttackPositionOne;
         switch (_circleMovementStatus)
@@ -668,6 +687,20 @@ public class Crow : MonoBehaviour
             float rotationStep = rotationSpeed * Time.deltaTime;
             float newAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, targetAngle, rotationStep);
             transform.eulerAngles = new Vector3(0, 0, newAngle);
+        }
+    }
+
+    private void UpdateFlySound()
+    {
+        float distance = Vector3.Distance(transform.position, PlayerStatus.Player.transform.position);
+        _flySound.setParameterByName(MusicStrings.FlyVolume, distance);
+        _flySound.setParameterByName(MusicStrings.FlyPitch, mainSpeed);
+
+        PLAYBACK_STATE playbackState;
+        _flySound.getPlaybackState(out playbackState);
+        if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+        {
+            _flySound.start();
         }
     }
 }

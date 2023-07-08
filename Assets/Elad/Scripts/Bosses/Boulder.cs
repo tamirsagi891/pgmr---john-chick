@@ -70,6 +70,8 @@ public class Boulder : MonoBehaviour
             var knockBackMult = rb.velocity.x > 0 ? 1 : -1;
             var curKnockBack = knockBack * knockBackMult;
             damageablePlayer.GotHit(1, curKnockBack, knockBackDelay);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.rockHit, transform.position);
+
             Destroy(gameObject);
 
         }

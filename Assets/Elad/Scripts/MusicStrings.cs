@@ -34,4 +34,8 @@ public static class MusicStrings
 
     [Header("Wind")]
     internal static string shortWindVol = "ShortWindVol";
+    
+    [Header("Boss")]
+    internal static string FlyPitch = "FlyPitch";
+    internal static string FlyVolume = "FlyVolume";
 }

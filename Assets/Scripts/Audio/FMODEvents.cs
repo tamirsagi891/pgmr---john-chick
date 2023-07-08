@@ -69,6 +69,15 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Feathers SFX")]
     [field: SerializeField] public EventReference buttonsMove { get; private set; }
+    
+    [field: Header("Boss")]
+    [field: SerializeField] public EventReference crowYellShort { get; private set; }
+    [field: SerializeField] public EventReference crowYellLong { get; private set; }
+    [field: SerializeField] public EventReference crowFly { get; private set; }
+    [field: SerializeField] public EventReference rockThrow { get; private set; }
+    [field: SerializeField] public EventReference rockHit { get; private set; }
+    [field: SerializeField] public EventReference startAttack { get; private set; }
+    
     private void Awake()
     {
         if (instance != null)
