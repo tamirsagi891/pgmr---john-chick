@@ -197,12 +197,12 @@ namespace Mechanics.UI.Menus
                               resolution.x == Screen.currentResolution.height
             );
 
-            var infos = new List<DisplayInfo>();
-            Screen.GetDisplayLayout(infos);
-            foreach (var info in infos)
-            {
-                Debug.Log(info.refreshRate);
-            }
+            // var infos = new List<DisplayInfo>();
+            // Screen.GetDisplayLayout(infos);
+            // foreach (var info in infos)
+            // {
+            //     Debug.Log(info.refreshRate);
+            // }
         }
 
         #endregion
