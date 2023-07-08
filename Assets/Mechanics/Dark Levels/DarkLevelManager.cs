@@ -32,7 +32,7 @@ namespace Mechanics.Dark_Levels
         public static event EventHandler OnSetDarkEvent;
         public static event EventHandler OnUnsetDarkEvent;
 
-        private void Awake()
+        private void Start()
         {
             if (!GeneralGameManager.LoadAsDark)
             {
