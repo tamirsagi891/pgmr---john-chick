@@ -166,6 +166,7 @@ public class EndLevelCutScene : MonoBehaviour
         PlayerStatus.CurrentVirtualCamara.enabled = true;
         Time.timeScale = 1;
         BossEvents.BossStart.Invoke();
+        AudioManager.instance.SetBossMusic(2);
         Destroy(gameObject);
     }
 }

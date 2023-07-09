@@ -9,9 +9,7 @@ using Logger = Nemesh.Logger;
 public class TouchingDirection : MonoBehaviour
 {
     private Vector2 wallCheckDirection => gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
-    [SerializeField]
-    [ReadOnly]
-    private bool _isGrounded = true;
+    [SerializeField] [ReadOnly] private bool _isGrounded = true;
 
     public bool IsGrounded
     {
@@ -22,8 +20,8 @@ public class TouchingDirection : MonoBehaviour
             if (value && !_isGrounded)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerLanding, transform.position);
- 
             }
+
             _isGrounded = value;
             PlayerStatus.IsGrounded = value;
         }
@@ -62,7 +60,7 @@ public class TouchingDirection : MonoBehaviour
         get => _isOnPlatform;
         set => _isOnPlatform = value;
     }
-    
+
 
     private RaycastHit2D[] groundHits = new RaycastHit2D[5];
     private RaycastHit2D[] wallHits = new RaycastHit2D[5];
@@ -73,12 +71,13 @@ public class TouchingDirection : MonoBehaviour
     private CapsuleCollider2D _capsuleCollider2D;
     private Animator _animator;
 
-    [Header("Layer's to include the rays")]
-    [SerializeField] private ContactFilter2D castFilterPlatform;
+    [Header("Layer's to include the rays")] [SerializeField]
+    private ContactFilter2D castFilterPlatform;
+
     [SerializeField] private ContactFilter2D castFilterGround;
     [SerializeField] private ContactFilter2D castFilterWall;
 
-    [Space(10)][Header("Distance of cast ray")] [SerializeField]
+    [Space(10)] [Header("Distance of cast ray")] [SerializeField]
     private float groundDistance = 0.05f;
 
     [SerializeField] private float wallDistance = 0.2f;
@@ -88,9 +87,8 @@ public class TouchingDirection : MonoBehaviour
     private Vector2 groundOffset = new Vector2(0f, 0f);
 
     [SerializeField] private float groundGapAmount = 0.1f;
-    [SerializeField]
-    private Vector2 wallOffset = new Vector2(0f, 0f);
-    
+    [SerializeField] private Vector2 wallOffset = new Vector2(0f, 0f);
+
     private void Awake()
     {
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
@@ -115,20 +113,20 @@ public class TouchingDirection : MonoBehaviour
         castOrigin += groundOffset;
 
 
-        Vector2 castLeft = castOrigin - new Vector2(groundGapAmount/2, 0);
-        Vector2 casRight = castOrigin + new Vector2(groundGapAmount/2, 0);
-        
-        
+        Vector2 castLeft = castOrigin - new Vector2(groundGapAmount / 2, 0);
+        Vector2 casRight = castOrigin + new Vector2(groundGapAmount / 2, 0);
+
+
         RaycastHit2D hitGroundLeft =
             Physics2D.Raycast(castLeft, Vector2.down, groundDistance, castFilterGround.layerMask);
-        
+
         RaycastHit2D hitGroundRight =
             Physics2D.Raycast(casRight, Vector2.down, groundDistance, castFilterGround.layerMask);
-        
+
         // Draw debug line for the cast
         Debug.DrawRay(castLeft, Vector2.down * groundDistance, Color.red);
         Debug.DrawRay(casRight, Vector2.down * groundDistance, Color.red);
-        
+
         // Check if the raycast hit something
         IsGrounded = ((hitGroundLeft.collider != null) || hitGroundRight.collider != null);
 
@@ -140,9 +138,9 @@ public class TouchingDirection : MonoBehaviour
 
     private void CeilingCast()
     {
-        IsOnCeiling = Physics2D.Raycast(_circleCollider2D.bounds.center, Vector2.up, ceilingDistance, castFilterGround.layerMask);
+        IsOnCeiling = Physics2D.Raycast(_circleCollider2D.bounds.center, Vector2.up, ceilingDistance,
+            castFilterGround.layerMask);
         Debug.DrawRay(_circleCollider2D.bounds.center, Vector2.up * ceilingDistance, Color.blue);
-
     }
 
     private void WallCast()

@@ -12,14 +12,13 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Ambience")]
     [field: Header("Music")]
-    public enum MainMusic
-    {
-        TheChicken,
-        StoryOfWhick,
-        Think
-    }
     
     
+    [field: SerializeField] public EventReference firstLevelMusic { get; private set; }
+    [field: SerializeField] public EventReference secondLevelMusic { get; private set; }
+    [field: SerializeField] public EventReference thirdLevelMusic { get; private set; }
+    [field: SerializeField] public EventReference BossLevelMusic { get; private set; }
+
     [field: SerializeField] public EventReference ThinkMusic { get; private set; }
     [field: SerializeField] public EventReference ChickenMusic { get; private set; }
     [field: SerializeField] public EventReference JonWhickStoryMusic { get; private set; }
@@ -77,7 +76,13 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference rockThrow { get; private set; }
     [field: SerializeField] public EventReference rockHit { get; private set; }
     [field: SerializeField] public EventReference startAttack { get; private set; }
+    [field: SerializeField] public EventReference crowGetHurt { get; private set; }
     
+    [field: Header("ChickPoints")]
+    [field: SerializeField] public EventReference openChickPoint { get; private set; }
+    
+    [field: Header("Enemies")]
+    [field: SerializeField] public EventReference boar { get; private set; }
     private void Awake()
     {
         if (instance != null)

@@ -40,6 +40,7 @@ public class StartTriggerBox : MonoBehaviour
                     break;
 
                 case TriggerBoxKind.BossStartRoaming:
+                    AudioManager.instance.SetBossMusic(3);
                     StartRoaming();
                     break;
                 
@@ -55,7 +56,6 @@ public class StartTriggerBox : MonoBehaviour
     private void StartRoaming()
     {
         BossEvents.StartRoaming.Invoke();
-        
     }
     
     private void StopBossMovement()

@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889b889823770cf4a9f7699fe720e357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 1
-  musicVolume: 0.2
+  masterVolume: 0.45
+  musicVolume: 0.75
   ambienceVolume: 1
-  SFXVolume: 1
+  SFXVolume: 0.3
+  canPlayCamSounds: 0
+  _levelSound: 3
 --- !u!114 &7585313106572696500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +63,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640d6fe4c47ce8349a94aa134bfb8114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <firstLevelMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <secondLevelMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <thirdLevelMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <BossLevelMusic>k__BackingField:
+    Guid:
+      Data1: 1417436519
+      Data2: 1079123591
+      Data3: 1104027815
+      Data4: 1573469076
+    Path: event:/Boss/Crow/Music/MusicBoss
   <ThinkMusic>k__BackingField:
     Guid:
       Data1: -371144329
@@ -161,11 +191,11 @@ MonoBehaviour:
     Path: event:/Player/Landing
   <collectFeatherSound>k__BackingField:
     Guid:
-      Data1: 476848111
-      Data2: 1219749474
-      Data3: -1689017186
-      Data4: -468021550
-    Path: event:/Player/Chicken Fighther
+      Data1: 498107931
+      Data2: 1320889208
+      Data3: -1910718079
+      Data4: 2003435938
+    Path: event:/Fether/pickFetherNew
   <idleFeatherSound>k__BackingField:
     Guid:
       Data1: 1318307774
@@ -299,3 +329,24 @@ MonoBehaviour:
       Data3: -306007882
       Data4: 743010267
     Path: event:/Boss/Crow/Crow Yelling
+  <crowGetHurt>k__BackingField:
+    Guid:
+      Data1: 2080809950
+      Data2: 1217919276
+      Data3: 1176016820
+      Data4: -1703901890
+    Path: event:/Boss/Crow/CrowGetHurt
+  <openChickPoint>k__BackingField:
+    Guid:
+      Data1: 1107666636
+      Data2: 1100312898
+      Data3: -944115559
+      Data4: 343225737
+    Path: event:/ChickPointActivate
+  <boar>k__BackingField:
+    Guid:
+      Data1: -544195726
+      Data2: 1091770699
+      Data3: 1541762487
+      Data4: -1594601698
+    Path: event:/Boar

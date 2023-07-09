@@ -7,7 +7,7 @@ using UnityEngine;
 public class RoomTransition : MonoBehaviour
 {
     [SerializeField] private GameObject virtualCamPrefab;
-
+    
     private GameObject _player;
     private GameObject virtualCam;
 
@@ -50,7 +50,10 @@ public class RoomTransition : MonoBehaviour
         if (other.CompareTag("Player") && !other.isTrigger)
         {
             virtualCam.SetActive(false);
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.camMovement, transform.position);
+            if (AudioManager.instance.CanPlayCamSounds)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.camMovement, transform.position);
+            }
 
         }
     }

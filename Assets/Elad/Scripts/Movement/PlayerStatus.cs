@@ -22,6 +22,7 @@ namespace Elad.Scripts
             }
         }
 
+        public static bool isOnWoodPlatform;
         public static Damageable PlayerDamageable { get; set; }
         public static CharacterJump JumpController { get; set; }
         public static Platform PlatformController { get; set; }

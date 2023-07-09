@@ -134,6 +134,7 @@ namespace Mechanics.Enemies
             {
                 return;
             }
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.boar, transform.position);
             waitForDashTimer.Start();
             npcToReportTo.StopMovement(waitForDashTimer.Duration);
             onAlert.Invoke(npcToReportTo);

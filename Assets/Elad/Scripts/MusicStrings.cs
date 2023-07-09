@@ -38,4 +38,11 @@ public static class MusicStrings
     [Header("Boss")]
     internal static string FlyPitch = "FlyPitch";
     internal static string FlyVolume = "FlyVolume";
+    
+    [Header("Boss Music")]
+    internal static string BossMusic = "BossMusic";
+    internal static string firstMusic = "first";
+    internal static string secondMusic = "second";
+    internal static string thirdMusic = "third";
+    internal static string fourMusic = "four";
 }

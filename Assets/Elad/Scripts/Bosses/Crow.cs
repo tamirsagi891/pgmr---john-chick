@@ -683,7 +683,7 @@ public class Crow : MonoBehaviour, ICanBeAttacked
 
         Logger.Log($"Hurt by: {attackParameters.Attacker}");
 
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.crowYellShort, transform.position);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.crowGetHurt, transform.position);
         _canGetHit = false;
         _pS.Stop();
         GotHitStart();

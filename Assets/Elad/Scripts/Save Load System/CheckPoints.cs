@@ -170,6 +170,7 @@ namespace Elad.Scripts.Save_Load_System
             int numChickens = Random.Range(5, 9);
             chickens = new GameObject[numChickens];
             _emitter.Play();
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.openChickPoint, transform.position);
             for (int i = 0; i < numChickens; i++)
             {
                 chickens[i] = Instantiate(chickenPrefab, transform.position, Quaternion.identity, transform);

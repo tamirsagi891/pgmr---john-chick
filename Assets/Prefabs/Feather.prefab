@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12323442ab0375c44a3401875b58452e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useCollectionSound: 0
+  useCollectionSound: 1
   myFeatherKind: 0
 --- !u!114 &2702025367303513085
 MonoBehaviour:
@@ -193,7 +193,7 @@ MonoBehaviour:
       Data4: 324017446
     Path: event:/Fether/Fether Idle
   Event: 
-  PlayEvent: 0
+  PlayEvent: 1
   StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
   Params: []
   OverrideAttenuation: 1
   OverrideMinDistance: 1
-  OverrideMaxDistance: 3
+  OverrideMaxDistance: 5
 --- !u!114 &6753279790586687756
 MonoBehaviour:
   m_ObjectHideFlags: 0

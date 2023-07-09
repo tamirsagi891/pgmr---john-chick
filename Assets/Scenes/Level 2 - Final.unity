@@ -406919,6 +406919,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 2.7523499
       objectReference: {fileID: 0}
+    - target: {fileID: 7307098283956634004, guid: b83d4be153831c948b46772d441fd448, type: 3}
+      propertyPath: m_ForceAngle
+      value: 1.4423865
+      objectReference: {fileID: 0}
     - target: {fileID: 7395208633709942228, guid: b83d4be153831c948b46772d441fd448, type: 3}
       propertyPath: myBounds.m_Center.x
       value: 81.61232
@@ -516107,6 +516111,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 884752241}
     m_Modifications:
+    - target: {fileID: 291292924188583867, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: PlayEvent
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 291292924188583867, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
+      propertyPath: StopEvent
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2773211109739917135, guid: 8741751e123f1f94bb7d01cb6ceb4e81, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -541904,6 +541916,46 @@ PrefabInstance:
     - target: {fileID: 6029169092225841943, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowGetHurt>k__BackingField.Path
+      value: event:/Boss/Crow/CrowGetHurt
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <BossLevelMusic>k__BackingField.Path
+      value: event:/Boss/Crow/Music/MusicBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowGetHurt>k__BackingField.Guid.Data1
+      value: 2080809950
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowGetHurt>k__BackingField.Guid.Data2
+      value: 1217919276
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowGetHurt>k__BackingField.Guid.Data3
+      value: 1176016820
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <crowGetHurt>k__BackingField.Guid.Data4
+      value: -1703901890
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <BossLevelMusic>k__BackingField.Guid.Data1
+      value: 1417436519
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <BossLevelMusic>k__BackingField.Guid.Data2
+      value: 1079123591
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <BossLevelMusic>k__BackingField.Guid.Data3
+      value: 1104027815
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585313106572696500, guid: d7b721318ca2c7846a1c44fd458ecf3e, type: 3}
+      propertyPath: <BossLevelMusic>k__BackingField.Guid.Data4
+      value: 1573469076
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

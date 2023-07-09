@@ -1,10 +1,16 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using Elad.Scripts;
 using FMOD.Studio;
+using FMODUnity;
+using UnityEditor.Tilemaps;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class FallingPlatform : MonoBehaviour
 {
+    
+    
     [SerializeField] private string playerTag = "Player";
     [SerializeField] private float fallDelay = 1f;
     [SerializeField] private float respawnDelay = 5f;
@@ -26,6 +32,10 @@ public class FallingPlatform : MonoBehaviour
     private float respawnTimer = 0f;
 
     [Header("Sounds")] private EventInstance crumblingPlatform;
+    private StudioEventEmitter _emitter;
+    [SerializeField] private float emitTime = 1f;
+    private float _emitTimer = 1f;
+    private bool _emitting;
 
     private void Awake()
     {
@@ -38,6 +48,12 @@ public class FallingPlatform : MonoBehaviour
 
     private void Start()
     {
+        _emitter = GetComponent<StudioEventEmitter>();
+        if (AudioManager.instance)
+        {
+            // _emitter = AudioManager.instance.InitializeEventEmitter(FMODEvents.instance.returnPlatform, gameObject);    
+        }
+        
         crumblingPlatform = AudioManager.instance.CreatEventInstance(FMODEvents.instance.crumblingPlatform);
     }
 
@@ -47,6 +63,7 @@ public class FallingPlatform : MonoBehaviour
         {
             if (collision.contacts[0].normal.y < 0) // If the player is above the platform
             {
+                PlayerStatus.isOnWoodPlatform = true;
                 crumblingPlatform.start();
                 StartCoroutine(ShakeAndFall());
             }
@@ -101,12 +118,24 @@ public class FallingPlatform : MonoBehaviour
             yield return null;
         }
 
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.returnPlatform, transform.position);
+        _emitter.Play();
+        _emitting = true;
+        _emitTimer = emitTime;
         transform.localScale = originalScale;
     }
 
     private void Update()
     {
+        if (_emitting)
+        {
+            _emitTimer -= Time.deltaTime;
+            if (_emitTimer <= 0)
+            {
+                _emitting = false;
+                _emitter.Stop();
+            }
+        }
+        
         if (isFalling && Vector2.Distance(playerTransform.position, transform.position) > distanceFromPlayerToDeactivate)
         {
             isReadyToReset = true;

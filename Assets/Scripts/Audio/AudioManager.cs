@@ -12,6 +12,7 @@ using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class AudioManager : MonoBehaviour
 {
+    
     [Header("Volume")]
     [SerializeField]
     [Range(0, 1)]
@@ -41,11 +42,9 @@ public class AudioManager : MonoBehaviour
 
     private EventInstance ambienceEventInstance;
     private EventInstance mainMusic;
-
-
+    
     public static AudioManager instance { get; private set; }
-
-
+    
     public float MasterVolume
     {
         get => masterVolume;
@@ -86,9 +85,28 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public bool CanPlayCamSounds
+    {
+        get => canPlayCamSounds;
+        set => canPlayCamSounds = value;
+    }
+
 
     private List<EventInstance> oneShotSounds;
 
+    [Header("Do not hear sounds")] [SerializeField]
+    private bool canPlayCamSounds;
+
+    [Header("Big Levels Music")] [SerializeField]
+    private LevelSound _levelSound = LevelSound.One;  
+    enum LevelSound
+    {
+        One,
+        Two,
+        Three,
+        Boss
+    }
+    
     private void OnValidate()
     {
         MasterVolume = masterVolume;
@@ -114,6 +132,8 @@ public class AudioManager : MonoBehaviour
         ambienceBus = RuntimeManager.GetBus("bus:/Ambiance");
         sfxBus = RuntimeManager.GetBus("bus:/SFX");
 
+        MusicVolume = musicVolume;
+
 #if UNITY_EDITOR && !NEMESH_EDITOR
         MasterVolume = masterVolume;
         MusicVolume = musicVolume;
@@ -124,7 +144,22 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        InitializeMusic(FMODEvents.instance.ThinkMusic);
+        switch (_levelSound)
+        {
+            case LevelSound.One:
+                InitializeMusic(FMODEvents.instance.firstLevelMusic);
+                break;
+            case LevelSound.Two:
+                InitializeMusic(FMODEvents.instance.secondLevelMusic);
+                break;
+            case LevelSound.Three:
+                InitializeMusic(FMODEvents.instance.thirdLevelMusic);
+                break;
+            case LevelSound.Boss:
+                InitializeMusic(FMODEvents.instance.BossLevelMusic);
+                break;
+        }
+        
         InitializeAmbience(FMODEvents.instance.windSound);
     }
 
@@ -153,6 +188,7 @@ public class AudioManager : MonoBehaviour
 
     private void InitializeMusic(EventReference musicEventReference)
     {
+        
         mainMusic = CreatEventInstance(musicEventReference);
         mainMusic.start();
     }
@@ -164,7 +200,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
-        // RuntimeManager.PlayOneShot(sound, worldPos);
         var currentSoundInstance = CreatEventInstance(sound);
         oneShotSounds.Add(currentSoundInstance);
         currentSoundInstance.start();
@@ -343,6 +378,27 @@ public class AudioManager : MonoBehaviour
 
     public void ButtonSound()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.buttonsMove, transform.position);
+        PlayOneShot(FMODEvents.instance.buttonsMove, transform.position);
+    }
+
+    public void SetBossMusic(int number)
+    {
+        var song = MusicStrings.firstMusic;
+        switch (number)
+        {
+            case 2:
+                song = MusicStrings.secondMusic;
+                break;
+            
+            case 3:
+                song = MusicStrings.thirdMusic;
+                break;
+            
+            case 4:
+                song = MusicStrings.fourMusic;
+                break;
+        }
+
+        mainMusic.setParameterByNameWithLabel(MusicStrings.BossMusic, song);
     }
 }
