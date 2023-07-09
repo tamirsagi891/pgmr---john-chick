@@ -5,7 +5,7 @@
 			<value>Mysterious Dungeon</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{3aebfaa7-3d0f-4f99-806b-840b39fb059d}</destination>
@@ -59,17 +59,11 @@
 	<object class="EventAutomatableProperties" id="{68d7c781-7b45-41b0-8368-ea53fced6260}" />
 	<object class="MarkerTrack" id="{95b557a6-b7e9-40d8-85d3-4208fb0ba0eb}" />
 	<object class="GroupTrack" id="{4dba48fa-9531-41f0-a1c8-07e7b1e268ce}">
-		<relationship name="modules">
-			<destination>{1245c063-ef77-4dbc-8ba0-0ccf353bd0e0}</destination>
-		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{28619ded-c18c-4a0e-be3c-ed288b24ebdd}</destination>
 		</relationship>
 	</object>
 	<object class="Timeline" id="{8a982c4b-35d7-4956-a9e6-c6c5f90dce7d}">
-		<relationship name="modules">
-			<destination>{1245c063-ef77-4dbc-8ba0-0ccf353bd0e0}</destination>
-		</relationship>
 		<relationship name="markers">
 			<destination>{0b7a2f5e-c297-4bc0-b87a-7951bf88338a}</destination>
 		</relationship>
@@ -91,14 +85,6 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{50062c7c-2fe7-4082-a048-4515c6bfc27f}" />
-	<object class="SingleSound" id="{1245c063-ef77-4dbc-8ba0-0ccf353bd0e0}">
-		<property name="length">
-			<value>124.82984126984127</value>
-		</property>
-		<relationship name="audioFile">
-			<destination>{75e452c4-3b8a-44a0-ace7-6ee0884e2da6}</destination>
-		</relationship>
-	</object>
 	<object class="EventMixerGroup" id="{28619ded-c18c-4a0e-be3c-ed288b24ebdd}">
 		<property name="name">
 			<value>Audio 1</value>

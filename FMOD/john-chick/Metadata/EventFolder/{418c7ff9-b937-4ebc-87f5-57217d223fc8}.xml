@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{418c7ff9-b937-4ebc-87f5-57217d223fc8}">
+		<property name="name">
+			<value>ChickPoint</value>
+		</property>
+		<relationship name="folder">
+			<destination>{27d1ab3c-c50c-4704-b8e7-76e58b20ffe0}</destination>
+		</relationship>
+	</object>
+</objects>
