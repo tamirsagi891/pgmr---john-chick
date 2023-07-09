@@ -7,6 +7,7 @@ using FMODUnity;
 using FMOD.Studio;
 using JetBrains.Annotations;
 using Mechanics.UI.Menus;
+using UnityEngine.SceneManagement;
 using Logger = Nemesh.Logger;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
@@ -142,22 +143,41 @@ public class AudioManager : MonoBehaviour
 #endif
     }
 
+    private Scene scene;
     private void Start()
     {
-        switch (_levelSound)
+        int index = SceneManager.GetActiveScene().buildIndex;
+        Logger.Log(index);
+        switch (index)
         {
-            case LevelSound.One:
-                InitializeMusic(FMODEvents.instance.firstLevelMusic);
+            case 0:
+                InitializeMusic(FMODEvents.instance.MainMenuMusic);
                 break;
-            case LevelSound.Two:
-                InitializeMusic(FMODEvents.instance.secondLevelMusic);
+            case 1:
+                InitializeMusic(FMODEvents.instance.slidShowO);
                 break;
-            case LevelSound.Three:
-                InitializeMusic(FMODEvents.instance.thirdLevelMusic);
+            case 2:
+                InitializeMusic(FMODEvents.instance.TuturialMusic);
                 break;
-            case LevelSound.Boss:
+            case 3:
+                InitializeMusic(FMODEvents.instance.slidShow1);
+                break;
+            case 4:
+                InitializeMusic(FMODEvents.instance.FirstLevelMusic);
+                break;
+            case 5:
+                InitializeMusic(FMODEvents.instance.slidShow2);
+                break;
+            case 6:
+                InitializeMusic(FMODEvents.instance.SecondLevelMusic);
+                break;
+            case 10:
                 InitializeMusic(FMODEvents.instance.BossLevelMusic);
                 break;
+            case 11:
+                InitializeMusic(FMODEvents.instance.slidShow3);
+                break;
+            
         }
         
         InitializeAmbience(FMODEvents.instance.windSound);

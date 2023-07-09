@@ -13,10 +13,17 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Ambience")]
     [field: Header("Music")]
     
+    [field: SerializeField] public EventReference MainMenuMusic { get; private set; }
+
+    [field: SerializeField] public EventReference TuturialMusic { get; private set; }
+    [field: SerializeField] public EventReference FirstLevelMusic { get; private set; }
+    [field: SerializeField] public EventReference SecondLevelMusic { get; private set; }
     
-    [field: SerializeField] public EventReference firstLevelMusic { get; private set; }
-    [field: SerializeField] public EventReference secondLevelMusic { get; private set; }
-    [field: SerializeField] public EventReference thirdLevelMusic { get; private set; }
+    [field: SerializeField] public EventReference slidShowO { get; private set; }
+    [field: SerializeField] public EventReference slidShow1 { get; private set; }
+    [field: SerializeField] public EventReference slidShow2 { get; private set; }
+    [field: SerializeField] public EventReference slidShow3 { get; private set; }
+
     [field: SerializeField] public EventReference BossLevelMusic { get; private set; }
 
     [field: SerializeField] public EventReference ThinkMusic { get; private set; }

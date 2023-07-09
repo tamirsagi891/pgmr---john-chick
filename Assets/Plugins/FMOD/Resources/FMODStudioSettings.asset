@@ -375,15 +375,23 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
+  - Bank A
+  - Boar
+  - Boss
+  - Buttons
   - Camara
   - Cave
   - Chicken
+  - ChickPoints
   - Collect
+  - End Level
+  - Forest
   - Life
   - Movement
   - Music
   - Platforms
   - SlideShows
+  - Wind
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0

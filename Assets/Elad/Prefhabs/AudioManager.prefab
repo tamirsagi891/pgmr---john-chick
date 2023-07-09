@@ -63,27 +63,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640d6fe4c47ce8349a94aa134bfb8114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <firstLevelMusic>k__BackingField:
+  <MainMenuMusic>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <secondLevelMusic>k__BackingField:
+      Data1: -978968230
+      Data2: 1167842438
+      Data3: 127522689
+      Data4: 1079789322
+    Path: event:/Music/MusicMainMenu
+  <TuturialMusic>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <thirdLevelMusic>k__BackingField:
+      Data1: 1893292238
+      Data2: 1094359343
+      Data3: -943627904
+      Data4: -1478459742
+    Path: event:/Music/MusicLevel0
+  <FirstLevelMusic>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -1998463482
+      Data2: 1301971952
+      Data3: 431687871
+      Data4: -1626055165
+    Path: event:/Music/MusicLevel1
+  <SecondLevelMusic>k__BackingField:
+    Guid:
+      Data1: 290346541
+      Data2: 1310697283
+      Data3: 1001930431
+      Data4: -645651258
+    Path: event:/Music/MusicLevel2
+  <slidShowO>k__BackingField:
+    Guid:
+      Data1: -1493305451
+      Data2: 1214454621
+      Data3: 2043326889
+      Data4: -1483915980
+    Path: event:/Slide Shows/Slide Show 0
+  <slidShow1>k__BackingField:
+    Guid:
+      Data1: 1409013364
+      Data2: 1095849965
+      Data3: 1619663749
+      Data4: -1070857295
+    Path: event:/Slide Shows/Slide Show 1
+  <slidShow2>k__BackingField:
+    Guid:
+      Data1: -457930414
+      Data2: 1218770668
+      Data3: -159330421
+      Data4: -1502800222
+    Path: event:/Slide Shows/Slide Show 2
+  <slidShow3>k__BackingField:
+    Guid:
+      Data1: -761819295
+      Data2: 1159744653
+      Data3: 1118679485
+      Data4: 1420713508
+    Path: event:/Slide Shows/Slide Show 3
   <BossLevelMusic>k__BackingField:
     Guid:
       Data1: 1417436519
