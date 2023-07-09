@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{aa5c676e-4e95-4f6b-9e3c-8c8d5aea9380}">
 		<property name="name">
-			<value>Main Menu</value>
+			<value>Story Of Whick</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -95,7 +95,6 @@
 		<property name="length">
 			<value>184.97306122448978</value>
 		</property>
-		<property name="name" />
 		<relationship name="fadeInCurve">
 			<destination>{ebe69bec-2e33-47d5-b858-b8d9330af49b}</destination>
 		</relationship>

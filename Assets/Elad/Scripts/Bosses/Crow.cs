@@ -731,6 +731,7 @@ public class Crow : MonoBehaviour, ICanBeAttacked
     private void DieStart()
     {
         _isDead = true;
+        AudioManager.instance.SetBossMusic(4);
     }
 
     private void DoAttack()

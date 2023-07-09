@@ -383,6 +383,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetBossMusic(int number)
     {
+        Logger.Log(number);
         var song = MusicStrings.firstMusic;
         switch (number)
         {
@@ -391,6 +392,7 @@ public class AudioManager : MonoBehaviour
                 break;
             
             case 3:
+                
                 song = MusicStrings.thirdMusic;
                 break;
             
