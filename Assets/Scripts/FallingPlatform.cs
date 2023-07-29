@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
 using System.Collections;
 using Elad.Scripts;
 using FMOD.Studio;
 using FMODUnity;
-using UnityEditor.Tilemaps;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class FallingPlatform : MonoBehaviour
