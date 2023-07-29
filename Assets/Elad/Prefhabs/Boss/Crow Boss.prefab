@@ -74,15 +74,17 @@ MonoBehaviour:
   bossLevelState: 0
   _crowMode: 3
   rotationSpeed: 200
-  switchToRoamingTimer: 2
-  roamingPositionFirst: {fileID: 0}
-  roamingPositionSecond: {fileID: 0}
+  switchToRoamingTimer: 0.5
+  roamingRight: {fileID: 0}
+  roamingLeft: {fileID: 0}
+  yRoamingDifference: 2
   boulder: {fileID: 8379051478962877008, guid: debaa9b56627044438f487a7dac80933, type: 3}
   xDistanceToThrow: 3
   boulderInstantiateOffset: {x: 0, y: -2, z: 0}
+  addToXSprintAttack: 11
   xDistanceToSprint: 6
   towardPlayerTime: 0.1
-  xRandomMaxPosition: 2
+  xRandomMaxPosition: 0
   yAddPosition: 20
   afterAttackingFromRoamingDelayTime: 0.5
   beforeAttackColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
@@ -91,9 +93,11 @@ MonoBehaviour:
   health: 6
   hitFleshTimeAdd: 0.5
   animationSpeedMult: 0.075
+  delayEndOpenMenu: 4
   justSprintAttack: 0
   animationSpeed: 1
   _inTest: 1
+  _startRoamingPosition: {fileID: 0}
 --- !u!96 &1561278123559409051
 TrailRenderer:
   serializedVersion: 3

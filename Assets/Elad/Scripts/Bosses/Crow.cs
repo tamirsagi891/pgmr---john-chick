@@ -508,8 +508,13 @@ public class Crow : MonoBehaviour, ICanBeAttacked
             if (_isDead)
             {
                 BossEvents.BossDead.Invoke();
-                StartCoroutine(DelayExecution(delayEndOpenMenu, MenuManager.Menu.OpenEndLevelMenu));
-                Destroy(gameObject);
+                MenuManager.Menu.StartCoroutine(DelayExecution(delayEndOpenMenu,
+                    () =>
+                    {
+                        MenuManager.Menu.OpenEndLevelMenu();
+                    })
+                );
+                Destroy(gameObject, 2.5f);
             }
 
             _roamingFirst = !_roamingFirst;
