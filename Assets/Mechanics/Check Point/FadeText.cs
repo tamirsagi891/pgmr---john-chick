@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
+using Logger = Nemesh.Logger;
 
 public class FadeText : MonoBehaviour
 {
@@ -81,7 +82,15 @@ public class FadeText : MonoBehaviour
         {
             return;
         }
-        
-        textMeshPro.spriteAsset =  device.name.Contains("Keyboard") ? kbAsset : padAsset;
+        Logger.Log(device.name);
+        if (device.name.Contains("Keyboard"))
+        {
+            textMeshPro.spriteAsset = kbAsset;
+        }
+        if (device.name.Contains("Pad") || device.name.Contains("Controller"))
+        {
+            textMeshPro.spriteAsset = padAsset;
+        }
+        // textMeshPro.spriteAsset =  device.name.Contains("Keyboard") ? kbAsset : padAsset;
     }
 }
